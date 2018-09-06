@@ -3,6 +3,7 @@
 ## General Workflow
 
 1. Fork the repo
+1. Clone your fork
 1. Cut a namespaced feature branch from master
   - bug/...
   - feat/...
@@ -22,7 +23,7 @@
    reviews is to help keep the codebase clean and of high quality and, equally
    as important, to help you grow as a programmer. If your code reviewer
    requests you make a change you don't understand, ask them why.
-1. Fix any issues raised by your code reviwer, and push your fixes as a single
+1. Fix any issues raised by your code reviewer, and push your fixes as a single
    new commit.
 1. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
 
@@ -33,7 +34,7 @@
 Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
 
 ```
-git remote add upstream https://github.com/reactorcore/<NAME_OF_REPO>.git
+git remote add upstream https://github.com/barback/<NAME_OF_REPO>.git
 ```
 
 ### Cut a namespaced feature branch from master
