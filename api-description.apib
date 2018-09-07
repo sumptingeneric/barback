@@ -1,0 +1,212 @@
+FORMAT: 1A
+HOST: https://barback.docs.apiary.io/
+
+# barback
+
+API documentation for the Barback project. 
+
+
+
+## Customers Collection [/customers]
+
+### List All Customers [GET]
+This actions returns all customers
+
++ Response 200 (application/json)
+
+        {
+            [
+               
+                {
+                    "customer_id": 1,
+                    "item": "Hailey Foster", 
+                },
+                {
+                    "customer_id": 2,
+                    "item": "Robin Kim"
+                }
+            ]
+        }
+
+
+
+## Menu Collection [/menu/categories]
+
+### List All Menu Items By Categories [GET]
+This action returns all items grouped by their respective category as a JSON. 
+
++ Response 200 (application/json)
+
+        {
+            [
+                "cocktails": [
+                    {
+                        "item_id": 1,
+                        "item": "Hailey's Commit", 
+                        "price": 9.50,
+                        "image_url": "/images/cocktails/haileyscommit.png",
+                        "created_at": "2018-09-06T08:40:51.620Z",
+                        "updated_at": "2018-09-06T08:40:51.620Z"
+                    },
+                    {
+                        "item_id": 4,
+                        "item": "Rockin' Robin", 
+                        "price": 11.25,
+                        "image_url": "/images/cocktails/rockinrobin.png",
+                        "created_at": "2018-09-06T08:40:51.620Z",
+                        "updated_at": "2018-09-06T08:40:51.620Z"
+                    }
+                 ], 
+                "beers": [
+                    {
+                        "item_id": 2,
+                        "item": "Budlite", 
+                        "price": 2.50,
+                        "image_url": "/images/beers/budlite.png",
+                        "created_at": "2018-09-06T08:40:51.620Z",
+                        "updated_at": "2018-09-06T08:40:51.620Z"
+                    },
+                    {
+                        "item_id": 6,
+                        "item": "Leffe", 
+                        "price": 15.25,
+                        "image_url": "/images/beers/leffe.png",
+                        "created_at": "2018-09-06T08:40:51.620Z",
+                        "updated_at": "2018-09-06T08:40:51.620Z"
+                    }
+                ]
+            ]
+        }
+
+
+
+
+## Orders Collection [/customers/{customer_id}/orders]
+
++ Parameters
+    + customer_id: 1 (required, number) - ID of the Customer in form of an integer
+
+### List all orders by Customer [GET]
+
+This action returns all orders for a provided customer ID in JSON format. 
+
+
++ Response 200 (application/json)
+
+
+            {
+                [
+                    {
+                        "order_id": 1,
+                        "items": [
+                            {
+                                "item": "Hailey's Commit",
+                                "image_url": "/images/cocktails/haileyscommit.png",
+                                "quantity": 2, 
+                            },
+                            {
+                                "item": "Rockin' Robin",
+                                "image_url": "/images/cocktails/rockinrobin.png",
+                                "quantity": 1, 
+                            },
+                            {
+                                "item": "Bluemoon",
+                                "image_url": "/images/beers/bluemoon.png",
+                                "quantity": 2, 
+                            }
+                        ],
+                        "status": "pending"
+                    }
+                
+                ]
+            }
+
+
+### Create New Order by Customer [POST]
+This action allows you to create a new order for a customer. It takes a json with the customer_id and the collection of order items.
+
++ customer_id (required, number) - The question
++ items (required, array[objects]) - A collection of menu items and quantities.
+    + item_id (required, number) - id of item in order
+    + quantity (required, number) - number corresponding to quantity of items in order
+
++ Request (application/json)
+
+        {
+            "customer_id": 1,
+            "items": [
+                {
+                "item_id": 1,
+                "quantity": 2
+                },
+                {
+                "item_id": 4,
+                "quantity": 2
+                }
+            ]
+        }
+
++ Response 201 (applications/json)
+
+        {
+            "order_id": 2,
+            "items": [
+                {
+                    "item": "Hailey's Commit",
+                    "image_url": "/images/cocktails/haileyscommit.png",
+                    "quantity": 2, 
+                },
+                {
+                    "item": "Rockin' Robin",
+                    "image_url": "/images/cocktails/rockinrobin.png",
+                    "quantity": 4, 
+                }
+            ],
+            "status": "pending",
+            "created_at": "2018-09-06T08:40:51.620Z"
+        }
+
+
+
+## Orders Status Collection [/customers/{customer_id}/orders/{order_id}/status]
+This action allows you to check the status for a given order for a given customer. 
+
++ Parameters
+    + customer_id: 1 (required, number) - ID of the Customer in form of an integer
+    + order_id: 1 (required, number) - ID of the associated order
+
+### Get Order Status by Order ID [GET]
+This actions allows you to get the order status for a given order ID
+
+
+
++ Response 201 (applications/json)
+
+        {
+            "order_id": 1,
+            "status": "in queue",
+            "updated_at": "2018-09-06T08:40:51.620Z"
+        }
+
+
+
+### Get Order Status by Order ID [PUT]
+This actions allows you to update the status for a given order_id. It takes a JSON object containing the status string.
+
+
++ status: (required, string) - must be either "in queue" or "in progress"
+
++ Request (application/json)
+
+        {
+            "status": "in progress"
+        }
+
++ Response 204
+
+
+
+
+
+
+
