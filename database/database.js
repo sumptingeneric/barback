@@ -1,59 +1,71 @@
-var mysql = require("mysql");
+// var mysql = require("mysql");
 let Sequelize = require("Sequelize");
-let orm = new Sequelize("barback", "root", ""); // may need to replace empty string with 'password'
 
-var connection = mysql.createConnection({
-  user: "root",
-  password: "", // may need to replace empty string with 'password'
-  database: "barback"
+// var connection = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "", // may need to replace empty string with 'password'
+//   database: "barback"
+// });
+
+// connection.connect();
+
+const orm = new Sequelize("barback", "root", "", {
+  //host: "localhost",
+  dialect: "mysql" //| "sqlite" | "postgres" | "mssql",
+  // pool: {
+  //   max: 5,
+  //   min: 0,
+  //   acquire: 30000,
+  //   idle: 10000
+  // },
+  // // http://docs.sequelizejs.com/manual/tutorial/querying.html#operators
+  //operatorsAliases: false
 });
 
-connection.connect();
-//moved module.exports to bottom, everything from ln 1, 5-11 was from solution code
+orm
+  .authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully.");
+  })
+  .catch(err => {
+    console.error("Unable to connect to the database:", err);
+  });
 
 let MenuItems = orm.define("MenuItems", {
   name: Sequelize.STRING,
   price: Sequelize.FLOAT,
   category: Sequelize.STRING,
-  updatedAt: Sequelize.DATE,
-  createdAt: Sequelize.DATE
+  imageUrl: Sequelize.STRING,
+  description: Sequelize.TEXT
 });
 
-let Users = orm.define("Users", {
-  name: Sequelize.STRING,
-  updatedAt: Sequelize.DATE,
-  createdAt: Sequelize.DATE
+let Customers = orm.define("Customers", {
+  name: Sequelize.STRING
 });
 
 let Orders = orm.define("Orders", {
-  userId: Sequelize.INTEGER, //FOREIGNKEY from Users
-  status: Sequelize.STRING,
-  updatedAt: Sequelize.DATE,
-  createdAt: Sequelize.DATE
+  status: Sequelize.STRING
 });
 
 let OrderDetails = orm.define("OrderDetails", {
-  orderId: Sequelize.INTEGER, //FOREIGNKEY from Orders
-  menuId: Sequelize.INTEGER, //FOREIGNKEY from MenuItems
   quantity: Sequelize.INTEGER,
-  subtotal: Sequelize.FLOAT,
-  updatedAt: Sequelize.DATE,
-  createdAt: Sequelize.DATE
+  subtotal: Sequelize.FLOAT
 });
 
-Users.hasMany(Orders);
-Orders.belongsTo(Users);
+Customers.hasMany(Orders);
+Orders.belongsTo(Customers);
 Orders.belongsToMany(MenuItems, { through: "OrderDetails" });
 MenuItems.belongsToMany(Orders, { through: "OrderDetails" });
 
 MenuItems.sync();
-Users.sync();
+Customers.sync();
 Orders.sync();
 OrderDetails.sync();
 
 exports.MenuItems = MenuItems;
-exports.Users = Users;
+exports.Customers = Customers;
 exports.Orders = Orders;
 exports.OrderDetails = OrderDetails;
 
-exports.connection = connection; // not sure where this is used
+//exports.connection = connection; // not sure where this is going to be used
