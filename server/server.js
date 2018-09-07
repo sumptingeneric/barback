@@ -1,16 +1,17 @@
-var express = require("express");
+const express = require("express");
 const bodyParser = require("body-parser");
-var db = require("../database/database.js");
 
-var app = express();
+const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post("/customers", (req, res) => {
-  db.Customers.create({ name: req.body.name }).then(customer => {
-    res.send(customer);
-  });
+//Controllers
+
+//Port Listening
+const host = process.env.HOST || "localhost";
+const port = process.env.PORT || 7337;
+
+app.listen(port, () => {
+  console.log(`Listening on http://${host}:${port}`);
 });
-
-app.listen(3000, () => console.log("barback listening on port 3000!"));
