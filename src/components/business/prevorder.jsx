@@ -1,6 +1,6 @@
 import React from "react";
 
-class PreviousOrder extends React.compoments {
+class PreviousOrder extends React.Compoment {
   render() {
     return <h3>Previous Orders</h3>;
   }
