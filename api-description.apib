@@ -14,19 +14,16 @@ This actions returns all customers
 
 + Response 200 (application/json)
 
-        {
-            [
-               
-                {
-                    "customer_id": 1,
-                    "item": "Hailey Foster", 
-                },
-                {
-                    "customer_id": 2,
-                    "item": "Robin Kim"
-                }
-            ]
-        }
+        [
+            {
+                "customer_id": 1,
+                "item": "Hailey Foster"
+            },  
+            {
+                "customer_id": 2,
+                "item": "Robin Kim"
+            }
+        ]
 
 
 
@@ -94,32 +91,32 @@ This action returns all orders for a provided customer ID in JSON format.
 + Response 200 (application/json)
 
 
+            
+        [
             {
-                [
+                "order_id": 1,
+                "items": [
                     {
-                        "order_id": 1,
-                        "items": [
-                            {
-                                "item": "Hailey's Commit",
-                                "image_url": "/images/cocktails/haileyscommit.png",
-                                "quantity": 2, 
-                            },
-                            {
-                                "item": "Rockin' Robin",
-                                "image_url": "/images/cocktails/rockinrobin.png",
-                                "quantity": 1, 
-                            },
-                            {
-                                "item": "Bluemoon",
-                                "image_url": "/images/beers/bluemoon.png",
-                                "quantity": 2, 
-                            }
-                        ],
-                        "status": "pending"
+                        "item": "Hailey's Commit",
+                        "image_url": "/images/cocktails/haileyscommit.png",
+                        "quantity": 2
+                    },
+                    {
+                        "item": "Rockin' Robin",
+                        "image_url": "/images/cocktails/rockinrobin.png",
+                        "quantity": 1
+                    },
+                    {
+                        "item": "Bluemoon",
+                        "image_url": "/images/beers/bluemoon.png",
+                        "quantity": 2
                     }
-                
-                ]
+                ],
+                "status": "pending"
             }
+        
+        ]
+            
 
 
 ### Create New Order by Customer [POST]
@@ -154,12 +151,12 @@ This action allows you to create a new order for a customer. It takes a json wit
                 {
                     "item": "Hailey's Commit",
                     "image_url": "/images/cocktails/haileyscommit.png",
-                    "quantity": 2, 
+                    "quantity": 2
                 },
                 {
                     "item": "Rockin' Robin",
                     "image_url": "/images/cocktails/rockinrobin.png",
-                    "quantity": 4, 
+                    "quantity": 4
                 }
             ],
             "status": "pending",
