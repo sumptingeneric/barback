@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel src/index.html",
-    "server-dev": "nodemon server/index.js",
+    "server-dev": "nodemon server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -35,10 +35,11 @@
   "dependencies": {
     "@reach/router": "^1.1.1",
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "mysql2": "^1.6.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "sequelize": "^4.38.0",
-    "body-parser": "^1.18.3"
+    "sequelize": "^4.38.0"
   }
 }
