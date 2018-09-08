@@ -9,7 +9,7 @@ class Business extends React.Component {
     complete: []
   };
 
-  Render() {
+  render() {
     return (
       <div>
         <h1>Business View</h1>

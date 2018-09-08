@@ -1,7 +1,7 @@
 import React from "react";
 
 class Queue extends React.Component {
-  Render() {
+  render() {
     return <h2>Queu</h2>;
   }
 }

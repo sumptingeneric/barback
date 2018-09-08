@@ -1,7 +1,7 @@
 import React from "react";
 
 class Checkout extends React.Component {
-  Render() {
+  render() {
     return <h2>Checkout</h2>;
   }
 }
