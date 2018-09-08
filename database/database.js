@@ -1,26 +1,7 @@
-// var mysql = require("mysql");
 let Sequelize = require("Sequelize");
 
-// var connection = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "", // may need to replace empty string with 'password'
-//   database: "barback"
-// });
-
-// connection.connect();
-
 const orm = new Sequelize("barback", "root", "", {
-  //host: "localhost",
-  dialect: "mysql" //| "sqlite" | "postgres" | "mssql",
-  // pool: {
-  //   max: 5,
-  //   min: 0,
-  //   acquire: 30000,
-  //   idle: 10000
-  // },
-  // // http://docs.sequelizejs.com/manual/tutorial/querying.html#operators
-  //operatorsAliases: false
+  dialect: "mysql"
 });
 
 orm
@@ -67,5 +48,3 @@ exports.MenuItems = MenuItems;
 exports.Customers = Customers;
 exports.Orders = Orders;
 exports.OrderDetails = OrderDetails;
-
-//exports.connection = connection; // not sure where this is going to be used
