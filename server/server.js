@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post("/customers", (req, res) => {
-  db.Customers.create({ name: "Duke" }).then(customer => {
+  db.Customers.create({ name: req.body.name }).then(customer => {
     res.send(customer);
   });
 });
