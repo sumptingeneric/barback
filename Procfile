@@ -1,1 +1,1 @@
-web: parcel build src/index.html & node server/server.js
+web: parcel build src/index.html && node server/server.js
