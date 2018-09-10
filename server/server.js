@@ -1,7 +1,17 @@
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 
+//variables
+const HOST = process.env.HOST || "localhost";
+const PORT = process.env.PORT || 7337;
+
 const app = express();
+
+// Express only serves static assets in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(__dirname + "/../dist"));
+}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -10,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //CUSTOMERS COLLECTION
 //List all customers (GET)
-app.get("/customers", (req, res) => {
+app.get("/api/customers", (req, res) => {
   let dummyCustomerPayload = [
     {
       customer_id: 1,
@@ -27,7 +37,7 @@ app.get("/customers", (req, res) => {
 
 //MENU COLLECTION
 //List all menu items by categories (GET)
-app.get("/menu/categories", (req, res) => {
+app.get("/api/menu/categories", (req, res) => {
   let dummyMenuPayload = {
     cocktails: [
       {
@@ -72,7 +82,7 @@ app.get("/menu/categories", (req, res) => {
 
 //ORDERS COLLECTION
 //List all orders by customer (GET)
-app.get("/customers/:customer_id/orders", (req, res) => {
+app.get("/api/customers/:customer_id/orders", (req, res) => {
   let dummyCustomerOrderPayload = [
     {
       order_id: 1,
@@ -101,7 +111,7 @@ app.get("/customers/:customer_id/orders", (req, res) => {
 });
 
 //Create new order by customer (POST)
-app.post("/customers/:customer_id/orders", (req, res) => {
+app.post("/api/customers/:customer_id/orders", (req, res) => {
   // console.log(req.body.customer_id);
   // console.log(req.body.items);
 
@@ -128,7 +138,7 @@ app.post("/customers/:customer_id/orders", (req, res) => {
 
 //ORDERS STATUS COLLECTION
 //Get order status by order id (GET)
-app.get("/customers/:customer_id/orders/:order_id/status", (req, res) => {
+app.get("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
   let dummyOrderStatus = {
     order_id: 1,
     status: "in queue",
@@ -139,16 +149,14 @@ app.get("/customers/:customer_id/orders/:order_id/status", (req, res) => {
 });
 
 //Update order status by order id (PUT)
-app.put("/customers/:customer_id/orders/:order_id/status", (req, res) => {
+app.put("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
   console.log(req.body);
 
   res.sendStatus(204);
 });
 
 //Port Listening
-const host = process.env.HOST || "localhost";
-const port = process.env.PORT || 7337;
 
-app.listen(port, () => {
-  console.log(`Listening on http://${host}:${port}`);
+app.listen(PORT, () => {
+  console.log(`Listening on http://${HOST}:${PORT}`);
 });

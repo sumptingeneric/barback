@@ -7,7 +7,7 @@ API documentation for the Barback project.
 
 
 
-## Customers Collection [/customers]
+## Customers Collection [/api/customers]
 
 ### List All Customers [GET]
 This actions returns all customers
@@ -27,7 +27,7 @@ This actions returns all customers
 
 
 
-## Menu Collection [/menu/categories]
+## Menu Collection [/api/menu/categories]
 
 ### List All Menu Items By Categories [GET]
 This action returns all items grouped by their respective category as a JSON. 
@@ -78,7 +78,7 @@ This action returns all items grouped by their respective category as a JSON.
 
 
 
-## Orders Collection [/customers/{customer_id}/orders]
+## Orders Collection [/api/customers/{customer_id}/orders]
 
 + Parameters
     + customer_id: 1 (required, number) - ID of the Customer in form of an integer
@@ -165,7 +165,7 @@ This action allows you to create a new order for a customer. It takes a json wit
 
 
 
-## Orders Status Collection [/customers/{customer_id}/orders/{order_id}/status]
+## Orders Status Collection [/api/customers/{customer_id}/orders/{order_id}/status]
 This action allows you to check the status for a given order for a given customer. 
 
 + Parameters
