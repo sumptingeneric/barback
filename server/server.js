@@ -8,6 +8,11 @@ const PORT = process.env.PORT || 7337;
 
 const app = express();
 
+// Express only serves static assets in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(__dirname + "/../dist"));
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
