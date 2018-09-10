@@ -1,5 +1,10 @@
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
+
+//variables
+const HOST = process.env.HOST || "localhost";
+const PORT = process.env.PORT || 7337;
 
 const app = express();
 
@@ -146,9 +151,7 @@ app.put("/customers/:customer_id/orders/:order_id/status", (req, res) => {
 });
 
 //Port Listening
-const host = process.env.HOST || "localhost";
-const port = process.env.PORT || 7337;
 
-app.listen(port, () => {
-  console.log(`Listening on http://${host}:${port}`);
+app.listen(PORT, () => {
+  console.log(`Listening on http://${HOST}:${PORT}`);
 });

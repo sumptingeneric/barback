@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel src/index.html & node server/server.js",
+    "dev": "parcel src/index.html",
+    "start": "node server/server.js",
     "server-dev": "nodemon server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -36,6 +37,7 @@
     "@reach/router": "^1.1.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "dot-env": "0.0.1",
     "express": "^4.16.3",
     "mysql2": "^1.6.1",
     "react": "^16.4.2",
