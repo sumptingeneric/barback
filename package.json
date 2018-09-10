@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel src/index.html",
-    "start": "node server/server.js",
+    "start": "parcel build src/index.html & NODE_ENV=production node server/server.js",
     "server-dev": "nodemon server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
