@@ -80,62 +80,66 @@ let mockMenuItems = [
   }
 ];
 
-const mockCustomers = [
-  {
-    name: "Carlos"
-  },
-  {
-    name: "Fredrick"
-  },
-  {
-    name: "Michael"
-  },
-  {
-    name: "Duke"
-  },
-  {
-    name: "J.P."
-  }
-];
+// const mockCustomers = [
+//   {
+//     name: "Carlos"
+//   },
+//   {
+//     name: "Fredrick"
+//   },
+//   {
+//     name: "Michael"
+//   },
+//   {
+//     name: "Duke"
+//   },
+//   {
+//     name: "J.P."
+//   }
+// ];
 
-const mockOrders = [
-  {
-    status: 'current' // 'pending' and 'complete'
-    customersId: 3  // Check table schema description in db for accuracy of field name 
-  },
-];
+// const mockOrders = [
+//   {
+//     status: 'current' // 'pending' and 'complete',
+//     CustomerId: 3
+//   },
+// ];
 
-const mockOrderDetails = [
-  {
+// const mockOrderDetails = [
+//   {
 
-  }
-];
+//   }
+// ];
 
 const insertMockMenuItems = () => {
-  db.MenuItems.create(mockMenuItems).then(
-    console.log("Mock MenuItems added to the database.")
-  );
+  mockMenuItems.forEach(item => {
+    db.MenuItems.create(item)
+      .then
+      //console.log("Mock MenuItems added to the database.")
+      ();
+  });
 };
 
-const insertMockCustomers = () => {
-  db.Customers.create(mockCustomers).then(
-    console.log("Mock Customers added to the database.")
-  );
-};
+// const insertMockCustomers = () => {
+//   db.Customers.create(mockCustomers).then(
+//     console.log("Mock Customers added to the database.")
+//   );
+// };
 
-const insertMockOrders = () => {
-  db.Orders.create(mockOrders).then(
-    console.log("Mock Orders added to the database.")
-  );
-};
+// const insertMockOrders = () => {
+//   db.Orders.create(mockOrders).then(
+//     console.log("Mock Orders added to the database.")
+//     () => db.connection.disconnect()
+//   );
+// };
 
-const insertMockOrderDetails = () => {
-  db.OrderDetails.create(mockOrderDetails).then(
-    console.log("Mock OrderDetails added to the database.")
-  );
-};
+// const insertMockOrderDetails = () => {
+//   db.OrderDetails.create(mockOrderDetails).then(
+//     console.log("Mock OrderDetails added to the database.")
+//   );
+// };
 
 insertMockMenuItems();
-insertMockCustomers();
-insertMockOrders();
-insertMockOrderDetails();
+// insertMockCustomers();
+// insertMockOrders();
+// insertMockOrderDetails();
