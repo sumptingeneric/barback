@@ -100,31 +100,31 @@ const mockCustomers = [
 
 const mockOrders = [
   {
-    status: "current", //1
+    status: "current",
     CustomerId: 3
   },
   {
-    status: "pending", //2
+    status: "pending",
     CustomerId: 3
   },
   {
-    status: "pending", //3
+    status: "pending",
     CustomerId: 2
   },
   {
-    status: "pending", //4
+    status: "pending",
     CustomerId: 4
   },
   {
-    status: "complete", //5
+    status: "complete",
     CustomerId: 5
   },
   {
-    status: "complete", //6
+    status: "complete",
     CustomerId: 2
   },
   {
-    status: "complete", //7
+    status: "complete",
     CustomerId: 1
   }
 ];
@@ -228,8 +228,3 @@ const asyncInsertionFunctions = insertionFunctions.map(func => {
 });
 
 Promise.all(asyncInsertionFunctions).then(() => db.connection.disconnect());
-
-// insertMockMenuItems();
-// insertMockCustomers();
-// insertMockOrders();
-// insertMockOrderDetails();
