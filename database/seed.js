@@ -100,41 +100,95 @@ const mockCustomers = [
 
 const mockOrders = [
   {
-    status: "current",
+    status: "current", //1
     CustomerId: 3
   },
   {
-    status: "pending",
+    status: "pending", //2
     CustomerId: 3
   },
   {
-    status: "pending",
+    status: "pending", //3
     CustomerId: 2
   },
   {
-    status: "pending",
+    status: "pending", //4
     CustomerId: 4
   },
   {
-    status: "complete",
+    status: "complete", //5
     CustomerId: 5
   },
   {
-    status: "complete",
+    status: "complete", //6
     CustomerId: 2
   },
   {
-    status: "complete",
+    status: "complete", //7
     CustomerId: 1
   }
 ];
 
 const mockOrderDetails = [
   {
-    quantity: 3,
-    subtotal: 75,
+    quantity: 2,
+    subtotal: 50,
+    OrderId: 1,
+    MenuItemId: 2
+  },
+  {
+    quantity: 1,
+    subtotal: 22.5,
     OrderId: 1,
     MenuItemId: 1
+  },
+  {
+    quantity: 1,
+    subtotal: 12,
+    OrderId: 2,
+    MenuItemId: 10
+  },
+  {
+    quantity: 1,
+    subtotal: 14,
+    OrderId: 3,
+    MenuItemId: 6
+  },
+  {
+    quantity: 2,
+    subtotal: 25,
+    OrderId: 4,
+    MenuItemId: 11
+  },
+  {
+    quantity: 1,
+    subtotal: 12,
+    OrderId: 4,
+    MenuItemId: 10
+  },
+  {
+    quantity: 1,
+    subtotal: 11,
+    OrderId: 5,
+    MenuItemId: 7
+  },
+  {
+    quantity: 1,
+    subtotal: 9,
+    OrderId: 5,
+    MenuItemId: 8
+  },
+  {
+    quantity: 1,
+    subtotal: 8.5,
+    OrderId: 6,
+    MenuItemId: 9
+  },
+  {
+    quantity: 1,
+    subtotal: 21,
+    OrderId: 7,
+    MenuItemId: 5
   }
 ];
 
@@ -173,7 +227,7 @@ const asyncInsertionFunctions = insertionFunctions.map(func => {
   new Promise(func);
 });
 
-Promise.all(asyncInsertionFunctions);
+Promise.all(asyncInsertionFunctions).then(() => db.connection.disconnect());
 
 // insertMockMenuItems();
 // insertMockCustomers();
