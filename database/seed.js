@@ -98,12 +98,12 @@ const mockCustomers = [
   }
 ];
 
-// const mockOrders = [
-//   {
-//     status: 'current' // 'pending' and 'complete',
-//     CustomerId: 3
-//   },
-// ];
+const mockOrders = [
+  {
+    status: "current", // 'pending' and 'complete'
+    CustomerId: 3
+  }
+];
 
 // const mockOrderDetails = [
 //   {
@@ -123,12 +123,11 @@ const insertMockCustomers = () => {
   });
 };
 
-// const insertMockOrders = () => {
-//   db.Orders.create(mockOrders).then(
-//     console.log("Mock Orders added to the database.")
-//     () => db.connection.disconnect()
-//   );
-// };
+const insertMockOrders = () => {
+  mockOrders.forEach(order => {
+    db.Orders.create(order);
+  });
+};
 
 // const insertMockOrderDetails = () => {
 //   db.OrderDetails.create(mockOrderDetails).then(
@@ -138,5 +137,5 @@ const insertMockCustomers = () => {
 
 insertMockMenuItems();
 insertMockCustomers();
-// insertMockOrders();
+insertMockOrders();
 // insertMockOrderDetails();
