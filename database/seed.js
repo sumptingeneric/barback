@@ -100,7 +100,7 @@ const mockCustomers = [
 
 const mockOrders = [
   {
-    status: "current",
+    status: "in progress",
     CustomerId: 3
   },
   {
