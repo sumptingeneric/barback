@@ -48,3 +48,4 @@ exports.MenuItems = MenuItems;
 exports.Customers = Customers;
 exports.Orders = Orders;
 exports.OrderDetails = OrderDetails;
+exports.connection = orm;
