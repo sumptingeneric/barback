@@ -105,11 +105,14 @@ const mockOrders = [
   }
 ];
 
-// const mockOrderDetails = [
-//   {
-
-//   }
-// ];
+const mockOrderDetails = [
+  {
+    quantity: 3,
+    subtotal: 75,
+    OrderId: 1,
+    MenuItemId: 1
+  }
+];
 
 const insertMockMenuItems = () => {
   mockMenuItems.forEach(item => {
@@ -129,13 +132,13 @@ const insertMockOrders = () => {
   });
 };
 
-// const insertMockOrderDetails = () => {
-//   db.OrderDetails.create(mockOrderDetails).then(
-//     console.log("Mock OrderDetails added to the database.")
-//   );
-// };
+const insertMockOrderDetails = () => {
+  mockOrderDetails.forEach(detail => {
+    db.OrderDetails.create(detail);
+  });
+};
 
 insertMockMenuItems();
 insertMockCustomers();
 insertMockOrders();
-// insertMockOrderDetails();
+insertMockOrderDetails();
