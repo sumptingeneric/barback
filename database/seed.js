@@ -65,7 +65,7 @@ let mockMenuItems = [
     description: ""
   },
   {
-    name: "HRR33 Breakfast Stout",
+    name: "HRR33 Oatmeal Stout",
     price: 12.0,
     category: "beer",
     imageUrl: "/images/beer/hrr33breakfaststout.png",
@@ -80,23 +80,23 @@ let mockMenuItems = [
   }
 ];
 
-// const mockCustomers = [
-//   {
-//     name: "Carlos"
-//   },
-//   {
-//     name: "Fredrick"
-//   },
-//   {
-//     name: "Michael"
-//   },
-//   {
-//     name: "Duke"
-//   },
-//   {
-//     name: "J.P."
-//   }
-// ];
+const mockCustomers = [
+  {
+    name: "Carlos"
+  },
+  {
+    name: "Fredrick"
+  },
+  {
+    name: "Michael"
+  },
+  {
+    name: "Duke"
+  },
+  {
+    name: "J.P."
+  }
+];
 
 // const mockOrders = [
 //   {
@@ -113,18 +113,15 @@ let mockMenuItems = [
 
 const insertMockMenuItems = () => {
   mockMenuItems.forEach(item => {
-    db.MenuItems.create(item)
-      .then
-      //console.log("Mock MenuItems added to the database.")
-      ();
+    db.MenuItems.create(item);
   });
 };
 
-// const insertMockCustomers = () => {
-//   db.Customers.create(mockCustomers).then(
-//     console.log("Mock Customers added to the database.")
-//   );
-// };
+const insertMockCustomers = () => {
+  mockCustomers.forEach(customer => {
+    db.Customers.create(customer);
+  });
+};
 
 // const insertMockOrders = () => {
 //   db.Orders.create(mockOrders).then(
@@ -140,6 +137,6 @@ const insertMockMenuItems = () => {
 // };
 
 insertMockMenuItems();
-// insertMockCustomers();
+insertMockCustomers();
 // insertMockOrders();
 // insertMockOrderDetails();
