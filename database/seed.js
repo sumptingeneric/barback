@@ -100,8 +100,32 @@ const mockCustomers = [
 
 const mockOrders = [
   {
-    status: "current", // 'pending' and 'complete'
+    status: "current",
     CustomerId: 3
+  },
+  {
+    status: "pending",
+    CustomerId: 3
+  },
+  {
+    status: "pending",
+    CustomerId: 2
+  },
+  {
+    status: "pending",
+    CustomerId: 4
+  },
+  {
+    status: "complete",
+    CustomerId: 5
+  },
+  {
+    status: "complete",
+    CustomerId: 2
+  },
+  {
+    status: "complete",
+    CustomerId: 1
   }
 ];
 
@@ -138,7 +162,20 @@ const insertMockOrderDetails = () => {
   });
 };
 
-insertMockMenuItems();
-insertMockCustomers();
-insertMockOrders();
-insertMockOrderDetails();
+const insertionFunctions = [
+  insertMockMenuItems,
+  insertMockCustomers,
+  insertMockOrders,
+  insertMockOrderDetails
+];
+
+const asyncInsertionFunctions = insertionFunctions.map(func => {
+  new Promise(func);
+});
+
+Promise.all(asyncInsertionFunctions);
+
+// insertMockMenuItems();
+// insertMockCustomers();
+// insertMockOrders();
+// insertMockOrderDetails();
