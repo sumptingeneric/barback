@@ -4,7 +4,7 @@ import PreviousOrders from "./prevorders.jsx";
 
 class Business extends React.Component {
   state = {
-    view: 'queue'
+    view: "queue"
   };
 
   changeView(option) {
@@ -15,7 +15,7 @@ class Business extends React.Component {
 
   renderView() {
     const { view } = this.state;
-    if (view === 'queue') {
+    if (view === "queue") {
       return <Queue />;
     } else {
       return <PreviousOrders />;
@@ -25,8 +25,8 @@ class Business extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={() => this.changeView('queue')}>Queue</button>
-        <button onClick={() => this.changeView('prev')}>Previous Orders</button>
+        <button onClick={() => this.changeView("queue")}>Queue</button>
+        <button onClick={() => this.changeView("prev")}>Previous Orders</button>
         <div className="main">{this.renderView()}</div>
       </div>
     );

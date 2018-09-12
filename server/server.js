@@ -12,9 +12,17 @@ const db = require("../database/database.js");
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(__dirname + "/../dist"));
 }
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+//allow cross origin AJAX  ->
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -50,9 +58,18 @@ app.get("/api/customers", (req, res) => {
 //MENU COLLECTION
 //List all menu items by categories (GET)
 app.get("/api/menu/categories", (req, res) => {
-  //Pull all menu items
   db.MenuItems.findAll().then(function(menuItems) {
-    res.send(menuItems);
+    var catObj = {};
+    menuItems.forEach(function(item) {
+      var category = item.category;
+      if (!catObj[category]) {
+        catObj[category] = [item];
+      } else {
+        catObj[category].push(item);
+      }
+    });
+    // res.header("Access-Control-Allow-Origin", "*");
+    res.send(catObj);
   });
 });
 
@@ -118,12 +135,6 @@ app.get("/api/orders/:order_status", (req, res) => {
 //Create new order by customer (POST)
 app.post("/api/customers/:customer_id/orders", (req, res) => {
   // console.log(req.body.customer_id);
-
-  var params = {
-    quantity: req.body.quantity,
-    subtotal: req.body.subtotal
-  };
-
   res.send();
 
   // let dummyNewOrder = {
@@ -148,6 +159,29 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
 });
 
 //ORDERS STATUS COLLECTION
+
+// TEST QUERY
+app.get("/test", (req, res) => {
+  db.OrderDetails.findAll().then(data => {
+    res.send(data);
+  });
+});
+
+//Business -> Get all orders by status (pulled from URL)
+app.get("/api/orders/:order_status", (req, res) => {
+  let queryStatus = req.params.order_status;
+  db.OrderDetails.findAll({
+    include: [
+      {
+        model: db.Orders,
+        where: { status: queryStatus }
+      }
+    ]
+  }).then(data => {
+    res.send(data);
+  });
+});
+
 //Get order status by order id (GET)
 app.get("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
   let custId = req.params.customer_id;
