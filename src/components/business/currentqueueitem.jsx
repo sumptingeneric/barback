@@ -1,13 +1,13 @@
 import React from "react";
 
-class QueueItem extends React.Component {
+class CurrentQueueItem extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
       <div className="QueueItem">
-        <h5>Queue Item</h5>
+        <h5>Current Queue Item</h5>
         <div className="OrderItem">
           {this.props.order.map(item =>
             <h6>This is an order item.</h6>
@@ -18,4 +18,4 @@ class QueueItem extends React.Component {
   }
 }
 
-export default QueueItem;
+export default CurrentQueueItem;

@@ -1,5 +1,5 @@
 import React from "react";
-import QueueItem from "./queueitem.jsx";
+import CurrentQueueItem from "./queueitem.jsx";
 import axios from "axios";
 
 class Queue extends React.Component {
@@ -36,7 +36,7 @@ class Queue extends React.Component {
     if (currentOrder.length) {
       return (
         <div className="currentOrderItem" >
-            <QueueItem order={this.state.currentOrder} />
+            <CurrentQueueItem order={this.state.currentOrder} />
         </div>
       );
     } else {
@@ -54,7 +54,7 @@ class Queue extends React.Component {
         </div>
         <div className="pendingOrders">
           <h3>These are the Pending Orders</h3>
-          <QueueItem order={this.state.pendingOrders} />
+          {/* <QueueItem order={this.state.pendingOrders} /> */}
         </div>
       </div>
     );
