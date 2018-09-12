@@ -1,5 +1,5 @@
 import React from "react";
-import QueueItem from "./queueitem";
+import QueueItem from "./queueitem.jsx";
 
 class Queue extends React.Component {
   render() {

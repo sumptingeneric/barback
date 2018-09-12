@@ -1,8 +1,15 @@
 import React from "react";
+import PrevOrderItem from "./prevorderitem.jsx";
 
 class PreviousOrder extends React.Component {
   render() {
-    return <h3>Previous Orders</h3>;
+    return (
+      <div>
+        <h2>Previous Order</h2>
+        <PrevOrderItem />
+      </div>
+    );
+
   }
 }
 
