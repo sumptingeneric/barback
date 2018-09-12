@@ -7,7 +7,7 @@ const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 7337;
 
 const app = express();
-
+const db = require("../database/database.js");
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(__dirname + "/../dist"));
@@ -20,134 +20,129 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //CUSTOMERS COLLECTION
 //List all customers (GET)
+//return all customers
 app.get("/api/customers", (req, res) => {
-  let dummyCustomerPayload = [
-    {
-      customer_id: 1,
-      item: "Hailey Foster"
-    },
-    {
-      customer_id: 2,
-      item: "Robin Kim"
-    }
-  ];
-
-  res.send(dummyCustomerPayload);
+  db.Customers.findAll().then(function(customers) {
+    res.send(customers);
+  });
+  // let dummyCustomerPayload = [
+  //   {
+  //     customer_id: 1,
+  //     item: "Hailey Foster"
+  //   },
+  //   {
+  //     customer_id: 2,
+  //     item: "Robin Kim"
+  //   }
+  // ];
+  // res.send("dummyCustomerPayload");
 });
 
 //MENU COLLECTION
 //List all menu items by categories (GET)
 app.get("/api/menu/categories", (req, res) => {
-  let dummyMenuPayload = {
-    cocktails: [
-      {
-        item_id: 1,
-        item: "Hailey's Commit",
-        price: 9.5,
-        image_url: "/images/cocktails/haileyscommit.png",
-        created_at: "2018-09-06T08:40:51.620Z",
-        updated_at: "2018-09-06T08:40:51.620Z"
-      },
-      {
-        item_id: 4,
-        item: "Rockin' Robin",
-        price: 11.25,
-        image_url: "/images/cocktails/rockinrobin.png",
-        created_at: "2018-09-06T08:40:51.620Z",
-        updated_at: "2018-09-06T08:40:51.620Z"
-      }
-    ],
-    beers: [
-      {
-        item_id: 2,
-        item: "Budlite",
-        price: 2.5,
-        image_url: "/images/beers/budlite.png",
-        created_at: "2018-09-06T08:40:51.620Z",
-        updated_at: "2018-09-06T08:40:51.620Z"
-      },
-      {
-        item_id: 6,
-        item: "Leffe",
-        price: 15.25,
-        image_url: "/images/beers/leffe.png",
-        created_at: "2018-09-06T08:40:51.620Z",
-        updated_at: "2018-09-06T08:40:51.620Z"
-      }
-    ]
-  };
-
-  res.send(dummyMenuPayload);
+  //Pull all menu items
+  db.MenuItems.findAll().then(function(menuItems) {
+    res.send(menuItems);
+  });
 });
 
 //ORDERS COLLECTION
 //List all orders by customer (GET)
 app.get("/api/customers/:customer_id/orders", (req, res) => {
-  let dummyCustomerOrderPayload = [
-    {
-      order_id: 1,
-      items: [
-        {
-          item: "Hailey's Commit",
-          image_url: "/images/cocktails/haileyscommit.png",
-          quantity: 2
-        },
-        {
-          item: "Rockin' Robin",
-          image_url: "/images/cocktails/rockinrobin.png",
-          quantity: 1
-        },
-        {
-          item: "Bluemoon",
-          image_url: "/images/beers/bluemoon.png",
-          quantity: 2
-        }
-      ],
-      status: "pending"
-    }
-  ];
+  // console.log(req.params.customer_id);
 
-  res.send(dummyCustomerOrderPayload);
+  let custId = req.params.customer_id;
+  db.Orders.findAll({
+    include: [{ model: db.MenuItems }],
+    // attributes: ["id", "CustomerId"],  <- this is how to filter fields you want;
+    where: { CustomerId: custId }
+  }).then(data => {
+    res.send(data);
+  });
+  // let dummyCustomerOrderPayload = [
+  //   {
+  //     order_id: 1,
+  //     items: [
+  //       {
+  //         item: "Hailey's Commit",
+  //         image_url: "/images/cocktails/haileyscommit.png",
+  //         quantity: 2
+  //       },
+  //       {
+  //         item: "Rockin' Robin",
+  //         image_url: "/images/cocktails/rockinrobin.png",
+  //         quantity: 1
+  //       },
+  //       {
+  //         item: "Bluemoon",
+  //         image_url: "/images/beers/bluemoon.png",
+  //         quantity: 2
+  //       }
+  //     ],
+  //     status: "pending"
+  //   }
+  // ];
 });
-
+//TEST QUERY === DELETE
+// app.get("/test", (req, res) => {
+//   db.OrderDetails.findAll().then(data => {
+//     res.send(data);
+//   });
+// });
+//TODO
 //Create new order by customer (POST)
 app.post("/api/customers/:customer_id/orders", (req, res) => {
   // console.log(req.body.customer_id);
-  // console.log(req.body.items);
 
-  let dummyNewOrder = {
-    order_id: 2,
-    items: [
-      {
-        item: "Hailey's Commit",
-        image_url: "/images/cocktails/haileyscommit.png",
-        quantity: 2
-      },
-      {
-        item: "Rockin' Robin",
-        image_url: "/images/cocktails/rockinrobin.png",
-        quantity: 4
-      }
-    ],
-    status: "pending",
-    created_at: "2018-09-06T08:40:51.620Z"
+  var params = {
+    quantity: req.body.quantity,
+    subtotal: req.body.subtotal
   };
 
-  res.send(dummyNewOrder);
+  res.send();
+
+  // let dummyNewOrder = {
+  //   order_id: 2,
+  //   items: [
+  //     {
+  //       item: "Hailey's Commit",
+  //       image_url: "/images/cocktails/haileyscommit.png",
+  //       quantity: 2
+  //     },
+  //     {
+  //       item: "Rockin' Robin",
+  //       image_url: "/images/cocktails/rockinrobin.png",
+  //       quantity: 4
+  //     }
+  //   ],
+  //   status: "pending",
+  //   created_at: "2018-09-06T08:40:51.620Z"
+  // };
+
+  // res.send(dummyNewOrder);
 });
 
 //ORDERS STATUS COLLECTION
 //Get order status by order id (GET)
 app.get("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
-  let dummyOrderStatus = {
-    order_id: 1,
-    status: "in queue",
-    updated_at: "2018-09-06T08:40:51.620Z"
-  };
+  let custId = req.params.customer_id;
+  let orderId = req.params.order_id;
+  db.Orders.findAll({ where: { CustomerId: custId, id: orderId } }).then(
+    data => {
+      res.send(data);
+    }
+  );
+  // let dummyOrderStatus = {
+  //   order_id: 1,
+  //   status: "in queue",
+  //   updated_at: "2018-09-06T08:40:51.620Z"
+  // };
 
-  res.send(dummyOrderStatus);
+  // res.send(dummyOrderStatus);
 });
 
+//TODO
 //Update order status by order id (PUT)
 app.put("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
   console.log(req.body);

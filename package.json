@@ -8,6 +8,7 @@
     "postinstall": "parcel build src/index.html",
     "start": "node server/server.js",
     "server-dev": "nodemon server/server.js",
+    "db:setup": "node database/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
