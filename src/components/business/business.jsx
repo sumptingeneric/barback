@@ -12,7 +12,8 @@ class Business extends React.Component {
   render() {
     return (
       <div>
-        <h1>Business View</h1>
+        <button>Queue</button>
+        <button>Previous Orders</button>
         <Queue />
         <PreviousOrder />
       </div>
