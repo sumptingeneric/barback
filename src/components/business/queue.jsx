@@ -4,8 +4,8 @@ import axios from "axios";
 
 class Queue extends React.Component {
   state = {
-    currentOrder: {},
-    pendingOrders: {}
+    currentOrder: [],
+    pendingOrders: []
   };
 
   componentDidMount() {
@@ -31,11 +31,31 @@ class Queue extends React.Component {
     });
   }
 
+  renderCurrentOrder() {
+    const { currentOrder } = this.state;
+    if (currentOrder.length) {
+      return (
+        <div className="currentOrderItem" >
+            <QueueItem order={this.state.currentOrder} />
+        </div>
+      );
+    } else {
+      return <span>No current order has been selected.</span>;
+    }
+  }
+
   render() {
     return (
       <div>
         <h2>Queue</h2>
-        <QueueItem />
+        <div className="currentOrder">
+          <h3>This is the Current Order</h3>
+          {this.renderCurrentOrder()}
+        </div>
+        <div className="pendingOrders">
+          <h3>These are the Pending Orders</h3>
+          <QueueItem order={this.state.pendingOrders} />
+        </div>
       </div>
     );
   }
