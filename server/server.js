@@ -84,6 +84,21 @@ app.get("/api/customers/:customer_id/orders", (req, res) => {
   //   }
   // ];
 });
+
+app.get("/api/orders/:order_status", (req, res) => {
+  let queryStatus = req.params.order_status;
+  db.OrderDetails.findAll({
+    include: [
+      {
+        model: db.Orders,
+        where: { status: queryStatus }
+      }
+    ]
+  }).then(data => {
+    res.send(data);
+  });
+});
+
 //TEST QUERY === DELETE
 // app.get("/test", (req, res) => {
 //   db.OrderDetails.findAll().then(data => {
