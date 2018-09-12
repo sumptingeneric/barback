@@ -23,9 +23,9 @@ class Search extends React.Component {
     }
   }
 
-  // perform the search
+  // perform the search based on state: drink
   search() {
-    console.log(this.state.drink);
+    //console.log(this.state.drink);
   }
 
   render() {
