@@ -15,8 +15,8 @@ class PendingQueueItem extends React.Component {
       <div className="pending-orders">
         <h5>Pending Queue Items</h5>
         <div className="order-item">
-          {this.props.order.map(item =>
-            <div key={item.OrderId}>
+          {this.props.order.map((item, index) =>
+            <div key={index}>
               <div className="menu-item-image">Image</div>
               <div className="menu-item-name">Menu Item Name</div>
               <div className="menu-item-quantity">Quantity: {item.quantity}</div>
