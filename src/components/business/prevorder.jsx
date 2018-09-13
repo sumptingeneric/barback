@@ -22,9 +22,16 @@ class PreviousOrder extends React.Component {
   
   render() {
     return (
-      <div>
-        <h2>Previous Order</h2>
-        <PrevOrderItem orders={this.state.previousOrders}/>
+      <div className="previous-orders">
+        <h2>Previous Orders</h2>
+        {this.state.previousOrders.map(order => {
+            return (
+              <div className="previous-order-item" key={order.OrderId}>
+                <PrevOrderItem order={order}/>
+              </div>
+            );
+          }          
+        )}
       </div>
     );
 
