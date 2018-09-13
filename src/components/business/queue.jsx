@@ -1,6 +1,8 @@
 import React from "react";
-import CurrentQueueItem from "./queueitem.jsx";
 import axios from "axios";
+
+import CurrentQueueItem from "./currentqueueitem.jsx";
+import PendingQueueItem from "./pendingqueueitem.jsx";
 
 class Queue extends React.Component {
   state = {
@@ -54,7 +56,7 @@ class Queue extends React.Component {
         </div>
         <div className="pendingOrders">
           <h3>These are the Pending Orders</h3>
-          {/* <QueueItem order={this.state.pendingOrders} /> */}
+          <PendingQueueItem order={this.state.pendingOrders} />
         </div>
       </div>
     );
