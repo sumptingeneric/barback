@@ -76,9 +76,68 @@ This action returns all items grouped by their respective category as a JSON.
         }
 
 
+## Orders Collection [/api/orders/:order_status]
+
++ Parameters
+    + order_status: 1 (required, number) - ID of the Customer in form of an integer
+
+### List all orders by Order Status [GET]
+
+This action returns all orders for a provided order status in JSON format. 
+
++ status: (required, string) - must be either "in progress", "pending", or "complete"
+
++ Response 201 (applications/json)
+
+        [
+            {
+                "order_id": 1,
+                "items": [
+                    {
+                        "item": "Hailey's Commit",
+                        "image_url": "/images/cocktails/haileyscommit.png",
+                        "quantity": 2
+                    },
+                    {
+                        "item": "Rockin' Robin",
+                        "image_url": "/images/cocktails/rockinrobin.png",
+                        "quantity": 1
+                    },
+                    {
+                        "item": "Bluemoon",
+                        "image_url": "/images/beers/bluemoon.png",
+                        "quantity": 2
+                    }
+                ],
+                "status": "in progress"
+            },
+            {
+                "order_id": 2,
+                "items": [
+                    {
+                        "item": "Hailey's Commit",
+                        "image_url": "/images/cocktails/haileyscommit.png",
+                        "quantity": 2
+                    },
+                    {
+                        "item": "Rockin' Robin",
+                        "image_url": "/images/cocktails/rockinrobin.png",
+                        "quantity": 1
+                    },
+                    {
+                        "item": "Bluemoon",
+                        "image_url": "/images/beers/bluemoon.png",
+                        "quantity": 2
+                    }
+                ],
+                "status": "in progress"
+            }
+        
+        ]
 
 
-## Orders Collection [/api/customers/{customer_id}/orders]
+
+## Orders by Customer Collection [/api/customers/{customer_id}/orders]
 
 + Parameters
     + customer_id: 1 (required, number) - ID of the Customer in form of an integer
