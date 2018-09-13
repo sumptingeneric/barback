@@ -139,9 +139,27 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
     CustomerId: req.params.customer_id
   };
 
-  db.Orders.create(ordersBody).then(function() {
-    res.sendStatus(201);
-  });
+  console.log();
+
+  db.Orders.create(ordersBody)
+    .then(function(response) {
+      let drinkOrders = req.body.drinkOrder;
+      let id = response.dataValues.id;
+
+      drinkOrders.forEach(function(order) {
+        let orderDetailsBody = {
+          quantity: order.quantity,
+          subtotal: order.subtotal,
+          OrderId: id,
+          MenuItemId: order.menuItemId
+        };
+        console.log(orderDetailsBody);
+        db.OrderDetails.create(orderDetailsBody);
+      });
+    })
+    .then(function() {
+      res.sendStatus(201);
+    });
   // db.Orders.create(ordersBody).complete(function(err, res) {
   //   res.sendStatus(201);
   // });
