@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 class CurrentQueueItem extends React.Component {
   constructor(props) {
@@ -6,7 +7,7 @@ class CurrentQueueItem extends React.Component {
   }
   
   updateStatusToComplete(order) {
-    // call to API to update status of order from 'pending' to 'current'
+    // call to API to update status of order from 'current' to 'complete'
     console.log('The status of ', order[0].OrderId, ' has been updated to "complete."');
   }
 

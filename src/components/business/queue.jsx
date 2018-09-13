@@ -38,7 +38,16 @@ class Queue extends React.Component {
     if (currentOrder.length) {
       return <CurrentQueueItem order={this.state.currentOrder} />;
     } else {
-      return <span>No current order has been selected.</span>;
+      return <span>No order has been selected.</span>;
+    }
+  }
+
+  renderPendingOrders() {
+    const { pendingOrders } = this.state;
+    if (pendingOrders.length) {
+      return <PendingQueueItem order={this.state.pendingOrders} />;
+    } else {
+      return <span>There are no currently no orders pending.</span>;
     }
   }
 
@@ -52,7 +61,7 @@ class Queue extends React.Component {
         </div>
         <div className="pending-orders">
           <h3>These are the Pending Orders</h3>
-          <PendingQueueItem order={this.state.pendingOrders} />
+          {this.renderPendingOrders()}
         </div>
       </div>
     );
