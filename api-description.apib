@@ -76,10 +76,10 @@ This action returns all items grouped by their respective category as a JSON.
         }
 
 
-## Orders Collection [/api/orders/:order_status]
+## Orders Collection [/api/orders/{order_status}]
 
 + Parameters
-    + order_status: 1 (required, number) - ID of the Customer in form of an integer
+    + order_status: "in progress" (required, string) - string of the order
 
 ### List all orders by Order Status [GET]
 
