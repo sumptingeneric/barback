@@ -16,6 +16,15 @@ if (process.env.NODE_ENV === "production") {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 //Controllers
 
 //CUSTOMERS COLLECTION
@@ -84,6 +93,21 @@ app.get("/api/customers/:customer_id/orders", (req, res) => {
   //   }
   // ];
 });
+
+app.get("/api/orders/:order_status", (req, res) => {
+  let queryStatus = req.params.order_status;
+  db.OrderDetails.findAll({
+    include: [
+      {
+        model: db.Orders,
+        where: { status: queryStatus }
+      }
+    ]
+  }).then(data => {
+    res.send(data);
+  });
+});
+
 //TEST QUERY === DELETE
 // app.get("/test", (req, res) => {
 //   db.OrderDetails.findAll().then(data => {

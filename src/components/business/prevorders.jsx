@@ -2,7 +2,7 @@ import React from "react";
 import PrevOrderItem from "./prevorderitem.jsx";
 import axios from "axios";
 
-class PreviousOrders extends React.Component {
+class PreviousOrder extends React.Component {
   state = {
     previousOrders: []
   };
@@ -38,4 +38,4 @@ class PreviousOrders extends React.Component {
   }
 }
 
-export default PreviousOrders;
+export default PreviousOrder;
