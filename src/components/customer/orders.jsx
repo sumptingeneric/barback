@@ -70,10 +70,10 @@ const FlexContainerCentered = styled.div`
 // NOTE: we'll have to pass down the list of orders from the order component
 var OrderList = props => {
   return (
-    <div>
-      {dummyCustomerOrderPayload.map(order => {
+    <div className="order-list">
+      {props.orders.map(order => {
         if (order.status === props.status) {
-          return order.items.map((drink, index) => {
+          return order.MenuItems.map((drink, index) => {
             return <OrderItem drink={drink} key={index} />;
           });
         }
@@ -85,11 +85,14 @@ var OrderList = props => {
 // order item component
 var OrderItem = props => {
   return (
-    <FlexContainerCentered>
-      <Image alt="drink" src={props.drink.image_url} />
-      <span>{props.drink.item} </span>
-      {/* <span>{props.drink.quantity}</span> */}
-    </FlexContainerCentered>
+    <div className="order-item">
+      {console.log(props)}
+      <img src="../../../database/images/backendzin.png" />
+      <div>{+"./database" + props.drink.imageUrl}</div>
+      <span>{props.drink.imageUrl}</span>
+      <span>{props.drink.name}</span>
+      <span>{props.drink.OrderDetails.quantity}</span>
+    </div>
   );
 };
 
@@ -97,19 +100,15 @@ var Orders = props => {
   return (
     <section>
       <h1>Orders</h1>
-      <OrdersContainer>
-        <FlexContainerCentered>
-          <h4>In Progress</h4>
-        </FlexContainerCentered>
-        <OrderList status="in progress" orders={props.orders} />
-      </OrdersContainer>
-      <OrdersContainer>
-        <FlexContainerCentered>
-          <h4>Pending</h4>
-        </FlexContainerCentered>
-        <OrderList status="pending" orders={props.orders} />
-      </OrdersContainer>
-    </section>
+      <div className="orders-container">
+        <h4>In Progress</h4>
+        <OrderList status="in progress" orders={props.currentOrders} />
+      </div>
+      <div className="orders-container">
+        <h4>Pending</h4>
+        <OrderList status="pending" orders={props.currentOrders} />
+      </div>
+    </div>
   );
 };
 
