@@ -4,6 +4,12 @@ class CurrentQueueItem extends React.Component {
   constructor(props) {
     super(props);
   }
+  
+  updateStatusToComplete(order) {
+    // call to API to update status of order from 'pending' to 'current'
+    console.log('The status of ', order[0].OrderId, ' has been updated to "complete."');
+  }
+
   render() {
     return (
       <div className="current-order">
@@ -17,7 +23,7 @@ class CurrentQueueItem extends React.Component {
             </div>
           )}
         </div>
-        <button>Done</button>      
+        <button onClick={() => this.updateStatusToComplete(this.props.order)}>Done</button>      
       </div>
     );
   }
