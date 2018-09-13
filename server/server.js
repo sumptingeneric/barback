@@ -134,8 +134,17 @@ app.get("/api/orders/:order_status", (req, res) => {
 //TODO
 //Create new order by customer (POST)
 app.post("/api/customers/:customer_id/orders", (req, res) => {
-  // console.log(req.body.customer_id);
-  res.send();
+  var ordersBody = {
+    status: req.body.status,
+    CustomerId: req.params.customer_id
+  };
+
+  db.Orders.create(ordersBody).then(function() {
+    res.sendStatus(201);
+  });
+  // db.Orders.create(ordersBody).complete(function(err, res) {
+  //   res.sendStatus(201);
+  // });
 
   // let dummyNewOrder = {
   //   order_id: 2,
@@ -154,7 +163,6 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
   //   status: "pending",
   //   created_at: "2018-09-06T08:40:51.620Z"
   // };
-
   // res.send(dummyNewOrder);
 });
 

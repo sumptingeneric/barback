@@ -14,11 +14,13 @@ class App extends React.Component {
       CustomerId: "",
       status: "pending",
       drinkOrder: [
-        {
-          quantity: "",
-          subtotal: "",
-          MenuItemId: ""
-        }
+        // {
+        //   quantity: "",
+        //   subtotal: "",
+        //   menuItemId: "",
+        //   menuItemUrl: "",
+        //   menuItemName: ""
+        // }
       ]
     },
     modal: ""
@@ -34,12 +36,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:7337/api/menu/categories").then(response => {
-      this.setState({
-        menu: response.data
-      });
-    });
-    // .then(() => console.log(this.state.menu));
+    axios
+      .get("http://localhost:7337/api/menu/categories")
+      .then(response => {
+        this.setState({
+          menu: response.data
+        });
+      })
+      .then(() => console.log(this.state.menu));
   }
 
   changeModal(view) {
@@ -50,7 +54,12 @@ class App extends React.Component {
 
   renderModal() {
     if (this.state.modal === "checkout") {
-      return <Checkout />;
+      return (
+        <Checkout
+          checkout={this.state.checkout}
+          changeModal={this.changeModal.bind(this)}
+        />
+      );
     }
   }
   render() {
