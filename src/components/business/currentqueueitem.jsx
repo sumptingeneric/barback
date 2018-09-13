@@ -16,7 +16,8 @@ class CurrentQueueItem extends React.Component {
               <div className="menu-item-quantity">Quantity: {item.quantity}</div>
             </div>
           )}
-        </div>      
+        </div>
+        <button>Done</button>      
       </div>
     );
   }

@@ -4,15 +4,26 @@ class PendingQueueItem extends React.Component {
   constructor(props) {
     super(props);
   }
+ 
+  updateStatusToCurrent(item) {
+    // call to API to update status of order from 'pending' to 'current'
+    console.log('The status of ', item.OrderId, ' has been updated to "current."');
+  }
+  
   render() {
     return (
-      <div className="QueueItem">
-        <h5>Pending Queue Item</h5>
-        <div className="OrderItem">
+      <div className="pending-orders">
+        <h5>Pending Queue Items</h5>
+        <div className="order-item">
           {this.props.order.map(item =>
-            <h6>This is an order item.</h6>
+            <div key={item.OrderId}>
+              <div className="menu-item-image">Image</div>
+              <div className="menu-item-name">Menu Item Name</div>
+              <div className="menu-item-quantity">Quantity: {item.quantity}</div>
+              <button onClick={() => this.updateStatusToCurrent(item)}>Make Current</button>      
+            </div>
           )}
-        </div>      
+        </div>
       </div>
     );
   }
