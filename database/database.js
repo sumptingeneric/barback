@@ -1,4 +1,4 @@
-let Sequelize = require("Sequelize");
+let Sequelize = require("sequelize");
 
 const orm = new Sequelize("barback", "root", "", {
   dialect: "mysql"
