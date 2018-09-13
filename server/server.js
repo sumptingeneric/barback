@@ -42,17 +42,6 @@ app.get("/api/customers", (req, res) => {
   db.Customers.findAll().then(function(customers) {
     res.send(customers);
   });
-  // let dummyCustomerPayload = [
-  //   {
-  //     customer_id: 1,
-  //     item: "Hailey Foster"
-  //   },
-  //   {
-  //     customer_id: 2,
-  //     item: "Robin Kim"
-  //   }
-  // ];
-  // res.send("dummyCustomerPayload");
 });
 
 //MENU COLLECTION

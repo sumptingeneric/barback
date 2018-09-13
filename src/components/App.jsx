@@ -32,18 +32,23 @@ class App extends React.Component {
     this.setState({
       checkout: Object.assign({}, this.state.checkout, { drinkOrder: drinks })
     });
-    console.log(this.state.checkout);
   }
 
   componentDidMount() {
+    axios.get("http://localhost:7337/api/menu/categories").then(response => {
+      this.setState({
+        menu: response.data
+      });
+    });
+    let customerID = 2;
     axios
-      .get("http://localhost:7337/api/menu/categories")
+      .get(`http://localhost:7337/api/customers/${customerID}/orders`)
       .then(response => {
+        console.log(response.data);
         this.setState({
-          menu: response.data
+          orders: response.data
         });
-      })
-      .then(() => console.log(this.state.menu));
+      });
   }
 
   changeModal(view) {
@@ -74,7 +79,7 @@ class App extends React.Component {
           <Checkout path="/checkout" />
         </Router>
         <Search />
-        <Orders />
+        <Orders currentOrders={this.state.orders} />
         <Menu
           menuItems={this.state.menu}
           checkOutUpdate={this.checkOutUpdate.bind(this)}

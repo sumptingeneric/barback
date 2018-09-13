@@ -51,9 +51,9 @@ let dummyCustomerOrderPayload = [
 var OrderList = props => {
   return (
     <div className="order-list">
-      {dummyCustomerOrderPayload.map(order => {
+      {props.orders.map(order => {
         if (order.status === props.status) {
-          return order.items.map((drink, index) => {
+          return order.MenuItems.map((drink, index) => {
             return <OrderItem drink={drink} key={index} />;
           });
         }
@@ -66,8 +66,12 @@ var OrderList = props => {
 var OrderItem = props => {
   return (
     <div className="order-item">
-      <span>{props.drink.item}</span>
-      <span>{props.drink.quantity}</span>
+      {console.log(props)}
+      <img src="../../../database/images/backendzin.png" />
+      <div>{+"./database" + props.drink.imageUrl}</div>
+      <span>{props.drink.imageUrl}</span>
+      <span>{props.drink.name}</span>
+      <span>{props.drink.OrderDetails.quantity}</span>
     </div>
   );
 };
@@ -78,11 +82,11 @@ var Orders = props => {
       <h1>Orders</h1>
       <div className="orders-container">
         <h4>In Progress</h4>
-        <OrderList status="in progress" orders={props.orders} />
+        <OrderList status="in progress" orders={props.currentOrders} />
       </div>
       <div className="orders-container">
         <h4>Pending</h4>
-        <OrderList status="pending" orders={props.orders} />
+        <OrderList status="pending" orders={props.currentOrders} />
       </div>
     </div>
   );
