@@ -20,7 +20,9 @@ class Item extends React.Component {
     this.state = {
       quantity: 0,
       subtotal: 0,
-      MenuItemId: this.props.item.id
+      menuItemId: this.props.item.id,
+      menuItemUrl: this.props.item.imageUrl,
+      menuItemName: this.props.item.name
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addOne = this.addOne.bind(this);
