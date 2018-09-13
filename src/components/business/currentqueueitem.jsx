@@ -6,11 +6,15 @@ class CurrentQueueItem extends React.Component {
   }
   render() {
     return (
-      <div className="QueueItem">
+      <div className="current-order">
         <h5>Current Queue Item</h5>
-        <div className="OrderItem">
+        <div className="order-item">
           {this.props.order.map(item =>
-            <h6>This is an order item.</h6>
+            <div key={item.MenuItemId}>
+              <div className="menu-item-image">Image</div>
+              <div className="menu-item-name">Menu Item Name</div>
+              <div className="menu-item-quantity">Quantity: {item.quantity}</div>
+            </div>
           )}
         </div>      
       </div>

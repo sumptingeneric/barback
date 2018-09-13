@@ -36,11 +36,7 @@ class Queue extends React.Component {
   renderCurrentOrder() {
     const { currentOrder } = this.state;
     if (currentOrder.length) {
-      return (
-        <div className="currentOrderItem" >
-            <CurrentQueueItem order={this.state.currentOrder} />
-        </div>
-      );
+      return <CurrentQueueItem order={this.state.currentOrder} />;
     } else {
       return <span>No current order has been selected.</span>;
     }
@@ -50,11 +46,11 @@ class Queue extends React.Component {
     return (
       <div>
         <h2>Queue</h2>
-        <div className="currentOrder">
+        <div className="current-order">
           <h3>This is the Current Order</h3>
           {this.renderCurrentOrder()}
         </div>
-        <div className="pendingOrders">
+        <div className="pending-orders">
           <h3>These are the Pending Orders</h3>
           <PendingQueueItem order={this.state.pendingOrders} />
         </div>
