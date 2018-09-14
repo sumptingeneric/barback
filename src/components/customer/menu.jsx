@@ -69,6 +69,7 @@ let dummyMenuPayload = {
 const Container = styled.div`
   display: flex; 
   flex-direction: row; 
+  flex-wrap: wrap; 
 `;
 
 const ClickableWrapper = styled.button`
