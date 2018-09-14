@@ -5,7 +5,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 
-//Styled Components
 const ModalContainer = styled.div`
   background-color: white;
   max-width: 500px;
@@ -59,6 +58,7 @@ class Item extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.checkOutUpdate(this.state);
+    this.props.returnToMenu();
   }
 
   handleChange(event) {
@@ -77,7 +77,7 @@ class Item extends React.Component {
         <div className="item-details">
           <form onSubmit={this.handleSubmit}>
             <h4>{this.props.item.item}</h4>
-            <img src={this.props.item.image_url} alt={"Item"} />
+            <img src={this.props.item.imageUrl} alt={"Item"} />
             <div className="description">{this.props.item.description}</div>
             <div>Price: ${Number(this.props.item.price).toFixed(2)}</div>
             <div className="select-quantity">

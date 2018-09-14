@@ -11,7 +11,6 @@ class Queue extends React.Component {
   };
 
   componentDidMount() {
-    console.log("COMPONENT");
     this.getCurrentOrder();
     this.getPendingOrders();
   }

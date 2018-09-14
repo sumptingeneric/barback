@@ -12,10 +12,12 @@ class Checkout extends React.Component {
     console.log("Order SUBMitTED TO DB");
     let custId = 3;
     let checkoutOrder = this.props.checkout;
-    axios.post(
-      `http://localhost:7337/api/customers/${custId}/orders`,
-      checkoutOrder
-    );
+    axios
+      .post(
+        `http://localhost:7337/api/customers/${custId}/orders`,
+        checkoutOrder
+      )
+      .then(() => this.props.changeModal(""));
   }
 
   render() {
@@ -26,8 +28,8 @@ class Checkout extends React.Component {
           <div>Your Orders:</div>
           {this.props.checkout.drinkOrder.map(drink => {
             return (
-              <li>
-                <span> {drink.menuItemUrl} </span>
+              <li key={drink.item_id}>
+                <img src={drink.menuItemUrl} />
                 <div>
                   <span>{drink.menuItemName}</span>
                   <span>{drink.quantity}</span>

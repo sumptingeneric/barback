@@ -4,22 +4,17 @@ import Modal from "./Modal.jsx";
 import styled from "styled-components";
 
 // test data... will delete after figuring out the props passed down.
-
-//Styled Components
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 `;
-
 const ClickableWrapper = styled.button`
   border: none;
 `;
-
 const Image = styled.img`
   height: 200px;
 `;
-
 class Menu extends React.Component {
   constructor(props) {
     super(props);
@@ -36,7 +31,6 @@ class Menu extends React.Component {
     this.setState({
       selectDrink: drink
     });
-
     this.toggleModal();
   }
 
@@ -45,15 +39,16 @@ class Menu extends React.Component {
       showModal: !this.state.showModal
     });
   };
-
   // render each category
   renderCategory(category, index) {
     return (
       <div key={index} id={category}>
         <h2>{category}</h2>
-        {this.props.menuItems[category].map((drink, index) => {
-          return this.renderDrink(drink, index);
-        })}
+        <Container>
+          {this.props.menuItems[category].map((drink, index) => {
+            return this.renderDrink(drink, index);
+          })}
+        </Container>
       </div>
     );
   }
@@ -61,17 +56,22 @@ class Menu extends React.Component {
   // render each drink
   renderDrink(drink) {
     return (
-      <div key={index}>
-        <button onClick={() => this.handleItemClick(drink.name)}>
-          {drink.name}
-        </button>
-        {this.state.selectDrink === drink.name && (
-          <Item
-            item={drink}
-            checkOutUpdate={this.props.checkOutUpdate}
-            returnToMenu={this.handleReturnToMenu}
-          />
-        )}
+      <div key={drink.item_id}>
+        <ClickableWrapper onClick={() => this.handleItemClick(drink)}>
+          <Image alt={drink.item} src={drink.imageUrl} />
+          <div>{drink.item}</div>
+          <div>${drink.price}</div>
+        </ClickableWrapper>
+
+        {this.state.showModal && this.state.selectDrink === drink ? (
+          <Modal>
+            <Item
+              item={drink}
+              checkOutUpdate={this.props.checkOutUpdate}
+              returnToMenu={this.toggleModal}
+            />
+          </Modal>
+        ) : null}
       </div>
     );
   }
