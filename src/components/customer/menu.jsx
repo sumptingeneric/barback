@@ -1,5 +1,6 @@
 import React from "react";
 import Item from "./item.jsx";
+import styled from "styled-components";
 
 // test data... will delete after figuring out the props passed down.
 let dummyMenuPayload = {
@@ -14,18 +15,36 @@ let dummyMenuPayload = {
       updated_at: "2018-09-06T08:40:51.620Z"
     },
     {
-      item_id: 4,
+      item_id: 2,
       item: "Rockin' Robin",
       price: 11.25,
       description: "This is Robin's Drink",
       image_url: "/images/cocktails/rockinrobin.png",
       created_at: "2018-09-06T08:40:51.620Z",
       updated_at: "2018-09-06T08:40:51.620Z"
+    },
+    {
+      item_id: 3,
+      item: "Erwin's Elixir",
+      price: 11.25,
+      description: "This is Erwin's favorite libation.",
+      image_url: "/images/cocktails/erwinselixr.png",
+      created_at: "2018-09-06T08:40:51.620Z",
+      updated_at: "2018-09-06T08:40:51.620Z"
+    },
+    {
+      item_id: 4,
+      item: "Annah Banana",
+      price: 11.25,
+      description: "This is Annah's destress intoxication.",
+      image_url: "/images/cocktails/annahbanana.png",
+      created_at: "2018-09-06T08:40:51.620Z",
+      updated_at: "2018-09-06T08:40:51.620Z"
     }
   ],
   beers: [
     {
-      item_id: 2,
+      item_id: 5,
       item: "Budlite",
       price: 2.5,
       description: "This is Budlite",
@@ -41,9 +60,29 @@ let dummyMenuPayload = {
       image_url: "/images/beers/leffe.png",
       created_at: "2018-09-06T08:40:51.620Z",
       updated_at: "2018-09-06T08:40:51.620Z"
+    },
+    {
+      item_id: 7,
+      item: "Blue Moon",
+      price: 15.25,
+      description: "This is Blue Moon",
+      image_url: "/images/beers/bluemoon.png",
+      created_at: "2018-09-06T08:40:51.620Z",
+      updated_at: "2018-09-06T08:40:51.620Z"
     }
   ]
 };
+
+//Styled Components
+const ClickableWrapper = styled.button`
+  border: none; 
+`;
+
+const Image = styled.img`
+  height: 200px; 
+
+`;
+
 
 class Menu extends React.Component {
   constructor(props) {
@@ -84,14 +123,17 @@ class Menu extends React.Component {
   // render each drink
   renderDrink(drink, index) {
     return (
-      <div key={index}>
-        <button onClick={() => this.handleItemClick(drink.item)}>
-          {drink.item}
-        </button>
-        {this.state.selectDrink === drink.item && (
-          <Item item={drink} returnToMenu={this.handleReturnToMenu} />
-        )}
-      </div>
+      <ClickableWrapper onClick={() => this.handleItemClick(drink.item)}>
+        <div key={drink.item_id} >
+          <Image alt={drink.item} src={drink.image_url} />
+          <div>{drink.item}</div>
+          <div>${drink.price}</div>
+
+          {this.state.selectDrink === drink.item && (
+            <Item item={drink} returnToMenu={this.handleReturnToMenu} />
+          )}
+        </div>
+      </ClickableWrapper>
     );
   }
 
