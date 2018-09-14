@@ -15,6 +15,7 @@ class CurrentQueueItem extends React.Component {
         `http://localhost:7337/api/customers/${custId}/orders/${orderId}/complete`
       )
       .then(() => {
+        //TODO Reload not working
         this.props.reload();
       });
 
@@ -32,8 +33,10 @@ class CurrentQueueItem extends React.Component {
         <div className="order-item">
           {this.props.order.map(item => (
             <div key={item.MenuItemId}>
-              <div className="menu-item-image">Image</div>
-              <div className="menu-item-name">Menu Item Name</div>
+              <div className="menu-item-image">
+                <img src={item.MenuItem.imageUrl} alt="" />
+              </div>
+              <div className="menu-item-name">{item.MenuItem.name}</div>
               <div className="menu-item-quantity">
                 Quantity: {item.quantity}
               </div>

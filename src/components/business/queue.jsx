@@ -11,6 +11,7 @@ class Queue extends React.Component {
   };
 
   componentDidMount() {
+    console.log("COMPONENT");
     this.getCurrentOrder();
     this.getPendingOrders();
   }
@@ -55,7 +56,7 @@ class Queue extends React.Component {
     if (pendingOrders.length) {
       return (
         <PendingQueueItem
-          current={this.state.currentOrder[0].OrderId}
+          current={this.state.currentOrder}
           reload={this.componentDidMount.bind(this)}
           order={this.state.pendingOrders}
         />

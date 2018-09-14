@@ -106,6 +106,7 @@ app.get("/api/orders/:order_status", (req, res) => {
       }
     ]
   }).then(data => {
+    console.log(data.length);
     res.send(data);
   });
 });
@@ -218,7 +219,16 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
   let status = req.params.status;
   // let currentId = req.body.current;
   let orderId = req.params.order_id;
-
+  // if (status === "redo") {
+  //   db.Orders.update(
+  //     {
+  //       status: "current"
+  //     },
+  //     {
+  //       where: { id: 1 }
+  //     }
+  //   );
+  // }
   if (status === "complete") {
     db.Orders.update(
       {
