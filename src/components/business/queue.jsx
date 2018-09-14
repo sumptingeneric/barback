@@ -19,11 +19,11 @@ class Queue extends React.Component {
   getCurrentOrder() {
     axios.get("http://localhost:7337/api/orders/current").then(response => {
       this.setState({
-        currentOrder: response.data
+        currentOrder: Object.values(response.data)[0]
       });
       console.log(
         "This is the current order: ",
-        this.state.currentOrder[0].OrderId
+        Object.values(response.data)[0]
       );
     });
   }
@@ -53,7 +53,7 @@ class Queue extends React.Component {
 
   renderPendingOrders() {
     const { pendingOrders } = this.state;
-    if (pendingOrders.length) {
+    if (pendingOrders) {
       return (
         <PendingQueueItem
           current={this.state.currentOrder}

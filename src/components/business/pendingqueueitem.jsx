@@ -8,9 +8,11 @@ class PendingQueueItem extends React.Component {
 
   updateStatusToCurrent(item) {
     // call to API to update status of order from 'pending' to 'current'
+
     let custId = 2;
-    let orderId = item.OrderId;
+    let orderId = item;
     let currentId = this.props.current[0].OrderId;
+
     // console.log("current ID status " + currentId);
     axios
       .put(
@@ -20,11 +22,6 @@ class PendingQueueItem extends React.Component {
       .then(() => {
         this.props.reload();
       });
-    console.log(
-      "The status of ",
-      item.OrderId,
-      ' has been updated to "current."'
-    );
   }
 
   render() {
@@ -32,7 +29,19 @@ class PendingQueueItem extends React.Component {
       <div className="pending-orders">
         <h5>Pending Queue Items</h5>
         <div className="order-item">
-          {this.props.order.map((item, index) => (
+          {Object.keys(this.props.order).map(orders => {
+            return (
+              <div>
+                {this.props.order[orders].map(orderDetails => {
+                  return <div>{orderDetails.MenuItem.name}</div>;
+                })}
+                <button onClick={() => this.updateStatusToCurrent(orders)}>
+                  Test
+                </button>
+              </div>
+            );
+          })}
+          {/* {this.props.order.map((item, index) => (
             <div key={index}>
               <div className="menu-item-image">
                 <img src={item.MenuItem.imageUrl} alt="" />
@@ -45,7 +54,7 @@ class PendingQueueItem extends React.Component {
                 Make Current
               </button>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     );
