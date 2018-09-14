@@ -39,7 +39,7 @@ let dummyCustomerOrderPayload = [
       },
       {
         item: "BudLite",
-        image_url: "/images/beers/bluemoon.png",
+        image_url: "/images/beers/budlite.png",
         quantity: 4
       }
     ],
