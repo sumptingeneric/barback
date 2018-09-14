@@ -20,7 +20,10 @@ class Queue extends React.Component {
       this.setState({
         currentOrder: response.data
       });
-      console.log('This is the current order: ', this.state.currentOrder);
+      console.log(
+        "This is the current order: ",
+        this.state.currentOrder[0].OrderId
+      );
     });
   }
 
@@ -29,14 +32,19 @@ class Queue extends React.Component {
       this.setState({
         pendingOrders: response.data
       });
-      console.log('These are the pending orders: ', this.state.pendingOrders);
+      console.log("These are the pending orders: ", this.state.pendingOrders);
     });
   }
 
   renderCurrentOrder() {
     const { currentOrder } = this.state;
     if (currentOrder.length) {
-      return <CurrentQueueItem order={this.state.currentOrder} />;
+      return (
+        <CurrentQueueItem
+          reload={this.componentDidMount.bind(this)}
+          order={this.state.currentOrder}
+        />
+      );
     } else {
       return <span>No order has been selected.</span>;
     }
@@ -45,7 +53,13 @@ class Queue extends React.Component {
   renderPendingOrders() {
     const { pendingOrders } = this.state;
     if (pendingOrders.length) {
-      return <PendingQueueItem order={this.state.pendingOrders} />;
+      return (
+        <PendingQueueItem
+          current={this.state.currentOrder[0].OrderId}
+          reload={this.componentDidMount.bind(this)}
+          order={this.state.pendingOrders}
+        />
+      );
     } else {
       return <span>There are no currently no orders pending.</span>;
     }
