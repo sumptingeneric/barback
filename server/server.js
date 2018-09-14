@@ -21,15 +21,7 @@ app.use(function(req, res, next) {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
-  next();
-});
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.header("Access-Control-Allow-Methods", "*");
   next();
 });
 
@@ -107,6 +99,10 @@ app.get("/api/orders/:order_status", (req, res) => {
       {
         model: db.Orders,
         where: { status: queryStatus }
+      },
+      {
+        model: db.MenuItems,
+        attributes: ["name", "createdAt", "updatedAt", "imageUrl"]
       }
     ]
   }).then(data => {
@@ -127,8 +123,6 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
     status: req.body.status,
     CustomerId: req.params.customer_id
   };
-
-  console.log();
 
   db.Orders.create(ordersBody)
     .then(function(response) {
@@ -177,25 +171,25 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
 
 // TEST QUERY
 app.get("/test", (req, res) => {
-  db.OrderDetails.findAll().then(data => {
+  db.Orders.findAll().then(data => {
     res.send(data);
   });
 });
 
 //Business -> Get all orders by status (pulled from URL)
-app.get("/api/orders/:order_status", (req, res) => {
-  let queryStatus = req.params.order_status;
-  db.OrderDetails.findAll({
-    include: [
-      {
-        model: db.Orders,
-        where: { status: queryStatus }
-      }
-    ]
-  }).then(data => {
-    res.send(data);
-  });
-});
+// app.get("/api/orders/:order_status", (req, res) => {
+//   let queryStatus = req.params.order_status;
+//   db.OrderDetails.findAll({
+//     include: [
+//       {
+//         model: db.Orders,
+//         where: { status: queryStatus }
+//       }
+//     ]
+//   }).then(data => {
+//     res.send(data);
+//   });
+// });
 
 //Get order status by order id (GET)
 app.get("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
@@ -217,10 +211,60 @@ app.get("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
 
 //TODO
 //Update order status by order id (PUT)
-app.put("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
-  console.log(req.body);
+app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
+  // console.log("customer id " + req.params.customer_id);
+  // console.log("order id " + req.params.order_id);
+  // console.log("current ID test  " + req.body.current);
+  let status = req.params.status;
+  // let currentId = req.body.current;
+  let orderId = req.params.order_id;
 
-  res.sendStatus(204);
+  if (status === "complete") {
+    db.Orders.update(
+      {
+        status: "complete"
+      },
+      {
+        where: { id: orderId }
+      }
+    ).then(() => {
+      db.Orders.findAll({
+        where: { status: "pending" },
+        order: [["createdAt", "ASC"]]
+      }).then(entries => {
+        let newCurrentId = entries[0].id;
+        db.Orders.update(
+          {
+            status: "current"
+          },
+          {
+            where: { id: newCurrentId }
+          }
+        );
+      });
+    });
+  }
+
+  if (status === "current") {
+    db.Orders.update(
+      {
+        status: "pending"
+      },
+      {
+        where: { status: "current" }
+      }
+    ).then(() => {
+      db.Orders.update(
+        {
+          status: "current"
+        },
+        {
+          where: { id: orderId }
+        }
+      );
+    });
+    res.sendStatus(204);
+  }
 });
 
 //Port Listening

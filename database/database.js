@@ -39,6 +39,7 @@ Orders.belongsTo(Customers);
 Orders.belongsToMany(MenuItems, { through: "OrderDetails" });
 MenuItems.belongsToMany(Orders, { through: "OrderDetails" });
 OrderDetails.belongsTo(Orders);
+OrderDetails.belongsTo(MenuItems);
 MenuItems.sync();
 Customers.sync();
 Orders.sync();
