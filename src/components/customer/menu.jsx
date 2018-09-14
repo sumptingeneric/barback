@@ -66,6 +66,11 @@ let dummyMenuPayload = {
 };
 
 //Styled Components
+const Container = styled.div`
+  display: flex; 
+  flex-direction: row; 
+`;
+
 const ClickableWrapper = styled.button`
   border: none; 
 `;
@@ -84,7 +89,6 @@ class Menu extends React.Component {
     };
 
     this.handleItemClick = this.handleItemClick.bind(this);
-    this.handleReturnToMenu = this.handleReturnToMenu.bind(this);
   }
 
   // temp function for modal display... will switch to react portals
@@ -96,20 +100,10 @@ class Menu extends React.Component {
     this.toggleModal();
   }
 
-  handleReturnToMenu() {
-    this.setState({
-      selectDrink: null
-    });
-
-
-  }
-
   toggleModal = () => {
     this.setState({
       showModal: !this.state.showModal
     });
-
-    console.log(this.state.selectDrink);
   }
 
   // render each category
@@ -117,9 +111,11 @@ class Menu extends React.Component {
     return (
       <div key={index} id={category}>
         <h2>{category}</h2>
-        {dummyMenuPayload[category].map((drink) => {
-          return this.renderDrink(drink);
-        })}
+        <Container>
+          {dummyMenuPayload[category].map((drink) => {
+            return this.renderDrink(drink);
+          })}
+        </Container>
       </div>
     );
   }
@@ -127,19 +123,19 @@ class Menu extends React.Component {
   // render each drink
   renderDrink(drink) {
     return (
-      <ClickableWrapper key={drink.item_id} onClick={() => this.handleItemClick(drink)}>
-        <div>
+      <div >
+        <ClickableWrapper onClick={() => this.handleItemClick(drink)}>
           <Image alt={drink.item} src={drink.image_url} />
           <div>{drink.item}</div>
           <div>${drink.price}</div>
+        </ClickableWrapper>
 
-          {this.state.showModal && this.state.selectDrink === drink ? (
-            <Modal>
-              <Item item={drink} returnToMenu={this.handleReturnToMenu} />
-            </Modal>
-          ) : null}
-        </div>
-      </ClickableWrapper>
+        {this.state.showModal && this.state.selectDrink === drink ? (
+          <Modal>
+            <Item item={drink} returnToMenu={this.toggleModal} />
+          </Modal>
+        ) : null}
+      </div>
     );
   }
 
