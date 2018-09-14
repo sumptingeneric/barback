@@ -1,5 +1,6 @@
 import React from "react";
 import Item from "./item.jsx";
+import Modal from "./Modal.jsx";
 import styled from "styled-components";
 
 // test data... will delete after figuring out the props passed down.
@@ -15,7 +16,7 @@ let dummyMenuPayload = {
       updated_at: "2018-09-06T08:40:51.620Z"
     },
     {
-      item_id: 2,
+      item_id: 4,
       item: "Rockin' Robin",
       price: 11.25,
       description: "This is Robin's Drink",
@@ -24,7 +25,7 @@ let dummyMenuPayload = {
       updated_at: "2018-09-06T08:40:51.620Z"
     },
     {
-      item_id: 3,
+      item_id: 5,
       item: "Erwin's Elixir",
       price: 11.25,
       description: "This is Erwin's favorite libation.",
@@ -33,18 +34,18 @@ let dummyMenuPayload = {
       updated_at: "2018-09-06T08:40:51.620Z"
     },
     {
-      item_id: 4,
-      item: "Annah Banana",
+      item_id: 6,
+      item: "Rockin' Robin",
       price: 11.25,
-      description: "This is Annah's destress intoxication.",
-      image_url: "/images/cocktails/annahbanana.png",
+      description: "This is Robin's Drink",
+      image_url: "/images/cocktails/rockinrobin.png",
       created_at: "2018-09-06T08:40:51.620Z",
       updated_at: "2018-09-06T08:40:51.620Z"
     }
   ],
   beers: [
     {
-      item_id: 5,
+      item_id: 2,
       item: "Budlite",
       price: 2.5,
       description: "This is Budlite",
@@ -60,15 +61,6 @@ let dummyMenuPayload = {
       image_url: "/images/beers/leffe.png",
       created_at: "2018-09-06T08:40:51.620Z",
       updated_at: "2018-09-06T08:40:51.620Z"
-    },
-    {
-      item_id: 7,
-      item: "Blue Moon",
-      price: 15.25,
-      description: "This is Blue Moon",
-      image_url: "/images/beers/bluemoon.png",
-      created_at: "2018-09-06T08:40:51.620Z",
-      updated_at: "2018-09-06T08:40:51.620Z"
     }
   ]
 };
@@ -80,7 +72,6 @@ const ClickableWrapper = styled.button`
 
 const Image = styled.img`
   height: 200px; 
-
 `;
 
 
@@ -88,6 +79,7 @@ class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showModal: false,
       selectDrink: ""
     };
 
@@ -100,12 +92,24 @@ class Menu extends React.Component {
     this.setState({
       selectDrink: drink
     });
+
+    this.toggleModal();
   }
 
   handleReturnToMenu() {
     this.setState({
-      selectDrink: ""
+      selectDrink: null
     });
+
+
+  }
+
+  toggleModal = () => {
+    this.setState({
+      showModal: !this.state.showModal
+    });
+
+    console.log(this.state.selectDrink);
   }
 
   // render each category
@@ -113,25 +117,27 @@ class Menu extends React.Component {
     return (
       <div key={index} id={category}>
         <h2>{category}</h2>
-        {dummyMenuPayload[category].map((drink, index) => {
-          return this.renderDrink(drink, index);
+        {dummyMenuPayload[category].map((drink) => {
+          return this.renderDrink(drink);
         })}
       </div>
     );
   }
 
   // render each drink
-  renderDrink(drink, index) {
+  renderDrink(drink) {
     return (
-      <ClickableWrapper onClick={() => this.handleItemClick(drink.item)}>
-        <div key={drink.item_id} >
+      <ClickableWrapper key={drink.item_id} onClick={() => this.handleItemClick(drink)}>
+        <div>
           <Image alt={drink.item} src={drink.image_url} />
           <div>{drink.item}</div>
           <div>${drink.price}</div>
 
-          {this.state.selectDrink === drink.item && (
-            <Item item={drink} returnToMenu={this.handleReturnToMenu} />
-          )}
+          {this.state.showModal && this.state.selectDrink === drink ? (
+            <Modal>
+              <Item item={drink} returnToMenu={this.handleReturnToMenu} />
+            </Modal>
+          ) : null}
         </div>
       </ClickableWrapper>
     );
