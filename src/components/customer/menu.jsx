@@ -124,7 +124,7 @@ class Menu extends React.Component {
   // render each drink
   renderDrink(drink) {
     return (
-      <div >
+      <div key={drink.item_id}>
         <ClickableWrapper onClick={() => this.handleItemClick(drink)}>
           <Image alt={drink.item} src={drink.image_url} />
           <div>{drink.item}</div>
