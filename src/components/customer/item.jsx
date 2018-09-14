@@ -3,6 +3,15 @@
 //back to menu button needs to send back to menu
 import React from "react";
 import ReactDOM from "react-dom";
+import styled from "styled-components";
+
+const ModalContainer = styled.div`
+  background-color: white;
+  max-width: 500px;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+`;
 
 class Item extends React.Component {
   constructor(props) {
@@ -49,6 +58,7 @@ class Item extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.checkOutUpdate(this.state);
+    this.props.returnToMenu();
   }
 
   handleChange(event) {
@@ -63,11 +73,11 @@ class Item extends React.Component {
 
   render() {
     return ReactDOM.createPortal(
-      <div className="container">
+      <ModalContainer>
         <div className="item-details">
           <form onSubmit={this.handleSubmit}>
             <h4>{this.props.item.item}</h4>
-            <img src={this.props.item.image_url} alt={"Item"} />
+            <img src={this.props.item.imageUrl} alt={"Item"} />
             <div className="description">{this.props.item.description}</div>
             <div>Price: ${Number(this.props.item.price).toFixed(2)}</div>
             <div className="select-quantity">
@@ -84,7 +94,7 @@ class Item extends React.Component {
         <button id="back-to-menu" onClick={this.props.returnToMenu}>
           Back to Menu
         </button>
-      </div>,
+      </ModalContainer>,
       document.getElementById("modal")
     );
   }

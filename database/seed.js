@@ -43,7 +43,7 @@ let mockMenuItems = [
     name: "Backend Zin",
     price: 14.0,
     category: "wine",
-    imageUrl: "/images/backendzin.png",
+    imageUrl: "/images/wine/backendzin.png",
     description:
       "This 1998 Zinfandel from Jose Rodrigues Winery merges banal oatmeal midtones with a sleep-inducing sloppy joe finish."
   },
