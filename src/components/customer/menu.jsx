@@ -1,5 +1,7 @@
 import React from "react";
 import Item from "./item.jsx";
+import Modal from "./Modal.jsx";
+import styled from "styled-components";
 
 // test data... will delete after figuring out the props passed down.
 let dummyMenuPayload = {
@@ -15,6 +17,24 @@ let dummyMenuPayload = {
     },
     {
       item_id: 4,
+      item: "Rockin' Robin",
+      price: 11.25,
+      description: "This is Robin's Drink",
+      image_url: "/images/cocktails/rockinrobin.png",
+      created_at: "2018-09-06T08:40:51.620Z",
+      updated_at: "2018-09-06T08:40:51.620Z"
+    },
+    {
+      item_id: 5,
+      item: "Erwin's Elixir",
+      price: 11.25,
+      description: "This is Erwin's favorite libation.",
+      image_url: "/images/cocktails/erwinselixr.png",
+      created_at: "2018-09-06T08:40:51.620Z",
+      updated_at: "2018-09-06T08:40:51.620Z"
+    },
+    {
+      item_id: 6,
       item: "Rockin' Robin",
       price: 11.25,
       description: "This is Robin's Drink",
@@ -45,15 +65,31 @@ let dummyMenuPayload = {
   ]
 };
 
+//Styled Components
+const Container = styled.div`
+  display: flex; 
+  flex-direction: row; 
+  flex-wrap: wrap; 
+`;
+
+const ClickableWrapper = styled.button`
+  border: none; 
+`;
+
+const Image = styled.img`
+  height: 200px; 
+`;
+
+
 class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showModal: false,
       selectDrink: ""
     };
 
     this.handleItemClick = this.handleItemClick.bind(this);
-    this.handleReturnToMenu = this.handleReturnToMenu.bind(this);
   }
 
   // temp function for modal display... will switch to react portals
@@ -61,11 +97,13 @@ class Menu extends React.Component {
     this.setState({
       selectDrink: drink
     });
+
+    this.toggleModal();
   }
 
-  handleReturnToMenu() {
+  toggleModal = () => {
     this.setState({
-      selectDrink: ""
+      showModal: !this.state.showModal
     });
   }
 
@@ -74,23 +112,30 @@ class Menu extends React.Component {
     return (
       <div key={index} id={category}>
         <h2>{category}</h2>
-        {dummyMenuPayload[category].map((drink, index) => {
-          return this.renderDrink(drink, index);
-        })}
+        <Container>
+          {dummyMenuPayload[category].map((drink) => {
+            return this.renderDrink(drink);
+          })}
+        </Container>
       </div>
     );
   }
 
   // render each drink
-  renderDrink(drink, index) {
+  renderDrink(drink) {
     return (
-      <div key={index}>
-        <button onClick={() => this.handleItemClick(drink.item)}>
-          {drink.item}
-        </button>
-        {this.state.selectDrink === drink.item && (
-          <Item item={drink} returnToMenu={this.handleReturnToMenu} />
-        )}
+      <div key={drink.item_id}>
+        <ClickableWrapper onClick={() => this.handleItemClick(drink)}>
+          <Image alt={drink.item} src={drink.image_url} />
+          <div>{drink.item}</div>
+          <div>${drink.price}</div>
+        </ClickableWrapper>
+
+        {this.state.showModal && this.state.selectDrink === drink ? (
+          <Modal>
+            <Item item={drink} returnToMenu={this.toggleModal} />
+          </Modal>
+        ) : null}
       </div>
     );
   }

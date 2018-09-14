@@ -39,7 +39,7 @@ let dummyCustomerOrderPayload = [
       },
       {
         item: "BudLite",
-        image_url: "/images/beers/bluemoon.png",
+        image_url: "/images/beers/budlite.png",
         quantity: 4
       }
     ],
@@ -63,7 +63,7 @@ const Image = styled.img`
 const FlexContainerCentered = styled.div`
   display: flex; 
   align-items: center;
-  justify-content: center;
+  justify-content: start;
 `;
 
 // list of orders component
@@ -85,11 +85,11 @@ var OrderList = props => {
 // order item component
 var OrderItem = props => {
   return (
-    <div className="order-item">
+    <FlexContainerCentered>
       <Image alt="drink" src={props.drink.image_url} />
-      <span>{props.drink.item}</span>
-      <span>{props.drink.quantity}</span>
-    </div>
+      <span>{props.drink.item} </span>
+      {/* <span>{props.drink.quantity}</span> */}
+    </FlexContainerCentered>
   );
 };
 

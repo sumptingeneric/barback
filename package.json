@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel src/index.html & npm run server-dev",
-    "postinstall": "parcel build src/index.html",
+    "copy:media": "cp -r src/images dist/images",
+    "dev": "npm run copy:media && parcel src/index.html & npm run server-dev",
+    "postinstall": "parcel build src/index.html && npm run copy:media",
     "start": "node server/server.js",
     "server-dev": "nodemon server/server.js",
     "db:setup": "node database/seed.js",
