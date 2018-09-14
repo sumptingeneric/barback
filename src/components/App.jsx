@@ -1,9 +1,9 @@
 import React from "react";
-import { Router, Link } from "@reach/router";
-import Search from "./customer/search.jsx";
-import Orders from "./customer/orders.jsx";
+import Header from "./customer/Header.jsx";
 import Menu from "./customer/menu.jsx";
-import Checkout from "./customer/checkout.jsx";
+import Orders from "./customer/orders.jsx";
+
+
 
 class App extends React.Component {
   state = {
@@ -12,17 +12,12 @@ class App extends React.Component {
     checkout: {}
   };
 
+
+
   render() {
     return (
       <div>
-        <h1>Title</h1>
-        <nav>
-          <Link to="/checkout">Checkout</Link>
-        </nav>
-        <Router>
-          <Checkout path="/checkout" />
-        </Router>
-        <Search />
+        <Header />
         <Orders />
         <Menu />
       </div>

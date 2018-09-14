@@ -13,7 +13,11 @@
     "jsx-a11y/label-has-for": 0,
     "no-console": 1
   },
-  "plugins": ["react", "import", "jsx-a11y"],
+  "plugins": [
+    "react",
+    "import",
+    "jsx-a11y"
+  ],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
