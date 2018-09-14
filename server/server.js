@@ -106,8 +106,24 @@ app.get("/api/orders/:order_status", (req, res) => {
       }
     ]
   }).then(data => {
-    console.log(data.length);
-    res.send(data);
+    console.log(data);
+    let orderIdObj = {};
+
+    data.forEach(item => {
+      let orderId = item.OrderId;
+      if (!orderIdObj[orderId]) {
+        orderIdObj[orderId] = [item];
+      } else {
+        orderIdObj[orderId].push(item);
+      }
+    });
+
+    // let array = [];
+    // for (var order in orderIdObj) {
+    //   let obj = { [order]: orderIdObj[order] };
+    //   array.push(obj);
+    // }
+    res.send(orderIdObj);
   });
 });
 
@@ -177,21 +193,6 @@ app.get("/test", (req, res) => {
   });
 });
 
-//Business -> Get all orders by status (pulled from URL)
-// app.get("/api/orders/:order_status", (req, res) => {
-//   let queryStatus = req.params.order_status;
-//   db.OrderDetails.findAll({
-//     include: [
-//       {
-//         model: db.Orders,
-//         where: { status: queryStatus }
-//       }
-//     ]
-//   }).then(data => {
-//     res.send(data);
-//   });
-// });
-
 //Get order status by order id (GET)
 app.get("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
   let custId = req.params.customer_id;
@@ -201,13 +202,6 @@ app.get("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
       res.send(data);
     }
   );
-  // let dummyOrderStatus = {
-  //   order_id: 1,
-  //   status: "in queue",
-  //   updated_at: "2018-09-06T08:40:51.620Z"
-  // };
-
-  // res.send(dummyOrderStatus);
 });
 
 //TODO
@@ -219,16 +213,16 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
   let status = req.params.status;
   // let currentId = req.body.current;
   let orderId = req.params.order_id;
-  // if (status === "redo") {
-  //   db.Orders.update(
-  //     {
-  //       status: "current"
-  //     },
-  //     {
-  //       where: { id: 1 }
-  //     }
-  //   );
-  // }
+  if (status === "redo") {
+    db.Orders.update(
+      {
+        status: "pending"
+      },
+      {
+        where: { id: 1 }
+      }
+    );
+  }
   if (status === "complete") {
     db.Orders.update(
       {
@@ -253,6 +247,7 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
         );
       });
     });
+    res.sendStatus(204);
   }
 
   if (status === "current") {
