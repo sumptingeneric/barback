@@ -2,7 +2,6 @@
 //     <add to cart option onClick= add item to cart (item, quantity, subtotal)>
 //back to menu button needs to send back to menu
 import React from "react";
-import ReactDOM from "react-dom";
 import styled from "styled-components";
 
 const ModalContainer = styled.div`
@@ -37,7 +36,7 @@ class Item extends React.Component {
       quantity: curQuantity + 1,
       subtotal: Number(curSubTot) + Number(price)
     });
-    console.log(this.state);
+    //console.log(this.state);
   }
 
   minusOne(e) {
@@ -52,7 +51,7 @@ class Item extends React.Component {
         subtotal: Number(curSubTot) - Number(price)
       });
     }
-    console.log(this.state);
+    //console.log(this.state);
   }
 
   handleSubmit(e) {
@@ -72,12 +71,12 @@ class Item extends React.Component {
   }
 
   render() {
-    return ReactDOM.createPortal(
+    return (
       <ModalContainer>
         <div className="item-details">
           <form onSubmit={this.handleSubmit}>
-            <h4>{this.props.item.item}</h4>
-            <img src={this.props.item.imageUrl} alt={"Item"} />
+            <h4>{this.props.item.name}</h4>
+            <img src={this.props.item.imageUrl} alt={this.props.item.name} />
             <div className="description">{this.props.item.description}</div>
             <div>Price: ${Number(this.props.item.price).toFixed(2)}</div>
             <div className="select-quantity">
@@ -94,8 +93,7 @@ class Item extends React.Component {
         <button id="back-to-menu" onClick={this.props.returnToMenu}>
           Back to Menu
         </button>
-      </ModalContainer>,
-      document.getElementById("modal")
+      </ModalContainer>
     );
   }
 }

@@ -39,8 +39,10 @@ var OrderItem = props => {
   return (
     <FlexContainerCentered>
       <Image alt="drink" src={props.drink.imageUrl} />
-      <span> {props.drink.name} </span>
-      <span> Quantity {props.drink.OrderDetails.quantity}</span>
+      <span>
+        {" "}
+        {props.drink.name + " x " + props.drink.OrderDetails.quantity}
+      </span>
     </FlexContainerCentered>
   );
 };
@@ -53,7 +55,7 @@ var Orders = props => {
         <FlexContainerCentered>
           <h4>In Progress</h4>
         </FlexContainerCentered>
-        <OrderList status="in progress" orders={props.currentOrders} />
+        <OrderList status="current" orders={props.currentOrders} />
       </OrdersContainer>
       <OrdersContainer>
         <FlexContainerCentered>
