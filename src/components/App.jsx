@@ -30,8 +30,14 @@ class App extends React.Component {
   componentDidMount() {
     this.getMenu();
     this.getCustomerOrders();
+    this.interval = setInterval(() => {
+      this.getCustomerOrders();
+    }, 2000);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
   // called when adding drink(s) to your order for checkout
   checkOutUpdate(order) {
     let drinks = this.state.checkout.drinkOrder;
