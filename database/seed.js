@@ -75,7 +75,7 @@ let mockMenuItems = [
     name: "HRR33 Oatmeal Stout",
     price: 12.0,
     category: "beer",
-    imageUrl: "/images/beer/hrr33breakfaststout.png",
+    imageUrl: "/images/beer/hrr33oatmealstout.png",
     description:
       "Pours a breathtaking black with a thick, rocky head. Thick lacing. Beautiful spicy nose, punctuated with papaya and bacon. Well-balanced buttery flavor, and I also get some vanilla and citrus. Silky smooth mouthfeel and pleasant finish."
   },

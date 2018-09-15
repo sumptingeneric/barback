@@ -62,34 +62,10 @@ app.get("/api/customers/:customer_id/orders", (req, res) => {
   let custId = req.params.customer_id;
   db.Orders.findAll({
     include: [{ model: db.MenuItems }],
-    // attributes: ["id", "CustomerId"],  <- this is how to filter fields you want;
     where: { CustomerId: custId }
   }).then(data => {
     res.send(data);
   });
-  // let dummyCustomerOrderPayload = [
-  //   {
-  //     order_id: 1,
-  //     items: [
-  //       {
-  //         item: "Hailey's Commit",
-  //         image_url: "/images/cocktails/haileyscommit.png",
-  //         quantity: 2
-  //       },
-  //       {
-  //         item: "Rockin' Robin",
-  //         image_url: "/images/cocktails/rockinrobin.png",
-  //         quantity: 1
-  //       },
-  //       {
-  //         item: "Bluemoon",
-  //         image_url: "/images/beers/bluemoon.png",
-  //         quantity: 2
-  //       }
-  //     ],
-  //     status: "pending"
-  //   }
-  // ];
 });
 
 app.get("/api/orders/:order_status", (req, res) => {
@@ -106,7 +82,6 @@ app.get("/api/orders/:order_status", (req, res) => {
       }
     ]
   }).then(data => {
-    //console.log(data);
     let orderIdObj = {};
 
     data.forEach(item => {
@@ -117,12 +92,6 @@ app.get("/api/orders/:order_status", (req, res) => {
         orderIdObj[orderId].push(item);
       }
     });
-
-    // let array = [];
-    // for (var order in orderIdObj) {
-    //   let obj = { [order]: orderIdObj[order] };
-    //   array.push(obj);
-    // }
     res.send(orderIdObj);
   });
 });
@@ -133,7 +102,7 @@ app.get("/api/orders/:order_status", (req, res) => {
 //     res.send(data);
 //   });
 // });
-//TODO
+
 //Create new order by customer (POST)
 app.post("/api/customers/:customer_id/orders", (req, res) => {
   var ordersBody = {
@@ -160,39 +129,9 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
     .then(function() {
       res.sendStatus(201);
     });
-  // db.Orders.create(ordersBody).complete(function(err, res) {
-  //   res.sendStatus(201);
-  // });
-
-  // let dummyNewOrder = {
-  //   order_id: 2,
-  //   items: [
-  //     {
-  //       item: "Hailey's Commit",
-  //       image_url: "/images/cocktails/haileyscommit.png",
-  //       quantity: 2
-  //     },
-  //     {
-  //       item: "Rockin' Robin",
-  //       image_url: "/images/cocktails/rockinrobin.png",
-  //       quantity: 4
-  //     }
-  //   ],
-  //   status: "pending",
-  //   created_at: "2018-09-06T08:40:51.620Z"
-  // };
-  // res.send(dummyNewOrder);
 });
 
 //ORDERS STATUS COLLECTION
-
-// TEST QUERY
-app.get("/test", (req, res) => {
-  db.Orders.findAll().then(data => {
-    res.send(data);
-  });
-});
-
 //Get order status by order id (GET)
 app.get("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
   let custId = req.params.customer_id;
@@ -204,7 +143,6 @@ app.get("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
   );
 });
 
-//TODO
 //Update order status by order id (PUT)
 app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
   // console.log("customer id " + req.params.customer_id);
@@ -244,10 +182,11 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
           {
             where: { id: newCurrentId }
           }
-        );
+        ).then(() => {
+          res.sendStatus(204);
+        });
       });
     });
-    res.sendStatus(204);
   }
 
   if (status === "current") {
@@ -266,9 +205,10 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
         {
           where: { id: orderId }
         }
-      );
+      ).then(() => {
+        res.sendStatus(204);
+      });
     });
-    res.sendStatus(204);
   }
 });
 

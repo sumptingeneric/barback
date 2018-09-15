@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "./customer/Header.jsx";
 import Checkout from "./checkout.jsx";
 import Search from "./search.jsx";
 import styled from 'styled-components';

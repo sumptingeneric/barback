@@ -17,13 +17,11 @@ class Queue extends React.Component {
 
   getCurrentOrder() {
     axios.get("http://localhost:7337/api/orders/current").then(response => {
+      console.log(response.data);
+      var currentOderArray = Object.values(response.data);
       this.setState({
-        currentOrder: Object.values(response.data)[0]
+        currentOrder: currentOderArray[0]
       });
-      console.log(
-        "This is the current order: ",
-        Object.values(response.data)[0]
-      );
     });
   }
 
@@ -32,7 +30,7 @@ class Queue extends React.Component {
       this.setState({
         pendingOrders: response.data
       });
-      console.log("These are the pending orders: ", this.state.pendingOrders);
+      // console.log("These are the pending orders: ", this.state.pendingOrders);
     });
   }
 

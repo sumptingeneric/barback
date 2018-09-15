@@ -8,7 +8,7 @@ class PendingQueueItem extends React.Component {
 
   updateStatusToCurrent(item) {
     // call to API to update status of order from 'pending' to 'current'
-
+    console.log(item);
     let custId = 2;
     let orderId = item;
     let currentId = this.props.current[0].OrderId;
