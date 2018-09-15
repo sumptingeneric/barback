@@ -41,15 +41,21 @@ class Menu extends React.Component {
       showModal: !this.state.showModal
     });
   };
+
   // render each category
+  // dirty search... show drinks based on search (may change later...)
   renderCategory(category, index) {
     return (
       <div key={index} id={category}>
         <h2>{category}</h2>
         <Container>
-          {this.props.menuItems[category].map(drink => {
-            return this.renderDrink(drink);
-          })}
+          {this.props.menuItems[category]
+            .filter(drink => {
+              return drink.name.toLowerCase().includes(this.props.search);
+            })
+            .map(drink => {
+              return this.renderDrink(drink);
+            })}
         </Container>
       </div>
     );
@@ -60,8 +66,8 @@ class Menu extends React.Component {
     return (
       <div key={drink.id}>
         <ClickableWrapper onClick={() => this.handleItemClick(drink)}>
-          <Image alt={drink.item} src={drink.imageUrl} />
-          <div>{drink.item}</div>
+          <Image alt={drink.name} src={drink.imageUrl} />
+          <div>{drink.name}</div>
           <div>${drink.price}</div>
         </ClickableWrapper>
         {this.state.showModal && this.state.selectDrink === drink ? (

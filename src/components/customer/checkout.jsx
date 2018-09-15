@@ -1,6 +1,14 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import axios from "axios";
+import styled from "styled-components";
+
+const ModalContainer = styled.div`
+  background-color: white;
+  max-width: 500px;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+`;
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -9,7 +17,7 @@ class Checkout extends React.Component {
   }
 
   completeOrder() {
-    console.log("Order SUBMitTED TO DB");
+    //console.log("Order SUBMitTED TO DB");
     let custId = 3;
     let checkoutOrder = this.props.checkout;
     axios
@@ -24,15 +32,15 @@ class Checkout extends React.Component {
   }
 
   render() {
-    return ReactDOM.createPortal(
-      <div>
+    return (
+      <ModalContainer>
         <div>
           <h2>Checkout</h2>
           <div>Your Orders:</div>
           {this.props.checkout.drinkOrder.map(drink => {
             return (
-              <li key={drink.item_id}>
-                <img src={drink.menuItemUrl} />
+              <li key={drink.menuItemId}>
+                <img src={drink.menuItemUrl} alt={drink.menuItemName} />
                 <div>
                   <span>{drink.menuItemName}</span>
                   <span>{drink.quantity}</span>
@@ -46,7 +54,7 @@ class Checkout extends React.Component {
             Total: $
             {this.props.checkout.drinkOrder
               .map(item => item.subtotal)
-              .reduce((accum, value) => accum + value)}
+              .reduce((accum, value) => accum + value, 0)}
           </div>
           <button onClick={this.completeOrder}>Submit Order</button>
         </div>
@@ -56,13 +64,13 @@ class Checkout extends React.Component {
             Return to Menu
           </button>
         </div>
-      </div>,
-      document.getElementById("modal")
+      </ModalContainer>
     );
   }
 }
 
 export default Checkout;
+
 // Checkout Component
 //   - receives state from App / Home page(checkout state; running subtotal, complete order function)
 
