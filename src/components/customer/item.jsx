@@ -17,8 +17,8 @@ class Item extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantity: 0,
-      subtotal: 0,
+      quantity: 1,
+      subtotal: Number(this.props.item.price),
       menuItemId: this.props.item.id,
       menuItemUrl: this.props.item.imageUrl,
       menuItemName: this.props.item.name
@@ -46,7 +46,7 @@ class Item extends React.Component {
     let curSubTot = this.state.subtotal;
     let price = Number(this.props.item.price).toFixed(2);
 
-    if (curQuantity > 0) {
+    if (curQuantity > 1) {
       this.setState({
         quantity: curQuantity - 1,
         subtotal: Number(curSubTot) - Number(price)
