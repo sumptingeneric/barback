@@ -41,20 +41,6 @@ class PendingQueueItem extends React.Component {
               </div>
             );
           })}
-          {/* {this.props.order.map((item, index) => (
-            <div key={index}>
-              <div className="menu-item-image">
-                <img src={item.MenuItem.imageUrl} alt="" />
-              </div>
-              <div className="menu-item-name">{item.MenuItem.name}</div>
-              <div className="menu-item-quantity">
-                Quantity: {item.quantity}
-              </div>
-              <button onClick={() => this.updateStatusToCurrent(item)}>
-                Make Current
-              </button>
-            </div>
-          ))} */}
         </div>
       </div>
     );

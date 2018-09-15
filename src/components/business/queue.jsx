@@ -17,7 +17,6 @@ class Queue extends React.Component {
 
   getCurrentOrder() {
     axios.get("http://localhost:7337/api/orders/current").then(response => {
-      console.log(response.data);
       var currentOderArray = Object.values(response.data);
       this.setState({
         currentOrder: currentOderArray[0]

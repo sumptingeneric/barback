@@ -1,6 +1,6 @@
 import React from "react";
 import Queue from "./queue.jsx";
-import PreviousOrders from "./prevorders.jsx";
+import PreviousOrders from "./prevorder.jsx";
 
 class Business extends React.Component {
   state = {
