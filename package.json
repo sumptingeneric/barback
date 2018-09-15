@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "copy:media": "cp -r src/images dist/images",
+    "copy:media": "yes | cp -R src/images dist/images",
     "dev": "npm run copy:media && parcel src/index.html & npm run server-dev",
     "postinstall": "parcel build src/index.html && npm run copy:media",
     "start": "node server/server.js",
