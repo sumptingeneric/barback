@@ -5,8 +5,7 @@ import { Router, Link } from "@reach/router";
 import Search from "./customer/search.jsx";
 import Orders from "./customer/orders.jsx";
 import Menu from "./customer/menu.jsx";
-import Orders from "./customer/orders.jsx";
-
+import Checkout from "./customer/checkout.jsx";
 class App extends React.Component {
   state = {
     menu: {},

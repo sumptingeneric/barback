@@ -18,24 +18,6 @@ const FlexContainerCentered = styled.div`
   justify-content: start;
 `;
 
-//Styled Components
-const OrdersContainer = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  margin-top: 20px;
-`;
-
-const Image = styled.img`
-  height: 50px;
-`;
-
-const FlexContainerCentered = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: start;
-`;
-
 // list of orders component
 // NOTE: we'll have to pass down the list of orders from the order component
 var OrderList = props => {
