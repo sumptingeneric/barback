@@ -44,9 +44,9 @@ class Menu extends React.Component {
 
   // render each category
   // dirty search... show drinks based on search (may change later...)
-  renderCategory(category, index) {
+  renderCategory(category) {
     return (
-      <div key={index} id={category}>
+      <div key={category}>
         <h2>{category}</h2>
         <Container>
           {this.props.menuItems[category]
@@ -87,8 +87,8 @@ class Menu extends React.Component {
     return (
       <div>
         <h1>Menu</h1>
-        {Object.keys(this.props.menuItems).map((category, index) => {
-          return this.renderCategory(category, index);
+        {Object.keys(this.props.menuItems).map(category => {
+          return this.renderCategory(category);
         })}
       </div>
     );

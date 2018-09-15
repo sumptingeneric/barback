@@ -10,6 +10,10 @@ const ModalContainer = styled.div`
   text-align: center;
 `;
 
+const Image = styled.img`
+  height: 50px;
+`;
+
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
@@ -36,11 +40,11 @@ class Checkout extends React.Component {
       <ModalContainer>
         <div>
           <h2>Checkout</h2>
-          <div>Your Orders:</div>
+          <div>Your Order:</div>
           {this.props.checkout.drinkOrder.map(drink => {
             return (
               <li key={drink.menuItemId}>
-                <img src={drink.menuItemUrl} alt={drink.menuItemName} />
+                <Image src={drink.menuItemUrl} alt={drink.menuItemName} />
                 <div>
                   <span>{drink.menuItemName}</span>
                   <span>{drink.quantity}</span>

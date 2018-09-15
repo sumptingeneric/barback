@@ -75,8 +75,8 @@ class Item extends React.Component {
       <ModalContainer>
         <div className="item-details">
           <form onSubmit={this.handleSubmit}>
-            <h4>{this.props.item.item}</h4>
-            <img src={this.props.item.imageUrl} alt={"Item"} />
+            <h4>{this.props.item.name}</h4>
+            <img src={this.props.item.imageUrl} alt={this.props.item.name} />
             <div className="description">{this.props.item.description}</div>
             <div>Price: ${Number(this.props.item.price).toFixed(2)}</div>
             <div className="select-quantity">
