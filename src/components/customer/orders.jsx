@@ -53,7 +53,7 @@ var Orders = props => {
         <FlexContainerCentered>
           <h4>In Progress</h4>
         </FlexContainerCentered>
-        <OrderList status="in progress" orders={props.currentOrders} />
+        <OrderList status="current" orders={props.currentOrders} />
       </OrdersContainer>
       <OrdersContainer>
         <FlexContainerCentered>

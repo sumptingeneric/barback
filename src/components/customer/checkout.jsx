@@ -17,7 +17,10 @@ class Checkout extends React.Component {
         `http://localhost:7337/api/customers/${custId}/orders`,
         checkoutOrder
       )
-      .then(() => this.props.changeModal(""));
+      .then(() => {
+        this.props.getOrders();
+        this.props.changeModal("");
+      });
   }
 
   render() {
@@ -54,7 +57,7 @@ class Checkout extends React.Component {
           </button>
         </div>
       </div>,
-      document.getElementById("test")
+      document.getElementById("modal")
     );
   }
 }

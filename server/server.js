@@ -106,7 +106,7 @@ app.get("/api/orders/:order_status", (req, res) => {
       }
     ]
   }).then(data => {
-    console.log(data);
+    //console.log(data);
     let orderIdObj = {};
 
     data.forEach(item => {
@@ -153,7 +153,7 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
           OrderId: id,
           MenuItemId: order.menuItemId
         };
-        console.log(orderDetailsBody);
+        //console.log(orderDetailsBody);
         db.OrderDetails.create(orderDetailsBody);
       });
     })
