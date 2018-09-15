@@ -5,10 +5,25 @@ class CurrentQueueItem extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
   updateStatusToComplete(order) {
     // call to API to update status of order from 'current' to 'complete'
-    console.log('The status of ', order[0].OrderId, ' has been updated to "complete."');
+    let custId = 2;
+    let orderId = this.props.order[0].OrderId;
+    axios
+      .put(
+        `http://localhost:7337/api/customers/${custId}/orders/${orderId}/complete`
+      )
+      .then(() => {
+        //TODO Reload not working
+        this.props.reload();
+      });
+
+    console.log(
+      "The status of ",
+      order[0].OrderId,
+      ' has been updated to "complete."'
+    );
   }
 
   render() {
@@ -16,15 +31,21 @@ class CurrentQueueItem extends React.Component {
       <div className="current-order">
         <h5>Current Queue Item</h5>
         <div className="order-item">
-          {this.props.order.map(item =>
+          {this.props.order.map(item => (
             <div key={item.MenuItemId}>
-              <div className="menu-item-image">Image</div>
-              <div className="menu-item-name">Menu Item Name</div>
-              <div className="menu-item-quantity">Quantity: {item.quantity}</div>
+              <div className="menu-item-image">
+                <img src={item.MenuItem.imageUrl} alt="" />
+              </div>
+              <div className="menu-item-name">{item.MenuItem.name}</div>
+              <div className="menu-item-quantity">
+                Quantity: {item.quantity}
+              </div>
             </div>
-          )}
+          ))}
         </div>
-        <button onClick={() => this.updateStatusToComplete(this.props.order)}>Done</button>      
+        <button onClick={() => this.updateStatusToComplete(this.props.order)}>
+          Done
+        </button>
       </div>
     );
   }

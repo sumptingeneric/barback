@@ -18,9 +18,12 @@ class Queue extends React.Component {
   getCurrentOrder() {
     axios.get("http://localhost:7337/api/orders/current").then(response => {
       this.setState({
-        currentOrder: response.data
+        currentOrder: Object.values(response.data)[0]
       });
-      console.log('This is the current order: ', this.state.currentOrder);
+      console.log(
+        "This is the current order: ",
+        Object.values(response.data)[0]
+      );
     });
   }
 
@@ -29,14 +32,19 @@ class Queue extends React.Component {
       this.setState({
         pendingOrders: response.data
       });
-      console.log('These are the pending orders: ', this.state.pendingOrders);
+      console.log("These are the pending orders: ", this.state.pendingOrders);
     });
   }
 
   renderCurrentOrder() {
     const { currentOrder } = this.state;
     if (currentOrder.length) {
-      return <CurrentQueueItem order={this.state.currentOrder} />;
+      return (
+        <CurrentQueueItem
+          reload={this.componentDidMount.bind(this)}
+          order={this.state.currentOrder}
+        />
+      );
     } else {
       return <span>No order has been selected.</span>;
     }
@@ -44,8 +52,14 @@ class Queue extends React.Component {
 
   renderPendingOrders() {
     const { pendingOrders } = this.state;
-    if (pendingOrders.length) {
-      return <PendingQueueItem order={this.state.pendingOrders} />;
+    if (pendingOrders) {
+      return (
+        <PendingQueueItem
+          current={this.state.currentOrder}
+          reload={this.componentDidMount.bind(this)}
+          order={this.state.pendingOrders}
+        />
+      );
     } else {
       return <span>There are no currently no orders pending.</span>;
     }
