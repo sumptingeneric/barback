@@ -13,28 +13,38 @@ class PreviousOrders extends React.Component {
 
   getPreviousOrders() {
     axios.get("http://localhost:7337/api/orders/complete").then(response => {
+      var currentOderArray = Object.values(response.data);
       this.setState({
-        previousOrders: response.data
+        previousOrders: currentOderArray
       });
-      console.log('These are the previous orders: ', this.state.previousOrders);
+      console.log("These are the previous orders: ", this.state.previousOrders);
     });
   }
-  
+
   render() {
     return (
       <div className="previous-orders">
         <h2>Previous Orders</h2>
-        {this.state.previousOrders.map((order, index) => {
+        <ul>
+          {Object.keys(this.state.previousOrders).map(orders => {
             return (
-              <div className="previous-order-item" key={index}>
-                <PrevOrderItem order={order}/>
+              <div>
+                {this.state.previousOrders[orders].map(orderDetails => {
+                  return <div>{"Order # " + orderDetails.OrderId}</div>;
+                })}
               </div>
             );
-          }          
-        )}
+          })}
+        </ul>
+        {/* {this.state.previousOrders.map((order, index) => {
+          return (
+            <div className="previous-order-item" key={index}>
+              <PrevOrderItem order={order} />
+            </div>
+          );
+        })} */}
       </div>
     );
-
   }
 }
 
