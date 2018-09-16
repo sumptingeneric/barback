@@ -174,6 +174,9 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
         where: { status: "pending" },
         order: [["createdAt", "ASC"]]
       }).then(entries => {
+        if (entries.length === 0) {
+          res.sendStatus(204);
+        }
         let newCurrentId = entries[0].id;
         db.Orders.update(
           {
