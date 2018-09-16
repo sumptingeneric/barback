@@ -35,7 +35,7 @@ class Queue extends React.Component {
 
   renderCurrentOrder() {
     const { currentOrder } = this.state;
-    if (currentOrder.length) {
+    if (currentOrder) {
       return (
         <CurrentQueueItem
           reload={this.componentDidMount.bind(this)}
