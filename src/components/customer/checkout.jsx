@@ -22,7 +22,7 @@ class Checkout extends React.Component {
 
   completeOrder() {
     //console.log("Order SUBMitTED TO DB");
-    let custId = 3;
+    let custId = 1;
     let checkoutOrder = this.props.checkout;
     axios
       .post(
@@ -32,6 +32,7 @@ class Checkout extends React.Component {
       .then(() => {
         this.props.getOrders();
         this.props.changeModal("");
+        this.props.emptyCart();
       });
   }
 
@@ -48,7 +49,7 @@ class Checkout extends React.Component {
                 <div>
                   <span>{drink.menuItemName}</span>
                   <span>{drink.quantity}</span>
-                  <span>${drink.subtotal}</span>
+                  <span>${drink.subtotal.toFixed(2)}</span>
                 </div>
               </li>
             );
@@ -57,13 +58,17 @@ class Checkout extends React.Component {
             {" "}
             Total: $
             {this.props.checkout.drinkOrder
-              .map(item => item.subtotal)
-              .reduce((accum, value) => accum + value, 0)}
+              .map(item => Number(item.subtotal))
+              .reduce((accum, value) => accum + value, Number(0))
+              .toFixed(2)}
           </div>
           <button onClick={this.completeOrder}>Submit Order</button>
         </div>
 
         <div>
+          <div>
+            <button onClick={() => this.props.emptyCart()}>Empty Cart</button>
+          </div>
           <button onClick={() => this.props.changeModal("")}>
             Return to Menu
           </button>

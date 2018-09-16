@@ -29,8 +29,9 @@ class PreviousOrders extends React.Component {
           {Object.keys(this.state.previousOrders).map(orders => {
             return (
               <div>
+                <div>{this.state.previousOrders[orders][0].OrderId}</div>
                 {this.state.previousOrders[orders].map(orderDetails => {
-                  return <div>{"Order # " + orderDetails.OrderId}</div>;
+                  return <div>{"Order # " + orderDetails.MenuItem.name}</div>;
                 })}
               </div>
             );

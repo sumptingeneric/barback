@@ -1,6 +1,6 @@
 import React from "react";
 import Item from "./item.jsx";
-import Modal from "./Modal.jsx";
+import Modal from "./modal.jsx";
 import styled from "styled-components";
 
 // styled components for css styling
@@ -68,7 +68,7 @@ class Menu extends React.Component {
         <ClickableWrapper onClick={() => this.handleItemClick(drink)}>
           <Image alt={drink.name} src={drink.imageUrl} />
           <div>{drink.name}</div>
-          <div>${drink.price}</div>
+          <div>${drink.price.toFixed(2)}</div>
         </ClickableWrapper>
         {this.state.showModal && this.state.selectDrink === drink ? (
           <Modal>

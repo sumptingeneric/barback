@@ -8,7 +8,7 @@ class CurrentQueueItem extends React.Component {
 
   updateStatusToComplete(order) {
     // call to API to update status of order from 'current' to 'complete'
-    let custId = 2;
+    let custId = 1;
     let orderId = this.props.order[0].OrderId;
     axios
       .put(
