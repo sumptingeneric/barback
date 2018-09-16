@@ -1,6 +1,3 @@
-//maybe switch <h4>props.name to <label>props.name?
-//     <add to cart option onClick= add item to cart (item, quantity, subtotal)>
-//back to menu button needs to send back to menu
 import React from "react";
 import styled from "styled-components";
 
