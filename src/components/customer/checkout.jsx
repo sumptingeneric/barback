@@ -32,6 +32,7 @@ class Checkout extends React.Component {
       .then(() => {
         this.props.getOrders();
         this.props.changeModal("");
+        this.props.emptyCart();
       });
   }
 

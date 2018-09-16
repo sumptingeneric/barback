@@ -4,7 +4,7 @@ import Search from "./customer/search.jsx";
 import Orders from "./customer/orders.jsx";
 import Menu from "./customer/menu.jsx";
 import Checkout from "./customer/checkout.jsx";
-import Modal from "./customer/Modal.jsx";
+import Modal from "./customer/modal.jsx";
 
 class App extends React.Component {
   state = {
@@ -13,15 +13,7 @@ class App extends React.Component {
     checkout: {
       CustomerId: "",
       status: "pending",
-      drinkOrder: [
-        // {
-        //   quantity: "",
-        //   subtotal: "",
-        //   menuItemId: "",
-        //   menuItemUrl: "",
-        //   menuItemName: ""
-        // }
-      ]
+      drinkOrder: []
     },
     search: "",
     modal: ""
@@ -32,7 +24,7 @@ class App extends React.Component {
     this.getCustomerOrders();
     this.interval = setInterval(() => {
       this.getCustomerOrders();
-    }, 2000);
+    }, 5000);
   }
 
   componentWillUnmount() {
@@ -86,11 +78,22 @@ class App extends React.Component {
     });
   }
 
+  emptyCart() {
+    this.setState({
+      checkout: {
+        CustomerId: "",
+        status: "pending",
+        drinkOrder: []
+      }
+    });
+  }
+
   renderModal() {
     if (this.state.modal === "checkout") {
       return (
         <Modal>
           <Checkout
+            emptyCart={this.emptyCart.bind(this)}
             checkout={this.state.checkout}
             changeModal={this.changeModal.bind(this)}
             getOrders={this.getCustomerOrders.bind(this)}
