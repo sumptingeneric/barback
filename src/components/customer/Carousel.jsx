@@ -22,6 +22,14 @@ class Carousel extends React.Component {
     return itemIndex - this.state.position;
   }
 
+  nextSlide = () => {
+    const numItems = this.props.children.length || 1;
+
+    this.setState({
+      position: this.state.position === numItems - 1 ? 0 : this.state.position + 1
+    })
+  }
+
   render() {
     const { title, children } = this.props
     return (
@@ -37,6 +45,7 @@ class Carousel extends React.Component {
               </CarouselSlot>
             ))}
           </CarouselContainer>
+          <button onClick={() => this.nextSlide()}>Next</button>
         </Wrapper>
       </div>
     )
