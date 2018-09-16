@@ -37,7 +37,7 @@ class PendingQueueItem extends React.Component {
                   return <div>{orderDetails.MenuItem.name}</div>;
                 })}
                 <button onClick={() => this.updateStatusToCurrent(orders)}>
-                  Test
+                  Make Current Order
                 </button>
               </div>
             );

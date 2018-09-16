@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 //Styled Components
 const Wrapper = styled.div`
-  max-width: 480px; 
+  max-width: 480px;
 `;
 
 class App extends React.Component {
@@ -132,8 +132,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <Wrapper>
-        <h1>Title</h1>
+      <div>
+        {/* <h1>Title</h1> */}
         <div id="test" />
         <nav>
           <Search handleSearch={this.handleSearchOnKeyUp} />{" "}

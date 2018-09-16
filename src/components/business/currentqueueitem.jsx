@@ -44,7 +44,7 @@ class CurrentQueueItem extends React.Component {
           ))}
         </div>
         <button onClick={() => this.updateStatusToComplete(this.props.order)}>
-          Done
+          Mark as Complete
         </button>
       </div>
     );
