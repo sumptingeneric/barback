@@ -18,23 +18,33 @@ const FlexContainerCentered = styled.div`
   justify-content: start;
 `;
 
-// list of orders component
-// NOTE: we'll have to pass down the list of orders from the order component
+// Order section component (render orders by status.. see order component)
+// if no orders with the status in question return null
+var OrderSection = props => {
+  return props.orders.length !== 0 ? (
+    <OrdersContainer>
+      <FlexContainerCentered>
+        <h4>{props.header}</h4>
+      </FlexContainerCentered>
+      <OrderList orders={props.orders} />
+    </OrdersContainer>
+  ) : null;
+};
+
+// list of orders component (render the list of orders for each section)
 var OrderList = props => {
   return (
     <div className="order-list">
       {props.orders.map(order => {
-        if (order.status === props.status) {
-          return order.MenuItems.map((drink, index) => {
-            return <OrderItem drink={drink} key={index} />;
-          });
-        }
+        return order.MenuItems.map(drink => {
+          return <OrderItem drink={drink} key={order.id + "_" + drink.id} />;
+        });
       })}
     </div>
   );
 };
 
-// order item component
+// order item component (render each item)
 var OrderItem = props => {
   return (
     <FlexContainerCentered>
@@ -47,22 +57,19 @@ var OrderItem = props => {
   );
 };
 
+// Orders Component
 var Orders = props => {
   return (
     <section>
       <h1>Orders</h1>
-      <OrdersContainer>
-        <FlexContainerCentered>
-          <h4>In Progress</h4>
-        </FlexContainerCentered>
-        <OrderList status="current" orders={props.currentOrders} />
-      </OrdersContainer>
-      <OrdersContainer>
-        <FlexContainerCentered>
-          <h4>Pending</h4>
-        </FlexContainerCentered>
-        <OrderList status="pending" orders={props.currentOrders} />
-      </OrdersContainer>
+      <OrderSection
+        header={"In Progress"}
+        orders={props.currentOrders.filter(drink => drink.status === "current")}
+      />
+      <OrderSection
+        header={"Pending"}
+        orders={props.currentOrders.filter(drink => drink.status === "pending")}
+      />
     </section>
   );
 };
