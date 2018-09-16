@@ -34,7 +34,7 @@ class Item extends React.Component {
     let price = Number(this.props.item.price).toFixed(2);
     this.setState({
       quantity: curQuantity + 1,
-      subtotal: Number(curSubTot) + Number(price)
+      subtotal: (Number(curSubTot) + Number(price)).toFixed(2)
     });
     //console.log(this.state);
   }

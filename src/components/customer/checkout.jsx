@@ -58,13 +58,17 @@ class Checkout extends React.Component {
             {" "}
             Total: $
             {this.props.checkout.drinkOrder
-              .map(item => item.subtotal)
-              .reduce((accum, value) => accum + value, 0)}
+              .map(item => Number(item.subtotal))
+              .reduce((accum, value) => accum + value, Number(0))
+              .toFixed(2)}
           </div>
           <button onClick={this.completeOrder}>Submit Order</button>
         </div>
 
         <div>
+          <div>
+            <button onClick={() => this.props.emptyCart()}>Empty Cart</button>
+          </div>
           <button onClick={() => this.props.changeModal("")}>
             Return to Menu
           </button>
