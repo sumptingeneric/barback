@@ -86,7 +86,7 @@ class Item extends React.Component {
             </div>
 
             <button type="submit" value="Submit" className="button is-primary">
-              Submit
+              Add to Order
             </button>
           </form>
         </div>
