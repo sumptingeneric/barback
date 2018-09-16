@@ -16,7 +16,8 @@ class App extends React.Component {
       drinkOrder: []
     },
     search: "",
-    modal: ""
+    modal: "",
+    showOrders: false
   };
 
   componentDidMount() {
@@ -31,7 +32,7 @@ class App extends React.Component {
     clearInterval(this.interval);
   }
   // called when adding drink(s) to your order for checkout
-  checkOutUpdate(order) {
+  checkOutUpdate = order => {
     let drinks = this.state.checkout.drinkOrder;
     // console.log(drinks);
     // console.log(order);
@@ -49,16 +50,16 @@ class App extends React.Component {
         checkout: Object.assign({}, this.state.checkout, { drinkOrder: drinks })
       });
     }
-  }
+  };
 
   // handle live search
-  handleSearchOnKeyUp(e) {
+  handleSearchOnKeyUp = e => {
     if (e.key !== "Enter") {
       this.setState({
         search: e.target.value
       });
     }
-  }
+  };
 
   // retreive business menu from db
   getMenu() {
@@ -88,6 +89,13 @@ class App extends React.Component {
     this.setState({
       modal: view
     });
+  }
+
+  // show the status of the customer orders
+  toggleOrderView() {
+    this.setState(prevState => ({
+      showOrders: !prevState.showOrders
+    }));
   }
 
   emptyCart() {
@@ -121,13 +129,16 @@ class App extends React.Component {
         <h1>Title</h1>
         <div id="test" />
         <nav>
-          <Search handleSearch={this.handleSearchOnKeyUp.bind(this)} />{" "}
-          <button onClick={() => this.changeModal("checkout")}>Checkout</button>
+          <Search handleSearch={this.handleSearchOnKeyUp} />{" "}
+          <button onClick={() => this.changeModal("checkout")}>Checkout</button>{" "}
+          <button onClick={() => this.toggleOrderView()}>My Orders</button>
         </nav>
-        <Orders currentOrders={this.state.orders} />
+        {this.state.showOrders === true ? (
+          <Orders currentOrders={this.state.orders} />
+        ) : null}
         <Menu
           menuItems={this.state.menu}
-          checkOutUpdate={this.checkOutUpdate.bind(this)}
+          checkOutUpdate={this.checkOutUpdate}
           search={this.state.search.toLowerCase()}
         />
         <div>{this.renderModal()}</div>
