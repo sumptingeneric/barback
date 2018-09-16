@@ -16,7 +16,8 @@ class App extends React.Component {
       drinkOrder: []
     },
     search: "",
-    modal: ""
+    modal: "",
+    showOrders: false
   };
 
   componentDidMount() {
@@ -90,6 +91,13 @@ class App extends React.Component {
     });
   }
 
+  // show the status of the customer orders
+  toggleOrderView() {
+    this.setState(prevState => ({
+      showOrders: !prevState.showOrders
+    }));
+  }
+
   emptyCart() {
     this.setState({
       checkout: {
@@ -122,9 +130,12 @@ class App extends React.Component {
         <div id="test" />
         <nav>
           <Search handleSearch={this.handleSearchOnKeyUp.bind(this)} />{" "}
-          <button onClick={() => this.changeModal("checkout")}>Checkout</button>
+          <button onClick={() => this.changeModal("checkout")}>Checkout</button>{" "}
+          <button onClick={() => this.toggleOrderView()}>My Orders</button>
         </nav>
-        <Orders currentOrders={this.state.orders} />
+        {this.state.showOrders === true ? (
+          <Orders currentOrders={this.state.orders} />
+        ) : null}
         <Menu
           menuItems={this.state.menu}
           checkOutUpdate={this.checkOutUpdate.bind(this)}
