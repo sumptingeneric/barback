@@ -11,13 +11,14 @@ class PendingQueueItem extends React.Component {
     console.log(item);
     let custId = 1;
     let orderId = item;
-    let currentId = this.props.current[0].OrderId;
-
+    if (this.props.current) {
+      var currentId = this.props.current[0].OrderId;
+    }
     // console.log("current ID status " + currentId);
     axios
       .put(
         `http://localhost:7337/api/customers/${custId}/orders/${orderId}/current`,
-        { current: currentId }
+        { current: currentId || null }
       )
       .then(() => {
         this.props.reload();
