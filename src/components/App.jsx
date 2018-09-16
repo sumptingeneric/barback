@@ -118,7 +118,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Title</h1>
+        {/* <h1>Title</h1> */}
         <div id="test" />
         <nav>
           <Search handleSearch={this.handleSearchOnKeyUp.bind(this)} />{" "}
