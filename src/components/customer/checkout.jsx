@@ -47,8 +47,8 @@ class Checkout extends React.Component {
               <li key={drink.menuItemId}>
                 <Image src={drink.menuItemUrl} alt={drink.menuItemName} />
                 <div>
-                  <span>{drink.menuItemName}</span>
-                  <span>{drink.quantity}</span>
+                  <span>{drink.menuItemName} - </span>
+                  <span>QTY: {drink.quantity} - </span>
                   <span>${drink.subtotal.toFixed(2)}</span>
                 </div>
               </li>
@@ -56,11 +56,13 @@ class Checkout extends React.Component {
           })}
           <div>
             {" "}
-            Total: $
-            {this.props.checkout.drinkOrder
-              .map(item => Number(item.subtotal))
-              .reduce((accum, value) => accum + value, Number(0))
-              .toFixed(2)}
+            <h1>
+              Total: $
+              {this.props.checkout.drinkOrder
+                .map(item => Number(item.subtotal))
+                .reduce((accum, value) => accum + value, Number(0))
+                .toFixed(2)}
+            </h1>
           </div>
           <button onClick={this.completeOrder}>Submit Order</button>
         </div>
