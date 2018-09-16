@@ -22,7 +22,7 @@ class Checkout extends React.Component {
 
   completeOrder() {
     //console.log("Order SUBMitTED TO DB");
-    let custId = 3;
+    let custId = 1;
     let checkoutOrder = this.props.checkout;
     axios
       .post(
@@ -49,7 +49,7 @@ class Checkout extends React.Component {
                 <div>
                   <span>{drink.menuItemName}</span>
                   <span>{drink.quantity}</span>
-                  <span>${drink.subtotal}</span>
+                  <span>${drink.subtotal.toFixed(2)}</span>
                 </div>
               </li>
             );

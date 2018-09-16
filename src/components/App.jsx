@@ -33,10 +33,22 @@ class App extends React.Component {
   // called when adding drink(s) to your order for checkout
   checkOutUpdate(order) {
     let drinks = this.state.checkout.drinkOrder;
-    drinks.push(order);
-    this.setState({
-      checkout: Object.assign({}, this.state.checkout, { drinkOrder: drinks })
-    });
+    // console.log(drinks);
+    // console.log(order);
+    let drinksExistsinCheckOut = false;
+    for (var i = 0; i < drinks.length; i++) {
+      if (drinks[i].menuItemId === order.menuItemId) {
+        drinksExistsinCheckOut = true;
+        drinks[i].quantity += order.quantity;
+        drinks[i].subtotal += order.subtotal;
+      }
+    }
+    if (!drinksExistsinCheckOut) {
+      drinks.push(order);
+      this.setState({
+        checkout: Object.assign({}, this.state.checkout, { drinkOrder: drinks })
+      });
+    }
   }
 
   // handle live search
@@ -59,7 +71,7 @@ class App extends React.Component {
 
   // retrieve customer orders from db
   getCustomerOrders() {
-    let customerID = 3;
+    let customerID = 1;
     axios
       .get(`http://localhost:7337/api/customers/${customerID}/orders`)
       .then(response => {

@@ -110,27 +110,27 @@ const mockCustomers = [
 const mockOrders = [
   {
     status: "current",
-    CustomerId: 3
+    CustomerId: 1
   },
   {
     status: "pending",
-    CustomerId: 3
+    CustomerId: 1
   },
   {
     status: "pending",
-    CustomerId: 2
+    CustomerId: 1
   },
   {
     status: "pending",
-    CustomerId: 4
+    CustomerId: 1
   },
   {
     status: "complete",
-    CustomerId: 5
+    CustomerId: 1
   },
   {
     status: "complete",
-    CustomerId: 2
+    CustomerId: 1
   },
   {
     status: "complete",
