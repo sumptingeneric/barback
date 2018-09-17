@@ -1,5 +1,4 @@
 import React from "react";
-import PrevOrderItem from "./prevorderitem.jsx";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -31,7 +30,7 @@ class PreviousOrders extends React.Component {
   }
 
   getPreviousOrders() {
-    axios.get("http://localhost:7337/api/orders/complete").then(response => {
+    axios.get(`http://${process.env.HOST}:${process.env.PORT}/api/orders/complete`).then(response => {
       var currentOrders = Object.values(response.data);
       this.setState({
         previousOrders: currentOrders
@@ -68,13 +67,6 @@ class PreviousOrders extends React.Component {
             })}
           </ul>
         </Container>
-        {/* {this.state.previousOrders.map((order, index) => {
-          return (
-            <div className="previous-order-item" key={index}>
-              <PrevOrderItem order={order} />
-            </div>
-          );
-        })} */}
       </div>
     );
   }

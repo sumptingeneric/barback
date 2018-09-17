@@ -45,7 +45,7 @@ class PendingQueueItem extends React.Component {
     // console.log("current ID status " + currentId);
     axios
       .put(
-        `http://localhost:7337/api/customers/${custId}/orders/${orderId}/current`,
+        `http://${process.env.HOST}:${process.env.PORT}/api/customers/${custId}/orders/${orderId}/current`,
         { current: currentId || null }
       )
       .then(() => {
