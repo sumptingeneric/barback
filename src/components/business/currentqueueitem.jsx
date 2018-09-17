@@ -14,7 +14,9 @@ const OrdersContainer = styled.div`
 `;
 const Clickable = styled.button`
   margin-top: 20px;
-  width: 50%;
+  width: 80%;
+  padding: 1rem; 
+  border-radius: 10px; 
 `;
 
 const Image = styled.img`
@@ -50,19 +52,23 @@ class CurrentQueueItem extends React.Component {
   render() {
     return (
       <OrdersContainer>
-        <h4>Current Order:</h4>
+        <h4>Current Order</h4>
         <div className="order-item">
-          {this.props.order.map(item => (
-            <div key={item.MenuItemId}>
-              <div className="menu-item-image">
-                <Image src={item.MenuItem.imageUrl} alt="" />
+          {this.props.order.map((item, index) => {
+            return (
+              <div key={item.MenuItemId}>
+                <div className="menu-item-image">
+                  <Image src={item.MenuItem.imageUrl} alt="" />
+                </div>
+                <div className="menu-item-name">{item.MenuItem.name}</div>
+                <div className="menu-item-quantity">
+                  Quantity: {item.quantity}
+                </div>
+                {(this.props.order.length - 1 !== index) ? <hr /> : null}
               </div>
-              <div className="menu-item-name">{item.MenuItem.name}</div>
-              <div className="menu-item-quantity">
-                Quantity: {item.quantity}
-              </div>
-            </div>
-          ))}
+            )
+
+          })}
         </div>
         <Clickable
           onClick={() => this.updateStatusToComplete(this.props.order)}

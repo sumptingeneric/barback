@@ -10,8 +10,11 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-const ClickableWrapper = styled.button`
-  border: none;
+const Div = styled.div`
+  margin: 20px 0; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
 `;
 
 const Image = styled.img`
@@ -49,17 +52,16 @@ class PreviousOrders extends React.Component {
                   <h4>Order #{this.state.previousOrders[orders][0].OrderId}</h4>
                   {this.state.previousOrders[orders].map(orderDetails => {
                     return (
-                      <div>
+                      <Div>
                         <div className="menu-item-image">
                           <Image src={orderDetails.MenuItem.imageUrl} />
                         </div>{" "}
-                        <br />
                         <div className="menu-item-name">
                           {orderDetails.MenuItem.name}
                           <br />
                           Quantity: {orderDetails.quantity}
                         </div>
-                      </div>
+                      </Div>
                     );
                   })}
                 </div>

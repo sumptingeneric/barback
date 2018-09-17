@@ -2,6 +2,14 @@ import React from "react";
 import axios from "axios";
 import styled from "styled-components";
 
+const Div = styled.div`
+  margin: 20px;   
+`;
+
+const Hr = styled.hr`
+  width: 50%; 
+`;
+
 const ModalContainer = styled.div`
   background-color: white;
   min-width: 350px;
@@ -50,13 +58,15 @@ class Checkout extends React.Component {
           {this.props.checkout.drinkOrder.map(drink => {
             return (
               <div key={drink.menuItemId}>
-                <Image src={drink.menuItemUrl} alt={drink.menuItemName} />
-                <div>
-                  <span>{drink.menuItemName} - </span>
-                  <span>QTY: {drink.quantity} - </span>
-                  <span>${drink.subtotal.toFixed(2)}</span>
-                </div>
-                <hr />
+                <Div>
+                  <Image src={drink.menuItemUrl} alt={drink.menuItemName} />
+                  <div>
+                    <span>{drink.menuItemName} - </span>
+                    <span>QTY: {drink.quantity} - </span>
+                    <span>${drink.subtotal.toFixed(2)}</span>
+                  </div>
+                </Div>
+                <Hr />
               </div>
             );
           })}
