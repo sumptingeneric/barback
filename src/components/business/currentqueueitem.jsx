@@ -35,7 +35,7 @@ class CurrentQueueItem extends React.Component {
     let orderId = this.props.order[0].OrderId;
     axios
       .put(
-        `http://${process.env.HOST}:${process.env}/api/customers/${custId}/orders/${orderId}/complete`
+        `http://${process.env.HOST}:${process.env.PORT}/api/customers/${custId}/orders/${orderId}/complete`
       )
       .then(() => {
         //TODO Reload not working
