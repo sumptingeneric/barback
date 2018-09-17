@@ -1,8 +1,13 @@
 import React from "react";
 import axios from "axios";
-
 import CurrentQueueItem from "./currentqueueitem.jsx";
 import PendingQueueItem from "./pendingqueueitem.jsx";
+import styled from 'styled-components';
+
+//Styled Components
+const DivMargin50 = styled.div`
+  margin-top: 50px; 
+`;
 
 class Queue extends React.Component {
   state = {
@@ -78,10 +83,10 @@ class Queue extends React.Component {
           {/* <h3>This is the Current Order</h3> */}
           {this.renderCurrentOrder()}
         </div>
-        <div className="pending-orders">
-          <h3>These are the Pending Orders</h3>
+        <DivMargin50 className="pending-orders">
+          <h3>Pending Orders</h3>
           {this.renderPendingOrders()}
-        </div>
+        </DivMargin50>
       </div>
     );
   }

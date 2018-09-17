@@ -1,14 +1,29 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { timingSafeEqual } from "crypto";
 
 // styled components for css styling
+
+const Button = styled.button`
+  width: 80%;
+  padding: 1rem; 
+  border-radius: 10px; 
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   padding: 20px;
   border: 1px solid;
+  margin: 30px 30px; 
+  align-items: center; 
+  text-align: center; 
+`;
+
+const DivMargin20 = styled.div`
+  margin: 20px; 
 `;
 
 const Image = styled.img`
@@ -46,23 +61,21 @@ class PendingQueueItem extends React.Component {
         <div className="order-item">
           {Object.keys(this.props.order).map(orders => {
             return (
-              <div>
+              <div key={this.props.orderId} >
                 <Container>
                   {this.props.order[orders].map(orderDetails => {
                     return (
-                      <div>
-                        {" "}
-                        <br />
+                      <DivMargin20>
                         <div>
                           <Image src={orderDetails.MenuItem.imageUrl} />
                         </div>
                         {orderDetails.MenuItem.name} <br />
-                      </div>
+                      </DivMargin20>
                     );
                   })}
-                  <button onClick={() => this.updateStatusToCurrent(orders)}>
+                  <Button onClick={() => this.updateStatusToCurrent(orders)}>
                     Make Current Order
-                  </button>
+                  </Button>
                 </Container>
               </div>
             );
