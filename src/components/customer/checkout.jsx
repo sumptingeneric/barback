@@ -12,7 +12,7 @@ const Hr = styled.hr`
 
 const ModalContainer = styled.div`
   background-color: white;
-  width: 500px;
+  min-width: 350px;
   padding: 15px;
   border-radius: 5px;
   text-align: center;
