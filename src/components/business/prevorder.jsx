@@ -46,13 +46,13 @@ class PreviousOrders extends React.Component {
         <h2>Previous Orders</h2>
         <Container>
           <ul>
-            {Object.keys(this.state.previousOrders).map(orders => {
+            {Object.keys(this.state.previousOrders).map((orders, index) => {
               return (
-                <div>
+                <div key={index}>
                   <h4>Order #{this.state.previousOrders[orders][0].OrderId}</h4>
-                  {this.state.previousOrders[orders].map(orderDetails => {
+                  {this.state.previousOrders[orders].map((orderDetails, index) => {
                     return (
-                      <Div>
+                      <Div key={index}>
                         <div className="menu-item-image">
                           <Image src={orderDetails.MenuItem.imageUrl} />
                         </div>{" "}
