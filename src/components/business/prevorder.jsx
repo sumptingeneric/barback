@@ -32,9 +32,9 @@ class PreviousOrders extends React.Component {
 
   getPreviousOrders() {
     axios.get("http://localhost:7337/api/orders/complete").then(response => {
-      var currentOderArray = Object.values(response.data);
+      var currentOrders = Object.values(response.data);
       this.setState({
-        previousOrders: currentOderArray
+        previousOrders: currentOrders
       });
       console.log("These are the previous orders: ", this.state.previousOrders);
     });
@@ -46,9 +46,9 @@ class PreviousOrders extends React.Component {
         <h2>Previous Orders</h2>
         <Container>
           <ul>
-            {Object.keys(this.state.previousOrders).map((orders, index) => {
+            {Object.keys(this.state.previousOrders).map((orders) => {
               return (
-                <div key={index}>
+                <div key={orders.order_id}>
                   <h4>Order #{this.state.previousOrders[orders][0].OrderId}</h4>
                   {this.state.previousOrders[orders].map((orderDetails, index) => {
                     return (
