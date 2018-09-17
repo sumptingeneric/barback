@@ -17,6 +17,7 @@ const ModalContainer = styled.div`
   border-radius: 5px;
   text-align: center;
   overflow: scroll;
+  overflow-x: hide;
   max-height: 600px;
 `;
 const ClickableWrapper = styled.button`
