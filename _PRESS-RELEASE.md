@@ -16,9 +16,9 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## The app that gets you your drinks where you want 'em, when you want 'em. ##
+## The only app you need to get your drink on! ##
 
-## For those of us who enjoy having a drink without waiting in line to get it. ##
+## For those of us who enjoy having a drink without waiting in line to get it ##
 
 ## Summary ##
   > Tired of waving your money to get the bartender's attention? With barback you've got her attention in the palm of your hand. Barback is the app that allows you to order your drinks from your phone and have them delivered straight to you and your friends. By using barback you even gain access to exclusive promotions and events that you won't want to miss. The more you drink, the more you earn!
@@ -30,7 +30,7 @@ Once the project moves into development, the press release can be used as a touc
   > Barback allows you to order drinks from your phone and have them delivered to you instead of waiting in line to get them.
 
 ## Quote from You ##
-  > "With barback you'll spend less time in line and more time having fun. Sign up for a free account today and find out for yourself why Wine and Spirits magazine calls barback 'A revolution in bar drinking culture.' Join barback today and join the revolution!"
+  > "With barback you'll spend less time in line and more time having fun. Sign up for a free account today and find out for yourself why Wine and Spirits magazine calls barback 'A revolution in drinking culture.' Join barback and join the revolution!"
 
 ## How to Get Started ##
   > Getting started is easy! Just download the app and sign up for a free account. Choose a bar, make your pick and order your first drink today!
