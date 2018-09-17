@@ -20,7 +20,7 @@ class Queue extends React.Component {
     this.getPendingOrders();
     this.interval = setInterval(() => {
       this.getPendingOrders();
-    }, 10000);
+    }, 12000);
   }
 
   componentWillUnmount() {
