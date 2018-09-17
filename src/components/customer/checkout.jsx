@@ -16,6 +16,8 @@ const ModalContainer = styled.div`
   padding: 15px;
   border-radius: 5px;
   text-align: center;
+  overflow: scroll; 
+  max-height: 600px; 
 `;
 const ClickableWrapper = styled.button`
   margin: 3px;
@@ -39,7 +41,7 @@ class Checkout extends React.Component {
     let checkoutOrder = this.props.checkout;
     axios
       .post(
-        `http://localhost:7337/api/customers/${custId}/orders`,
+        `http://${process.env.HOST}:${process.env.PORT}/api/customers/${custId}/orders`,
         checkoutOrder
       )
       .then(() => {
