@@ -60,10 +60,8 @@ class Carousel extends React.Component {
   }
 
   render() {
-    const { title, children } = this.props
     return (
       <div>
-        <h2>{title}</h2>
         <Swipeable
           onSwipingLeft={() => this.handleSwipe(true)}
           onSwipingRight={() => this.handleSwipe()}
@@ -73,7 +71,7 @@ class Carousel extends React.Component {
               sliding={this.state.sliding}
               direction={this.state.direction}
             >
-              {children.map((child, index) => (
+              {this.props.children.map((child, index) => (
                 <CarouselSlot
                   key={index}
                   order={this.getOrder(index)}
