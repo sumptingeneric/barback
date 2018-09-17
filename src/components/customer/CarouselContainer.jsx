@@ -26,9 +26,5 @@ const CarouselContainer = styled.div`
     }
     return 'translateX(0%)'
   }};
-
-  & > div {
-    margin: 20px 0; 
-  }
 `
 export default CarouselContainer
