@@ -55,12 +55,11 @@ class PreviousOrders extends React.Component {
                       <Div key={index}>
                         <div className="menu-item-image">
                           <Image src={orderDetails.MenuItem.imageUrl} />
-                        </div>{" "}
+                        </div>
                         <div className="menu-item-name">
                           {orderDetails.MenuItem.name}
-                          <br />
-                          Quantity: {orderDetails.quantity}
                         </div>
+                        <div>Quantity: {orderDetails.quantity}</div>
                       </Div>
                     );
                   })}
