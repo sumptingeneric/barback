@@ -1,5 +1,26 @@
 import React from "react";
 import axios from "axios";
+import styled from "styled-components";
+
+const OrdersContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5px;
+  padding-bottom: 25px;
+  align-items: center;
+  text-align: center;
+  border: 15px solid red;
+`;
+const Clickable = styled.button`
+  margin-top: 20px;
+  width: 50%;
+`;
+
+const Image = styled.img`
+  height: 120px;
+  margin: 10px;
+`;
 
 class CurrentQueueItem extends React.Component {
   constructor(props) {
@@ -28,13 +49,13 @@ class CurrentQueueItem extends React.Component {
 
   render() {
     return (
-      <div className="current-order">
-        <h5>Current Queue Item</h5>
+      <OrdersContainer>
+        <h4>Current Order:</h4>
         <div className="order-item">
           {this.props.order.map(item => (
             <div key={item.MenuItemId}>
               <div className="menu-item-image">
-                <img src={item.MenuItem.imageUrl} alt="" />
+                <Image src={item.MenuItem.imageUrl} alt="" />
               </div>
               <div className="menu-item-name">{item.MenuItem.name}</div>
               <div className="menu-item-quantity">
@@ -43,10 +64,12 @@ class CurrentQueueItem extends React.Component {
             </div>
           ))}
         </div>
-        <button onClick={() => this.updateStatusToComplete(this.props.order)}>
-          Done
-        </button>
-      </div>
+        <Clickable
+          onClick={() => this.updateStatusToComplete(this.props.order)}
+        >
+          Mark as Complete
+        </Clickable>
+      </OrdersContainer>
     );
   }
 }

@@ -4,10 +4,15 @@ import styled from "styled-components";
 
 const ModalContainer = styled.div`
   background-color: white;
-  max-width: 500px;
+  min-width: 350px;
   padding: 15px;
   border-radius: 5px;
   text-align: center;
+`;
+const ClickableWrapper = styled.button`
+  margin: 3px;
+  width: 40%;
+  font-size: 0.8em;
 `;
 
 const Image = styled.img`
@@ -40,38 +45,47 @@ class Checkout extends React.Component {
     return (
       <ModalContainer>
         <div>
-          <h2>Checkout</h2>
-          <div>Your Order:</div>
+          <h1>Checkout</h1>
+          {/* <div>Your Order:</div> */}
           {this.props.checkout.drinkOrder.map(drink => {
             return (
-              <li key={drink.menuItemId}>
+              <div key={drink.menuItemId}>
                 <Image src={drink.menuItemUrl} alt={drink.menuItemName} />
                 <div>
-                  <span>{drink.menuItemName}</span>
-                  <span>{drink.quantity}</span>
+                  <span>{drink.menuItemName} - </span>
+                  <span>QTY: {drink.quantity} - </span>
                   <span>${drink.subtotal.toFixed(2)}</span>
                 </div>
-              </li>
+                <hr />
+              </div>
             );
           })}
           <div>
             {" "}
-            Total: $
-            {this.props.checkout.drinkOrder
-              .map(item => Number(item.subtotal))
-              .reduce((accum, value) => accum + value, Number(0))
-              .toFixed(2)}
+            <h2>
+              Total: $
+              {this.props.checkout.drinkOrder
+                .map(item => Number(item.subtotal))
+                .reduce((accum, value) => accum + value, Number(0))
+                .toFixed(2)}
+            </h2>
           </div>
-          <button onClick={this.completeOrder}>Submit Order</button>
+          <ClickableWrapper onClick={this.completeOrder}>
+            Submit Order
+          </ClickableWrapper>
         </div>
+        {/* <br /> */}
 
         <div>
           <div>
-            <button onClick={() => this.props.emptyCart()}>Empty Cart</button>
+            <ClickableWrapper onClick={() => this.props.emptyCart()}>
+              Empty Cart
+            </ClickableWrapper>
           </div>
-          <button onClick={() => this.props.changeModal("")}>
+          {/* <br /> */}
+          <ClickableWrapper onClick={() => this.props.changeModal("")}>
             Return to Menu
-          </button>
+          </ClickableWrapper>
         </div>
       </ModalContainer>
     );

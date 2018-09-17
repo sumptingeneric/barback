@@ -4,14 +4,14 @@ let mockMenuItems = [
   {
     name: "Annah Banana",
     price: 22.5,
-    category: "cocktail",
+    category: "Cocktails",
     imageUrl: "/images/cocktails/annahbanana.png",
     description: "Go bananas with this sweet and tangy tropical delight."
   },
   {
     name: "Hailey's Commit",
     price: 25.0,
-    category: "cocktail",
+    category: "Cocktails",
     imageUrl: "/images/cocktails/haileyscommit.png",
     description:
       "Bold and sassy, this drink is made with with as much love as it is fire!"
@@ -19,7 +19,7 @@ let mockMenuItems = [
   {
     name: "Rockin' Robin",
     price: 11.84,
-    category: "cocktail",
+    category: "Cocktails",
     imageUrl: "/images/cocktails/rockinrobin.png",
     description:
       "Our take on the old-fashioned made with Korbel brandy and a splash of cranberry juice."
@@ -27,7 +27,7 @@ let mockMenuItems = [
   {
     name: "Cody on the Rockies",
     price: 11.85,
-    category: "cocktail",
+    category: "Cocktails",
     imageUrl: "/images/cocktails/codyontherockies.png",
     description:
       "The classic EMT cocktail made with Everclear, Mountain Dew and Tanqueray gin."
@@ -35,14 +35,14 @@ let mockMenuItems = [
   {
     name: "Erwin's Elixr",
     price: 21.0,
-    category: "cocktail",
+    category: "Cocktails",
     imageUrl: "/images/cocktails/erwinselixr.png",
     description: "Like a Manhattan but better."
   },
   {
     name: "Backend Zin",
     price: 14.0,
-    category: "wine",
+    category: "Wine",
     imageUrl: "/images/wine/backendzin.png",
     description:
       "This 1998 Zinfandel from Jose Rodrigues Winery merges banal oatmeal midtones with a sleep-inducing sloppy joe finish."
@@ -50,7 +50,7 @@ let mockMenuItems = [
   {
     name: "Git Workflow Merlot",
     price: 11.0,
-    category: "wine",
+    category: "Wine",
     imageUrl: "/images/wine/gitworkflowmerlot.png",
     description:
       "A conventional millet perfume and cryptic clam undertones are united in this 2000 Coastal Merlot from Skunk Meadows Vineyards."
@@ -58,7 +58,7 @@ let mockMenuItems = [
   {
     name: "MySQL Table Red",
     price: 9.0,
-    category: "wine",
+    category: "Wine",
     imageUrl: "/images/wine/mysqltablered.png",
     description:
       "Scopazzi Winery brings together impossible-to-detect halibut elements and a nutty sauerkraut flavor in their 2001 Table Red."
@@ -66,7 +66,7 @@ let mockMenuItems = [
   {
     name: "Hack Reactor Pale Ale",
     price: 8.5,
-    category: "beer",
+    category: "Beer",
     imageUrl: "/images/beer/hackreactorpaleale.png",
     description:
       "Pours a magnificent chestnut with a nine-inch head. Excellent lacing. Lovely boozy nose, accompanied by hops and lilac. Intense yeasty taste, with just a hint of split pea soup and grapefruit. Thick and chewy mouthfeel and slightly dry finish."
@@ -74,7 +74,7 @@ let mockMenuItems = [
   {
     name: "HRR33 Oatmeal Stout",
     price: 12.0,
-    category: "beer",
+    category: "Beer",
     imageUrl: "/images/beer/hrr33oatmealstout.png",
     description:
       "Pours a breathtaking black with a thick, rocky head. Thick lacing. Beautiful spicy nose, punctuated with papaya and bacon. Well-balanced buttery flavor, and I also get some vanilla and citrus. Silky smooth mouthfeel and pleasant finish."
@@ -82,7 +82,7 @@ let mockMenuItems = [
   {
     name: "Senior Phase Haze Doppelbock",
     price: 12.5,
-    category: "beer",
+    category: "Beer",
     imageUrl: "/images/beer/seniorphasehazedoppelbock.png",
     description:
       "Pours an opalescent mahogany with a two-finger head. Heavy lacing. Excellent medicinal scent, with notes of mango and pepper. Delicate catty flavor, with overtones of citrus and molasses. Silky smooth mouthfeel and light finish."

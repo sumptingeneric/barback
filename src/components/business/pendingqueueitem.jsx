@@ -1,6 +1,20 @@
 import React from "react";
 import axios from "axios";
+import styled from "styled-components";
 
+// styled components for css styling
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 20px;
+  border: 1px solid;
+`;
+
+const Image = styled.img`
+  height: 200px;
+  margin: auto;
+`;
 class PendingQueueItem extends React.Component {
   constructor(props) {
     super(props);
@@ -28,17 +42,28 @@ class PendingQueueItem extends React.Component {
   render() {
     return (
       <div className="pending-orders">
-        <h5>Pending Queue Items</h5>
+        {/* <h5>Pending Queue Items</h5> */}
         <div className="order-item">
           {Object.keys(this.props.order).map(orders => {
             return (
               <div>
-                {this.props.order[orders].map(orderDetails => {
-                  return <div>{orderDetails.MenuItem.name}</div>;
-                })}
-                <button onClick={() => this.updateStatusToCurrent(orders)}>
-                  Test
-                </button>
+                <Container>
+                  {this.props.order[orders].map(orderDetails => {
+                    return (
+                      <div>
+                        {" "}
+                        <br />
+                        <div>
+                          <Image src={orderDetails.MenuItem.imageUrl} />
+                        </div>
+                        {orderDetails.MenuItem.name} <br />
+                      </div>
+                    );
+                  })}
+                  <button onClick={() => this.updateStatusToCurrent(orders)}>
+                    Make Current Order
+                  </button>
+                </Container>
               </div>
             );
           })}
