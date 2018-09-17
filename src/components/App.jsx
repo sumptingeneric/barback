@@ -132,7 +132,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+
+      <Wrapper>
         {/* <h1>Title</h1> */}
         <div id="test" />
         <nav>
