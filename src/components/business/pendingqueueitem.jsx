@@ -8,9 +8,8 @@ const Container = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   padding: 20px;
+  border: 1px solid;
 `;
-
-const ClickableWrapper = styled.button``;
 
 const Image = styled.img`
   height: 200px;

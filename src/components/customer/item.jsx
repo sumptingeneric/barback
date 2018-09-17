@@ -13,6 +13,10 @@ const ClickableWrapper = styled.button`
   width: 30%;
   font-size: 0.8em;
 `;
+const Image = styled.img`
+  margin: 3px;
+  width: 70%;
+`;
 class Item extends React.Component {
   constructor(props) {
     super(props);
@@ -77,7 +81,7 @@ class Item extends React.Component {
         <div className="item-details">
           <form onSubmit={this.handleSubmit}>
             <h4>{this.props.item.name}</h4>
-            <img src={this.props.item.imageUrl} alt={this.props.item.name} />
+            <Image src={this.props.item.imageUrl} alt={this.props.item.name} />
             <div className="description">{this.props.item.description}</div>
             <div>Price: ${Number(this.props.item.price).toFixed(2)}</div>
             <div className="select-quantity">
