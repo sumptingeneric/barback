@@ -5,6 +5,13 @@ import Orders from "./customer/orders.jsx";
 import Menu from "./customer/menu.jsx";
 import Checkout from "./customer/checkout.jsx";
 import Modal from "./customer/modal.jsx";
+import styled from 'styled-components';
+
+
+//Styled Components
+const Wrapper = styled.div`
+  max-width: 480px; 
+`;
 
 class App extends React.Component {
   state = {
@@ -125,7 +132,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <Wrapper>
         <h1>Title</h1>
         <div id="test" />
         <nav>
@@ -142,7 +149,7 @@ class App extends React.Component {
           search={this.state.search.toLowerCase()}
         />
         <div>{this.renderModal()}</div>
-      </div>
+      </Wrapper>
     );
   }
 }

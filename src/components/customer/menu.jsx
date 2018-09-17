@@ -1,15 +1,10 @@
 import React from "react";
+import Carousel from './Carousel.jsx';
 import Item from "./item.jsx";
 import Modal from "./modal.jsx";
 import styled from "styled-components";
 
 // styled components for css styling
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-
 const ClickableWrapper = styled.button`
   border: none;
 `;
@@ -17,6 +12,7 @@ const ClickableWrapper = styled.button`
 const Image = styled.img`
   height: 200px;
 `;
+
 
 class Menu extends React.Component {
   constructor(props) {
@@ -48,7 +44,7 @@ class Menu extends React.Component {
     return (
       <div key={category}>
         <h2>{category}</h2>
-        <Container>
+        <Carousel>
           {this.props.menuItems[category]
             .filter(drink => {
               return drink.name.toLowerCase().includes(this.props.search);
@@ -56,7 +52,7 @@ class Menu extends React.Component {
             .map(drink => {
               return this.renderDrink(drink);
             })}
-        </Container>
+        </Carousel>
       </div>
     );
   }

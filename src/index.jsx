@@ -16,7 +16,8 @@ const Wrapper = styled.main`
 const Login = () => (
   <Wrapper>
     <nav>
-      <Link to="/customer">Customer</Link> <Link to="/business">Business</Link>
+      <Link to="/customer">Customer</Link>
+      <Link to="/business">Business</Link>
     </nav>
 
     <Router>
