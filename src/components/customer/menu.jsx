@@ -44,7 +44,9 @@ class Menu extends React.Component {
     return (
       <div key={category}>
         <h2>{category}</h2>
-        <Carousel>
+        <Carousel
+          search={this.props.search}
+        >
           {this.props.menuItems[category]
             .filter(drink => {
               return drink.name.toLowerCase().includes(this.props.search);

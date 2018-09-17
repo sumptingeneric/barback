@@ -70,6 +70,8 @@ class Carousel extends React.Component {
             <CarouselContainer
               sliding={this.state.sliding}
               direction={this.state.direction}
+              //Carousel behavior adjusts when searching to show results properly
+              search={this.props.search}
             >
               {this.props.children.map((child, index) => (
                 <CarouselSlot
