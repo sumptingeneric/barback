@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { timingSafeEqual } from "crypto";
 
 // styled components for css styling
 
@@ -46,7 +45,7 @@ class PendingQueueItem extends React.Component {
     // console.log("current ID status " + currentId);
     axios
       .put(
-        `http://localhost:7337/api/customers/${custId}/orders/${orderId}/current`,
+        `http://${process.env.HOST}:${process.env.PORT}/api/customers/${custId}/orders/${orderId}/current`,
         { current: currentId || null }
       )
       .then(() => {
@@ -63,9 +62,9 @@ class PendingQueueItem extends React.Component {
             return (
               <div key={this.props.orderId} >
                 <Container>
-                  {this.props.order[orders].map(orderDetails => {
+                  {this.props.order[orders].map((orderDetails, index) => {
                     return (
-                      <DivMargin20>
+                      <DivMargin20 key={index}>
                         <div>
                           <Image src={orderDetails.MenuItem.imageUrl} />
                         </div>

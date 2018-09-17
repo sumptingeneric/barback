@@ -28,16 +28,16 @@ class Queue extends React.Component {
   }
 
   getCurrentOrder() {
-    axios.get("http://localhost:7337/api/orders/current").then(response => {
-      var currentOderArray = Object.values(response.data);
+    axios.get(`http://${process.env.HOST}:${process.env.PORT}/api/orders/current`).then(response => {
+      var currentOrderArray = Object.values(response.data);
       this.setState({
-        currentOrder: currentOderArray[0]
+        currentOrder: currentOrderArray[0]
       });
     });
   }
 
   getPendingOrders() {
-    axios.get("http://localhost:7337/api/orders/pending").then(response => {
+    axios.get(`http://${process.env.HOST}:${process.env.PORT}/api/orders/pending`).then(response => {
       this.setState({
         pendingOrders: response.data
       });
