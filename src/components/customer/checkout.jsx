@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const ModalContainer = styled.div`
   background-color: white;
-  width: 350px;
+  min-width: 350px;
   padding: 15px;
   border-radius: 5px;
   text-align: center;
