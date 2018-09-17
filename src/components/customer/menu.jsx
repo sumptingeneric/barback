@@ -13,6 +13,7 @@ const Image = styled.img`
   height: 200px;
 `;
 
+
 class Menu extends React.Component {
   constructor(props) {
     super(props);
