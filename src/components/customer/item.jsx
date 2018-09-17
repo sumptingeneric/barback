@@ -3,12 +3,16 @@ import styled from "styled-components";
 
 const ModalContainer = styled.div`
   background-color: white;
-  max-width: 500px;
+  width: 350px;
   padding: 15px;
   border-radius: 5px;
   text-align: center;
 `;
-
+const ClickableWrapper = styled.button`
+  margin: 3px;
+  width: 30%;
+  font-size: 0.8em;
+`;
 class Item extends React.Component {
   constructor(props) {
     super(props);
@@ -82,14 +86,18 @@ class Item extends React.Component {
               <button onClick={this.minusOne}>-</button>
             </div>
 
-            <button type="submit" value="Submit" className="button is-primary">
+            <ClickableWrapper
+              type="submit"
+              value="Submit"
+              className="button is-primary"
+            >
               Add to Order
-            </button>
+            </ClickableWrapper>
           </form>
         </div>
-        <button id="back-to-menu" onClick={this.props.returnToMenu}>
+        <ClickableWrapper id="back-to-menu" onClick={this.props.returnToMenu}>
           Back to Menu
-        </button>
+        </ClickableWrapper>
       </ModalContainer>
     );
   }
