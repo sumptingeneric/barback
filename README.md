@@ -46,5 +46,8 @@ npm install
 Roadmap
 View the project roadmap here
 
+## Things of Note
+Make sure you check out the wiki for [things of note](https://github.com/sumptingeneric/barback/wiki)
+
 Contributing
 See CONTRIBUTING.md for contribution guidelines.
