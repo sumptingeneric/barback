@@ -15,15 +15,16 @@ const orm = new Sequelize(`${process.env.DATABASE_URL}`);
 const Sequelize = require("sequelize");
 var orm = null; 
 
-if (process.env.CLEARDB_DATABASE_URL) {
-  orm = new Sequelize(process.env.CLEARDB_DATABASE_URL, {
-    dialect: "mysql"
-  })
-} else {
-  orm = new Sequelize("barback", "root", "", {
-   dialect: "mysql"
-  });
-}
+orm = new Sequelize(process.env.CLEARDB_DATABASE_URL, {
+  dialect: "mysql"
+})
+
+// if (process.env.CLEARDB_DATABASE_URL) {
+// } else {
+//   orm = new Sequelize("barback", "root", "", {
+//    dialect: "mysql"
+//   });
+// }
 
 >>>>>>> Adding a conditional for existence of clearDB env variable -- for Heroku
 
