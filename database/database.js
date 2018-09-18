@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 let Sequelize = require("sequelize");
 require('dotenv').config();
 
@@ -10,6 +11,21 @@ require('dotenv').config();
 const orm = new Sequelize(`${process.env.DATABASE_URL}`);
 // const orm = new Sequelize(`${process.env.DATABASE_URL2}`);
 // const orm = new Sequelize(`${process.env.DB_MOCK}`);
+=======
+const Sequelize = require("sequelize");
+var orm = null; 
+
+if (process.env.CLEARDB_DATABASE_URL) {
+  orm = new Sequelize(process.env.CLEARDB_DATABASE_URL, {
+    dialect: "mysql"
+  })
+} else {
+  orm = new Sequelize("barback", "root", "", {
+   dialect: "mysql"
+  });
+}
+
+>>>>>>> Adding a conditional for existence of clearDB env variable -- for Heroku
 
 orm
   .authenticate()
