@@ -69,6 +69,7 @@ app.get("/api/customers/:customer_id/orders", (req, res) => {
 });
 
 app.get("/api/orders/:order_status", (req, res) => {
+  console.log('pending order request made it to the server')
   let queryStatus = req.params.order_status;
   db.OrderDetails.findAll({
     include: [
@@ -82,6 +83,7 @@ app.get("/api/orders/:order_status", (req, res) => {
       }
     ]
   }).then(data => {
+    console.log('pending order data from db received', data);
     let orderIdObj = {};
 
     data.forEach(item => {
