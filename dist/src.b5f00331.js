@@ -51103,6 +51103,25 @@ var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+<<<<<<< HEAD
+=======
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _modal = require("../customer/modal.jsx");
+
+var _modal2 = _interopRequireDefault(_modal);
+
+var _AddMenuItem = require("./AddMenuItem.jsx");
+
+var _AddMenuItem2 = _interopRequireDefault(_AddMenuItem);
+
+var _search = require("../customer/search.jsx");
+
+var _search2 = _interopRequireDefault(_search);
+
+>>>>>>> add search and map menuItems on the EditMenu component
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51116,24 +51135,74 @@ var Wrapper = _styledComponents2.default.main.withConfig({
   componentId: "lfep0z-0"
 })(["display:grid;grid-gap:10px;justify-items:center;"]);
 
+var ItemWrapper = _styledComponents2.default.main.withConfig({
+  displayName: "EditMenu__ItemWrapper",
+  componentId: "lfep0z-1"
+})(["text-align:center;"]);
+var Image = _styledComponents2.default.img.withConfig({
+  displayName: "EditMenu__Image",
+  componentId: "lfep0z-2"
+})(["height:200px;"]);
+
 var EditMenu = function (_React$Component) {
   _inherits(EditMenu, _React$Component);
 
-  function EditMenu() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function EditMenu(props) {
     _classCallCheck(this, EditMenu);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    var _this = _possibleConstructorReturn(this, (EditMenu.__proto__ || Object.getPrototypeOf(EditMenu)).call(this, props));
 
+<<<<<<< HEAD
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = EditMenu.__proto__ || Object.getPrototypeOf(EditMenu)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(EditMenu, [{
+=======
+    _this.handleSearchOnKeyUp = function (e) {
+      if (e.key !== "Enter") {
+        _this.setState({
+          search: e.target.value.toLowerCase()
+        },
+        //then update displayItems to match search
+        function () {
+          var searchResults = _this.state.menuItems.filter(function (item) {
+            return item.itemName.toLowerCase().includes(_this.state.search);
+          });
+          _this.setState({ displayItems: searchResults });
+        });
+      }
+    };
+
+    _this.state = {
+      showModal: false,
+      search: '',
+      totalItems: 0,
+      menuItems: [{ id: '1', itemName: 'Surprise Me!', description: 'Want the bartenders favorite drink? Choose this drink for a nice surprise!', imageUrl: 'https://i2-prod.mirror.co.uk/incoming/article11471438.ece/ALTERNATES/s615/PROD-Range-of-different-alcoholic-drinks-in-a-row.jpg' }],
+      displayItems: []
+    };
+    return _this;
+  }
+
+  _createClass(EditMenu, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      // axios call for menu items in database
+
+      //make this a promise or callback:
+      this.setState({
+        totalItems: this.state.menuItems.length,
+        displayItems: this.state.menuItems
+      });
+    }
+  }, {
+    key: "toggleModal",
+    value: function toggleModal() {
+      this.setState({
+        showModal: !this.state.showModal
+      });
+    }
+  }, {
+>>>>>>> add search and map menuItems on the EditMenu component
     key: "render",
     value: function render() {
       return _react2.default.createElement(
@@ -51142,7 +51211,49 @@ var EditMenu = function (_React$Component) {
         _react2.default.createElement(
           "h1",
           null,
+<<<<<<< HEAD
           "Edit Menu"
+=======
+          _react2.default.createElement(
+            "h1",
+            null,
+            "Edit Menu"
+          ),
+          _react2.default.createElement(
+            "p",
+            null,
+            this.state.totalItems,
+            " items currently on your menu"
+          ),
+          _react2.default.createElement(
+            "button",
+            { onClick: this.toggleModal.bind(this) },
+            "Add New Menu Item"
+          ),
+          _react2.default.createElement(_search2.default, { handleSearch: this.handleSearchOnKeyUp }),
+          _react2.default.createElement(
+            "h3",
+            null,
+            "Your Menu Items"
+          ),
+          this.state.menuItems.map(function (item) {
+            return _react2.default.createElement(
+              ItemWrapper,
+              { key: item.id },
+              _react2.default.createElement(Image, { src: item.imageUrl, alt: item.itemName }),
+              _react2.default.createElement(
+                "h4",
+                null,
+                item.itemName
+              ),
+              _react2.default.createElement(
+                "p",
+                null,
+                item.description
+              )
+            );
+          })
+>>>>>>> add search and map menuItems on the EditMenu component
         ),
         _react2.default.createElement(
           "p",
@@ -51169,7 +51280,11 @@ var EditMenu = function (_React$Component) {
 ;
 
 exports.default = EditMenu;
+<<<<<<< HEAD
 },{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"index.jsx":[function(require,module,exports) {
+=======
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js","../customer/modal.jsx":"components/customer/modal.jsx","./AddMenuItem.jsx":"components/bar/AddMenuItem.jsx","../customer/search.jsx":"components/customer/search.jsx"}],"index.jsx":[function(require,module,exports) {
+>>>>>>> add search and map menuItems on the EditMenu component
 "use strict";
 
 var _react = require("react");
