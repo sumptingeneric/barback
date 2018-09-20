@@ -7,10 +7,11 @@
     "clear:media": "rm -rf dist/images",
     "copy:media": "cp -R src/images dist/images",
     "dev": "parcel src/index.html & npm run server-dev",
+    "lint": "eslint './src/components/**/*.jsx' database server",
     "start": "node server/server.js",
     "server-dev": "nodemon server/server.js",
     "db:setup": "node database/seed.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
