@@ -50990,6 +50990,7 @@ var AddMenuItem = function (_React$Component) {
 
     _this.state = {
       itemName: '',
+      price: '',
       description: '',
       imageUrl: './default-drink-image.jpg'
     };
@@ -51000,6 +51001,11 @@ var AddMenuItem = function (_React$Component) {
     key: "handleItemNameInput",
     value: function handleItemNameInput(event) {
       this.setState({ itemName: event.target.value });
+    }
+  }, {
+    key: "handlePriceInput",
+    value: function handlePriceInput(event) {
+      this.setState({ price: event.target.value });
     }
   }, {
     key: "handleDescriptionInput",
@@ -51043,6 +51049,15 @@ var AddMenuItem = function (_React$Component) {
             ),
             _react2.default.createElement("br", null),
             _react2.default.createElement("input", { type: "text", name: "item-name", onChange: this.handleItemNameInput.bind(this) }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              "label",
+              null,
+              "Price"
+            ),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("input", { type: "text", name: "price", onChange: this.handlePriceInput.bind(this) }),
             _react2.default.createElement("br", null),
             _react2.default.createElement("br", null),
             _react2.default.createElement(
@@ -51177,7 +51192,7 @@ var EditMenu = function (_React$Component) {
       showModal: false,
       search: '',
       totalItems: 0,
-      menuItems: [{ id: '1', itemName: 'Surprise Me!', description: 'Want the bartenders favorite drink? Choose this drink for a nice surprise!', imageUrl: 'https://i2-prod.mirror.co.uk/incoming/article11471438.ece/ALTERNATES/s615/PROD-Range-of-different-alcoholic-drinks-in-a-row.jpg' }],
+      menuItems: [{ id: '1', itemName: 'Surprise Me!', price: '$10', description: 'Want the bartenders favorite drink? Choose this drink for a nice surprise!', imageUrl: 'https://i2-prod.mirror.co.uk/incoming/article11471438.ece/ALTERNATES/s615/PROD-Range-of-different-alcoholic-drinks-in-a-row.jpg' }],
       displayItems: []
     };
     return _this;
@@ -51249,6 +51264,8 @@ var EditMenu = function (_React$Component) {
               _react2.default.createElement(
                 "p",
                 null,
+                item.price,
+                " - ",
                 item.description
               )
             );

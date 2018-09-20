@@ -20,6 +20,7 @@ class AddMenuItem extends React.Component {
     super(props);
     this.state = {
       itemName: '',
+      price: '',
       description: '',
       imageUrl: './default-drink-image.jpg',
     };
@@ -27,6 +28,10 @@ class AddMenuItem extends React.Component {
 
   handleItemNameInput(event) {
     this.setState({itemName: event.target.value});
+  }
+
+  handlePriceInput(event) {
+    this.setState({price: event.target.value});
   }
 
   handleDescriptionInput(event) {
@@ -50,6 +55,9 @@ class AddMenuItem extends React.Component {
             <h2>Add a New Menu Item</h2>
             <label>Item Name</label><br />
             <input type="text" name="item-name" onChange={this.handleItemNameInput.bind(this)}/>
+            <br /><br />
+            <label>Price</label><br />
+            <input type="text" name="price" onChange={this.handlePriceInput.bind(this)}/>
             <br /><br />
             <label>Description</label><br />
             <textarea rows="4" cols="50" name="description" onChange={this.handleDescriptionInput.bind(this)}/>

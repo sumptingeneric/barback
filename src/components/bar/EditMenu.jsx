@@ -25,7 +25,7 @@ class EditMenu extends React.Component {
       showModal: false,
       search: '',
       totalItems: 0,
-      menuItems: [{id:'1', itemName:'Surprise Me!', description: 'Want the bartenders favorite drink? Choose this drink for a nice surprise!', imageUrl: 'https://i2-prod.mirror.co.uk/incoming/article11471438.ece/ALTERNATES/s615/PROD-Range-of-different-alcoholic-drinks-in-a-row.jpg' }],
+      menuItems: [{id:'1', itemName:'Surprise Me!', price: '$10', description: 'Want the bartenders favorite drink? Choose this drink for a nice surprise!', imageUrl: 'https://i2-prod.mirror.co.uk/incoming/article11471438.ece/ALTERNATES/s615/PROD-Range-of-different-alcoholic-drinks-in-a-row.jpg' }],
       displayItems: [],
     };
   }
@@ -77,7 +77,7 @@ class EditMenu extends React.Component {
               <ItemWrapper key={item.id}>
                 <Image src={item.imageUrl} alt={item.itemName} />
                 <h4>{item.itemName}</h4>
-                <p>{item.description}</p>
+                <p>{item.price} - {item.description}</p>
               </ItemWrapper>
             );
           })}
