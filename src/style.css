@@ -1,7 +1,5 @@
 #modal {
   background-color: rgba(0, 0, 0, 0.9);
-  background-image: url('./images/jonas-jacobsson-628316-unsplash.jpg');
-  background-repeat: no-repeat;
   position: fixed;
   left: 0;
   right: 0;
@@ -18,9 +16,6 @@
 }
 
 body {
-  /* background-image: url('./images/topography.svg'),
-  linear-gradient(130deg, #ad1d0a, #d38901); */
-  /* background-image: url('./images/william-bout-800615-unsplash.jpg'); */
   background-image: linear-gradient(130deg, #ad1d0a, #d38901);
   background-repeat: no-repeat;
   background-size: 100% 100%;
