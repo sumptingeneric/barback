@@ -236,4 +236,4 @@ const asyncInsertionFunctions = insertionFunctions.map(func => {
   new Promise(func);
 });
 
-Promise.all(asyncInsertionFunctions).then(() => db.connection.disconnect());
+Promise.all(asyncInsertionFunctions).then(() => db.connection.close());
