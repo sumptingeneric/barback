@@ -11,10 +11,9 @@ class BarProfile extends React.Component {
   state = {};
 
   render() {
-    console.log("rendering BarProfile");
     return (
       <Wrapper>
-        <h1>My Profile</h1>
+        <h1>Bar Profile</h1>
         <p>bar name - editable</p>
         <p>list of bartenders</p>
       </Wrapper>

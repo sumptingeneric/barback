@@ -1,8 +1,6 @@
 import React from "react";
-import { Router, Link } from "@reach/router";
+import { Link } from "@reach/router";
 import styled from 'styled-components';
-import BarProfile from "./BarProfile.jsx";
-import EditMenu from "./EditMenu.jsx";
 
 const Wrapper = styled.main`
   display: grid;
@@ -26,11 +24,6 @@ class Bar extends React.Component {
           <Link to="/bar/menu">Edit Menu</Link>
         </button>
         <p>stats go here...</p>
-
-        <Router>
-          <BarProfile path="/bar/profile" />
-          <EditMenu path="/bar/menu" />
-        </Router>
       </Wrapper>
     );
   }
