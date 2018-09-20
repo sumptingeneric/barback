@@ -50939,7 +50939,154 @@ var BarProfile = function (_React$Component) {
 ;
 
 exports.default = BarProfile;
+<<<<<<< HEAD
 },{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/bar/EditMenu.jsx":[function(require,module,exports) {
+=======
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/bar/AddMenuItem.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require("styled-components");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ModalContainer = _styledComponents2.default.div.withConfig({
+  displayName: "AddMenuItem__ModalContainer",
+  componentId: "sc-1xy0fp7-0"
+})(["background-color:white;width:350px;padding:15px;border-radius:5px;text-align:center;"]);
+var ClickableWrapper = _styledComponents2.default.button.withConfig({
+  displayName: "AddMenuItem__ClickableWrapper",
+  componentId: "sc-1xy0fp7-1"
+})(["margin:3px;width:30%;font-size:0.8em;"]);
+
+var AddMenuItem = function (_React$Component) {
+  _inherits(AddMenuItem, _React$Component);
+
+  function AddMenuItem(props) {
+    _classCallCheck(this, AddMenuItem);
+
+    var _this = _possibleConstructorReturn(this, (AddMenuItem.__proto__ || Object.getPrototypeOf(AddMenuItem)).call(this, props));
+
+    _this.state = {
+      itemName: '',
+      description: '',
+      imageUrl: './default-drink-image.jpg'
+    };
+    return _this;
+  }
+
+  _createClass(AddMenuItem, [{
+    key: "handleItemNameInput",
+    value: function handleItemNameInput(event) {
+      this.setState({ itemName: event.target.value });
+    }
+  }, {
+    key: "handleDescriptionInput",
+    value: function handleDescriptionInput(event) {
+      this.setState({ description: event.target.value });
+    }
+  }, {
+    key: "handleImageUrlInput",
+    value: function handleImageUrlInput(event) {
+      this.setState({ imageUrl: event.target.value });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      // axios post request to save new item to database
+      this.props.toggleModal();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        ModalContainer,
+        null,
+        _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            "form",
+            null,
+            _react2.default.createElement(
+              "h2",
+              null,
+              "Add a New Menu Item"
+            ),
+            _react2.default.createElement(
+              "label",
+              null,
+              "Item Name"
+            ),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("input", { type: "text", name: "item-name", onChange: this.handleItemNameInput.bind(this) }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              "label",
+              null,
+              "Description"
+            ),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("textarea", { rows: "4", cols: "50", name: "description", onChange: this.handleDescriptionInput.bind(this) }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              "label",
+              null,
+              "Image URL"
+            ),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("input", { type: "text", name: "image-url", onChange: this.handleImageUrlInput.bind(this) }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              ClickableWrapper,
+              { type: "submit", onClick: this.handleSubmit.bind(this) },
+              "Save Item"
+            )
+          ),
+          _react2.default.createElement(
+            ClickableWrapper,
+            { onClick: function onClick() {
+                return _this2.props.toggleModal();
+              } },
+            "Exit"
+          )
+        )
+      );
+    }
+  }]);
+
+  return AddMenuItem;
+}(_react2.default.Component);
+
+exports.default = AddMenuItem;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js"}],"components/bar/EditMenu.jsx":[function(require,module,exports) {
+>>>>>>> add and format form to add menu items
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
