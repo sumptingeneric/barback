@@ -17,6 +17,9 @@ Contributing
 
 Usage
 1.Start MYSQL/MariaDB
+  a. In terminal run: 'mysql.server start'
+  b. Then in terminal run: 'mysql -u root -p'
+  c. press enter when password is requested
 2.In SQL, create database "barback"
 3.Create .env file in root directory with the following:
 
