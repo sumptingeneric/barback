@@ -53,6 +53,7 @@
     "react": "^16.5.1",
     "react-dom": "^16.4.2",
     "react-swipeable": "^4.3.0",
+    "recharts": "^1.2.0",
     "sequelize": "^4.38.0",
     "styled-components": "^3.4.6"
   }
