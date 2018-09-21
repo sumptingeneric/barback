@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import Modal from "../customer/modal.jsx";
 import AddMenuItem from "./AddMenuItem.jsx";
+import EditMenuItem from "./EditMenuItem.jsx";
 import Search from "../customer/search.jsx";
 
 const Wrapper = styled.main`
@@ -23,10 +24,12 @@ class EditMenu extends React.Component {
     super(props);
     this.state = {
       showModal: false,
+      modalType: '',
       search: '',
       totalItems: 0,
       menuItems: [{id:'1', itemName:'Surprise Me!', price: '$10', description: 'Want the bartenders favorite drink? Choose this drink for a nice surprise!', imageUrl: 'https://i2-prod.mirror.co.uk/incoming/article11471438.ece/ALTERNATES/s615/PROD-Range-of-different-alcoholic-drinks-in-a-row.jpg' }],
       displayItems: [],
+      clickedItem: '',
     };
   }
 
@@ -42,9 +45,22 @@ class EditMenu extends React.Component {
 
   toggleModal() {
     this.setState({
-      showModal: !this.state.showModal
+      showModal: !this.state.showModal, 
     });
   };
+
+  handleAdd(event) {
+    this.setState({
+      modalType: event.target.name,
+    }, () => this.toggleModal());
+  }
+
+  handleEdit(item, event) {
+    this.setState({
+      clickedItem: item,
+      modalType: event.target.name,
+    }, () => this.toggleModal());
+  }
 
   handleSearchOnKeyUp = e => {
     if (e.key !== "Enter") {
@@ -63,12 +79,20 @@ class EditMenu extends React.Component {
   };
 
   render() {
+    let modalDisplay;
+    if (this.state.showModal && this.state.modalType === 'add') {
+      modalDisplay = <AddMenuItem toggleModal={this.toggleModal.bind(this)} />;
+    } else {
+      modalDisplay = 
+        <EditMenuItem menuItem={this.state.clickedItem} toggleModal={this.toggleModal.bind(this)} />
+    }
+  
     return (
       <div>
         <Wrapper>
           <h1>Edit Menu</h1>
           <p>{this.state.totalItems} items currently on your menu</p>
-          <button onClick={this.toggleModal.bind(this)}>Add New Menu Item</button>
+          <button name="add" onClick={this.handleAdd.bind(this)}>Add New Menu Item</button>
           <Search handleSearch={this.handleSearchOnKeyUp}/>
 
           <h3>Your Menu Items</h3>
@@ -78,16 +102,19 @@ class EditMenu extends React.Component {
                 <Image src={item.imageUrl} alt={item.itemName} />
                 <h4>{item.itemName}</h4>
                 <p>{item.price} - {item.description}</p>
+                <button type="button" name="edit" onClick={this.handleEdit.bind(this, item)}>Edit {item.itemName}</button>
               </ItemWrapper>
             );
           })}
-
         </Wrapper>
+
         {this.state.showModal ? (
           <Modal>
-            <AddMenuItem toggleModal={this.toggleModal.bind(this)} />
+            {modalDisplay}
           </Modal>
-        ) : null}
+          ) : null
+        }
+
       </div>
     );
   }
