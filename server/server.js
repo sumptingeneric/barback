@@ -242,6 +242,31 @@ app.put('/api/bar/menu/edit', (req) => {
   console.log('params in server for edit: ', req.params);
 
 });
+// most ordered menu item
+// app.get("/api/stats", (req, res) => {
+//   var orderDetails = {};
+//   db.Orders.findAll({where: {status: 'complete'}})
+//     .then((data) => {
+//       var completedOrders = data;
+//       var orderIds = [];
+//       for (var i = 0; i < completedOrders.length; i++) {
+//         orderIds.push(completedOrders[i]['id']);
+//       }
+//       return orderIds;
+//     })
+//     .then((ids) => {
+//       return db.OrderDetails.findAll({
+//         where: {
+//           OrderId: ids
+//         }
+//       })
+//     })
+//     .then((data) => {
+//       var orderDetails = {};
+
+//       res.send(data);
+//     })
+// })
 
 //Port Listening
 

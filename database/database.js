@@ -52,12 +52,12 @@ Customers.hasMany(Orders);
 Orders.belongsTo(Customers);
 Orders.belongsToMany(MenuItems, { through: "OrderDetails" });
 MenuItems.belongsToMany(Orders, { through: "OrderDetails" });
-Surveys.belongsToMany(Orders, { through: "OrderDetails" });
+Surveys.belongsTo(Orders);
+// Orders.hasOne(Surveys);
+
 
 OrderDetails.belongsTo(Orders);
 OrderDetails.belongsTo(MenuItems);
-
-OrderDetails.belongsTo(Surveys);
 
 MenuItems.sync();
 Customers.sync();

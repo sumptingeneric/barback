@@ -143,143 +143,159 @@ const mockOrderDetails = [
     quantity: 2,
     subtotal: 50,
     OrderId: 1,
-    MenuItemId: 91
+    MenuItemId: 2,
   },
   {
     quantity: 1,
     subtotal: 22.5,
     OrderId: 1,
-    MenuItemId: 51
+    MenuItemId: 1,
   },
   {
     quantity: 1,
     subtotal: 12,
     OrderId: 2,
     MenuItemId: 10,
-    SurveyId: 2
   },
   {
     quantity: 1,
     subtotal: 14,
     OrderId: 3,
     MenuItemId: 6,
-    SurveyId: 3
   },
   {
     quantity: 2,
     subtotal: 25,
     OrderId: 4,
     MenuItemId: 11,
-    SurveyId: 4
   },
   {
     quantity: 1,
     subtotal: 12,
     OrderId: 4,
     MenuItemId: 10,
-    SurveyId: 4
   },
   {
     quantity: 1,
     subtotal: 11,
     OrderId: 5,
     MenuItemId: 7,
-    SurveyId: 5
   },
   {
     quantity: 1,
     subtotal: 9,
     OrderId: 5,
     MenuItemId: 8,
-    SurveyId: 5
   },
   {
     quantity: 1,
     subtotal: 8.5,
     OrderId: 6,
     MenuItemId: 9,
-    SurveyId: 6
   },
   {
     quantity: 1,
     subtotal: 21,
     OrderId: 7,
     MenuItemId: 5,
-    SurveyId: 7
   }
 ];
 
 const mockSurveys = [
   {
     drinkQuality: 2,
-    customerService: 5
+    customerService: 5,
+    OrderId: 1
   },
   {
     drinkQuality: 2,
-    customerService: 2
+    customerService: 2,
+    OrderId: 2
   },
   {
     drinkQuality: 1,
-    customerService: 1
+    customerService: 1,
+    OrderId: 3
   },
   {
     drinkQuality: 3,
-    customerService: 3
+    customerService: 3,
+    OrderId: 4
   },
   {
     drinkQuality: 1,
-    customerService: 5
+    customerService: 5,
+    OrderId: 5
   },
   {
     drinkQuality: 4,
-    customerService: 1
+    customerService: 1,
+    OrderId: 6
   },
   {
     drinkQuality: 3,
-    customerService: 4
+    customerService: 4,
+    OrderId: 7
   }
 ];
 
 const insertMockMenuItems = () => {
-  mockMenuItems.forEach(item => {
-    db.MenuItems.create(item);
-  });
+  return db.MenuItems.bulkCreate(mockMenuItems)
+  // mockMenuItems.forEach(item => {
+  //   db.MenuItems.create(item);
+  // });
 };
 
 const insertMockCustomers = () => {
-  mockCustomers.forEach(customer => {
-    db.Customers.create(customer);
-  });
+  return db.Customers.bulkCreate(mockCustomers)
+
+  // mockCustomers.forEach(customer => {
+  //   db.Customers.create(customer);
+  // });
 };
 
 const insertMockOrders = () => {
-  mockOrders.forEach(order => {
-    db.Orders.create(order);
-  });
+  return db.Orders.bulkCreate(mockOrders)
+
+  // mockOrders.forEach(order => {
+  //   db.Orders.create(order);
+  // });
 };
 
 const insertMockOrderDetails = () => {
-  mockOrderDetails.forEach(detail => {
-    db.OrderDetails.create(detail);
-  });
+  return db.OrderDetails.bulkCreate(mockOrderDetails)
+
+  // mockOrderDetails.forEach(detail => {
+  //   db.OrderDetails.create(detail);
+  // });
 };
 
 const insertMockSurvey = () => {
-  mockSurveys.forEach(survey => {
-    db.Surveys.create(survey);
-  });
+  return db.Surveys.bulkCreate(mockSurveys)
+
+  // mockSurveys.forEach(survey => {
+  //   db.Surveys.create(survey);
+  // });
 };
 
+// const insertionFunctions = [
+//   insertMockCustomers,
+//   insertMockMenuItems,
+//   insertMockOrders,
+//   insertMockSurvey,
+//   insertMockOrderDetails,
+// ];
+
 const insertionFunctions = [
-  insertMockCustomers,
-  insertMockMenuItems,
-  insertMockOrders,
-  insertMockSurvey,
-  insertMockOrderDetails,
+  db.Customers.bulkCreate(mockCustomers),
+  db.Orders.bulkCreate(mockOrders),
+  db.MenuItems.bulkCreate(mockMenuItems),
+  db.Surveys.bulkCreate(mockSurveys),
+  db.OrderDetails.bulkCreate(mockOrderDetails),
 ];
 
-const asyncInsertionFunctions = insertionFunctions.map(func => {
-  return new Promise(func);
-});
+// const asyncInsertionFunctions = insertionFunctions.map(func => {
+//   return new Promise(func);
+// });
 
-Promise.all(asyncInsertionFunctions).then(() => db.connection.disconnect());
+Promise.all(insertionFunctions).then(() => db.connection.close());
