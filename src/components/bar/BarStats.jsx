@@ -1,40 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import {ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from "recharts";
+import QuantityGraph from "./QuantityGraph.jsx";
 
 const SelectWrapper = styled.div`
   display: inline-block;
   position: relative;
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: 600;
 `;
 
-const data = [
-  {name: "drink1", price: 13, quantity: 2, totalSales: 26, avgRating: 4},
-  {name: "drink2", price: 5, quantity: 20, totalSales: 100, avgRating: 2},
-  {name: "drink3", price: 200, quantity: 2, totalSales: 400, avgRating: 5},
-];
-
-const stats =[
-  {name: "John", totalStars: "120", reviewCounts: 13}
-]
-
-const StatsGraphs = () => {
-  return (
-    <ResponsiveContainer width={600} height={300}>
-      <BarChart data={data} 
-        margin={{top: 20, bottom: 5}}
-        barCategoryGap={50}
-        barGap={1}  
-      >
-        <XAxis dataKey="name" />
-        <YAxis type="number" />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="quantity" fill="#8884d8" />
-        <Bar dataKey="totalSales" fill="#82ca9d" />
-      </BarChart>
-    </ResponsiveContainer>
-  );
-};
+const GraphWrapper = styled.div`
+  display: block;
+  margin: 20px auto;
+  background-color: azure;
+`;
 
 class BarStats extends React.Component {
   constructor(props) {
@@ -48,7 +28,11 @@ class BarStats extends React.Component {
   renderView() {
     const {view} = this.state;
     if(view === "quantity") {
-      return <div>View 1</div>
+      return (
+        <GraphWrapper>
+          <QuantityGraph />
+        </GraphWrapper>
+      )
     } else {
       return <div>View 2</div>
     }
