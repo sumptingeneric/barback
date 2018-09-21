@@ -49722,7 +49722,7 @@ var Checkout = function (_React$Component) {
       //console.log("Order SUBMitTED TO DB");
       var custId = 1;
       var checkoutOrder = this.props.checkout;
-      _axios2.default.post("http://" + "localhost" + ":" + "7337" + "/api/customers/" + custId + "/orders", checkoutOrder).then(function () {
+      _axios2.default.post("/api/customers/" + custId + "/orders", checkoutOrder).then(function () {
         _this2.props.getOrders();
         _this2.props.changeModal("");
         _this2.props.emptyCart();
@@ -49978,7 +49978,7 @@ var App = function (_React$Component) {
     value: function getMenu() {
       var _this3 = this;
 
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/menu/categories").then(function (response) {
+      _axios2.default.get("/api/menu/categories").then(function (response) {
         _this3.setState({
           menu: response.data
         });
@@ -49993,7 +49993,7 @@ var App = function (_React$Component) {
       var _this4 = this;
 
       var customerID = 1;
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/customers/" + customerID + "/orders").then(function (response) {
+      _axios2.default.get("/api/customers/" + customerID + "/orders").then(function (response) {
         //console.log(response.data);
         _this4.setState({
           orders: response.data
@@ -50159,7 +50159,7 @@ var CurrentQueueItem = function (_React$Component) {
       // call to API to update status of order from 'current' to 'complete'
       var custId = 1;
       var orderId = this.props.order[0].OrderId;
-      _axios2.default.put("http://" + "localhost" + ":" + "7337" + "/api/customers/" + custId + "/orders/" + orderId + "/complete").then(function () {
+      _axios2.default.put("/api/customers/" + custId + "/orders/" + orderId + "/complete").then(function () {
         //TODO Reload not working
         _this2.props.reload();
       });
@@ -50296,7 +50296,7 @@ var PendingQueueItem = function (_React$Component) {
         var currentId = this.props.current[0].OrderId;
       }
       // console.log("current ID status " + currentId);
-      _axios2.default.put("http://" + "localhost" + ":" + "7337" + "/api/customers/" + custId + "/orders/" + orderId + "/current", { current: currentId || null }).then(function () {
+      _axios2.default.put("/api/customers/" + custId + "/orders/" + orderId + "/current", { current: currentId || null }).then(function () {
         _this2.props.reload();
       });
     }
@@ -50435,7 +50435,7 @@ var Queue = function (_React$Component) {
     value: function getCurrentOrder() {
       var _this3 = this;
 
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/orders/current").then(function (response) {
+      _axios2.default.get("/api/orders/current").then(function (response) {
         var currentOrderArray = Object.values(response.data);
         _this3.setState({
           currentOrder: currentOrderArray[0]
@@ -50447,11 +50447,11 @@ var Queue = function (_React$Component) {
     value: function getPendingOrders() {
       var _this4 = this;
 
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/orders/pending").then(function (response) {
+      _axios2.default.get("/api/orders/pending").then(function (response) {
         _this4.setState({
           pendingOrders: response.data
         });
-        console.log("These are the pending orders: ", _this4.state.pendingOrders);
+        // console.log("These are the pending orders: ", this.state.pendingOrders);
       });
     }
   }, {
@@ -50594,7 +50594,7 @@ var PreviousOrders = function (_React$Component) {
     value: function getPreviousOrders() {
       var _this2 = this;
 
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/orders/complete").then(function (response) {
+      _axios2.default.get("/api/orders/complete").then(function (response) {
         var currentOrders = Object.values(response.data);
         _this2.setState({
           previousOrders: currentOrders
@@ -50766,7 +50766,263 @@ var Business = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Business;
-},{"react":"../node_modules/react/index.js","./queue.jsx":"components/business/queue.jsx","./prevorder.jsx":"components/business/prevorder.jsx"}],"index.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./queue.jsx":"components/business/queue.jsx","./prevorder.jsx":"components/business/prevorder.jsx"}],"components/bar/Bar.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _router = require("@reach/router");
+
+var _styledComponents = require("styled-components");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Wrapper = _styledComponents2.default.main.withConfig({
+  displayName: "Bar__Wrapper",
+  componentId: "sc-1h2f8b1-0"
+})(["display:grid;grid-gap:10px;justify-items:center;"]);
+
+var Bar = function (_React$Component) {
+  _inherits(Bar, _React$Component);
+
+  function Bar() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Bar);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Bar.__proto__ || Object.getPrototypeOf(Bar)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      barName: 'My Bar'
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Bar, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        Wrapper,
+        null,
+        _react2.default.createElement(
+          "h1",
+          null,
+          this.state.barName
+        ),
+        _react2.default.createElement(
+          "button",
+          null,
+          _react2.default.createElement(
+            _router.Link,
+            { to: "/bar/profile" },
+            "View Profile"
+          )
+        ),
+        _react2.default.createElement(
+          "button",
+          null,
+          _react2.default.createElement(
+            _router.Link,
+            { to: "/bar/menu" },
+            "Edit Menu"
+          )
+        ),
+        _react2.default.createElement(
+          "p",
+          null,
+          "stats go here..."
+        )
+      );
+    }
+  }]);
+
+  return Bar;
+}(_react2.default.Component);
+
+;
+
+exports.default = Bar;
+},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/bar/BarProfile.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require("styled-components");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Wrapper = _styledComponents2.default.main.withConfig({
+  displayName: "BarProfile__Wrapper",
+  componentId: "w9jaez-0"
+})(["display:grid;grid-gap:10px;justify-items:center;"]);
+
+var BarProfile = function (_React$Component) {
+  _inherits(BarProfile, _React$Component);
+
+  function BarProfile() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, BarProfile);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = BarProfile.__proto__ || Object.getPrototypeOf(BarProfile)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(BarProfile, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        Wrapper,
+        null,
+        _react2.default.createElement(
+          "h1",
+          null,
+          "Bar Profile"
+        ),
+        _react2.default.createElement(
+          "p",
+          null,
+          "bar name - editable"
+        ),
+        _react2.default.createElement(
+          "p",
+          null,
+          "list of bartenders"
+        )
+      );
+    }
+  }]);
+
+  return BarProfile;
+}(_react2.default.Component);
+
+;
+
+exports.default = BarProfile;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/bar/EditMenu.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require("styled-components");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Wrapper = _styledComponents2.default.main.withConfig({
+  displayName: "EditMenu__Wrapper",
+  componentId: "lfep0z-0"
+})(["display:grid;grid-gap:10px;justify-items:center;"]);
+
+var EditMenu = function (_React$Component) {
+  _inherits(EditMenu, _React$Component);
+
+  function EditMenu() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, EditMenu);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = EditMenu.__proto__ || Object.getPrototypeOf(EditMenu)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(EditMenu, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        Wrapper,
+        null,
+        _react2.default.createElement(
+          "h1",
+          null,
+          "Edit Menu"
+        ),
+        _react2.default.createElement(
+          "p",
+          null,
+          "add new drink form - name, description, img url"
+        ),
+        _react2.default.createElement(
+          "p",
+          null,
+          "list of all drinks with edit option"
+        ),
+        _react2.default.createElement(
+          "p",
+          null,
+          "include item count?"
+        )
+      );
+    }
+  }]);
+
+  return EditMenu;
+}(_react2.default.Component);
+
+;
+
+exports.default = EditMenu;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
 var _react = require("react");
@@ -50786,6 +51042,18 @@ var _App2 = _interopRequireDefault(_App);
 var _business = require("./components/business/business.jsx");
 
 var _business2 = _interopRequireDefault(_business);
+
+var _Bar = require("./components/bar/Bar.jsx");
+
+var _Bar2 = _interopRequireDefault(_Bar);
+
+var _BarProfile = require("./components/bar/BarProfile.jsx");
+
+var _BarProfile2 = _interopRequireDefault(_BarProfile);
+
+var _EditMenu = require("./components/bar/EditMenu.jsx");
+
+var _EditMenu2 = _interopRequireDefault(_EditMenu);
 
 var _styledComponents = require("styled-components");
 
@@ -50811,23 +51079,33 @@ var Login = function Login() {
         { to: "/customer" },
         "Customer"
       ),
+      ' | ',
       _react2.default.createElement(
         _router.Link,
         { to: "/business" },
-        "Business"
+        "Bartender"
+      ),
+      ' | ',
+      _react2.default.createElement(
+        _router.Link,
+        { to: "/bar" },
+        "Bar"
       )
     ),
     _react2.default.createElement(
       _router.Router,
       null,
       _react2.default.createElement(_App2.default, { path: "/customer" }),
-      _react2.default.createElement(_business2.default, { path: "/business" })
+      _react2.default.createElement(_business2.default, { path: "/business" }),
+      _react2.default.createElement(_Bar2.default, { path: "/bar" }),
+      _react2.default.createElement(_BarProfile2.default, { path: "/bar/profile" }),
+      _react2.default.createElement(_EditMenu2.default, { path: "bar/menu" })
     )
   );
 };
 
 _reactDom2.default.render(_react2.default.createElement(Login, null), document.getElementById("root"));
-},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App.jsx":"components/App.jsx","./components/business/business.jsx":"components/business/business.jsx","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App.jsx":"components/App.jsx","./components/business/business.jsx":"components/business/business.jsx","./components/bar/Bar.jsx":"components/bar/Bar.jsx","./components/bar/BarProfile.jsx":"components/bar/BarProfile.jsx","./components/bar/EditMenu.jsx":"components/bar/EditMenu.jsx","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -50856,7 +51134,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '55235' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '58507' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
