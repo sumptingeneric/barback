@@ -9,14 +9,15 @@ const Wrapper = styled.main`
 `;
 
 class Bar extends React.Component {
-  state = {
-    barName: 'My Bar',
-  };
+  constructor(props) {
+    super(props);
+  }
 
   render() {
+    const barInfo = this.props.barInfo;
     return (
       <div>
-        <h1>{this.state.barName}</h1>
+        <h1>{barInfo.barName}</h1>
         <Link to="/bar/survey">Send Survey</Link> {/* add to router in index.js*/}
         <Link to="/bar/profile">View Profile</Link>
         <Link to="/bar/menu">Edit Menu</Link>

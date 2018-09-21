@@ -198,7 +198,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + '54344' + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '50329' + '/');
+>>>>>>> pass barInfo to all bar views
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

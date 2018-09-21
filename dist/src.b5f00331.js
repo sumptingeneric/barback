@@ -50801,32 +50801,23 @@ var Wrapper = _styledComponents2.default.main.withConfig({
 var Bar = function (_React$Component) {
   _inherits(Bar, _React$Component);
 
-  function Bar() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function Bar(props) {
     _classCallCheck(this, Bar);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Bar.__proto__ || Object.getPrototypeOf(Bar)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      barName: 'My Bar'
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    return _possibleConstructorReturn(this, (Bar.__proto__ || Object.getPrototypeOf(Bar)).call(this, props));
   }
 
   _createClass(Bar, [{
     key: "render",
     value: function render() {
+      var barInfo = this.props.barInfo;
       return _react2.default.createElement(
         "div",
         null,
         _react2.default.createElement(
           "h1",
           null,
-          this.state.barName
+          barInfo.barName
         ),
         _react2.default.createElement(
           _router.Link,
@@ -50892,41 +50883,91 @@ var Wrapper = _styledComponents2.default.main.withConfig({
 var BarProfile = function (_React$Component) {
   _inherits(BarProfile, _React$Component);
 
-  function BarProfile() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function BarProfile(props) {
     _classCallCheck(this, BarProfile);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    var _this = _possibleConstructorReturn(this, (BarProfile.__proto__ || Object.getPrototypeOf(BarProfile)).call(this, props));
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = BarProfile.__proto__ || Object.getPrototypeOf(BarProfile)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _temp), _possibleConstructorReturn(_this, _ret);
+    _this.state = {
+      showInput: false,
+      bartenders: [{ name: 'Cliff' }, { name: 'Rex' }, { name: 'Regina' }]
+    };
+    return _this;
   }
 
   _createClass(BarProfile, [{
+    key: "onComponentDidMount",
+    value: function onComponentDidMount() {
+      //axios request to get bartender names with match to barId
+      //then set state of bartenders to data
+    }
+  }, {
+    key: "updateInput",
+    value: function updateInput() {
+      // update business name and/or password
+      this.setState({ showInput: false });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
+      var bar = this.props.barInfo;
       return _react2.default.createElement(
         Wrapper,
         null,
         _react2.default.createElement(
           "h1",
           null,
-          "Bar Profile"
+          "My Profile"
         ),
         _react2.default.createElement(
-          "p",
+          "h2",
           null,
-          "bar name - editable"
+          bar.barName
         ),
         _react2.default.createElement(
-          "p",
+          "button",
+          { onClick: function onClick() {
+              return _this2.setState({ showInput: true });
+            } },
+          "Update My Info"
+        ),
+        this.state.showInput ? _react2.default.createElement(
+          "form",
           null,
-          "list of bartenders"
-        )
+          _react2.default.createElement(
+            "p",
+            null,
+            "Business Name:"
+          ),
+          _react2.default.createElement("input", {
+            type: "text",
+            defaultValue: bar.barName,
+            onChange: this.updateInput.bind(this) }),
+          _react2.default.createElement(
+            "p",
+            null,
+            "Password:"
+          ),
+          _react2.default.createElement("input", {
+            type: "text",
+            defaultValue: bar.password,
+            onChange: this.updateInput.bind(this) })
+        ) : null,
+        _react2.default.createElement(
+          "h2",
+          null,
+          "Bartenders on Staff"
+        ),
+        this.state.bartenders.map(function (bartender) {
+          console.log(bartender);
+          return _react2.default.createElement(
+            "p",
+            null,
+            bartender.name
+          );
+        })
       );
     }
   }]);
@@ -51079,6 +51120,7 @@ var AddMenuItem = function (_React$Component) {
       // axios.post(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/add/${this.state}`)
       .then(function (res) {
         //need to refresh the editmenu page with new item
+        console.log(res);
       }).catch(function (err) {
         return console.log(err);
       });
@@ -51105,7 +51147,7 @@ var AddMenuItem = function (_React$Component) {
               "Add a New Menu Item"
             ),
             _react2.default.createElement(
-              "label",
+              "p",
               null,
               "Item Name"
             ),
@@ -51114,7 +51156,7 @@ var AddMenuItem = function (_React$Component) {
             _react2.default.createElement("br", null),
             _react2.default.createElement("br", null),
             _react2.default.createElement(
-              "label",
+              "p",
               null,
               "Price"
             ),
@@ -51123,7 +51165,7 @@ var AddMenuItem = function (_React$Component) {
             _react2.default.createElement("br", null),
             _react2.default.createElement("br", null),
             _react2.default.createElement(
-              "label",
+              "p",
               null,
               "Description"
             ),
@@ -51132,7 +51174,7 @@ var AddMenuItem = function (_React$Component) {
             _react2.default.createElement("br", null),
             _react2.default.createElement("br", null),
             _react2.default.createElement(
-              "label",
+              "p",
               null,
               "Image URL"
             ),
@@ -51543,6 +51585,8 @@ exports.default = EditMenu;
 },{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./modal.jsx":"components/bar/modal.jsx","./AddMenuItem.jsx":"components/bar/AddMenuItem.jsx","./EditMenuItem.jsx":"components/bar/EditMenuItem.jsx","../customer/search.jsx":"components/customer/search.jsx"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
@@ -51579,48 +51623,81 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 //Styled Components
 var Wrapper = _styledComponents2.default.main.withConfig({
   displayName: "src__Wrapper",
   componentId: "sc-1looarw-0"
 })(["display:grid;grid-gap:10px;justify-items:center;"]);
 
-var Login = function Login() {
-  return _react2.default.createElement(
-    Wrapper,
-    null,
-    _react2.default.createElement(
-      "nav",
-      null,
-      _react2.default.createElement(
-        _router.Link,
-        { to: "/customer" },
-        "Customer"
-      ),
-      ' | ',
-      _react2.default.createElement(
-        _router.Link,
-        { to: "/business" },
-        "Bartender"
-      ),
-      ' | ',
-      _react2.default.createElement(
-        _router.Link,
-        { to: "/bar" },
-        "Bar"
-      )
-    ),
-    _react2.default.createElement(
-      _router.Router,
-      null,
-      _react2.default.createElement(_App2.default, { path: "/customer" }),
-      _react2.default.createElement(_business2.default, { path: "/business" }),
-      _react2.default.createElement(_Bar2.default, { path: "/bar" }),
-      _react2.default.createElement(_BarProfile2.default, { path: "/bar/profile" }),
-      _react2.default.createElement(_EditMenu2.default, { path: "bar/menu" })
-    )
-  );
-};
+var Login = function (_React$Component) {
+  _inherits(Login, _React$Component);
+
+  function Login() {
+    _classCallCheck(this, Login);
+
+    var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this));
+
+    _this.state = {
+      barInfo: {
+        id: '1',
+        barName: 'The Best Bar',
+        password: 'password'
+      }
+    };
+    return _this;
+  }
+
+  _createClass(Login, [{
+    key: "render",
+    value: function render() {
+      var bar = this.state.barInfo;
+      return _react2.default.createElement(
+        Wrapper,
+        null,
+        _react2.default.createElement(
+          "nav",
+          null,
+          _react2.default.createElement(
+            _router.Link,
+            { to: "/customer" },
+            "Customer"
+          ),
+          ' | ',
+          _react2.default.createElement(
+            _router.Link,
+            { to: "/business" },
+            "Bartender"
+          ),
+          ' | ',
+          _react2.default.createElement(
+            _router.Link,
+            { to: "/bar" },
+            "Bar"
+          )
+        ),
+        _react2.default.createElement(
+          _router.Router,
+          null,
+          _react2.default.createElement(_App2.default, { path: "/customer" }),
+          _react2.default.createElement(_business2.default, { path: "/business" }),
+          _react2.default.createElement(_Bar2.default, { path: "/bar", barInfo: bar }),
+          _react2.default.createElement(_BarProfile2.default, { path: "/bar/profile", barInfo: bar }),
+          _react2.default.createElement(_EditMenu2.default, { path: "bar/menu", barInfo: bar })
+        )
+      );
+    }
+  }]);
+
+  return Login;
+}(_react2.default.Component);
+
+;
 
 _reactDom2.default.render(_react2.default.createElement(Login, null), document.getElementById("root"));
 },{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App.jsx":"components/App.jsx","./components/business/business.jsx":"components/business/business.jsx","./components/bar/Bar.jsx":"components/bar/Bar.jsx","./components/bar/BarProfile.jsx":"components/bar/BarProfile.jsx","./components/bar/EditMenu.jsx":"components/bar/EditMenu.jsx","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -51653,10 +51730,14 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
 <<<<<<< HEAD
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + '54344' + '/');
 =======
   var ws = new WebSocket(protocol + '://' + hostname + ':' + '49985' + '/');
 >>>>>>> add link for survey on bar page
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '50329' + '/');
+>>>>>>> pass barInfo to all bar views
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
