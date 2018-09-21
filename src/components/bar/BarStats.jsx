@@ -47,7 +47,6 @@ class BarStats extends React.Component {
 
   renderView() {
     const {view} = this.state;
-    console.log('inside renderView=', view);
     if(view === "quantity") {
       return <div>View 1</div>
     } else {
@@ -56,8 +55,6 @@ class BarStats extends React.Component {
   }
 
   handleChange(e) {
-    console.log(e.target.value);
-    console.log(this)
     this.setState({
       view: e.target.value
     })
