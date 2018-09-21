@@ -19,10 +19,11 @@ body {
   background-image: linear-gradient(130deg, #ad1d0a, #d38901);
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 button {
-  background-color: #45058f;
+  background-color: #292727;
   border: none;
   color: white;
   padding: 10px 10px;
@@ -60,7 +61,7 @@ textarea {
 }
 
 a:link, a:visited {
-  background-color: #f44336;
+  background-color: none;
   color: white;
   padding: 14px 25px;
   text-align: center;
@@ -69,6 +70,6 @@ a:link, a:visited {
   margin: 5px;
 }
 a:hover, a:active {
-  background-color: red;
+  background-color: #29272728;
 }
 

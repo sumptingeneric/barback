@@ -49,6 +49,7 @@ class AddMenuItem extends React.Component {
     // axios.post(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/add/${this.state}`)
       .then(res => {
         //need to refresh the editmenu page with new item
+        console.log(res);
       })
       .catch(err => console.log(err));
 
@@ -61,16 +62,16 @@ class AddMenuItem extends React.Component {
         <div>
           <form>
             <h2>Add a New Menu Item</h2>
-            <label>Item Name</label><br />
+            <p>Item Name</p><br />
             <input type="text" name="item-name" onChange={this.handleItemNameInput.bind(this)}/>
             <br /><br />
-            <label>Price</label><br />
+            <p>Price</p><br />
             <input type="text" name="price" onChange={this.handlePriceInput.bind(this)}/>
             <br /><br />
-            <label>Description</label><br />
+            <p>Description</p><br />
             <textarea rows="4" cols="100%" name="description" onChange={this.handleDescriptionInput.bind(this)}/>
             <br /><br />
-            <label>Image URL</label><br />
+            <p>Image URL</p><br />
             <input type="text" name="image-url" onChange={this.handleImageUrlInput.bind(this)}/>
             <br /><br />
             <ClickableWrapper type="submit" onClick={this.handleSubmit.bind(this)}>

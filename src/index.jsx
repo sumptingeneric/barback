@@ -32,6 +32,7 @@ const Login = () => (
       <Bar path="/bar" />
       <BarProfile path="/bar/profile" />
       <EditMenu path="bar/menu" />
+      {/* <SendSurvey path="bar/survey" /> */}
     </Router>
   </Wrapper>
 );

@@ -220,13 +220,13 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
 
 // ***** BAR MENU ***** //
 //from AddMenuItem Modal
-app.post("/api/bar/menu/add", (req, res) => {
+app.post("/api/bar/menu/add", (req) => {
   console.log('params in server: ', req.params);
 });
 
 
 //from EditMenuItem Modal
-app.put("/api/bar/menu/edit", (req, res) => {
+app.put("/api/bar/menu/edit", () => {
 
 });
 

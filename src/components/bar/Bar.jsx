@@ -17,6 +17,7 @@ class Bar extends React.Component {
     return (
       <div>
         <h1>{this.state.barName}</h1>
+        <Link to="/bar/survey">Send Survey</Link> {/* add to router in index.js*/}
         <Link to="/bar/profile">View Profile</Link>
         <Link to="/bar/menu">Edit Menu</Link>
         <p>stats go here...</p>

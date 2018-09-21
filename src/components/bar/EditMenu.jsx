@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import axios from "axios";
+// import axios from "axios";
 import Modal from "./modal.jsx";
 import AddMenuItem from "./AddMenuItem.jsx";
 import EditMenuItem from "./EditMenuItem.jsx";
@@ -91,11 +91,9 @@ class EditMenu extends React.Component {
       <div>
         <Wrapper>
           <h1>Edit Menu</h1>
-          <p>{this.state.totalItems} items currently on your menu</p>
+          <h3>{this.state.totalItems} items currently on your menu</h3>
           <button name="add" onClick={this.handleAdd.bind(this)}>Add New Menu Item</button>
           <Search handleSearch={this.handleSearchOnKeyUp}/>
-
-          <h3>Your Menu Items</h3>
           {this.state.menuItems.map(item => {
             return (
               <ItemWrapper key={item.id}>

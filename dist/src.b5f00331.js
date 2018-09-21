@@ -50830,6 +50830,12 @@ var Bar = function (_React$Component) {
         ),
         _react2.default.createElement(
           _router.Link,
+          { to: "/bar/survey" },
+          "Send Survey"
+        ),
+        " ",
+        _react2.default.createElement(
+          _router.Link,
           { to: "/bar/profile" },
           "View Profile"
         ),
@@ -51239,6 +51245,7 @@ var EditMenuItem = function (_React$Component) {
       //TODO: if an item was updated, add it to the put URL
       _axios2.default.put("http://" + "localhost" + ":" + "7337" + "/api/bar/menu/edit").then(function (res) {
         //need to refresh the editmenu page with updated item
+        console.log(res);
       }).catch(function (err) {
         return console.log(err);
       });
@@ -51341,10 +51348,6 @@ var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _axios = require("axios");
-
-var _axios2 = _interopRequireDefault(_axios);
-
 var _modal = require("./modal.jsx");
 
 var _modal2 = _interopRequireDefault(_modal);
@@ -51368,6 +51371,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import axios from "axios";
+
 
 var Wrapper = _styledComponents2.default.main.withConfig({
   displayName: "EditMenu__Wrapper",
@@ -51483,7 +51488,7 @@ var EditMenu = function (_React$Component) {
             "Edit Menu"
           ),
           _react2.default.createElement(
-            "p",
+            "h3",
             null,
             this.state.totalItems,
             " items currently on your menu"
@@ -51494,11 +51499,6 @@ var EditMenu = function (_React$Component) {
             "Add New Menu Item"
           ),
           _react2.default.createElement(_search2.default, { handleSearch: this.handleSearchOnKeyUp }),
-          _react2.default.createElement(
-            "h3",
-            null,
-            "Your Menu Items"
-          ),
           this.state.menuItems.map(function (item) {
             return _react2.default.createElement(
               ItemWrapper,
@@ -51540,7 +51540,7 @@ var EditMenu = function (_React$Component) {
 ;
 
 exports.default = EditMenu;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js","./modal.jsx":"components/bar/modal.jsx","./AddMenuItem.jsx":"components/bar/AddMenuItem.jsx","./EditMenuItem.jsx":"components/bar/EditMenuItem.jsx","../customer/search.jsx":"components/customer/search.jsx"}],"index.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./modal.jsx":"components/bar/modal.jsx","./AddMenuItem.jsx":"components/bar/AddMenuItem.jsx","./EditMenuItem.jsx":"components/bar/EditMenuItem.jsx","../customer/search.jsx":"components/customer/search.jsx"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
 var _react = require("react");
@@ -51652,7 +51652,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + '54344' + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49985' + '/');
+>>>>>>> add link for survey on bar page
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

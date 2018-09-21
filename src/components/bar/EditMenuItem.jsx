@@ -49,6 +49,7 @@ class EditMenuItem extends React.Component {
     axios.put(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/edit`)
       .then(res => {
         //need to refresh the editmenu page with updated item
+        console.log(res);
       })
       .catch(err => console.log(err));
 
