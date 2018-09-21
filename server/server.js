@@ -218,6 +218,18 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
   }
 });
 
+// ***** BAR MENU ***** //
+//from AddMenuItem Modal
+app.post("/api/bar/menu/add", (req, res) => {
+  console.log('params in server: ', req.params);
+});
+
+
+//from EditMenuItem Modal
+app.put("/api/bar/menu/edit", (req, res) => {
+
+});
+
 //Port Listening
 
 app.listen(PORT, () => {

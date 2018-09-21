@@ -43,7 +43,15 @@ class AddMenuItem extends React.Component {
   }
 
   handleSubmit() {
+    console.log('save', this.state);
     // axios post request to save new item to database
+    axios.post(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/add`, {item: this.state})
+    // axios.post(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/add/${this.state}`)
+      .then(res => {
+        //need to refresh the editmenu page with new item
+      })
+      .catch(err => console.log(err));
+
     this.props.toggleModal();
   }
 

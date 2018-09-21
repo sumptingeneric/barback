@@ -49722,7 +49722,7 @@ var Checkout = function (_React$Component) {
       //console.log("Order SUBMitTED TO DB");
       var custId = 1;
       var checkoutOrder = this.props.checkout;
-      _axios2.default.post("http://" + "localhost" + ":" + "7337" + "/api/customers/" + custId + "/orders", checkoutOrder).then(function () {
+      _axios2.default.post("/api/customers/" + custId + "/orders", checkoutOrder).then(function () {
         _this2.props.getOrders();
         _this2.props.changeModal("");
         _this2.props.emptyCart();
@@ -49978,7 +49978,7 @@ var App = function (_React$Component) {
     value: function getMenu() {
       var _this3 = this;
 
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/menu/categories").then(function (response) {
+      _axios2.default.get("/api/menu/categories").then(function (response) {
         _this3.setState({
           menu: response.data
         });
@@ -49993,7 +49993,7 @@ var App = function (_React$Component) {
       var _this4 = this;
 
       var customerID = 1;
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/customers/" + customerID + "/orders").then(function (response) {
+      _axios2.default.get("/api/customers/" + customerID + "/orders").then(function (response) {
         //console.log(response.data);
         _this4.setState({
           orders: response.data
@@ -50159,7 +50159,7 @@ var CurrentQueueItem = function (_React$Component) {
       // call to API to update status of order from 'current' to 'complete'
       var custId = 1;
       var orderId = this.props.order[0].OrderId;
-      _axios2.default.put("http://" + "localhost" + ":" + "7337" + "/api/customers/" + custId + "/orders/" + orderId + "/complete").then(function () {
+      _axios2.default.put("/api/customers/" + custId + "/orders/" + orderId + "/complete").then(function () {
         //TODO Reload not working
         _this2.props.reload();
       });
@@ -50296,7 +50296,7 @@ var PendingQueueItem = function (_React$Component) {
         var currentId = this.props.current[0].OrderId;
       }
       // console.log("current ID status " + currentId);
-      _axios2.default.put("http://" + "localhost" + ":" + "7337" + "/api/customers/" + custId + "/orders/" + orderId + "/current", { current: currentId || null }).then(function () {
+      _axios2.default.put("/api/customers/" + custId + "/orders/" + orderId + "/current", { current: currentId || null }).then(function () {
         _this2.props.reload();
       });
     }
@@ -50435,7 +50435,7 @@ var Queue = function (_React$Component) {
     value: function getCurrentOrder() {
       var _this3 = this;
 
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/orders/current").then(function (response) {
+      _axios2.default.get("/api/orders/current").then(function (response) {
         var currentOrderArray = Object.values(response.data);
         _this3.setState({
           currentOrder: currentOrderArray[0]
@@ -50447,11 +50447,11 @@ var Queue = function (_React$Component) {
     value: function getPendingOrders() {
       var _this4 = this;
 
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/orders/pending").then(function (response) {
+      _axios2.default.get("/api/orders/pending").then(function (response) {
         _this4.setState({
           pendingOrders: response.data
         });
-        console.log("These are the pending orders: ", _this4.state.pendingOrders);
+        // console.log("These are the pending orders: ", this.state.pendingOrders);
       });
     }
   }, {
@@ -50594,7 +50594,7 @@ var PreviousOrders = function (_React$Component) {
     value: function getPreviousOrders() {
       var _this2 = this;
 
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/orders/complete").then(function (response) {
+      _axios2.default.get("/api/orders/complete").then(function (response) {
         var currentOrders = Object.values(response.data);
         _this2.setState({
           previousOrders: currentOrders
@@ -50821,7 +50821,7 @@ var Bar = function (_React$Component) {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
-        Wrapper,
+        "div",
         null,
         _react2.default.createElement(
           "h1",
@@ -50829,22 +50829,14 @@ var Bar = function (_React$Component) {
           this.state.barName
         ),
         _react2.default.createElement(
-          "button",
-          null,
-          _react2.default.createElement(
-            _router.Link,
-            { to: "/bar/profile" },
-            "View Profile"
-          )
+          _router.Link,
+          { to: "/bar/profile" },
+          "View Profile"
         ),
         _react2.default.createElement(
-          "button",
-          null,
-          _react2.default.createElement(
-            _router.Link,
-            { to: "/bar/menu" },
-            "Edit Menu"
-          )
+          _router.Link,
+          { to: "/bar/menu" },
+          "Edit Menu"
         ),
         _react2.default.createElement(
           "p",
@@ -50939,10 +50931,65 @@ var BarProfile = function (_React$Component) {
 ;
 
 exports.default = BarProfile;
-<<<<<<< HEAD
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/bar/EditMenu.jsx":[function(require,module,exports) {
-=======
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/bar/AddMenuItem.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/bar/modal.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require("react-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var modalRoot = document.getElementById("modal");
+
+var Modal = function (_React$Component) {
+  _inherits(Modal, _React$Component);
+
+  function Modal(props) {
+    _classCallCheck(this, Modal);
+
+    var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, props));
+
+    _this.el = document.createElement("div");
+    return _this;
+  }
+
+  _createClass(Modal, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      modalRoot.appendChild(this.el);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      modalRoot.removeChild(this.el);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return (0, _reactDom.createPortal)(this.props.children, this.el);
+    }
+  }]);
+
+  return Modal;
+}(_react2.default.Component);
+
+exports.default = Modal;
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js"}],"components/bar/AddMenuItem.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51020,7 +51067,16 @@ var AddMenuItem = function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
+      console.log('save', this.state);
       // axios post request to save new item to database
+      _axios2.default.post("http://" + "localhost" + ":" + "7337" + "/api/bar/menu/add", { item: this.state })
+      // axios.post(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/add/${this.state}`)
+      .then(function (res) {
+        //need to refresh the editmenu page with new item
+      }).catch(function (err) {
+        return console.log(err);
+      });
+
       this.props.toggleModal();
     }
   }, {
@@ -51157,9 +51213,6 @@ var EditMenuItem = function (_React$Component) {
   }
 
   _createClass(EditMenuItem, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {}
-  }, {
     key: "handleItemNameInput",
     value: function handleItemNameInput(event) {
       this.setState({ updatedItemName: event.target.value });
@@ -51182,7 +51235,14 @@ var EditMenuItem = function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
-      // axios post request to update item to database
+      // axios put request to update item to database
+      //TODO: if an item was updated, add it to the put URL
+      _axios2.default.put("http://" + "localhost" + ":" + "7337" + "/api/bar/menu/edit").then(function (res) {
+        //need to refresh the editmenu page with updated item
+      }).catch(function (err) {
+        return console.log(err);
+      });
+
       this.props.toggleModal();
     }
   }, {
@@ -51265,7 +51325,6 @@ var EditMenuItem = function (_React$Component) {
 
 exports.default = EditMenuItem;
 },{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js"}],"components/bar/EditMenu.jsx":[function(require,module,exports) {
->>>>>>> add and format form to add menu items
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51282,13 +51341,11 @@ var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-<<<<<<< HEAD
-=======
 var _axios = require("axios");
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _modal = require("../customer/modal.jsx");
+var _modal = require("./modal.jsx");
 
 var _modal2 = _interopRequireDefault(_modal);
 
@@ -51304,7 +51361,6 @@ var _search = require("../customer/search.jsx");
 
 var _search2 = _interopRequireDefault(_search);
 
->>>>>>> add search and map menuItems on the EditMenu component
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51335,12 +51391,6 @@ var EditMenu = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (EditMenu.__proto__ || Object.getPrototypeOf(EditMenu)).call(this, props));
 
-<<<<<<< HEAD
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = EditMenu.__proto__ || Object.getPrototypeOf(EditMenu)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  _createClass(EditMenu, [{
-=======
     _this.handleSearchOnKeyUp = function (e) {
       if (e.key !== "Enter") {
         _this.setState({
@@ -51387,9 +51437,6 @@ var EditMenu = function (_React$Component) {
       });
     }
   }, {
-<<<<<<< HEAD
->>>>>>> add search and map menuItems on the EditMenu component
-=======
     key: "handleAdd",
     value: function handleAdd(event) {
       var _this2 = this;
@@ -51413,7 +51460,6 @@ var EditMenu = function (_React$Component) {
       });
     }
   }, {
->>>>>>> add edit modal for menu items
     key: "render",
     value: function render() {
       var _this4 = this;
@@ -51426,14 +51472,11 @@ var EditMenu = function (_React$Component) {
       }
 
       return _react2.default.createElement(
-        Wrapper,
+        "div",
         null,
         _react2.default.createElement(
-          "h1",
+          Wrapper,
           null,
-<<<<<<< HEAD
-          "Edit Menu"
-=======
           _react2.default.createElement(
             "h1",
             null,
@@ -51481,28 +51524,12 @@ var EditMenu = function (_React$Component) {
               )
             );
           })
->>>>>>> add search and map menuItems on the EditMenu component
         ),
-        _react2.default.createElement(
-          "p",
+        this.state.showModal ? _react2.default.createElement(
+          _modal2.default,
           null,
-<<<<<<< HEAD
-          "add new drink form - name, description, img url"
-        ),
-        _react2.default.createElement(
-          "p",
-          null,
-          "list of all drinks with edit option"
-        ),
-        _react2.default.createElement(
-          "p",
-          null,
-          "include item count?"
-        )
-=======
           modalDisplay
         ) : null
->>>>>>> add edit modal for menu items
       );
     }
   }]);
@@ -51513,15 +51540,7 @@ var EditMenu = function (_React$Component) {
 ;
 
 exports.default = EditMenu;
-<<<<<<< HEAD
-<<<<<<< HEAD
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"index.jsx":[function(require,module,exports) {
-=======
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js","../customer/modal.jsx":"components/customer/modal.jsx","./AddMenuItem.jsx":"components/bar/AddMenuItem.jsx","../customer/search.jsx":"components/customer/search.jsx"}],"index.jsx":[function(require,module,exports) {
->>>>>>> add search and map menuItems on the EditMenu component
-=======
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js","../customer/modal.jsx":"components/customer/modal.jsx","./AddMenuItem.jsx":"components/bar/AddMenuItem.jsx","./EditMenuItem.jsx":"components/bar/EditMenuItem.jsx","../customer/search.jsx":"components/customer/search.jsx"}],"index.jsx":[function(require,module,exports) {
->>>>>>> add edit modal for menu items
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js","./modal.jsx":"components/bar/modal.jsx","./AddMenuItem.jsx":"components/bar/AddMenuItem.jsx","./EditMenuItem.jsx":"components/bar/EditMenuItem.jsx","../customer/search.jsx":"components/customer/search.jsx"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
 var _react = require("react");
@@ -51633,7 +51652,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49474' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '54344' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

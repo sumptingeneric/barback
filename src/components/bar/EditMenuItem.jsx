@@ -26,9 +26,7 @@ class EditMenuItem extends React.Component {
       updatedImageUrl: '',
     };
   }
-  componentDidMount() {
 
-  }
   handleItemNameInput(event) {
     this.setState({updatedItemName: event.target.value});
   }
@@ -46,7 +44,14 @@ class EditMenuItem extends React.Component {
   }
 
   handleSubmit() {
-    // axios post request to update item to database
+    // axios put request to update item to database
+    //TODO: if an item was updated, add it to the put URL
+    axios.put(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/edit`)
+      .then(res => {
+        //need to refresh the editmenu page with updated item
+      })
+      .catch(err => console.log(err));
+
     this.props.toggleModal();
   }
 

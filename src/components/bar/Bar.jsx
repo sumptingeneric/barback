@@ -15,16 +15,12 @@ class Bar extends React.Component {
 
   render() {
     return (
-      <Wrapper>
+      <div>
         <h1>{this.state.barName}</h1>
-        <button>
-          <Link to="/bar/profile">View Profile</Link>
-        </button>
-        <button>
-          <Link to="/bar/menu">Edit Menu</Link>
-        </button>
+        <Link to="/bar/profile">View Profile</Link>
+        <Link to="/bar/menu">Edit Menu</Link>
         <p>stats go here...</p>
-      </Wrapper>
+      </div>
     );
   }
 
