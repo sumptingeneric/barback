@@ -50821,12 +50821,6 @@ var Bar = function (_React$Component) {
         ),
         _react2.default.createElement(
           _router.Link,
-          { to: "/bar/survey" },
-          "Send Survey"
-        ),
-        " ",
-        _react2.default.createElement(
-          _router.Link,
           { to: "/bar/profile" },
           "View Profile"
         ),
@@ -51127,15 +51121,14 @@ var AddMenuItem = function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
-      console.log('save', this.state);
+      var item = this.state;
+      console.log('sate of items', item);
       // axios post request to save new item to database
-      _axios2.default.post('/api/bar/menu/add', { item: this.state })
-      // axios.post(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/add/${this.state}`)
-      .then(function (res) {
+      _axios2.default.post("http://" + "localhost" + ":" + "7337" + "/api/bar/menu/add/" + item).then(function (res) {
         //need to refresh the editmenu page with new item
-        console.log(res);
+        console.log('res in handleSubmit', res);
       }).catch(function (err) {
-        return console.log(err);
+        return console.error(err);
       });
 
       this.props.toggleModal();
@@ -51164,7 +51157,6 @@ var AddMenuItem = function (_React$Component) {
               null,
               "Item Name"
             ),
-            _react2.default.createElement("br", null),
             _react2.default.createElement("input", { type: "text", name: "item-name", onChange: this.handleItemNameInput.bind(this) }),
             _react2.default.createElement("br", null),
             _react2.default.createElement("br", null),
@@ -51173,7 +51165,6 @@ var AddMenuItem = function (_React$Component) {
               null,
               "Price"
             ),
-            _react2.default.createElement("br", null),
             _react2.default.createElement("input", { type: "text", name: "price", onChange: this.handlePriceInput.bind(this) }),
             _react2.default.createElement("br", null),
             _react2.default.createElement("br", null),
@@ -51182,7 +51173,6 @@ var AddMenuItem = function (_React$Component) {
               null,
               "Description"
             ),
-            _react2.default.createElement("br", null),
             _react2.default.createElement("textarea", { rows: "4", cols: "100%", name: "description", onChange: this.handleDescriptionInput.bind(this) }),
             _react2.default.createElement("br", null),
             _react2.default.createElement("br", null),
@@ -51191,7 +51181,6 @@ var AddMenuItem = function (_React$Component) {
               null,
               "Image URL"
             ),
-            _react2.default.createElement("br", null),
             _react2.default.createElement("input", { type: "text", name: "image-url", onChange: this.handleImageUrlInput.bind(this) }),
             _react2.default.createElement("br", null),
             _react2.default.createElement("br", null),
@@ -51403,6 +51392,10 @@ var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _modal = require("./modal.jsx");
 
 var _modal2 = _interopRequireDefault(_modal);
@@ -51426,8 +51419,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import axios from "axios";
-
 
 var Wrapper = _styledComponents2.default.main.withConfig({
   displayName: "EditMenu__Wrapper",
@@ -51437,7 +51428,8 @@ var Wrapper = _styledComponents2.default.main.withConfig({
 var ItemWrapper = _styledComponents2.default.main.withConfig({
   displayName: "EditMenu__ItemWrapper",
   componentId: "lfep0z-1"
-})(["text-align:center;"]);
+})(["width:60%;margin-bottom:10px;"]);
+
 var Image = _styledComponents2.default.img.withConfig({
   displayName: "EditMenu__Image",
   componentId: "lfep0z-2"
@@ -51481,12 +51473,18 @@ var EditMenu = function (_React$Component) {
   _createClass(EditMenu, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // axios call for menu items in database
+      var _this2 = this;
 
-      //make this a promise or callback:
-      this.setState({
-        totalItems: this.state.menuItems.length,
-        displayItems: this.state.menuItems
+      // axios call for menu items in database
+      _axios2.default.get('/api/bar/menu').then(function (res) {
+        console.log(res);
+
+        _this2.setState({
+          totalItems: _this2.state.menuItems.length,
+          displayItems: _this2.state.menuItems
+        });
+      }).catch(function (err) {
+        return console.error(err);
       });
     }
   }, {
@@ -51499,30 +51497,30 @@ var EditMenu = function (_React$Component) {
   }, {
     key: "handleAdd",
     value: function handleAdd(event) {
-      var _this2 = this;
-
-      this.setState({
-        modalType: event.target.name
-      }, function () {
-        return _this2.toggleModal();
-      });
-    }
-  }, {
-    key: "handleEdit",
-    value: function handleEdit(item, event) {
       var _this3 = this;
 
       this.setState({
-        clickedItem: item,
         modalType: event.target.name
       }, function () {
         return _this3.toggleModal();
       });
     }
   }, {
+    key: "handleEdit",
+    value: function handleEdit(item, event) {
+      var _this4 = this;
+
+      this.setState({
+        clickedItem: item,
+        modalType: event.target.name
+      }, function () {
+        return _this4.toggleModal();
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       var modalDisplay = void 0;
       if (this.state.showModal && this.state.modalType === 'add') {
@@ -51543,17 +51541,17 @@ var EditMenu = function (_React$Component) {
             "Edit Menu"
           ),
           _react2.default.createElement(
-            "h3",
-            null,
-            this.state.totalItems,
-            " items currently on your menu"
-          ),
-          _react2.default.createElement(
             "button",
             { name: "add", onClick: this.handleAdd.bind(this) },
             "Add New Menu Item"
           ),
           _react2.default.createElement(_search2.default, { handleSearch: this.handleSearchOnKeyUp }),
+          _react2.default.createElement(
+            "h3",
+            null,
+            "Total Menu Items: ",
+            this.state.totalItems
+          ),
           this.state.menuItems.map(function (item) {
             return _react2.default.createElement(
               ItemWrapper,
@@ -51573,7 +51571,7 @@ var EditMenu = function (_React$Component) {
               ),
               _react2.default.createElement(
                 "button",
-                { type: "button", name: "edit", onClick: _this4.handleEdit.bind(_this4, item) },
+                { type: "button", name: "edit", onClick: _this5.handleEdit.bind(_this5, item) },
                 "Edit ",
                 item.itemName
               )
@@ -51595,7 +51593,7 @@ var EditMenu = function (_React$Component) {
 ;
 
 exports.default = EditMenu;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./modal.jsx":"components/bar/modal.jsx","./AddMenuItem.jsx":"components/bar/AddMenuItem.jsx","./EditMenuItem.jsx":"components/bar/EditMenuItem.jsx","../customer/search.jsx":"components/customer/search.jsx"}],"index.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js","./modal.jsx":"components/bar/modal.jsx","./AddMenuItem.jsx":"components/bar/AddMenuItem.jsx","./EditMenuItem.jsx":"components/bar/EditMenuItem.jsx","../customer/search.jsx":"components/customer/search.jsx"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -51744,6 +51742,7 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + '54344' + '/');
 =======
   var ws = new WebSocket(protocol + '://' + hostname + ':' + '49985' + '/');
@@ -51751,6 +51750,9 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
 =======
   var ws = new WebSocket(protocol + '://' + hostname + ':' + '50329' + '/');
 >>>>>>> pass barInfo to all bar views
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53910' + '/');
+>>>>>>> add menu item server request in progress
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

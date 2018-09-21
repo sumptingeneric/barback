@@ -43,15 +43,15 @@ class AddMenuItem extends React.Component {
   }
 
   handleSubmit() {
-    console.log('save', this.state);
+    const item = this.state;
+    console.log('sate of items', item);
     // axios post request to save new item to database
-    axios.post('/api/bar/menu/add', {item: this.state})
-    // axios.post(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/add/${this.state}`)
+    axios.post(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/add/${ item }`)
       .then(res => {
         //need to refresh the editmenu page with new item
-        console.log(res);
+        console.log('res in handleSubmit', res);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
 
     this.props.toggleModal();
   }
@@ -62,16 +62,16 @@ class AddMenuItem extends React.Component {
         <div>
           <form>
             <h2>Add a New Menu Item</h2>
-            <p>Item Name</p><br />
+            <p>Item Name</p>
             <input type="text" name="item-name" onChange={this.handleItemNameInput.bind(this)}/>
             <br /><br />
-            <p>Price</p><br />
+            <p>Price</p>
             <input type="text" name="price" onChange={this.handlePriceInput.bind(this)}/>
             <br /><br />
-            <p>Description</p><br />
+            <p>Description</p>
             <textarea rows="4" cols="100%" name="description" onChange={this.handleDescriptionInput.bind(this)}/>
             <br /><br />
-            <p>Image URL</p><br />
+            <p>Image URL</p>
             <input type="text" name="image-url" onChange={this.handleImageUrlInput.bind(this)}/>
             <br /><br />
             <ClickableWrapper type="submit" onClick={this.handleSubmit.bind(this)}>

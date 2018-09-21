@@ -45,7 +45,6 @@ class Login extends React.Component {
           <Bar path="/bar" barInfo={bar}/>
           <BarProfile path="/bar/profile" barInfo={bar}/>
           <EditMenu path="bar/menu" barInfo={bar}/>
-          {/* <SendSurvey path="bar/survey" /> */}
         </Router>
       </Wrapper>
     )

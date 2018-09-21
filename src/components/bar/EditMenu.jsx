@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-// import axios from "axios";
+import axios from "axios";
 import Modal from "./modal.jsx";
 import AddMenuItem from "./AddMenuItem.jsx";
 import EditMenuItem from "./EditMenuItem.jsx";
@@ -13,8 +13,10 @@ const Wrapper = styled.main`
 `;
 
 const ItemWrapper = styled.main`
-  text-align: center;
+  width: 60%;
+  margin-bottom: 10px; 
 `;
+
 const Image = styled.img`
   height: 200px;
 `;
@@ -35,12 +37,16 @@ class EditMenu extends React.Component {
 
   componentDidMount() {
     // axios call for menu items in database
+    axios.get('/api/bar/menu')
+      .then( res =>{
+        console.log(res)
 
-    //make this a promise or callback:
-    this.setState({
-      totalItems: this.state.menuItems.length,
-      displayItems: this.state.menuItems,
-    });
+        this.setState({
+          totalItems: this.state.menuItems.length,
+          displayItems: this.state.menuItems,
+        });
+      })
+      .catch( err => console.error(err));
   }
 
   toggleModal() {
@@ -91,9 +97,9 @@ class EditMenu extends React.Component {
       <div>
         <Wrapper>
           <h1>Edit Menu</h1>
-          <h3>{this.state.totalItems} items currently on your menu</h3>
           <button name="add" onClick={this.handleAdd.bind(this)}>Add New Menu Item</button>
           <Search handleSearch={this.handleSearchOnKeyUp}/>
+          <h3>Total Menu Items: {this.state.totalItems}</h3>
           {this.state.menuItems.map(item => {
             return (
               <ItemWrapper key={item.id}>
