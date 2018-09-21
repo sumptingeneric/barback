@@ -154,50 +154,89 @@ const mockOrderDetails = [
   {
     quantity: 1,
     subtotal: 12,
-    OrderId: 11,
-    MenuItemId: 31
+    OrderId: 2,
+    MenuItemId: 10,
+    SurveyId: 2
   },
   {
     quantity: 1,
     subtotal: 14,
-    OrderId: 21,
-    MenuItemId: 61
+    OrderId: 3,
+    MenuItemId: 6,
+    SurveyId: 3
   },
   {
     quantity: 2,
     subtotal: 25,
-    OrderId: 41,
-    MenuItemId: 41
+    OrderId: 4,
+    MenuItemId: 11,
+    SurveyId: 4
   },
   {
     quantity: 1,
     subtotal: 12,
-    OrderId: 41,
-    MenuItemId: 31
+    OrderId: 4,
+    MenuItemId: 10,
+    SurveyId: 4
   },
   {
     quantity: 1,
     subtotal: 11,
-    OrderId: 31,
-    MenuItemId: 71
+    OrderId: 5,
+    MenuItemId: 7,
+    SurveyId: 5
   },
   {
     quantity: 1,
     subtotal: 9,
-    OrderId: 31,
-    MenuItemId: 101
+    OrderId: 5,
+    MenuItemId: 8,
+    SurveyId: 5
   },
   {
     quantity: 1,
     subtotal: 8.5,
-    OrderId: 51,
-    MenuItemId: 81
+    OrderId: 6,
+    MenuItemId: 9,
+    SurveyId: 6
   },
   {
     quantity: 1,
     subtotal: 21,
-    OrderId: 61,
-    MenuItemId: 21
+    OrderId: 7,
+    MenuItemId: 5,
+    SurveyId: 7
+  }
+];
+
+const mockSurveys = [
+  {
+    drinkQuality: 2,
+    customerService: 5
+  },
+  {
+    drinkQuality: 2,
+    customerService: 2
+  },
+  {
+    drinkQuality: 1,
+    customerService: 1
+  },
+  {
+    drinkQuality: 3,
+    customerService: 3
+  },
+  {
+    drinkQuality: 1,
+    customerService: 5
+  },
+  {
+    drinkQuality: 4,
+    customerService: 1
+  },
+  {
+    drinkQuality: 3,
+    customerService: 4
   }
 ];
 
@@ -225,15 +264,22 @@ const insertMockOrderDetails = () => {
   });
 };
 
+const insertMockSurvey = () => {
+  mockSurveys.forEach(survey => {
+    db.Surveys.create(survey);
+  });
+};
+
 const insertionFunctions = [
-  insertMockMenuItems,
   insertMockCustomers,
+  insertMockMenuItems,
   insertMockOrders,
-  insertMockOrderDetails
+  insertMockSurvey,
+  insertMockOrderDetails,
 ];
 
 const asyncInsertionFunctions = insertionFunctions.map(func => {
   return new Promise(func);
 });
 
-Promise.all(asyncInsertionFunctions).then(() => db.connection.close());
+Promise.all(asyncInsertionFunctions).then(() => db.connection.disconnect());

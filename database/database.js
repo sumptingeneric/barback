@@ -43,15 +43,26 @@ let OrderDetails = orm.define("OrderDetails", {
   subtotal: Sequelize.FLOAT
 });
 
+let Surveys = orm.define("Survey", {
+  drinkQuality: Sequelize.INTEGER,
+  customerService: Sequelize.INTEGER
+});
+
 Customers.hasMany(Orders);
 Orders.belongsTo(Customers);
 Orders.belongsToMany(MenuItems, { through: "OrderDetails" });
 MenuItems.belongsToMany(Orders, { through: "OrderDetails" });
+Surveys.belongsToMany(Orders, { through: "OrderDetails" });
+
 OrderDetails.belongsTo(Orders);
 OrderDetails.belongsTo(MenuItems);
+
+OrderDetails.belongsTo(Surveys);
+
 MenuItems.sync();
 Customers.sync();
 Orders.sync();
+Surveys.sync();
 OrderDetails.sync();
 // orm.sync({force:true});
 
@@ -59,4 +70,5 @@ exports.MenuItems = MenuItems;
 exports.Customers = Customers;
 exports.Orders = Orders;
 exports.OrderDetails = OrderDetails;
+exports.Surveys = Surveys;
 exports.connection = orm;

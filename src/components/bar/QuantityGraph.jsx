@@ -3,8 +3,8 @@ import React from "react";
 import {ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend} from "recharts";
 
 const data = [
-  {name: "drink1", price: 13, Quantity: 2, totalSales: 26, AverageRating: 4},
   {name: "drink2", price: 5, Quantity: 20, totalSales: 100, AverageRating: 2},
+  {name: "drink1", price: 13, Quantity: 2, totalSales: 26, AverageRating: 4},
   {name: "drink3", price: 200, Quantity: 2, totalSales: 400, AverageRating: 5},
 ];
 

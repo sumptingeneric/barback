@@ -16,6 +16,12 @@ const GraphWrapper = styled.div`
   background-color: azure;
 `;
 
+const GraphHeader = styled.h3`
+  text-align: center;
+  font-size: 25px;
+  font-family: sans-serif;  
+`;
+
 class BarStats extends React.Component {
   constructor(props) {
     super(props)
@@ -47,6 +53,9 @@ class BarStats extends React.Component {
   render() {
     return (
       <div>
+        <GraphHeader>
+          Top 10 Menu Items
+        </GraphHeader>
         <SelectWrapper>
           <label htmlFor="sortBy">
             <span>Sorted By:</span>{"\t"}
