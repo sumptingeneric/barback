@@ -43,7 +43,7 @@ class Queue extends React.Component {
       this.setState({
         pendingOrders: response.data
       });
-      console.log("These are the pending orders: ", this.state.pendingOrders);
+      // console.log("These are the pending orders: ", this.state.pendingOrders);
     });
   }
 

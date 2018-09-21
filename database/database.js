@@ -46,6 +46,7 @@ MenuItems.sync();
 Customers.sync();
 Orders.sync();
 OrderDetails.sync();
+// orm.sync({force:true});
 
 exports.MenuItems = MenuItems;
 exports.Customers = Customers;
