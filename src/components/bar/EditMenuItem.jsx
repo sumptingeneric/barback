@@ -9,6 +9,7 @@ const ModalContainer = styled.div`
   border-radius: 5px;
   text-align: center;
 `;
+
 const ClickableWrapper = styled.button`
   margin: 3px;
   width: 30%;
@@ -73,7 +74,7 @@ class EditMenuItem extends React.Component {
             Description<br />
             <textarea 
               rows="4"
-              cols="50"
+              cols="100%"
               name="description"
               defaultValue={item.description}
               onChange={this.handleDescriptionInput.bind(this)} />

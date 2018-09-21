@@ -51066,7 +51066,7 @@ var AddMenuItem = function (_React$Component) {
               "Description"
             ),
             _react2.default.createElement("br", null),
-            _react2.default.createElement("textarea", { rows: "4", cols: "50", name: "description", onChange: this.handleDescriptionInput.bind(this) }),
+            _react2.default.createElement("textarea", { rows: "4", cols: "100%", name: "description", onChange: this.handleDescriptionInput.bind(this) }),
             _react2.default.createElement("br", null),
             _react2.default.createElement("br", null),
             _react2.default.createElement(
@@ -51133,6 +51133,7 @@ var ModalContainer = _styledComponents2.default.div.withConfig({
   displayName: "EditMenuItem__ModalContainer",
   componentId: "sc-19huqlf-0"
 })(["background-color:white;width:350px;padding:15px;border-radius:5px;text-align:center;"]);
+
 var ClickableWrapper = _styledComponents2.default.button.withConfig({
   displayName: "EditMenuItem__ClickableWrapper",
   componentId: "sc-19huqlf-1"
@@ -51226,7 +51227,7 @@ var EditMenuItem = function (_React$Component) {
             _react2.default.createElement("br", null),
             _react2.default.createElement("textarea", {
               rows: "4",
-              cols: "50",
+              cols: "100%",
               name: "description",
               defaultValue: item.description,
               onChange: this.handleDescriptionInput.bind(this) }),

@@ -60,7 +60,7 @@ class AddMenuItem extends React.Component {
             <input type="text" name="price" onChange={this.handlePriceInput.bind(this)}/>
             <br /><br />
             <label>Description</label><br />
-            <textarea rows="4" cols="50" name="description" onChange={this.handleDescriptionInput.bind(this)}/>
+            <textarea rows="4" cols="100%" name="description" onChange={this.handleDescriptionInput.bind(this)}/>
             <br /><br />
             <label>Image URL</label><br />
             <input type="text" name="image-url" onChange={this.handleImageUrlInput.bind(this)}/>
