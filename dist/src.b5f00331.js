@@ -50878,7 +50878,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Wrapper = _styledComponents2.default.main.withConfig({
   displayName: "BarProfile__Wrapper",
   componentId: "w9jaez-0"
-})(["display:grid;grid-gap:10px;justify-items:center;"]);
+})(["display:grid;grid-gap:10px;justify-items:center;bottom-margin:10px;"]);
 
 var BarProfile = function (_React$Component) {
   _inherits(BarProfile, _React$Component);
@@ -50890,7 +50890,7 @@ var BarProfile = function (_React$Component) {
 
     _this.state = {
       showInput: false,
-      bartenders: [{ name: 'Cliff' }, { name: 'Rex' }, { name: 'Regina' }]
+      bartenders: [{ id: '1', name: 'Cliff' }, { id: '2', name: 'Rex' }, { id: '3', name: 'Regina' }]
     };
     return _this;
   }
@@ -50904,6 +50904,11 @@ var BarProfile = function (_React$Component) {
   }, {
     key: "updateInput",
     value: function updateInput() {
+      // temporarily save new name/password
+    }
+  }, {
+    key: "saveChanges",
+    value: function saveChanges() {
       // update business name and/or password
       this.setState({ showInput: false });
     }
@@ -50926,13 +50931,6 @@ var BarProfile = function (_React$Component) {
           null,
           bar.barName
         ),
-        _react2.default.createElement(
-          "button",
-          { onClick: function onClick() {
-              return _this2.setState({ showInput: true });
-            } },
-          "Update My Info"
-        ),
         this.state.showInput ? _react2.default.createElement(
           "form",
           null,
@@ -50953,21 +50951,36 @@ var BarProfile = function (_React$Component) {
           _react2.default.createElement("input", {
             type: "text",
             defaultValue: bar.password,
-            onChange: this.updateInput.bind(this) })
-        ) : null,
+            onChange: this.updateInput.bind(this) }),
+          _react2.default.createElement("br", null),
+          _react2.default.createElement(
+            "button",
+            { onClick: this.saveChanges.bind(this) },
+            "Save Changes"
+          )
+        ) : _react2.default.createElement(
+          "button",
+          { onClick: function onClick() {
+              return _this2.setState({ showInput: true });
+            } },
+          "Update My Info"
+        ),
         _react2.default.createElement(
           "h2",
           null,
           "Bartenders on Staff"
         ),
-        this.state.bartenders.map(function (bartender) {
-          console.log(bartender);
-          return _react2.default.createElement(
-            "p",
-            null,
-            bartender.name
-          );
-        })
+        _react2.default.createElement(
+          "ul",
+          null,
+          this.state.bartenders.map(function (bartender) {
+            return _react2.default.createElement(
+              "li",
+              { key: bartender.id },
+              bartender.name
+            );
+          })
+        )
       );
     }
   }]);
@@ -51116,7 +51129,7 @@ var AddMenuItem = function (_React$Component) {
     value: function handleSubmit() {
       console.log('save', this.state);
       // axios post request to save new item to database
-      _axios2.default.post("http://" + "localhost" + ":" + "7337" + "/api/bar/menu/add", { item: this.state })
+      _axios2.default.post('/api/bar/menu/add', { item: this.state })
       // axios.post(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/add/${this.state}`)
       .then(function (res) {
         //need to refresh the editmenu page with new item

@@ -13,7 +13,7 @@ import styled from 'styled-components';
 const Wrapper = styled.main`
   display: grid;
   grid-gap: 10px;
-  justify-items: center; 
+  justify-items: center;
 `;
 
 class Login extends React.Component {
