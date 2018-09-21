@@ -15,8 +15,8 @@ const OrdersContainer = styled.div`
 const Clickable = styled.button`
   margin-top: 20px;
   width: 80%;
-  padding: 1rem; 
-  border-radius: 10px; 
+  padding: 1rem;
+  border-radius: 10px;
 `;
 
 const Image = styled.img`
@@ -35,7 +35,7 @@ class CurrentQueueItem extends React.Component {
     let orderId = this.props.order[0].OrderId;
     axios
       .put(
-        `http://${process.env.HOST}:${process.env.PORT}/api/customers/${custId}/orders/${orderId}/complete`
+        `/api/customers/${custId}/orders/${orderId}/complete`
       )
       .then(() => {
         //TODO Reload not working

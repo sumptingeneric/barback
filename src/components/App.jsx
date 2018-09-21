@@ -70,7 +70,7 @@ class App extends React.Component {
 
   // retreive business menu from db
   getMenu() {
-    axios.get(`http://${process.env.HOST}:${process.env.PORT}/api/menu/categories`).then(response => {
+    axios.get(`/api/menu/categories`).then(response => {
       this.setState({
         menu: response.data
       });
@@ -81,7 +81,7 @@ class App extends React.Component {
   getCustomerOrders() {
     let customerID = 1;
     axios
-      .get(`http://${process.env.HOST}:${process.env.PORT}/api/customers/${customerID}/orders`)
+      .get(`/api/customers/${customerID}/orders`)
       .then(response => {
         //console.log(response.data);
         this.setState({

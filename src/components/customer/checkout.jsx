@@ -42,9 +42,7 @@ class Checkout extends React.Component {
     let checkoutOrder = this.props.checkout;
     axios
       .post(
-        `http://${process.env.HOST}:${
-          process.env.PORT
-        }/api/customers/${custId}/orders`,
+        `/api/customers/${custId}/orders`,
         checkoutOrder
       )
       .then(() => {
