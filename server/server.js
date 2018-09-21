@@ -9,9 +9,10 @@ const PORT = process.env.PORT || 7337;
 const app = express();
 const db = require("../database/database.js");
 // Express only serves static assets in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(__dirname + "/../dist"));
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(__dirname + "/../dist"));
+// }
+app.use(express.static(__dirname + "/../dist"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //allow cross origin AJAX  ->
@@ -69,7 +70,7 @@ app.get("/api/customers/:customer_id/orders", (req, res) => {
 });
 
 app.get("/api/orders/:order_status", (req, res) => {
-  console.log('pending order request made it to the server')
+  // console.log('pending order request made it to the server')
   let queryStatus = req.params.order_status;
   db.OrderDetails.findAll({
     include: [
@@ -83,7 +84,7 @@ app.get("/api/orders/:order_status", (req, res) => {
       }
     ]
   }).then(data => {
-    console.log('pending order data from db received', data);
+    // console.log('pending order data from db received', data);
     let orderIdObj = {};
 
     data.forEach(item => {

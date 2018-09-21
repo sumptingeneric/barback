@@ -8,6 +8,7 @@
     "copy:media": "cp -R src/images dist/images",
     "dev": "parcel src/index.html & npm run server-dev",
     "lint": "eslint './src/components/**/*.jsx' database server",
+    "postinstall": "parcel build src/index.html",
     "start": "node server/server.js",
     "server-dev": "nodemon server/server.js",
     "db:setup": "node database/seed.js",

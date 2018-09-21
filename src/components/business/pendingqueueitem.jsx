@@ -6,8 +6,8 @@ import styled from "styled-components";
 
 const Button = styled.button`
   width: 80%;
-  padding: 1rem; 
-  border-radius: 10px; 
+  padding: 1rem;
+  border-radius: 10px;
 `;
 
 const Container = styled.div`
@@ -16,13 +16,13 @@ const Container = styled.div`
   flex-wrap: wrap;
   padding: 20px;
   border: 1px solid;
-  margin: 30px 30px; 
-  align-items: center; 
-  text-align: center; 
+  margin: 30px 30px;
+  align-items: center;
+  text-align: center;
 `;
 
 const DivMargin20 = styled.div`
-  margin: 20px; 
+  margin: 20px;
 `;
 
 const Image = styled.img`
@@ -45,7 +45,7 @@ class PendingQueueItem extends React.Component {
     // console.log("current ID status " + currentId);
     axios
       .put(
-        `http://${process.env.HOST}:${process.env.PORT}/api/customers/${custId}/orders/${orderId}/current`,
+        `/api/customers/${custId}/orders/${orderId}/current`,
         { current: currentId || null }
       )
       .then(() => {

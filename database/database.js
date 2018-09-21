@@ -1,10 +1,10 @@
 let Sequelize = require("sequelize");
 require('dotenv').config();
-const orm = new Sequelize("barback", "root", "", {
-  dialect: "mysql"
-});
+// const orm = new Sequelize("barback", "root", "", {
+//   dialect: "mysql"
+// });
 
-// const orm = new Sequelize(`${process.env.DATABASE_URL}`);
+const orm = new Sequelize(`${process.env.DATABASE_URL}`);
 
 orm
   .authenticate()
@@ -46,6 +46,7 @@ MenuItems.sync();
 Customers.sync();
 Orders.sync();
 OrderDetails.sync();
+// orm.sync({force:true});
 
 exports.MenuItems = MenuItems;
 exports.Customers = Customers;
