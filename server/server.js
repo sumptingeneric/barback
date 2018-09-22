@@ -270,21 +270,32 @@ app.get('/api/bar/menu', (req, res) => {
     .catch((err) => console.log(err));
 });
 
+//from EditMenu
+app.delete('/api/bar/menu/delete', (req, res) => {
+  //delete item with this id
+  db.MenuItems.destroy({where: {id: req.query.id}})
+    .then(() => res.send('deleted item'))
+    .catch((err) => console.log(err));
+});
+
 //from AddMenuItem Modal
-app.post('/api/bar/menu/add/', (req) => {
+app.post('/api/bar/menu/add', (req,res) => {
   const itemData = req.body.item;
   db.MenuItems.create(itemData)
     .then((data)=> {
-      console.log('create then data: ', data.dataValues);
       res.send(data.dataValues);
     })
+    .catch((err) => console.log(err));
 });
 
-
 //from EditMenuItem Modal
-app.put('/api/bar/menu/edit', (req) => {
-  console.log('params in server for edit: ', req.body.item);
-
+app.put('/api/bar/menu/edit', (req, res) => {
+  const itemData = req.body.item;
+  db.MenuItems.update(itemData, {where: {id: itemData.id}})
+    .then(() => {
+      res.send('saved updates');
+    })
+    .catch((err) => console.log(err));
 });
 
 //Bar Stats

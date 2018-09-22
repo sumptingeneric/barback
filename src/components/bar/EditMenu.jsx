@@ -29,7 +29,7 @@ class EditMenu extends React.Component {
       modalType: '',
       search: '',
       totalItems: 0,
-      menuItems: [{id:'1', name:'Surprise Me!', price: 10.00, category:'Cocktail', description: 'Want the bartenders favorite drink? Choose this drink for a nice surprise!', imageUrl: 'https://i2-prod.mirror.co.uk/incoming/article11471438.ece/ALTERNATES/s615/PROD-Range-of-different-alcoholic-drinks-in-a-row.jpg' }],
+      menuItems: [],
       displayItems: [],
       clickedItem: '',
     };
@@ -38,11 +38,11 @@ class EditMenu extends React.Component {
   componentDidMount() {
     // axios call for menu items in database
     axios.get('/api/bar/menu')
-      .then( res =>{
+      .then( res => {
         const items = res.data;
         this.setState({
           menuItems: items,
-          totalItems: this.state.menuItems.length,
+          totalItems: items.length,
           displayItems: this.state.menuItems,
         });
       })
@@ -68,9 +68,14 @@ class EditMenu extends React.Component {
     }, () => this.toggleModal());
   }
 
-  handleDelete(item, event) {
-    //axios request
-    //re render
+  handleDelete(item) {
+    //axios request send id and delete
+    axios.delete('/api/bar/menu/delete', {params: {id: item.id}})
+      .then(() => {
+        console.log('deleted');
+        this.componentDidMount();
+      })
+      .catch((err) => console.log(err.response));
   }
 
   // handleSearchOnKeyUp = e => {

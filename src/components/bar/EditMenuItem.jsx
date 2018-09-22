@@ -26,36 +26,31 @@ class EditMenuItem extends React.Component {
       updatedPrice: '',
       updatedDescription: '',
       updatedImageUrl: '',
+      updated: {},
     };
   }
 
-  handleNameInput(event) {
-    this.setState({updatedName: event.target.value});
-  }
-
-  handleCategoryInput(event) {
-    this.setState({category: event.target.value});
-  }
-
-  handlePriceInput(event) {
-    this.setState({updatedPrice: event.target.value});
-  }
-
-  handleDescriptionInput(event) {
-    this.setState({updatedDescription: event.target.value});
-  }
-
-  handleImageUrlInput(event) {
-    this.setState({updatedImageUrl: event.target.value});
+  handleInput(event) {
+    const value = event.target.value;
+    const field = event.target.name;
+    this.setState({[field]: value});
   }
 
   handleSubmit() {
-    // axios put request to update item to database
-    //TODO: if an item was updated, add it to the put URL
-    const id = this.props.item.id;
-    console.log('id: ', id);
-    const item = {name: 'test name'};
-    axios.put('/api/bar/menu/edit', {id: id, item: item})
+    const original = this.props.menuItem;
+    const update = this.state;
+
+    const item = {};
+    item.id = original.id;
+    item.name = update.updatedName === '' ? original.name : update.updatedName;
+    item.category = update.updatedCategory === '' ? original.category : update.updatedCategory;
+    item.price = update.updatedPrice === '' ? original.price : update.updatedPrice;
+    item.description = update.updatedDescription === '' ? original.description : update.updatedDescription;
+    item.imageUrl = update.updatedImageUrl === '' ? original.imageUrl : update.updatedImageUrl;
+
+    console.log('item: ', item);
+    //const item = {name: 'test name'};
+    axios.put('/api/bar/menu/edit', {item: item})
       .then(res => {
         //need to refresh the editmenu page with updated item
         console.log(res);
@@ -75,23 +70,23 @@ class EditMenuItem extends React.Component {
             Item Name<br />
             <input 
               type="text"
-              name="item-name"
+              name="updatedName"
               defaultValue={item.name}
-              onChange={this.handleNameInput.bind(this)} />
+              onChange={this.handleInput.bind(this)} />
             <br /><br />
             Category<br />
             <input 
               type="text"
-              name="category"
+              name="updatedCategory"
               defaultValue={item.category}
-              onChange={this.handleCategoryInput.bind(this)} />
+              onChange={this.handleInput.bind(this)} />
             <br /><br />
             Price<br />
             <input 
               type="text"
-              name="price"
+              name="updatedPrice"
               defaultValue={item.price}
-              onChange={this.handlePriceInput.bind(this)} />
+              onChange={this.handleInput.bind(this)} />
             <br /><br />
             Description<br />
             <textarea 
@@ -99,14 +94,14 @@ class EditMenuItem extends React.Component {
               cols="100%"
               name="description"
               defaultValue={item.description}
-              onChange={this.handleDescriptionInput.bind(this)} />
+              onChange={this.handleInput.bind(this)} />
             <br /><br />
             Image URL<br />
             <input 
               type="text"
-              name="image-url"
+              name="updtedImageUrl"
               defaultValue={item.imageUrl}
-              onChange={this.handleImageUrlInput.bind(this)} />
+              onChange={this.handleInput.bind(this)} />
             <br /><br />
             <ClickableWrapper type="submit" onClick={this.handleSubmit.bind(this)}>
               Save Item
