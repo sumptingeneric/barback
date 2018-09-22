@@ -52,7 +52,10 @@ class EditMenuItem extends React.Component {
   handleSubmit() {
     // axios put request to update item to database
     //TODO: if an item was updated, add it to the put URL
-    axios.put(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/edit`)
+    const id = this.props.item.id;
+    console.log('id: ', id);
+    const item = {name: 'test name'};
+    axios.put('/api/bar/menu/edit', {id: id, item: item})
       .then(res => {
         //need to refresh the editmenu page with updated item
         console.log(res);

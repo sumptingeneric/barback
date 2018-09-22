@@ -253,10 +253,8 @@ app.get("/api/bar/survey", (req, res) => {
 
 //from EditMenu
 app.get('/api/bar/menu', (req, res) => {
-  console.log('get request for menu items');
   db.MenuItems.findAll()
     .then((data) => {
-      console.log(data);
       const menuData = data.map((item) => {
         return {
           id: item.id, 
@@ -270,23 +268,22 @@ app.get('/api/bar/menu', (req, res) => {
       res.send(menuData);
     })
     .catch((err) => console.log(err));
-  //send request to database for menu items for the bar
-  //res.send(data);
-  //catch errors
 });
 
 //from AddMenuItem Modal
-app.post('/api/bar/menu/add/:item', (req) => {
-  console.log('params in server for add: ')
-  const itemData = req.params.item;
-  console.log(req);
-  console.log(itemData.itemName);
+app.post('/api/bar/menu/add/', (req) => {
+  const itemData = req.body.item;
+  db.MenuItems.create(itemData)
+    .then((data)=> {
+      console.log('create then data: ', data.dataValues);
+      res.send(data.dataValues);
+    })
 });
 
 
 //from EditMenuItem Modal
 app.put('/api/bar/menu/edit', (req) => {
-  console.log('params in server for edit: ', req.params);
+  console.log('params in server for edit: ', req.body.item);
 
 });
 

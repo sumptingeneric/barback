@@ -21,6 +21,7 @@ class AddMenuItem extends React.Component {
     super(props);
     this.state = {
       name: '',
+      category: '',
       price: '',
       description: '',
       imageUrl: './default-drink-image.jpg',
@@ -51,7 +52,7 @@ class AddMenuItem extends React.Component {
     const item = this.state;
     console.log('sate of items', item);
     // axios post request to save new item to database
-    axios.post(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/add/${ item }`)
+    axios.post('/api/bar/menu/add/', {item: item})
       .then(res => {
         //need to refresh the editmenu page with new item
         console.log('res in handleSubmit', res);

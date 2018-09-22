@@ -68,6 +68,11 @@ class EditMenu extends React.Component {
     }, () => this.toggleModal());
   }
 
+  handleDelete(item, event) {
+    //axios request
+    //re render
+  }
+
   // handleSearchOnKeyUp = e => {
   //   if (e.key !== "Enter") {
   //     this.setState({
@@ -109,6 +114,8 @@ class EditMenu extends React.Component {
                 <br/>
                 {item.description}</p>
                 <button type="button" name="edit" onClick={this.handleEdit.bind(this, item)}>Edit {item.name}</button>
+                <button type="button" name="delete" onClick={this.handleDelete.bind(this, item)}>Delete</button>
+
               </ItemWrapper>
             );
           })}
