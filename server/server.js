@@ -237,21 +237,16 @@ app.post("/api/stats/survey", (req, res) => {
 
 app.get("/api/bar/survey", (req, res) => {
   let orderCounter = 1;
-  db.Orders.findAll({where: {status: 'complete'}})
-    .then((data) => {
-      // Add each order to counter
-      let completedOrders = data;
-      completedOrders.forEach((order) => {
-        if (order.length) {
-          orderCounter++;
-        }
-      })
-    });
-    // Every odd customer is surveyed
-    if (orderCounter % 2 === 1) {
+  const getRandomOrder = maxNum => {
+    return Math.floor(Math.random() * Math.floor(maxNum));
+  }
+  orderCounter = getRandomOrder(4);
+    // Customers random chance for survey
+    if (orderCounter === 1 || orderCounter === 3) {
       res.send(true);
     }
-    console.log('ORDER UP', orderCounter);
+    // console.log('RANDOM', orderCounter);
+    
 });
 
 // ///// BAR MENU ///// //
