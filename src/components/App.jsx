@@ -6,6 +6,9 @@ import Menu from "./customer/menu.jsx";
 import Checkout from "./customer/checkout.jsx";
 import Modal from "./customer/modal.jsx";
 import styled from 'styled-components';
+import {Component} from 'react'
+// import ChatBot from './chatbot/Chatbot.jsx'
+// import UserInfoForm from './chatbot/UserSurveyForm.jsx'
 
 
 //Styled Components
@@ -13,15 +16,17 @@ const Wrapper = styled.div`
   max-width: 480px;
 `;
 
-class App extends React.Component {
+
+class App extends Component {
   state = {
     menu: {},
     orders: [],
     checkout: {
       CustomerId: "",
       status: "pending",
-      drinkOrder: []
+      drinkOrder: [],
     },
+    // surveyInput: false,
     search: "",
     modal: "",
     showOrders: false
@@ -115,6 +120,12 @@ class App extends React.Component {
     });
   }
 
+  // toggleHaveUserInfo = () => {
+  //   this.setState({
+  //    surveyInput: !this.state.surveyInput
+  //   })
+  // }
+
   renderModal() {
     if (this.state.modal === "checkout") {
       return (
@@ -150,6 +161,10 @@ class App extends React.Component {
           search={this.state.search.toLowerCase()}
         />
         <div>{this.renderModal()}</div>
+        {/* <ChatBot/>
+        {this.state.surveyInput
+          ? <ChatBot/>
+          : <UserInfoForm toggleHaveUserInfo={this.toggleHaveUserInfo}/>} */}
       </Wrapper>
     );
   }

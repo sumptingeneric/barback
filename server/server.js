@@ -217,6 +217,20 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
     });
   }
 });
+// Survey POST Handler
+app.post("/api/customers/:customer_id/survey", (req, res) => {
+  var surveyData = {
+    status: req.body.status,
+    CustomerId: req.params.customer_id
+  };
+  db.Surveys.create(surveyData)
+    .then((response) => {
+      console.log('Survey Data Sent to DB!', response);
+      })
+    .then(() => {
+      res.sendStatus(201);
+    });
+});
 
 // ///// BAR MENU ///// //
 

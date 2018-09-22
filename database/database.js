@@ -3,7 +3,6 @@ require('dotenv').config();
 // const orm = new Sequelize("barback", "root", `${process.env.sqlPassword}`, {
 //   dialect: "mysql"
 // });
-
 const orm = new Sequelize(`${process.env.DATABASE_URL}`);
 
 orm
@@ -36,20 +35,28 @@ let OrderDetails = orm.define("OrderDetails", {
   subtotal: Sequelize.FLOAT
 });
 
+let Surveys = orm.define("CustomerSurvey", {
+  drinkQuality: Sequelize.INTEGER,
+  rating: Sequelize.INTEGER
+});
+
 Customers.hasMany(Orders);
 Orders.belongsTo(Customers);
 Orders.belongsToMany(MenuItems, { through: "OrderDetails" });
 MenuItems.belongsToMany(Orders, { through: "OrderDetails" });
 OrderDetails.belongsTo(Orders);
 OrderDetails.belongsTo(MenuItems);
+Surveys.belongsTo(Orders);
 MenuItems.sync();
 Customers.sync();
 Orders.sync();
 OrderDetails.sync();
 // orm.sync({force:true});
+Surveys.sync();
 
 exports.MenuItems = MenuItems;
 exports.Customers = Customers;
 exports.Orders = Orders;
 exports.OrderDetails = OrderDetails;
 exports.connection = orm;
+exports.Surveys = Surveys;

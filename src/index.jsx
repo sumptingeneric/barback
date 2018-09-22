@@ -7,8 +7,8 @@ import Bar from "./components/bar/Bar.jsx";
 import BarProfile from "./components/bar/BarProfile.jsx";
 import EditMenu from "./components/bar/EditMenu.jsx";
 import styled from 'styled-components';
-
-
+// import { Provider } from 'react-redux';
+// import { store } from './components/chatbot/Chat.jsx';
 //Styled Components
 const Wrapper = styled.main`
   display: grid;
