@@ -17,7 +17,7 @@ app.use(express.static(__dirname + "/../dist"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //allow cross origin AJAX  ->
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
 //List all customers (GET)
 //return all customers
 app.get("/api/customers", (req, res) => {
-  db.Customers.findAll().then(function(customers) {
+  db.Customers.findAll().then(function (customers) {
     res.send(customers);
   });
 });
@@ -41,9 +41,9 @@ app.get("/api/customers", (req, res) => {
 //MENU COLLECTION
 //List all menu items by categories (GET)
 app.get("/api/menu/categories", (req, res) => {
-  db.MenuItems.findAll().then(function(menuItems) {
+  db.MenuItems.findAll().then(function (menuItems) {
     var catObj = {};
-    menuItems.forEach(function(item) {
+    menuItems.forEach(function (item) {
       var category = item.category;
       if (!catObj[category]) {
         catObj[category] = [item];
@@ -115,11 +115,11 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
   };
 
   db.Orders.create(ordersBody)
-    .then(function(response) {
+    .then(function (response) {
       let drinkOrders = req.body.drinkOrder;
       let id = response.dataValues.id;
 
-      drinkOrders.forEach(function(order) {
+      drinkOrders.forEach(function (order) {
         let orderDetailsBody = {
           quantity: order.quantity,
           subtotal: order.subtotal,
@@ -130,7 +130,7 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
         db.OrderDetails.create(orderDetailsBody);
       });
     })
-    .then(function() {
+    .then(function () {
       res.sendStatus(201);
     });
 });
@@ -300,40 +300,19 @@ app.put('/api/bar/menu/edit', (req, res) => {
 
 //Bar Stats
 app.get("/api/stats", (req, res) => {
-  var compiledData;
-  db.Orders.findAll({where: {status: 'complete'}})
+  db.Surveys.findAll({
+    attributes: ['drinkQuality', 'customerService'],
+    include: [{
+      model: db.Orders,
+      attributes: ['id', 'status'],
+      include: [{
+        model: db.MenuItems,
+        attributes: ['name', 'category'],
+      }],
+    }]
+  })
     .then((data) => {
-      // return complete orders
-      var completedOrders = data;
-      var orderIds = [];
-      for (var i = 0; i < completedOrders.length; i++) {
-        orderIds.push(completedOrders[i]['id']);
-      }
-      return orderIds;
-    })
-    .then((ids) => {
-      // retrieve orderdetails sorted by highest quantity
-      return db.OrderDetails.findAll({
-        where: { OrderId: ids },
-        order: [['quantity', 'DESC']]
-      })
-    })
-    .then((data) => {
-      // save data onto global scope
-      compiledData = data.slice(0);
-      // pluck a list of menu item id;
-      // [13, 12]
-      return data.map(order => {
-        return order.MenuItemId;
-      })
-    })
-    .then((data) => {
-      // retrieve menuNames
-      return db.MenuItems.findAll({
-        where: { id: data }
-      })
-    })
-    .then((data) => {
+<<<<<<< 0a51c39bed98d3df02e35f28d46f0726f79b83d1
       res.send(data)
       var slicedData = data.slice(0);
       console.log(utils.fetchStats(compiledData, slicedData))
@@ -341,6 +320,8 @@ app.get("/api/stats", (req, res) => {
       return compiledData;
     })
     .then((data) => {
+=======
+>>>>>>> retrieve survey info
       res.send(data);
     })
 });
