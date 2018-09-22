@@ -35,7 +35,6 @@ class RegisterContainer extends React.Component {
         <div>
           <br />
           <p>Role:</p>
-          {/* eslint allow jsx-ally/no-onchange*/}
           <select name="role" value={role} onBlur={this.handleChange} onChange={this.handleChange}>
             <option value="Customer">Customer</option>
             <option value="Bartender">Bartender</option>
