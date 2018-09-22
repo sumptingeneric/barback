@@ -51654,9 +51654,9 @@ var RegisterContainer = function (_React$Component) {
           null,
           _react2.default.createElement('br', null),
           _react2.default.createElement(
-            'p',
+            'span',
             null,
-            'Role:'
+            'Role: '
           ),
           _react2.default.createElement(
             'select',
@@ -51894,7 +51894,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '65021' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '50231' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

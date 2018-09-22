@@ -198,15 +198,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-<<<<<<< HEAD
-<<<<<<< HEAD
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '58507' + '/');
-=======
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53005' + '/');
->>>>>>> set up first working login and signup components and alter travis CI file in attempt to get pull requests to automatically deploy with Heroku
-=======
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '65021' + '/');
->>>>>>> Ensure working Register component after failed rebase
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '50231' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

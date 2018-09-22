@@ -34,7 +34,7 @@ class RegisterContainer extends React.Component {
       return (
         <div>
           <br />
-          <p>Role:</p>
+          <span>Role: </span>
           <select name="role" value={role} onBlur={this.handleChange} onChange={this.handleChange}>
             <option value="Customer">Customer</option>
             <option value="Bartender">Bartender</option>
