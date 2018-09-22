@@ -1,12 +1,5 @@
 import React from "react";
 import { Link } from "@reach/router";
-import styled from 'styled-components';
-
-const Wrapper = styled.main`
-  display: grid;
-  grid-gap: 10px;
-  justify-items: center; 
-`;
 
 class Bar extends React.Component {
   constructor(props) {

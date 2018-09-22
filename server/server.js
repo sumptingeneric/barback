@@ -221,7 +221,7 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
 // ///// BAR MENU ///// //
 
 //from EditMenu
-app.get('/api/bar/menu', (req, res) => {
+app.get('/api/bar/menu', (req) => {
   console.log(req.query);
   //send request to database for menu items for the bar
   //res.send(data);
@@ -229,7 +229,7 @@ app.get('/api/bar/menu', (req, res) => {
 });
 
 //from AddMenuItem Modal
-app.post('/api/bar/menu/add/:item', (req, res) => {
+app.post('/api/bar/menu/add/:item', (req) => {
   console.log('params in server for add: ')
   const itemData = req.params.item;
   console.log(req);
@@ -238,7 +238,7 @@ app.post('/api/bar/menu/add/:item', (req, res) => {
 
 
 //from EditMenuItem Modal
-app.put('/api/bar/menu/edit', () => {
+app.put('/api/bar/menu/edit', (req) => {
   console.log('params in server for edit: ', req.params);
 
 });
