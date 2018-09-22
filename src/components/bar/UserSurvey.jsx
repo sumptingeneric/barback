@@ -2,7 +2,6 @@ import React from "react";
 import styled from 'styled-components';
 import axios from 'axios';
 import Rating from 'react-rating';
-// var Rating = require('react-rating');
 
 const ModalContainer = styled.div`
   background-color: white;
@@ -83,9 +82,12 @@ class UserSurvey extends React.Component {
                 <Rating {...this.props} initialRating={this.state.rating} 
                 />
                 </div>
+         
             <ClickableWrapper type="submit" onClick={this.handleSubmit}>
               Submit Survey
             </ClickableWrapper>
+          
+            
             </div>
             </ModalContainer>
         );

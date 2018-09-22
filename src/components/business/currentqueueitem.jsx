@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Modal from "../bar/modal.jsx";
+import UserSurvey from "../bar/UserSurvey.jsx";
 
 const OrdersContainer = styled.div`
   display: flex;
@@ -27,7 +29,17 @@ const Image = styled.img`
 class CurrentQueueItem extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showModal: false,
+      modalCount: 0
+    }
   }
+
+  toggleModal() {
+    this.setState({
+      showModal: !this.state.showModal, 
+    });
+  };
 
   updateStatusToComplete(order) {
     // call to API to update status of order from 'current' to 'complete'
@@ -39,7 +51,7 @@ class CurrentQueueItem extends React.Component {
       )
       .then(() => {
         //TODO Reload not working
-        this.props.reload();
+        // this.props.reload();
       });
 
     console.log(
@@ -47,10 +59,21 @@ class CurrentQueueItem extends React.Component {
       order[0].OrderId,
       ' has been updated to "complete."'
     );
+    let {modalCount} = this.state;
+    this.setState({
+      modalCount: modalCount += 1,
+    }, () => this.toggleModal());
   }
 
   render() {
+    let modalDisplay;
+    // const odd = this.modalCount % 2 === 1;
+    if (this.state.showModal && this.state.modalCount !== 0) {
+      modalDisplay = <UserSurvey toggleModal={this.toggleModal.bind(this)} />;
+    }
+    
     return (
+      <div>
       <OrdersContainer>
         <h4>Current Order</h4>
         <div className="order-item">
@@ -76,6 +99,13 @@ class CurrentQueueItem extends React.Component {
           Mark as Complete
         </Clickable>
       </OrdersContainer>
+      {this.state.showModal ? (
+          <Modal>
+            {modalDisplay}
+          </Modal>
+          ) : null
+        }
+      </div>
     );
   }
 }
