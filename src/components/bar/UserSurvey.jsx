@@ -87,11 +87,10 @@ class UserSurvey extends React.Component {
                 <Rating 
                 name='drinkQuality'
                 
-                initialRating={3} 
+                initialRating={this.state.drinkQuality}
+                // emptySymbol={<img src="star-grey.png" className='icon' alt="empty star"/>}
+                // fullSymbol={<img src="star-full.png" className='icon' alt="filled star"/>}
                 onChange={(rate) => this.handleDrinkChange(rate)}
-                // emptySymbol={<img src="./assets/images/star-grey.png" className="icon" alt=""/>}
-                // placeholderSymbol={<img src="./assets/images/star-red.png" className="icon" alt=""/>}
-                // fullSymbol={<img src="./assets/images/star-yellow.png" className="icon" alt=""/>}
                 />
                 </div>
                 <div>
@@ -103,7 +102,6 @@ class UserSurvey extends React.Component {
                 initialRating={this.state.customerServices}
                 onChange={(rate) => this.handleCustomerChange(rate)}
                 // emptySymbol={<img src="./assets/images/star-grey.png" className="icon" alt=""/>}
-                // placeholderSymbol={<img src="./assets/images/star-red.png" className="icon" alt=""/>}
                 // fullSymbol={<img src="./assets/images/star-yellow.png" className="icon" alt=""/>}
                 />
                 </div>
