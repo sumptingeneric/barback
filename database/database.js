@@ -36,8 +36,9 @@ let OrderDetails = orm.define("OrderDetails", {
 });
 
 let Surveys = orm.define("Survey", {
+  name: Sequelize.STRING,
   drinkQuality: Sequelize.INTEGER,
-  customerService: Sequelize.INTEGER
+  customerServices: Sequelize.INTEGER
 });
 
 Customers.hasMany(Orders);

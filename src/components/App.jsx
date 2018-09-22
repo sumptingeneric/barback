@@ -7,16 +7,14 @@ import Menu from "./customer/menu.jsx";
 import Checkout from "./customer/checkout.jsx";
 import Modal from "./customer/modal.jsx";
 import Tipping from "./customer/Tipping.jsx"
-
+import UserSurvey from "./bar/UserSurvey.jsx";
 
 
 //Styled Components
 const Wrapper = styled.div`
   max-width: 480px;
 `;
-
-
-class App extends Component {
+class App extends React.Component {
   state = {
     menu: {},
     orders: [],
@@ -26,7 +24,7 @@ class App extends Component {
       drinkOrder: [],
       total: 0,
     },
-    // surveyInput: false,
+    survey: false,
     search: "",
     modal: "",
     showOrders: false
@@ -35,9 +33,9 @@ class App extends Component {
   componentDidMount() {
     this.getMenu();
     this.getCustomerOrders();
-    // this.interval = setInterval(() => {
-    //   this.getCustomerOrders();
-    // }, 5000);
+    this.interval = setInterval(() => {
+      this.getCustomerOrders();
+    }, 10000);
   }
 
   componentWillUnmount() {
@@ -82,13 +80,24 @@ class App extends Component {
     });
   }
 
+  getSurvey() {
+    axios.get(`/api/bar/survey`).then(response => {
+      console.log('SURVEY GET IS', response);
+      if (response.data === true) {
+        this.setState({
+          survey: true,
+        }, () => this.changeModal("survey"))
+      }
+    });
+  }
+
   // retrieve customer orders from db
   getCustomerOrders() {
     let customerID = 1;
     axios
       .get(`/api/customers/${customerID}/orders`)
       .then(response => {
-        //console.log(response.data);
+        // console.log('Customer orders',response.data);
         this.setState({
           orders: response.data
         });
@@ -144,6 +153,7 @@ class App extends Component {
             checkout={this.state.checkout}
             changeModal={this.changeModal.bind(this)}
             getOrders={this.getCustomerOrders.bind(this)}
+            getSurvey={this.getSurvey.bind(this)}
           />
         </Modal>
       );
@@ -159,6 +169,17 @@ class App extends Component {
             />
         </Modal> 
       )
+    }
+    if (this.state.modal === "survey") {
+      return (
+        <Modal>
+          <UserSurvey
+            
+            changeModal={this.changeModal.bind(this)}
+            
+          />
+        </Modal>
+      );
     }
   }
 

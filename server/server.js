@@ -219,11 +219,12 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
   }
 });
 // Survey POST Handler
-app.post("/api/bar/survey", (req, res) => {
+app.post("/api/stats/survey", (req, res) => {
   console.log(req);
-  var surveyData = {
-    status: req.body.status,
-    CustomerId: req.params.customer_id
+  let surveyData = {
+   name: req.body.name,
+   drinkQuality: req.body.drinkQuality,
+   customerServices: req.body.customerServices
   };
   db.Surveys.create(surveyData)
     .then((response) => {
@@ -232,6 +233,25 @@ app.post("/api/bar/survey", (req, res) => {
     .then(() => {
       res.sendStatus(201);
     });
+});
+
+app.get("/api/bar/survey", (req, res) => {
+  let orderCounter = 1;
+  db.Orders.findAll({where: {status: 'complete'}})
+    .then((data) => {
+      // Add each order to counter
+      let completedOrders = data;
+      completedOrders.forEach((order) => {
+        if (order.length) {
+          orderCounter++;
+        }
+      })
+    });
+    // Every odd customer is surveyed
+    if (orderCounter % 2 === 1) {
+      res.send(true);
+    }
+    console.log('ORDER UP', orderCounter);
 });
 
 // ///// BAR MENU ///// //
@@ -297,7 +317,7 @@ app.get("/api/stats", (req, res) => {
     .then((data) => {
       res.send(data)
       var slicedData = data.slice(0);
-      console.log(utils.fetchStats(compiledData, slicedData))
+      // console.log(utils.fetchStats(compiledData, slicedData))
       // // compiledData = utils.fetchStats(compiledData, data);
       // return compiledData;
     })

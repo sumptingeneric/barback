@@ -21,8 +21,9 @@ class UserSurvey extends React.Component {
         super(props);
         this.state = {
             name: "",
-            email: "",
-            rating: 0
+            // email: "",
+            drinkQuality: 1,
+            customerServices: 5
         }
     }
     
@@ -32,25 +33,29 @@ class UserSurvey extends React.Component {
         });
       }
 
-    handleClick = () => {
-        this.setState({rating: undefined});
+    handleDrinkChange = (rate) => {
+        this.setState({drinkQuality: rate});
     }
 
-    handleRatingChange(rating) {
-        console.log('rating', rating);
-      }
+    handleCustomerChange = (rate) => {
+        this.setState({customerServices: rate});
+    }
+
+    // handleRatingChange(rating) {
+    //     console.log('rating', rating);
+    //   }
 
     handleSubmit = () => {
-        const {name, email, rating} = this.state;
-        const userSurvey = {name, email, rating};
+        const {name, drinkQuality, customerServices} = this.state;
+        const userSurvey = {name, drinkQuality, customerServices};
 
-        axios.post(`/api/bar/survey/${userSurvey}`)
+        axios.post(`/api/stats/survey`, userSurvey)
         .then(res => {
             alert("Thanks for taking the survey!");
-            console.log('Survey data sent',res);
+            console.log(res);
         })
         .catch(err => console.log(err));
-        this.props.toggleModal();
+        this.props.changeModal("");
     }
 
 
@@ -67,25 +72,49 @@ class UserSurvey extends React.Component {
                 onChange={this.handleChange}
                 value={this.state.name}/>
 
-                <div htmlFor="email">E-mail:</div>
+                {/* <div htmlFor="email">E-mail:</div>
                 <input
                 type="email"
                 name="email"
                 id="email"
                 placeholder="example@email.com"
                 onChange={this.handleChange}
-                value={this.state.email}/>
+                value={this.state.email}/> */}
                 <div>
-                    <h1>How are we doing? </h1>
+                    <h1>How was your drink? </h1>
                 </div>
                 <div>
-                <Rating {...this.props} initialRating={this.state.rating} 
+                <Rating 
+                name='drinkQuality'
+                
+                initialRating={3} 
+                onChange={(rate) => this.handleDrinkChange(rate)}
+                // emptySymbol={<img src="./assets/images/star-grey.png" className="icon" alt=""/>}
+                // placeholderSymbol={<img src="./assets/images/star-red.png" className="icon" alt=""/>}
+                // fullSymbol={<img src="./assets/images/star-yellow.png" className="icon" alt=""/>}
+                />
+                </div>
+                <div>
+                    <h1>How was our service? </h1>
+                </div>
+                <div>
+                <Rating
+                name='customerServices' 
+                initialRating={this.state.customerServices}
+                onChange={(rate) => this.handleCustomerChange(rate)}
+                // emptySymbol={<img src="./assets/images/star-grey.png" className="icon" alt=""/>}
+                // placeholderSymbol={<img src="./assets/images/star-red.png" className="icon" alt=""/>}
+                // fullSymbol={<img src="./assets/images/star-yellow.png" className="icon" alt=""/>}
                 />
                 </div>
          
             <ClickableWrapper type="submit" onClick={this.handleSubmit}>
               Submit Survey
             </ClickableWrapper>
+
+            <ClickableWrapper onClick={() => this.props.changeModal("")}>
+            Return to Menu
+          </ClickableWrapper>
           
             
             </div>
