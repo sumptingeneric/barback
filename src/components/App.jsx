@@ -1,11 +1,13 @@
 import React from "react";
 import axios from "axios";
+import styled from 'styled-components';
 import Search from "./customer/search.jsx";
 import Orders from "./customer/orders.jsx";
 import Menu from "./customer/menu.jsx";
 import Checkout from "./customer/checkout.jsx";
 import Modal from "./customer/modal.jsx";
-import styled from 'styled-components';
+import Tipping from "./customer/Tipping.jsx"
+
 
 
 //Styled Components
@@ -20,7 +22,9 @@ class App extends React.Component {
     checkout: {
       CustomerId: "",
       status: "pending",
-      drinkOrder: []
+      drinkOrder: [],
+      tip: 0,
+      total: 0,
     },
     search: "",
     modal: "",
@@ -30,9 +34,9 @@ class App extends React.Component {
   componentDidMount() {
     this.getMenu();
     this.getCustomerOrders();
-    this.interval = setInterval(() => {
-      this.getCustomerOrders();
-    }, 5000);
+    // this.interval = setInterval(() => {
+    //   this.getCustomerOrders();
+    // }, 5000);
   }
 
   componentWillUnmount() {
@@ -41,8 +45,8 @@ class App extends React.Component {
   // called when adding drink(s) to your order for checkout
   checkOutUpdate = order => {
     let drinks = this.state.checkout.drinkOrder;
-    // console.log(drinks);
-    // console.log(order);
+    // console.log('drinks', drinks);
+    console.log('order', order);
     let drinksExistsinCheckOut = false;
     for (var i = 0; i < drinks.length; i++) {
       if (drinks[i].menuItemId === order.menuItemId) {
@@ -51,6 +55,7 @@ class App extends React.Component {
         drinks[i].subtotal += order.subtotal;
       }
     }
+    console.log('order.subtotal', order.subtotal)
     if (!drinksExistsinCheckOut) {
       drinks.push(order);
       this.setState({
@@ -87,12 +92,13 @@ class App extends React.Component {
         this.setState({
           orders: response.data
         });
-        //setTimeout(this.getCustomerOrders(), 2000);
+        setTimeout(this.getCustomerOrders(), 2000);
       });
   }
 
   // change modal status to show or not (for checkout)
   changeModal(view) {
+    console.log('modal open', view)
     this.setState({
       modal: view
     });
@@ -110,7 +116,9 @@ class App extends React.Component {
       checkout: {
         CustomerId: "",
         status: "pending",
-        drinkOrder: []
+        drinkOrder: [],
+        tip: 0,
+        total: 0,
       }
     });
   }
@@ -127,6 +135,15 @@ class App extends React.Component {
           />
         </Modal>
       );
+    }
+    if (this.state.modal === "tipping") {
+      return (
+        <Modal>
+          <Tipping 
+            checkout={this.state.checkout} 
+            emptyCart={this.emptyCart.bind(this)}/>
+        </Modal> 
+      )
     }
   }
 

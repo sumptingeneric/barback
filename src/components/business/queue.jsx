@@ -4,6 +4,8 @@ import CurrentQueueItem from "./currentqueueitem.jsx";
 import PendingQueueItem from "./pendingqueueitem.jsx";
 import styled from 'styled-components';
 
+
+
 //Styled Components
 const DivMargin50 = styled.div`
   margin-top: 50px;
@@ -21,7 +23,7 @@ class Queue extends React.Component {
     this.interval = setInterval(() => {
       this.getPendingOrders();
 
-    }, 10000);
+    }, 100000000);
 
   }
 

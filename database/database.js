@@ -1,10 +1,16 @@
 let Sequelize = require("sequelize");
 require('dotenv').config();
+<<<<<<< HEAD
 // const orm = new Sequelize("barback", "root", `${process.env.sqlPassword}`, {
 //   dialect: "mysql"
 // });
+=======
+const orm = new Sequelize("barback", "root", "password", {
+  dialect: "mysql"
+});
+>>>>>>> adds tips component and for rebase purposes
 
-const orm = new Sequelize(`${process.env.DATABASE_URL}`);
+//const orm = new Sequelize('localhost', 'root', '');
 
 orm
   .authenticate()

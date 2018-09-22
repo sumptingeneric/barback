@@ -34,10 +34,13 @@ class Checkout extends React.Component {
   constructor(props) {
     super(props);
     this.completeOrder = this.completeOrder.bind(this);
+    this.addTip = this.addTip.bind(this);
   }
 
   completeOrder() {
     //console.log("Order SUBMitTED TO DB");
+    
+    // TODO: need to has customer ID not hard coded 
     let custId = 1;
     let checkoutOrder = this.props.checkout;
     axios
@@ -50,6 +53,10 @@ class Checkout extends React.Component {
         this.props.changeModal("");
         this.props.emptyCart();
       });
+  }
+
+  addTip() {
+    console.log(this.props.checkout.tip) 
   }
 
   render() {
@@ -90,6 +97,11 @@ class Checkout extends React.Component {
         {/* <br /> */}
 
         <div>
+          <div>
+            <ClickableWrapper onClick={() => {this.addTip(), this.props.changeModal("tipping")}}>
+              Tip
+            </ClickableWrapper>
+          </div>
           <div>
             <ClickableWrapper onClick={() => this.props.emptyCart()}>
               Empty Cart
