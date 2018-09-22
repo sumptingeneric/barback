@@ -201,53 +201,6 @@ const mockOrderDetails = [
   }
 ];
 
-const insertMockMenuItems = () => {
-  return db.MenuItems.bulkCreate(mockMenuItems)
-  // mockMenuItems.forEach(item => {
-  //   db.MenuItems.create(item);
-  // });
-};
-
-const insertMockCustomers = () => {
-  return db.Customers.bulkCreate(mockCustomers)
-
-  // mockCustomers.forEach(customer => {
-  //   db.Customers.create(customer);
-  // });
-};
-
-const insertMockOrders = () => {
-  return db.Orders.bulkCreate(mockOrders)
-
-  // mockOrders.forEach(order => {
-  //   db.Orders.create(order);
-  // });
-};
-
-const insertMockOrderDetails = () => {
-  return db.OrderDetails.bulkCreate(mockOrderDetails)
-
-  // mockOrderDetails.forEach(detail => {
-  //   db.OrderDetails.create(detail);
-  // });
-};
-
-const insertMockSurvey = () => {
-  return db.Surveys.bulkCreate(mockSurveys)
-
-  // mockSurveys.forEach(survey => {
-  //   db.Surveys.create(survey);
-  // });
-};
-
-// const insertionFunctions = [
-//   insertMockCustomers,
-//   insertMockMenuItems,
-//   insertMockOrders,
-//   insertMockSurvey,
-//   insertMockOrderDetails,
-// ];
-
 const insertionFunctions = [
   db.Customers.bulkCreate(mockCustomers),
   db.Orders.bulkCreate(mockOrders),
@@ -255,9 +208,5 @@ const insertionFunctions = [
   db.Surveys.bulkCreate(mockSurveys),
   db.OrderDetails.bulkCreate(mockOrderDetails),
 ];
-
-// const asyncInsertionFunctions = insertionFunctions.map(func => {
-//   return new Promise(func);
-// });
 
 Promise.all(insertionFunctions).then(() => db.connection.close());
