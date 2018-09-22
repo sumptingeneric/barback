@@ -108,7 +108,7 @@ const mockCustomers = [
   }
 ];
 
-const mockOrders = [
+/* const mockOrders = [
   {
     status: "current",
     CustomerId: 1
@@ -137,9 +137,9 @@ const mockOrders = [
     status: "complete",
     CustomerId: 1
   }
-];
+]; */
 
-const mockOrderDetails = [
+/* const mockOrderDetails = [
   {
     quantity: 2,
     subtotal: 50,
@@ -200,15 +200,15 @@ const mockOrderDetails = [
     OrderId: 61,
     MenuItemId: 11
   }
-];
+]; */
 
-const mockSurveys = [
+/* const mockSurveys = [
   {
     drinkQuality: 2,
     customerService: 5,
     OrderId: 1
   },
-]
+] */
 
 const insertionFunctions = [
   db.Customers.bulkCreate(mockCustomers),
@@ -219,23 +219,3 @@ const insertionFunctions = [
 // db.OrderDetails.bulkCreate(mockOrderDetails),
 
 Promise.all(insertionFunctions).then(() => db.connection.close());
-
-// db.Customers.bulkCreate(mockCustomers)
-//   .then(() => {
-//     return db.Orders.bulkCreate(mockOrders)
-//   })
-//   .then(() => {
-//     return db.MenuItems.bulkCreate(mockMenuItems)
-//   })
-//   .then(() => {
-//     return db.Surveys.bulkCreate(mockSurveys)
-//   })
-//   .then(() => {
-//     return db.OrderDetails.bulkCreate(mockOrderDetails)
-//   })
-//   .then(() => {
-//     db.connection.close();
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   })
