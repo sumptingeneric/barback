@@ -34,7 +34,6 @@ class Checkout extends React.Component {
   constructor(props) {
     super(props);
     this.completeOrder = this.completeOrder.bind(this);
-    this.addTip = this.addTip.bind(this);
   }
 
   completeOrder() {
@@ -55,9 +54,6 @@ class Checkout extends React.Component {
       });
   }
 
-  addTip() {
-    console.log(this.props.checkout.tip) 
-  }
 
   render() {
     return (
@@ -95,7 +91,7 @@ class Checkout extends React.Component {
 
         <div>
           <div>
-            <ClickableWrapper onClick={() => {this.addTip(), this.props.changeModal("tipping")}}>
+            <ClickableWrapper onClick={() => {this.props.changeModal("tipping")}}>
               Tip
             </ClickableWrapper>
           </div>

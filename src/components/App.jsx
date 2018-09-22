@@ -98,9 +98,16 @@ class App extends React.Component {
   changeModal(view) {
     this.setState({
       modal: view,
-      //checkout: Object.assign({}, this.state.checkout, { total: wTiptotal })
-      // checkout: {...this.state.checkout, total: wTiptotal},
     });
+  }
+
+  changeModalUpdateTotal(view, wTipTotal) {
+    console.log('with tip', wTipTotal)
+    this.setState({
+      checkout: Object.assign({}, this.state.checkout, { total: wTipTotal }),
+      modal: view,
+    });
+    console.log('state total', this.state.checkout.total)
   }
 
   
@@ -117,7 +124,6 @@ class App extends React.Component {
         CustomerId: "",
         status: "pending",
         drinkOrder: [],
-        tip: 0,
         total: 0,
       }
     });
@@ -141,8 +147,9 @@ class App extends React.Component {
         <Modal>
           <Tipping 
             checkout={this.state.checkout} 
-            emptyCart={this.emptyCart.bind(this)}
+            updateTotal={this.changeModalUpdateTotal.bind(this)}
             changeModal={this.changeModal.bind(this)}
+            
             />
         </Modal> 
       )

@@ -15,19 +15,22 @@ const ModalTipContainer = styled.div`
 const ClickableWrapper = styled.button`
   margin: 3px;
   width: 40%;
-  font-size: 0.8em;
+  font-size: 1em;
 `;
 
-// CSS STUFF NEEDS TO BE ADDED 
-// MAYBE LARGE TOTAL UPDATING 
+const TotalContainer = styled.div`
+  font-size: 2.5em;
+`;
+
 
 class Tipping extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       withTipTotal: 0,
+      tipAmount: 0,
     }
-    this.backToCheckout = this.backToCheckout.bind(this);
+    this.clickerHandler = this.clickerHandler.bind(this);
     this.addPercentSubtotal = this.addPercentSubtotal.bind(this);
     this.subtractPercentSubtotal = this.subtractPercentSubtotal.bind(this);
 
@@ -41,9 +44,12 @@ class Tipping extends React.Component {
 
   addPercentSubtotal(percent) {
     let total = this.props.checkout.total;
-    total += total * percent;
+    let tip = total * percent
+    total = total + tip;
+    total = total.toFixed(2);
     this.setState({
       withTipTotal: total,
+      tipAmount: tip,
     })
   }
 
@@ -54,9 +60,7 @@ class Tipping extends React.Component {
     })
   }
 
-  // onMouseEnter onMouseLeave
-
-  backToCheckout() {
+  clickerHandler() {
     
   }
 
@@ -64,16 +68,23 @@ class Tipping extends React.Component {
     return (
       <ModalTipContainer>
         <div>
-          <h1>Tip Amount</h1>
-          <span>
-            <ClickableWrapper onMouseEnter={() => this.addPercentSubtotal(0.05)} onMouseLeave={() => this.subtractPercentSubtotal()} onClick={() => {this.props.changeModal('checkout', this.props.withTipTotal), this.addPercentSubtotal(0.05)}}>5%</ClickableWrapper>
-            <ClickableWrapper onMouseEnter={() => this.addPercentSubtotal(0.10)} onMouseLeave={() => this.subtractPercentSubtotal()}>10%</ClickableWrapper>
-            <ClickableWrapper onMouseEnter={() => this.addPercentSubtotal(0.15)} onMouseLeave={() => this.subtractPercentSubtotal()}>15%</ClickableWrapper>
-          </span>
-          <span>
+          <h2>Tip Amount</h2>
+          <p>${this.state.tipAmount.toFixed(2)}</p>
+          <TotalContainer>
             Total: $
             {this.state.withTipTotal}
-          </span>
+          </TotalContainer>
+          <div>
+            <div>
+              <ClickableWrapper onMouseEnter={() => this.addPercentSubtotal(0.05)} onMouseLeave={() => this.subtractPercentSubtotal()} onClick={() => {this.props.updateTotal('checkout', this.state.withTipTotal), this.addPercentSubtotal(0.05)}}>5%</ClickableWrapper>
+            </div>
+            <div>
+              <ClickableWrapper onMouseEnter={() => this.addPercentSubtotal(0.10)} onMouseLeave={() => this.subtractPercentSubtotal()} onClick={() => {this.props.updateTotal('checkout', this.state.withTipTotal), this.addPercentSubtotal(0.10)}}>10%</ClickableWrapper>
+            </div>
+            <div>
+              <ClickableWrapper onMouseEnter={() => this.addPercentSubtotal(0.15)} onMouseLeave={() => this.subtractPercentSubtotal()} onClick={() => {this.props.updateTotal('checkout', this.state.withTipTotal), this.addPercentSubtotal(0.15)}}>15%</ClickableWrapper>
+            </div>
+          </div>
         </div>
       </ModalTipContainer>
     );
