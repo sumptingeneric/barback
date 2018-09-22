@@ -268,6 +268,7 @@ app.get("/api/stats", (req, res) => {
       // save data onto global scope
       compiledData = data.slice(0);
       // pluck a list of menu item id;
+      // [13, 12]
       return data.map(order => {
         return order.MenuItemId;
       })
@@ -279,14 +280,15 @@ app.get("/api/stats", (req, res) => {
       })
     })
     .then((data) => {
+      res.send(data)
       var slicedData = data.slice(0);
       console.log(utils.fetchStats(compiledData, slicedData))
-      // compiledData = utils.fetchStats(compiledData, data);
-      return compiledData;
+      // // compiledData = utils.fetchStats(compiledData, data);
+      // return compiledData;
     })
-    .then((data) => {
-      res.send(data);
-    })
+    // .then((data) => {
+    //   res.send(data);
+    // })
 })
 
 //Port Listening

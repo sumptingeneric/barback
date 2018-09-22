@@ -201,6 +201,14 @@ const mockOrderDetails = [
   }
 ];
 
+const mockSurveys = [
+  {
+    drinkQuality: 2,
+    customerService: 5,
+    OrderId: 1
+  },
+]
+
 const insertionFunctions = [
   db.Customers.bulkCreate(mockCustomers),
   db.Orders.bulkCreate(mockOrders),
