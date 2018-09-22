@@ -29,6 +29,16 @@ let Customers = orm.define("Customers", {
   password: Sequelize.STRING,
 });
 
+let Bartenders = orm.define("Bartenders", {
+  name: Sequelize.STRING,
+  password: Sequelize.STRING,
+})
+
+let Business = orm.define("Admin", {
+  barname: Sequelize.STRING,
+  password: Sequelize.STRING
+})
+
 let Orders = orm.define("Orders", {
   status: Sequelize.STRING,
 });
@@ -39,20 +49,14 @@ let OrderDetails = orm.define("OrderDetails", {
   total: Sequelize.FLOAT,
 });
 
-let Bartenders = orm.define("Bartenders", {
-  name: Sequelize.STRING,
-  password: Sequelize.STRING,
-});
-
 let Surveys = orm.define("Survey", {
   name: Sequelize.STRING,
   drinkQuality: Sequelize.INTEGER,
   customerServices: Sequelize.INTEGER
 });
-
+Bartenders.hasMany(OrderDetails);
+Business.hasMany(Bartenders);
 Customers.hasMany(Orders);
-//Bartenders.hasMany(OrderDetails);
-OrderDetails.belongsTo(Bartenders)
 Customers.hasMany(OrderDetails);
 Orders.belongsTo(Customers);
 OrderDetails.belongsTo(Customers);

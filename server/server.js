@@ -1,6 +1,9 @@
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
+const utils = require("./utils.js");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 //variables
 const HOST = process.env.HOST || "localhost";
@@ -27,6 +30,24 @@ app.use(function (req, res, next) {
 });
 
 //Controllers
+
+// AUTHENTICATION
+app.get("/api/users/login", (req, res) => {
+  console.log('req.query is', req.query);
+  res.status(200).send('thansk!');
+  // // Load hash from your password DB.
+  // bcrypt.compare(myPlaintextPassword, hash).then(function (res) {
+  //   // res == true
+  // });
+})
+
+app.post("/api/users/create", (req, res) => {
+  console.log('req.query is', req.query);
+  // bcrypt.hash(myPlaintextPassword, saltRounds).then(function (hash) {
+  //   // Store hash in your password DB.
+  // });
+  res.status(200).send('thansk!');
+})
 
 //CUSTOMERS COLLECTION
 //List all customers (GET)
@@ -113,7 +134,7 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
     CustomerId: req.params.customer_id
   };
   let needID;
-  
+
   db.Orders.create(ordersBody)
     .then(function (response) {
       let drinkOrders = req.body.drinkOrder;
@@ -249,7 +270,7 @@ app.get("/api/bar/survey", (req, res) => {
       res.send(true);
     }
     console.log('RANDOM', orderCounter);
-    
+
 });
 
 // ///// BAR MENU ///// //
@@ -260,7 +281,7 @@ app.get('/api/bar/menu', (req, res) => {
     .then((data) => {
       const menuData = data.map((item) => {
         return {
-          id: item.id, 
+          id: item.id,
           name: item.name,
           price: (+item.price).toFixed(2),
           category: item.category,

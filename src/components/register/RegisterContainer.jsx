@@ -1,6 +1,6 @@
 import React from 'react';
-// import Login from './Login.jsx';
-// import Signup from './Signup.jsx';
+import axios from 'axios';
+import { Redirect } from '@reach/router';
 
 class RegisterContainer extends React.Component {
   constructor(props) {
@@ -9,6 +9,9 @@ class RegisterContainer extends React.Component {
     this.state = {
       registered: true,
       role: 'Customer',
+      loggedIn: false,
+      password: '',
+      username:  '',
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,13 +26,38 @@ class RegisterContainer extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
-    //TODO will create axios post request
-    //? might want to send to container app
+    const { username, password, role, registered } = this.state;
+    const userInfo = { username, password, role };
+    const loginInfo = { username, password };
+    if (registered) {
+      console.log('sending login to server');
+      axios.get('/api/users/login', {
+        params: loginInfo,
+      }).then((response) => {
+        if (!response.error) {
+          this.setState({ loggedIn: true })
+        } else {
+          alert('invalid login attempt, please try again')
+        }
+      })
+    } else {
+      console.log('sending signup to server');
+      axios.post('/api/users/create', userInfo)
+        .then((response) => {
+          if (!response.error) {
+            this.setState({ loggedIn: true })
+          } else {
+            alert('invalid login attempt, please try again')
+          }
+        })
+    }
   }
 
   renderView() {
-    let { registered, role } = this.state;
+    let { registered, role, loggedIn } = this.state;
+    if (loggedIn) {
+      return <Redirect noThrow to="/customer" />;
+    }
     if (registered) {
       return (
         <div>
@@ -45,13 +73,11 @@ class RegisterContainer extends React.Component {
     }
   }
 
-  //TODO include button to sign up or log in
-  // toggle between two views
   render() {
     return (
       <div className="login">
-        <button onClick={() => this.setState({ registered: false })}>Create Account</button>
         <button onClick={() => this.setState({ registered: true })}>Login</button>
+        <button onClick={() => this.setState({ registered: false })}>Create Account</button>
         <form>
           <label htmlFor="username">
             Username:
