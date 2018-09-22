@@ -50,6 +50,7 @@ Surveys.belongsTo(Orders);
 
 OrderDetails.belongsTo(Orders);
 OrderDetails.belongsTo(MenuItems);
+Surveys.belongsTo(Orders);
 MenuItems.sync();
 Customers.sync();
 Orders.sync();
