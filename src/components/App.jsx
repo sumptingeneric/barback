@@ -15,7 +15,8 @@ const Wrapper = styled.div`
   max-width: 480px;
 `;
 
-class App extends React.Component {
+
+class App extends Component {
   state = {
     menu: {},
     orders: [],
@@ -25,6 +26,7 @@ class App extends React.Component {
       drinkOrder: [],
       total: 0,
     },
+    // surveyInput: false,
     search: "",
     modal: "",
     showOrders: false
@@ -127,6 +129,12 @@ class App extends React.Component {
     });
   }
 
+  // toggleHaveUserInfo = () => {
+  //   this.setState({
+  //    surveyInput: !this.state.surveyInput
+  //   })
+  // }
+
   renderModal() {
     if (this.state.modal === "checkout") {
       return (
@@ -174,6 +182,10 @@ class App extends React.Component {
           search={this.state.search.toLowerCase()}
         />
         <div>{this.renderModal()}</div>
+        {/* <ChatBot/>
+        {this.state.surveyInput
+          ? <ChatBot/>
+          : <UserInfoForm toggleHaveUserInfo={this.toggleHaveUserInfo}/>} */}
       </Wrapper>
     );
   }

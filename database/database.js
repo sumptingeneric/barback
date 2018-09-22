@@ -3,7 +3,6 @@ require('dotenv').config();
 // const orm = new Sequelize("barback", "root", `${process.env.sqlPassword}`, {
 //   dialect: "mysql"
 // });
-
 const orm = new Sequelize(`${process.env.DATABASE_URL}`);
 
 orm
@@ -51,13 +50,13 @@ Surveys.belongsTo(Orders);
 
 OrderDetails.belongsTo(Orders);
 OrderDetails.belongsTo(MenuItems);
-
 MenuItems.sync();
 Customers.sync();
 Orders.sync();
 Surveys.sync();
 OrderDetails.sync();
 // orm.sync({force:true});
+Surveys.sync();
 
 exports.MenuItems = MenuItems;
 exports.Customers = Customers;
@@ -65,3 +64,4 @@ exports.Orders = Orders;
 exports.OrderDetails = OrderDetails;
 exports.Surveys = Surveys;
 exports.connection = orm;
+exports.Surveys = Surveys;
