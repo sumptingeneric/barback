@@ -317,13 +317,13 @@ app.get("/api/stats", (req, res) => {
     .then((data) => {
       res.send(data)
       var slicedData = data.slice(0);
-      // console.log(utils.fetchStats(compiledData, slicedData))
-      // // compiledData = utils.fetchStats(compiledData, data);
-      // return compiledData;
+      console.log(utils.fetchStats(compiledData, slicedData))
+      compiledData = utils.fetchStats(compiledData, data);
+      return compiledData;
     })
-    // .then((data) => {
-    //   res.send(data);
-    // })
+    .then((data) => {
+      res.send(data);
+    })
 })
 
 //Port Listening
