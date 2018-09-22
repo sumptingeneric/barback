@@ -33,6 +33,7 @@ class EditMenuItem extends React.Component {
   handleInput(event) {
     const value = event.target.value;
     const field = event.target.name;
+    console.log('field:', field);
     this.setState({[field]: value});
   }
 
@@ -50,6 +51,7 @@ class EditMenuItem extends React.Component {
 
     console.log('item: ', item);
     //const item = {name: 'test name'};
+    console.log('item for axios request', item);
     axios.put('/api/bar/menu/edit', {item: item})
       .then(res => {
         //need to refresh the editmenu page with updated item
@@ -92,14 +94,14 @@ class EditMenuItem extends React.Component {
             <textarea 
               rows="4"
               cols="100%"
-              name="description"
+              name="updatedDescription"
               defaultValue={item.description}
               onChange={this.handleInput.bind(this)} />
             <br /><br />
             Image URL<br />
             <input 
               type="text"
-              name="updtedImageUrl"
+              name="updatedImageUrl"
               defaultValue={item.imageUrl}
               onChange={this.handleInput.bind(this)} />
             <br /><br />
