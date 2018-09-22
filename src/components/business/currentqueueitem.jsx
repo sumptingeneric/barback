@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import styled from "styled-components";
 
+
 const OrdersContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,7 +40,7 @@ class CurrentQueueItem extends React.Component {
       )
       .then(() => {
         //TODO Reload not working
-        this.props.reload();
+        // this.props.reload();
       });
 
     console.log(
@@ -50,7 +51,9 @@ class CurrentQueueItem extends React.Component {
   }
 
   render() {
+    
     return (
+      <div>
       <OrdersContainer>
         <h4>Current Order</h4>
         <div className="order-item">
@@ -76,6 +79,8 @@ class CurrentQueueItem extends React.Component {
           Mark as Complete
         </Clickable>
       </OrdersContainer>
+      
+      </div>
     );
   }
 }

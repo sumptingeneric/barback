@@ -218,6 +218,36 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
     });
   }
 });
+// Survey POST Handler
+app.post("/api/stats/survey", (req, res) => {
+  console.log(req);
+  let surveyData = {
+   name: req.body.name,
+   drinkQuality: req.body.drinkQuality,
+   customerServices: req.body.customerServices
+  };
+  db.Surveys.create(surveyData)
+    .then((response) => {
+      console.log('Survey Data Sent to DB!', response);
+      })
+    .then(() => {
+      res.sendStatus(201);
+    });
+});
+
+app.get("/api/bar/survey", (req, res) => {
+  let orderCounter = 1;
+  const getRandomOrder = maxNum => {
+    return Math.floor(Math.random() * Math.floor(maxNum));
+  }
+  orderCounter = getRandomOrder(4);
+    // Customers random chance for survey
+    if (orderCounter === 1 || orderCounter === 3) {
+      res.send(true);
+    }
+    // console.log('RANDOM', orderCounter);
+    
+});
 
 // ///// BAR MENU ///// //
 
@@ -283,12 +313,12 @@ app.get("/api/stats", (req, res) => {
       res.send(data)
       var slicedData = data.slice(0);
       console.log(utils.fetchStats(compiledData, slicedData))
-      // // compiledData = utils.fetchStats(compiledData, data);
-      // return compiledData;
+      compiledData = utils.fetchStats(compiledData, data);
+      return compiledData;
     })
-    // .then((data) => {
-    //   res.send(data);
-    // })
+    .then((data) => {
+      res.send(data);
+    })
 })
 
 //Port Listening

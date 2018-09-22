@@ -7,14 +7,13 @@ import Menu from "./customer/menu.jsx";
 import Checkout from "./customer/checkout.jsx";
 import Modal from "./customer/modal.jsx";
 import Tipping from "./customer/Tipping.jsx"
-
+import UserSurvey from "./bar/UserSurvey.jsx";
 
 
 //Styled Components
 const Wrapper = styled.div`
   max-width: 480px;
 `;
-
 class App extends React.Component {
   state = {
     menu: {},
@@ -25,6 +24,7 @@ class App extends React.Component {
       drinkOrder: [],
       total: 0,
     },
+    survey: false,
     search: "",
     modal: "",
     showOrders: false
@@ -33,9 +33,9 @@ class App extends React.Component {
   componentDidMount() {
     this.getMenu();
     this.getCustomerOrders();
-    // this.interval = setInterval(() => {
-    //   this.getCustomerOrders();
-    // }, 5000);
+    this.interval = setInterval(() => {
+      this.getCustomerOrders();
+    }, 10000);
   }
 
   componentWillUnmount() {
@@ -80,13 +80,24 @@ class App extends React.Component {
     });
   }
 
+  getSurvey() {
+    axios.get(`/api/bar/survey`).then(response => {
+      console.log('SURVEY GET IS', response);
+      if (response.data === true) {
+        this.setState({
+          survey: true,
+        }, () => this.changeModal("survey"))
+      }
+    });
+  }
+
   // retrieve customer orders from db
   getCustomerOrders() {
     let customerID = 1;
     axios
       .get(`/api/customers/${customerID}/orders`)
       .then(response => {
-        //console.log(response.data);
+        // console.log('Customer orders',response.data);
         this.setState({
           orders: response.data
         });
@@ -127,6 +138,12 @@ class App extends React.Component {
     });
   }
 
+  // toggleHaveUserInfo = () => {
+  //   this.setState({
+  //    surveyInput: !this.state.surveyInput
+  //   })
+  // }
+
   renderModal() {
     if (this.state.modal === "checkout") {
       return (
@@ -136,6 +153,7 @@ class App extends React.Component {
             checkout={this.state.checkout}
             changeModal={this.changeModal.bind(this)}
             getOrders={this.getCustomerOrders.bind(this)}
+            getSurvey={this.getSurvey.bind(this)}
           />
         </Modal>
       );
@@ -151,6 +169,17 @@ class App extends React.Component {
             />
         </Modal> 
       )
+    }
+    if (this.state.modal === "survey") {
+      return (
+        <Modal>
+          <UserSurvey
+            
+            changeModal={this.changeModal.bind(this)}
+            
+          />
+        </Modal>
+      );
     }
   }
 
@@ -174,6 +203,10 @@ class App extends React.Component {
           search={this.state.search.toLowerCase()}
         />
         <div>{this.renderModal()}</div>
+        {/* <ChatBot/>
+        {this.state.surveyInput
+          ? <ChatBot/>
+          : <UserInfoForm toggleHaveUserInfo={this.toggleHaveUserInfo}/>} */}
       </Wrapper>
     );
   }
