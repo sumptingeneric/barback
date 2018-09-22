@@ -218,6 +218,31 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
   }
 });
 
+// ///// BAR MENU ///// //
+
+//from EditMenu
+app.get('/api/bar/menu', (req) => {
+  console.log(req.query);
+  //send request to database for menu items for the bar
+  //res.send(data);
+  //catch errors
+});
+
+//from AddMenuItem Modal
+app.post('/api/bar/menu/add/:item', (req) => {
+  console.log('params in server for add: ')
+  const itemData = req.params.item;
+  console.log(req);
+  console.log(itemData.itemName);
+});
+
+
+//from EditMenuItem Modal
+app.put('/api/bar/menu/edit', (req) => {
+  console.log('params in server for edit: ', req.params);
+
+});
+
 //Port Listening
 
 app.listen(PORT, () => {

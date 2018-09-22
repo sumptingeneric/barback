@@ -49722,7 +49722,7 @@ var Checkout = function (_React$Component) {
       //console.log("Order SUBMitTED TO DB");
       var custId = 1;
       var checkoutOrder = this.props.checkout;
-      _axios2.default.post("http://" + "localhost" + ":" + "7337" + "/api/customers/" + custId + "/orders", checkoutOrder).then(function () {
+      _axios2.default.post("/api/customers/" + custId + "/orders", checkoutOrder).then(function () {
         _this2.props.getOrders();
         _this2.props.changeModal("");
         _this2.props.emptyCart();
@@ -49978,7 +49978,7 @@ var App = function (_React$Component) {
     value: function getMenu() {
       var _this3 = this;
 
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/menu/categories").then(function (response) {
+      _axios2.default.get("/api/menu/categories").then(function (response) {
         _this3.setState({
           menu: response.data
         });
@@ -49993,7 +49993,7 @@ var App = function (_React$Component) {
       var _this4 = this;
 
       var customerID = 1;
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/customers/" + customerID + "/orders").then(function (response) {
+      _axios2.default.get("/api/customers/" + customerID + "/orders").then(function (response) {
         //console.log(response.data);
         _this4.setState({
           orders: response.data
@@ -50159,7 +50159,7 @@ var CurrentQueueItem = function (_React$Component) {
       // call to API to update status of order from 'current' to 'complete'
       var custId = 1;
       var orderId = this.props.order[0].OrderId;
-      _axios2.default.put("http://" + "localhost" + ":" + "7337" + "/api/customers/" + custId + "/orders/" + orderId + "/complete").then(function () {
+      _axios2.default.put("/api/customers/" + custId + "/orders/" + orderId + "/complete").then(function () {
         //TODO Reload not working
         _this2.props.reload();
       });
@@ -50296,7 +50296,7 @@ var PendingQueueItem = function (_React$Component) {
         var currentId = this.props.current[0].OrderId;
       }
       // console.log("current ID status " + currentId);
-      _axios2.default.put("http://" + "localhost" + ":" + "7337" + "/api/customers/" + custId + "/orders/" + orderId + "/current", { current: currentId || null }).then(function () {
+      _axios2.default.put("/api/customers/" + custId + "/orders/" + orderId + "/current", { current: currentId || null }).then(function () {
         _this2.props.reload();
       });
     }
@@ -50435,7 +50435,7 @@ var Queue = function (_React$Component) {
     value: function getCurrentOrder() {
       var _this3 = this;
 
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/orders/current").then(function (response) {
+      _axios2.default.get("/api/orders/current").then(function (response) {
         var currentOrderArray = Object.values(response.data);
         _this3.setState({
           currentOrder: currentOrderArray[0]
@@ -50447,11 +50447,11 @@ var Queue = function (_React$Component) {
     value: function getPendingOrders() {
       var _this4 = this;
 
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/orders/pending").then(function (response) {
+      _axios2.default.get("/api/orders/pending").then(function (response) {
         _this4.setState({
           pendingOrders: response.data
         });
-        console.log("These are the pending orders: ", _this4.state.pendingOrders);
+        // console.log("These are the pending orders: ", this.state.pendingOrders);
       });
     }
   }, {
@@ -50594,7 +50594,7 @@ var PreviousOrders = function (_React$Component) {
     value: function getPreviousOrders() {
       var _this2 = this;
 
-      _axios2.default.get("http://" + "localhost" + ":" + "7337" + "/api/orders/complete").then(function (response) {
+      _axios2.default.get("/api/orders/complete").then(function (response) {
         var currentOrders = Object.values(response.data);
         _this2.setState({
           previousOrders: currentOrders
@@ -50801,50 +50801,33 @@ var Wrapper = _styledComponents2.default.main.withConfig({
 var Bar = function (_React$Component) {
   _inherits(Bar, _React$Component);
 
-  function Bar() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function Bar(props) {
     _classCallCheck(this, Bar);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Bar.__proto__ || Object.getPrototypeOf(Bar)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      barName: 'My Bar'
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    return _possibleConstructorReturn(this, (Bar.__proto__ || Object.getPrototypeOf(Bar)).call(this, props));
   }
 
   _createClass(Bar, [{
     key: "render",
     value: function render() {
+      var barInfo = this.props.barInfo;
       return _react2.default.createElement(
-        Wrapper,
+        "div",
         null,
         _react2.default.createElement(
           "h1",
           null,
-          this.state.barName
+          barInfo.barName
         ),
         _react2.default.createElement(
-          "button",
-          null,
-          _react2.default.createElement(
-            _router.Link,
-            { to: "/bar/profile" },
-            "View Profile"
-          )
+          _router.Link,
+          { to: "/bar/profile" },
+          "View Profile"
         ),
         _react2.default.createElement(
-          "button",
-          null,
-          _react2.default.createElement(
-            _router.Link,
-            { to: "/bar/menu" },
-            "Edit Menu"
-          )
+          _router.Link,
+          { to: "/bar/menu" },
+          "Edit Menu"
         ),
         _react2.default.createElement(
           "p",
@@ -50889,45 +50872,108 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Wrapper = _styledComponents2.default.main.withConfig({
   displayName: "BarProfile__Wrapper",
   componentId: "w9jaez-0"
-})(["display:grid;grid-gap:10px;justify-items:center;"]);
+})(["display:grid;grid-gap:10px;justify-items:center;bottom-margin:10px;"]);
 
 var BarProfile = function (_React$Component) {
   _inherits(BarProfile, _React$Component);
 
-  function BarProfile() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function BarProfile(props) {
     _classCallCheck(this, BarProfile);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    var _this = _possibleConstructorReturn(this, (BarProfile.__proto__ || Object.getPrototypeOf(BarProfile)).call(this, props));
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = BarProfile.__proto__ || Object.getPrototypeOf(BarProfile)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _temp), _possibleConstructorReturn(_this, _ret);
+    _this.state = {
+      showInput: false,
+      bartenders: [{ id: '1', name: 'Cliff' }, { id: '2', name: 'Rex' }, { id: '3', name: 'Regina' }]
+    };
+    return _this;
   }
 
   _createClass(BarProfile, [{
+    key: "onComponentDidMount",
+    value: function onComponentDidMount() {
+      //axios request to get bartender names with match to barId
+      //then set state of bartenders to data
+    }
+  }, {
+    key: "updateInput",
+    value: function updateInput() {
+      // temporarily save new name/password
+    }
+  }, {
+    key: "saveChanges",
+    value: function saveChanges() {
+      // update business name and/or password
+      this.setState({ showInput: false });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
+      var bar = this.props.barInfo;
       return _react2.default.createElement(
         Wrapper,
         null,
         _react2.default.createElement(
           "h1",
           null,
-          "Bar Profile"
+          "My Profile"
         ),
         _react2.default.createElement(
-          "p",
+          "h2",
           null,
-          "bar name - editable"
+          bar.barName
+        ),
+        this.state.showInput ? _react2.default.createElement(
+          "form",
+          null,
+          _react2.default.createElement(
+            "p",
+            null,
+            "Business Name:"
+          ),
+          _react2.default.createElement("input", {
+            type: "text",
+            defaultValue: bar.barName,
+            onChange: this.updateInput.bind(this) }),
+          _react2.default.createElement(
+            "p",
+            null,
+            "Password:"
+          ),
+          _react2.default.createElement("input", {
+            type: "text",
+            defaultValue: bar.password,
+            onChange: this.updateInput.bind(this) }),
+          _react2.default.createElement("br", null),
+          _react2.default.createElement(
+            "button",
+            { onClick: this.saveChanges.bind(this) },
+            "Save Changes"
+          )
+        ) : _react2.default.createElement(
+          "button",
+          { onClick: function onClick() {
+              return _this2.setState({ showInput: true });
+            } },
+          "Update My Info"
         ),
         _react2.default.createElement(
-          "p",
+          "h2",
           null,
-          "list of bartenders"
+          "Bartenders on Staff"
+        ),
+        _react2.default.createElement(
+          "ul",
+          null,
+          this.state.bartenders.map(function (bartender) {
+            return _react2.default.createElement(
+              "li",
+              { key: bartender.id },
+              bartender.name
+            );
+          })
         )
       );
     }
@@ -50939,7 +50985,65 @@ var BarProfile = function (_React$Component) {
 ;
 
 exports.default = BarProfile;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/bar/EditMenu.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/bar/modal.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require("react-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var modalRoot = document.getElementById("modal");
+
+var Modal = function (_React$Component) {
+  _inherits(Modal, _React$Component);
+
+  function Modal(props) {
+    _classCallCheck(this, Modal);
+
+    var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, props));
+
+    _this.el = document.createElement("div");
+    return _this;
+  }
+
+  _createClass(Modal, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      modalRoot.appendChild(this.el);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      modalRoot.removeChild(this.el);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return (0, _reactDom.createPortal)(this.props.children, this.el);
+    }
+  }]);
+
+  return Modal;
+}(_react2.default.Component);
+
+exports.default = Modal;
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js"}],"components/bar/AddMenuItem.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50956,6 +51060,358 @@ var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ModalContainer = _styledComponents2.default.div.withConfig({
+  displayName: "AddMenuItem__ModalContainer",
+  componentId: "sc-1xy0fp7-0"
+})(["background-color:white;width:350px;padding:15px;border-radius:5px;text-align:center;"]);
+var ClickableWrapper = _styledComponents2.default.button.withConfig({
+  displayName: "AddMenuItem__ClickableWrapper",
+  componentId: "sc-1xy0fp7-1"
+})(["margin:3px;width:30%;font-size:0.8em;"]);
+
+var AddMenuItem = function (_React$Component) {
+  _inherits(AddMenuItem, _React$Component);
+
+  function AddMenuItem(props) {
+    _classCallCheck(this, AddMenuItem);
+
+    var _this = _possibleConstructorReturn(this, (AddMenuItem.__proto__ || Object.getPrototypeOf(AddMenuItem)).call(this, props));
+
+    _this.state = {
+      itemName: '',
+      price: '',
+      description: '',
+      imageUrl: './default-drink-image.jpg'
+    };
+    return _this;
+  }
+
+  _createClass(AddMenuItem, [{
+    key: "handleItemNameInput",
+    value: function handleItemNameInput(event) {
+      this.setState({ itemName: event.target.value });
+    }
+  }, {
+    key: "handlePriceInput",
+    value: function handlePriceInput(event) {
+      this.setState({ price: event.target.value });
+    }
+  }, {
+    key: "handleDescriptionInput",
+    value: function handleDescriptionInput(event) {
+      this.setState({ description: event.target.value });
+    }
+  }, {
+    key: "handleImageUrlInput",
+    value: function handleImageUrlInput(event) {
+      this.setState({ imageUrl: event.target.value });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      var item = this.state;
+      console.log('sate of items', item);
+      // axios post request to save new item to database
+      _axios2.default.post("http://" + "localhost" + ":" + "7337" + "/api/bar/menu/add/" + item).then(function (res) {
+        //need to refresh the editmenu page with new item
+        console.log('res in handleSubmit', res);
+      }).catch(function (err) {
+        return console.error(err);
+      });
+
+      this.props.toggleModal();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        ModalContainer,
+        null,
+        _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            "form",
+            null,
+            _react2.default.createElement(
+              "h2",
+              null,
+              "Add a New Menu Item"
+            ),
+            _react2.default.createElement(
+              "p",
+              null,
+              "Item Name"
+            ),
+            _react2.default.createElement("input", { type: "text", name: "item-name", onChange: this.handleItemNameInput.bind(this) }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              "p",
+              null,
+              "Price"
+            ),
+            _react2.default.createElement("input", { type: "text", name: "price", onChange: this.handlePriceInput.bind(this) }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              "p",
+              null,
+              "Description"
+            ),
+            _react2.default.createElement("textarea", { rows: "4", cols: "100%", name: "description", onChange: this.handleDescriptionInput.bind(this) }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              "p",
+              null,
+              "Image URL"
+            ),
+            _react2.default.createElement("input", { type: "text", name: "image-url", onChange: this.handleImageUrlInput.bind(this) }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              ClickableWrapper,
+              { type: "submit", onClick: this.handleSubmit.bind(this) },
+              "Save Item"
+            )
+          ),
+          _react2.default.createElement(
+            ClickableWrapper,
+            { onClick: function onClick() {
+                return _this2.props.toggleModal();
+              } },
+            "Exit"
+          )
+        )
+      );
+    }
+  }]);
+
+  return AddMenuItem;
+}(_react2.default.Component);
+
+exports.default = AddMenuItem;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js"}],"components/bar/EditMenuItem.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require("styled-components");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ModalContainer = _styledComponents2.default.div.withConfig({
+  displayName: "EditMenuItem__ModalContainer",
+  componentId: "sc-19huqlf-0"
+})(["background-color:white;width:350px;padding:15px;border-radius:5px;text-align:center;"]);
+
+var ClickableWrapper = _styledComponents2.default.button.withConfig({
+  displayName: "EditMenuItem__ClickableWrapper",
+  componentId: "sc-19huqlf-1"
+})(["margin:3px;width:30%;font-size:0.8em;"]);
+
+var EditMenuItem = function (_React$Component) {
+  _inherits(EditMenuItem, _React$Component);
+
+  function EditMenuItem(props) {
+    _classCallCheck(this, EditMenuItem);
+
+    var _this = _possibleConstructorReturn(this, (EditMenuItem.__proto__ || Object.getPrototypeOf(EditMenuItem)).call(this, props));
+
+    _this.state = {
+      updatedItemName: '',
+      updatedPrice: '',
+      updatedDescription: '',
+      updatedImageUrl: ''
+    };
+    return _this;
+  }
+
+  _createClass(EditMenuItem, [{
+    key: "handleItemNameInput",
+    value: function handleItemNameInput(event) {
+      this.setState({ updatedItemName: event.target.value });
+    }
+  }, {
+    key: "handlePriceInput",
+    value: function handlePriceInput(event) {
+      this.setState({ updatedPrice: event.target.value });
+    }
+  }, {
+    key: "handleDescriptionInput",
+    value: function handleDescriptionInput(event) {
+      this.setState({ updatedDescription: event.target.value });
+    }
+  }, {
+    key: "handleImageUrlInput",
+    value: function handleImageUrlInput(event) {
+      this.setState({ updatedImageUrl: event.target.value });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      // axios put request to update item to database
+      //TODO: if an item was updated, add it to the put URL
+      _axios2.default.put("http://" + "localhost" + ":" + "7337" + "/api/bar/menu/edit").then(function (res) {
+        //need to refresh the editmenu page with updated item
+        console.log(res);
+      }).catch(function (err) {
+        return console.log(err);
+      });
+
+      this.props.toggleModal();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var item = this.props.menuItem;
+      return _react2.default.createElement(
+        ModalContainer,
+        null,
+        _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            "form",
+            null,
+            _react2.default.createElement(
+              "h2",
+              null,
+              "Edit Menu Item"
+            ),
+            "Item Name",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("input", {
+              type: "text",
+              name: "item-name",
+              defaultValue: item.itemName,
+              onChange: this.handleItemNameInput.bind(this) }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            "Price",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("input", {
+              type: "text",
+              name: "price",
+              defaultValue: item.price,
+              onChange: this.handlePriceInput.bind(this) }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            "Description",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("textarea", {
+              rows: "4",
+              cols: "100%",
+              name: "description",
+              defaultValue: item.description,
+              onChange: this.handleDescriptionInput.bind(this) }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            "Image URL",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("input", {
+              type: "text",
+              name: "image-url",
+              defaultValue: item.imageUrl,
+              onChange: this.handleImageUrlInput.bind(this) }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              ClickableWrapper,
+              { type: "submit", onClick: this.handleSubmit.bind(this) },
+              "Save Item"
+            )
+          ),
+          _react2.default.createElement(
+            ClickableWrapper,
+            { onClick: function onClick() {
+                return _this2.props.toggleModal();
+              } },
+            "Exit"
+          )
+        )
+      );
+    }
+  }]);
+
+  return EditMenuItem;
+}(_react2.default.Component);
+
+exports.default = EditMenuItem;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js"}],"components/bar/EditMenu.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require("styled-components");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _modal = require("./modal.jsx");
+
+var _modal2 = _interopRequireDefault(_modal);
+
+var _AddMenuItem = require("./AddMenuItem.jsx");
+
+var _AddMenuItem2 = _interopRequireDefault(_AddMenuItem);
+
+var _EditMenuItem = require("./EditMenuItem.jsx");
+
+var _EditMenuItem2 = _interopRequireDefault(_EditMenuItem);
+
+var _search = require("../customer/search.jsx");
+
+var _search2 = _interopRequireDefault(_search);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50969,49 +51425,164 @@ var Wrapper = _styledComponents2.default.main.withConfig({
   componentId: "lfep0z-0"
 })(["display:grid;grid-gap:10px;justify-items:center;"]);
 
+var ItemWrapper = _styledComponents2.default.main.withConfig({
+  displayName: "EditMenu__ItemWrapper",
+  componentId: "lfep0z-1"
+})(["width:60%;margin-bottom:10px;"]);
+
+var Image = _styledComponents2.default.img.withConfig({
+  displayName: "EditMenu__Image",
+  componentId: "lfep0z-2"
+})(["height:200px;"]);
+
 var EditMenu = function (_React$Component) {
   _inherits(EditMenu, _React$Component);
 
-  function EditMenu() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
+  function EditMenu(props) {
     _classCallCheck(this, EditMenu);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    var _this = _possibleConstructorReturn(this, (EditMenu.__proto__ || Object.getPrototypeOf(EditMenu)).call(this, props));
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = EditMenu.__proto__ || Object.getPrototypeOf(EditMenu)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _temp), _possibleConstructorReturn(_this, _ret);
+    _this.handleSearchOnKeyUp = function (e) {
+      if (e.key !== "Enter") {
+        _this.setState({
+          search: e.target.value.toLowerCase()
+        },
+        //then update displayItems to match search
+        function () {
+          var searchResults = _this.state.menuItems.filter(function (item) {
+            return item.itemName.toLowerCase().includes(_this.state.search);
+          });
+          _this.setState({ displayItems: searchResults });
+        });
+      }
+    };
+
+    _this.state = {
+      showModal: false,
+      modalType: '',
+      search: '',
+      totalItems: 0,
+      menuItems: [{ id: '1', itemName: 'Surprise Me!', price: '$10', description: 'Want the bartenders favorite drink? Choose this drink for a nice surprise!', imageUrl: 'https://i2-prod.mirror.co.uk/incoming/article11471438.ece/ALTERNATES/s615/PROD-Range-of-different-alcoholic-drinks-in-a-row.jpg' }],
+      displayItems: [],
+      clickedItem: ''
+    };
+    return _this;
   }
 
   _createClass(EditMenu, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      // axios call for menu items in database
+      _axios2.default.get('/api/bar/menu').then(function (res) {
+        console.log(res);
+
+        _this2.setState({
+          totalItems: _this2.state.menuItems.length,
+          displayItems: _this2.state.menuItems
+        });
+      }).catch(function (err) {
+        return console.error(err);
+      });
+    }
+  }, {
+    key: "toggleModal",
+    value: function toggleModal() {
+      this.setState({
+        showModal: !this.state.showModal
+      });
+    }
+  }, {
+    key: "handleAdd",
+    value: function handleAdd(event) {
+      var _this3 = this;
+
+      this.setState({
+        modalType: event.target.name
+      }, function () {
+        return _this3.toggleModal();
+      });
+    }
+  }, {
+    key: "handleEdit",
+    value: function handleEdit(item, event) {
+      var _this4 = this;
+
+      this.setState({
+        clickedItem: item,
+        modalType: event.target.name
+      }, function () {
+        return _this4.toggleModal();
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this5 = this;
+
+      var modalDisplay = void 0;
+      if (this.state.showModal && this.state.modalType === 'add') {
+        modalDisplay = _react2.default.createElement(_AddMenuItem2.default, { toggleModal: this.toggleModal.bind(this) });
+      } else {
+        modalDisplay = _react2.default.createElement(_EditMenuItem2.default, { menuItem: this.state.clickedItem, toggleModal: this.toggleModal.bind(this) });
+      }
+
       return _react2.default.createElement(
-        Wrapper,
+        "div",
         null,
         _react2.default.createElement(
-          "h1",
+          Wrapper,
           null,
-          "Edit Menu"
+          _react2.default.createElement(
+            "h1",
+            null,
+            "Edit Menu"
+          ),
+          _react2.default.createElement(
+            "button",
+            { name: "add", onClick: this.handleAdd.bind(this) },
+            "Add New Menu Item"
+          ),
+          _react2.default.createElement(_search2.default, { handleSearch: this.handleSearchOnKeyUp }),
+          _react2.default.createElement(
+            "h3",
+            null,
+            "Total Menu Items: ",
+            this.state.totalItems
+          ),
+          this.state.menuItems.map(function (item) {
+            return _react2.default.createElement(
+              ItemWrapper,
+              { key: item.id },
+              _react2.default.createElement(Image, { src: item.imageUrl, alt: item.itemName }),
+              _react2.default.createElement(
+                "h4",
+                null,
+                item.itemName
+              ),
+              _react2.default.createElement(
+                "p",
+                null,
+                item.price,
+                " - ",
+                item.description
+              ),
+              _react2.default.createElement(
+                "button",
+                { type: "button", name: "edit", onClick: _this5.handleEdit.bind(_this5, item) },
+                "Edit ",
+                item.itemName
+              )
+            );
+          })
         ),
-        _react2.default.createElement(
-          "p",
+        this.state.showModal ? _react2.default.createElement(
+          _modal2.default,
           null,
-          "add new drink form - name, description, img url"
-        ),
-        _react2.default.createElement(
-          "p",
-          null,
-          "list of all drinks with edit option"
-        ),
-        _react2.default.createElement(
-          "p",
-          null,
-          "include item count?"
-        )
+          modalDisplay
+        ) : null
       );
     }
   }]);
@@ -51022,8 +51593,10 @@ var EditMenu = function (_React$Component) {
 ;
 
 exports.default = EditMenu;
-},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"index.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js","./modal.jsx":"components/bar/modal.jsx","./AddMenuItem.jsx":"components/bar/AddMenuItem.jsx","./EditMenuItem.jsx":"components/bar/EditMenuItem.jsx","../customer/search.jsx":"components/customer/search.jsx"}],"index.jsx":[function(require,module,exports) {
 "use strict";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require("react");
 
@@ -51061,48 +51634,81 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 //Styled Components
 var Wrapper = _styledComponents2.default.main.withConfig({
   displayName: "src__Wrapper",
   componentId: "sc-1looarw-0"
 })(["display:grid;grid-gap:10px;justify-items:center;"]);
 
-var Login = function Login() {
-  return _react2.default.createElement(
-    Wrapper,
-    null,
-    _react2.default.createElement(
-      "nav",
-      null,
-      _react2.default.createElement(
-        _router.Link,
-        { to: "/customer" },
-        "Customer"
-      ),
-      ' | ',
-      _react2.default.createElement(
-        _router.Link,
-        { to: "/business" },
-        "Bartender"
-      ),
-      ' | ',
-      _react2.default.createElement(
-        _router.Link,
-        { to: "/bar" },
-        "Bar"
-      )
-    ),
-    _react2.default.createElement(
-      _router.Router,
-      null,
-      _react2.default.createElement(_App2.default, { path: "/customer" }),
-      _react2.default.createElement(_business2.default, { path: "/business" }),
-      _react2.default.createElement(_Bar2.default, { path: "/bar" }),
-      _react2.default.createElement(_BarProfile2.default, { path: "/bar/profile" }),
-      _react2.default.createElement(_EditMenu2.default, { path: "bar/menu" })
-    )
-  );
-};
+var Login = function (_React$Component) {
+  _inherits(Login, _React$Component);
+
+  function Login() {
+    _classCallCheck(this, Login);
+
+    var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this));
+
+    _this.state = {
+      barInfo: {
+        id: '1',
+        barName: 'The Best Bar',
+        password: 'password'
+      }
+    };
+    return _this;
+  }
+
+  _createClass(Login, [{
+    key: "render",
+    value: function render() {
+      var bar = this.state.barInfo;
+      return _react2.default.createElement(
+        Wrapper,
+        null,
+        _react2.default.createElement(
+          "nav",
+          null,
+          _react2.default.createElement(
+            _router.Link,
+            { to: "/customer" },
+            "Customer"
+          ),
+          ' | ',
+          _react2.default.createElement(
+            _router.Link,
+            { to: "/business" },
+            "Bartender"
+          ),
+          ' | ',
+          _react2.default.createElement(
+            _router.Link,
+            { to: "/bar" },
+            "Bar"
+          )
+        ),
+        _react2.default.createElement(
+          _router.Router,
+          null,
+          _react2.default.createElement(_App2.default, { path: "/customer" }),
+          _react2.default.createElement(_business2.default, { path: "/business" }),
+          _react2.default.createElement(_Bar2.default, { path: "/bar", barInfo: bar }),
+          _react2.default.createElement(_BarProfile2.default, { path: "/bar/profile", barInfo: bar }),
+          _react2.default.createElement(_EditMenu2.default, { path: "bar/menu", barInfo: bar })
+        )
+      );
+    }
+  }]);
+
+  return Login;
+}(_react2.default.Component);
+
+;
 
 _reactDom2.default.render(_react2.default.createElement(Login, null), document.getElementById("root"));
 },{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","react-dom":"../node_modules/react-dom/index.js","./components/App.jsx":"components/App.jsx","./components/business/business.jsx":"components/business/business.jsx","./components/bar/Bar.jsx":"components/bar/Bar.jsx","./components/bar/BarProfile.jsx":"components/bar/BarProfile.jsx","./components/bar/EditMenu.jsx":"components/bar/EditMenu.jsx","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -51134,7 +51740,19 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49474' + '/');
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '54344' + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49985' + '/');
+>>>>>>> add link for survey on bar page
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '50329' + '/');
+>>>>>>> pass barInfo to all bar views
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53910' + '/');
+>>>>>>> add menu item server request in progress
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

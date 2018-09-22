@@ -1,6 +1,6 @@
 let Sequelize = require("sequelize");
 require('dotenv').config();
-// const orm = new Sequelize("barback", "root", "", {
+// const orm = new Sequelize("barback", "root", `${process.env.sqlPassword}`, {
 //   dialect: "mysql"
 // });
 
