@@ -84,10 +84,7 @@ class Checkout extends React.Component {
             {" "}
             <h2>
               Total: $
-              {this.props.checkout.drinkOrder
-                .map(item => Number(item.subtotal))
-                .reduce((accum, value) => accum + value, Number(0))
-                .toFixed(2)}
+              {this.props.checkout.total}
             </h2>
           </div>
           <ClickableWrapper onClick={this.completeOrder}>

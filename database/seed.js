@@ -1,4 +1,6 @@
 const db = require("./database.js");
+const Sequelize = require("sequelize");
+
 
 let mockMenuItems = [
   // {

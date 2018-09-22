@@ -23,7 +23,6 @@ class App extends React.Component {
       CustomerId: "",
       status: "pending",
       drinkOrder: [],
-      tip: 0,
       total: 0,
     },
     search: "",
@@ -46,7 +45,7 @@ class App extends React.Component {
   checkOutUpdate = order => {
     let drinks = this.state.checkout.drinkOrder;
     // console.log('drinks', drinks);
-    console.log('order', order);
+    // console.log('order', order);
     let drinksExistsinCheckOut = false;
     for (var i = 0; i < drinks.length; i++) {
       if (drinks[i].menuItemId === order.menuItemId) {
@@ -55,11 +54,10 @@ class App extends React.Component {
         drinks[i].subtotal += order.subtotal;
       }
     }
-    console.log('order.subtotal', order.subtotal)
     if (!drinksExistsinCheckOut) {
       drinks.push(order);
       this.setState({
-        checkout: Object.assign({}, this.state.checkout, { drinkOrder: drinks })
+        checkout: Object.assign({}, this.state.checkout, { drinkOrder: drinks, total: order.subtotal })
       });
     }
   };
@@ -98,12 +96,14 @@ class App extends React.Component {
 
   // change modal status to show or not (for checkout)
   changeModal(view) {
-    console.log('modal open', view)
     this.setState({
-      modal: view
+      modal: view,
+      //checkout: Object.assign({}, this.state.checkout, { total: wTiptotal })
+      // checkout: {...this.state.checkout, total: wTiptotal},
     });
   }
 
+  
   // show the status of the customer orders
   toggleOrderView() {
     this.setState(prevState => ({
@@ -141,7 +141,9 @@ class App extends React.Component {
         <Modal>
           <Tipping 
             checkout={this.state.checkout} 
-            emptyCart={this.emptyCart.bind(this)}/>
+            emptyCart={this.emptyCart.bind(this)}
+            changeModal={this.changeModal.bind(this)}
+            />
         </Modal> 
       )
     }
