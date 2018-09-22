@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { Redirect } from "@reach/router";
 
 const ModalContainer = styled.div`
   background-color: white;
@@ -33,7 +34,6 @@ class EditMenuItem extends React.Component {
   handleInput(event) {
     const value = event.target.value;
     const field = event.target.name;
-    console.log('field:', field);
     this.setState({[field]: value});
   }
 
@@ -41,6 +41,7 @@ class EditMenuItem extends React.Component {
     const original = this.props.menuItem;
     const update = this.state;
 
+    //item to be updated
     const item = {};
     item.id = original.id;
     item.name = update.updatedName === '' ? original.name : update.updatedName;
@@ -48,18 +49,21 @@ class EditMenuItem extends React.Component {
     item.price = update.updatedPrice === '' ? original.price : update.updatedPrice;
     item.description = update.updatedDescription === '' ? original.description : update.updatedDescription;
     item.imageUrl = update.updatedImageUrl === '' ? original.imageUrl : update.updatedImageUrl;
-
-    console.log('item: ', item);
-    //const item = {name: 'test name'};
-    console.log('item for axios request', item);
+    
+    //request to update item
     axios.put('/api/bar/menu/edit', {item: item})
-      .then(res => {
+      .then(() => {
         //need to refresh the editmenu page with updated item
-        console.log(res);
+        console.log('saved changes');
+        this.redirectRender();
       })
       .catch(err => console.log(err));
 
     this.props.toggleModal();
+  }
+
+  redirectRender() {
+    return <Redirect nothrow to="/bar" />;
   }
 
   render() {

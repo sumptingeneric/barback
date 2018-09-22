@@ -13,7 +13,7 @@ const Wrapper = styled.main`
 `;
 
 const ItemWrapper = styled.main`
-  width: 60%;
+  width: 50%;
   margin-bottom: 10px; 
 `;
 

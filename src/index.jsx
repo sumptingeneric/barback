@@ -47,7 +47,7 @@ class Login extends React.Component {
           <Business path="/business" />
           <Bar path="/bar" barInfo={bar}/>
           <BarProfile path="/bar/profile" barInfo={bar}/>
-          <EditMenu path="bar/menu" barInfo={bar}/>
+          <EditMenu path="/bar/menu" barInfo={bar}/>
           <Register path="/register" />
         </Router>
       </Wrapper>
