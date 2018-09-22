@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
+const utils = require("./utils.js");
 
 //variables
 const HOST = process.env.HOST || "localhost";
@@ -242,6 +243,53 @@ app.put('/api/bar/menu/edit', (req) => {
   console.log('params in server for edit: ', req.params);
 
 });
+
+//Bar Stats
+app.get("/api/stats", (req, res) => {
+  var compiledData;
+  db.Orders.findAll({where: {status: 'complete'}})
+    .then((data) => {
+      // return complete orders
+      var completedOrders = data;
+      var orderIds = [];
+      for (var i = 0; i < completedOrders.length; i++) {
+        orderIds.push(completedOrders[i]['id']);
+      }
+      return orderIds;
+    })
+    .then((ids) => {
+      // retrieve orderdetails sorted by highest quantity
+      return db.OrderDetails.findAll({
+        where: { OrderId: ids },
+        order: [['quantity', 'DESC']]
+      })
+    })
+    .then((data) => {
+      // save data onto global scope
+      compiledData = data.slice(0);
+      // pluck a list of menu item id;
+      // [13, 12]
+      return data.map(order => {
+        return order.MenuItemId;
+      })
+    })
+    .then((data) => {
+      // retrieve menuNames
+      return db.MenuItems.findAll({
+        where: { id: data }
+      })
+    })
+    .then((data) => {
+      res.send(data)
+      var slicedData = data.slice(0);
+      console.log(utils.fetchStats(compiledData, slicedData))
+      // // compiledData = utils.fetchStats(compiledData, data);
+      // return compiledData;
+    })
+    // .then((data) => {
+    //   res.send(data);
+    // })
+})
 
 //Port Listening
 

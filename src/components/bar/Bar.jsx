@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "@reach/router";
+import BarStats from "./BarStats.jsx";
 
 class Bar extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Bar extends React.Component {
         <h1>{barInfo.barName}</h1>
         <Link to="/bar/profile">View Profile</Link>
         <Link to="/bar/menu">Edit Menu</Link>
-        <p>stats go here...</p>
+        <BarStats />
       </div>
     );
   }

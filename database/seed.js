@@ -201,39 +201,20 @@ const mockOrderDetails = [
   }
 ];
 
-const insertMockMenuItems = () => {
-  mockMenuItems.forEach(item => {
-    db.MenuItems.create(item);
-  });
-};
-
-const insertMockCustomers = () => {
-  mockCustomers.forEach(customer => {
-    db.Customers.create(customer);
-  });
-};
-
-const insertMockOrders = () => {
-  mockOrders.forEach(order => {
-    db.Orders.create(order);
-  });
-};
-
-const insertMockOrderDetails = () => {
-  mockOrderDetails.forEach(detail => {
-    db.OrderDetails.create(detail);
-  });
-};
+const mockSurveys = [
+  {
+    drinkQuality: 2,
+    customerService: 5,
+    OrderId: 1
+  },
+]
 
 const insertionFunctions = [
-  insertMockMenuItems,
-  insertMockCustomers,
-  insertMockOrders,
-  insertMockOrderDetails
+  db.Customers.bulkCreate(mockCustomers),
+  db.Orders.bulkCreate(mockOrders),
+  db.MenuItems.bulkCreate(mockMenuItems),
+  db.Surveys.bulkCreate(mockSurveys),
+  db.OrderDetails.bulkCreate(mockOrderDetails),
 ];
 
-const asyncInsertionFunctions = insertionFunctions.map(func => {
-  return new Promise(func);
-});
-
-Promise.all(asyncInsertionFunctions).then(() => db.connection.close());
+Promise.all(insertionFunctions).then(() => db.connection.close());
