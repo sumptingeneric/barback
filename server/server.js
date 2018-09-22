@@ -218,7 +218,8 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
   }
 });
 // Survey POST Handler
-app.post("/api/customers/:customer_id/survey", (req, res) => {
+app.post("/api/bar/survey", (req, res) => {
+  console.log(req);
   var surveyData = {
     status: req.body.status,
     CustomerId: req.params.customer_id
