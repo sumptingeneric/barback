@@ -102,12 +102,10 @@ class App extends React.Component {
   }
 
   changeModalUpdateTotal(view, wTipTotal) {
-    console.log('with tip', wTipTotal)
     this.setState({
       checkout: Object.assign({}, this.state.checkout, { total: wTipTotal }),
       modal: view,
     });
-    console.log('state total', this.state.checkout.total)
   }
 
   
