@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { Redirect } from "@reach/router";
 
 const ModalContainer = styled.div`
   background-color: white;
@@ -8,6 +9,7 @@ const ModalContainer = styled.div`
   padding: 15px;
   border-radius: 5px;
   text-align: center;
+  line-height: 8px;
 `;
 
 const ClickableWrapper = styled.button`
@@ -20,40 +22,48 @@ class EditMenuItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      updatedItemName: '',
+      updatedName: '',
+      updatedCategory: '',
       updatedPrice: '',
       updatedDescription: '',
       updatedImageUrl: '',
+      updated: {},
     };
   }
 
-  handleItemNameInput(event) {
-    this.setState({updatedItemName: event.target.value});
-  }
-
-  handlePriceInput(event) {
-    this.setState({updatedPrice: event.target.value});
-  }
-
-  handleDescriptionInput(event) {
-    this.setState({updatedDescription: event.target.value});
-  }
-
-  handleImageUrlInput(event) {
-    this.setState({updatedImageUrl: event.target.value});
+  handleInput(event) {
+    const value = event.target.value;
+    const field = event.target.name;
+    this.setState({[field]: value});
   }
 
   handleSubmit() {
-    // axios put request to update item to database
-    //TODO: if an item was updated, add it to the put URL
-    axios.put(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/edit`)
-      .then(res => {
+    const original = this.props.menuItem;
+    const update = this.state;
+
+    //item to be updated
+    const item = {};
+    item.id = original.id;
+    item.name = update.updatedName === '' ? original.name : update.updatedName;
+    item.category = update.updatedCategory === '' ? original.category : update.updatedCategory;
+    item.price = update.updatedPrice === '' ? original.price : update.updatedPrice;
+    item.description = update.updatedDescription === '' ? original.description : update.updatedDescription;
+    item.imageUrl = update.updatedImageUrl === '' ? original.imageUrl : update.updatedImageUrl;
+    
+    //request to update item
+    axios.put('/api/bar/menu/edit', {item: item})
+      .then(() => {
         //need to refresh the editmenu page with updated item
-        console.log(res);
+        console.log('saved changes');
+        this.redirectRender();
       })
       .catch(err => console.log(err));
 
     this.props.toggleModal();
+  }
+
+  redirectRender() {
+    return <Redirect nothrow to="/bar" />;
   }
 
   render() {
@@ -66,31 +76,38 @@ class EditMenuItem extends React.Component {
             Item Name<br />
             <input 
               type="text"
-              name="item-name"
-              defaultValue={item.itemName}
-              onChange={this.handleItemNameInput.bind(this)} />
+              name="updatedName"
+              defaultValue={item.name}
+              onChange={this.handleInput.bind(this)} />
+            <br /><br />
+            Category<br />
+            <input 
+              type="text"
+              name="updatedCategory"
+              defaultValue={item.category}
+              onChange={this.handleInput.bind(this)} />
             <br /><br />
             Price<br />
             <input 
               type="text"
-              name="price"
+              name="updatedPrice"
               defaultValue={item.price}
-              onChange={this.handlePriceInput.bind(this)} />
+              onChange={this.handleInput.bind(this)} />
             <br /><br />
             Description<br />
             <textarea 
               rows="4"
               cols="100%"
-              name="description"
+              name="updatedDescription"
               defaultValue={item.description}
-              onChange={this.handleDescriptionInput.bind(this)} />
+              onChange={this.handleInput.bind(this)} />
             <br /><br />
             Image URL<br />
             <input 
               type="text"
-              name="image-url"
+              name="updatedImageUrl"
               defaultValue={item.imageUrl}
-              onChange={this.handleImageUrlInput.bind(this)} />
+              onChange={this.handleInput.bind(this)} />
             <br /><br />
             <ClickableWrapper type="submit" onClick={this.handleSubmit.bind(this)}>
               Save Item

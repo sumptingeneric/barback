@@ -8,6 +8,7 @@ const ModalContainer = styled.div`
   padding: 15px;
   border-radius: 5px;
   text-align: center;
+  line-height: 8px;
 `;
 const ClickableWrapper = styled.button`
   margin: 3px;
@@ -19,34 +20,25 @@ class AddMenuItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemName: '',
+      name: '',
+      category: '',
       price: '',
       description: '',
       imageUrl: './default-drink-image.jpg',
     };
   }
 
-  handleItemNameInput(event) {
-    this.setState({itemName: event.target.value});
-  }
-
-  handlePriceInput(event) {
-    this.setState({price: event.target.value});
-  }
-
-  handleDescriptionInput(event) {
-    this.setState({description: event.target.value});
-  }
-
-  handleImageUrlInput(event) {
-    this.setState({imageUrl: event.target.value});
+  handleInput(event) {
+    const value = event.target.value;
+    const field = event.target.name;
+    console.log(field);
+    this.setState({[field]: value});
   }
 
   handleSubmit() {
     const item = this.state;
-    console.log('sate of items', item);
     // axios post request to save new item to database
-    axios.post(`http://${process.env.HOST}:${process.env.PORT}/api/bar/menu/add/${ item }`)
+    axios.post('/api/bar/menu/add', {item: item})
       .then(res => {
         //need to refresh the editmenu page with new item
         console.log('res in handleSubmit', res);
@@ -62,17 +54,36 @@ class AddMenuItem extends React.Component {
         <div>
           <form>
             <h2>Add a New Menu Item</h2>
-            <p>Item Name</p>
-            <input type="text" name="item-name" onChange={this.handleItemNameInput.bind(this)}/>
+            Item Name<br />
+            <input 
+              type="text" 
+              name="name" 
+              onChange={this.handleInput.bind(this)}/>
             <br /><br />
-            <p>Price</p>
-            <input type="text" name="price" onChange={this.handlePriceInput.bind(this)}/>
+            Category<br />
+            <input 
+              type="text" 
+              name="category" 
+              onChange={this.handleInput.bind(this)}/>
             <br /><br />
-            <p>Description</p>
-            <textarea rows="4" cols="100%" name="description" onChange={this.handleDescriptionInput.bind(this)}/>
+            Price<br />
+            <input 
+              type="text" 
+              name="price" 
+              onChange={this.handleInput.bind(this)}/>
             <br /><br />
-            <p>Image URL</p>
-            <input type="text" name="image-url" onChange={this.handleImageUrlInput.bind(this)}/>
+            Description<br />
+            <textarea 
+              rows="4" 
+              cols="100%" 
+              name="description" 
+              onChange={this.handleInput.bind(this)}/>
+            <br /><br />
+            Image URL<br />
+            <input 
+              type="text" 
+              name="imageUrl" 
+              onChange={this.handleInput.bind(this)}/>
             <br /><br />
             <ClickableWrapper type="submit" onClick={this.handleSubmit.bind(this)}>
               Save Item
