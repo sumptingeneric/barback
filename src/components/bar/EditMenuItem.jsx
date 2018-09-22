@@ -8,6 +8,7 @@ const ModalContainer = styled.div`
   padding: 15px;
   border-radius: 5px;
   text-align: center;
+  line-height: 8px;
 `;
 
 const ClickableWrapper = styled.button`
@@ -20,15 +21,20 @@ class EditMenuItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      updatedItemName: '',
+      updatedName: '',
+      updatedCategory: '',
       updatedPrice: '',
       updatedDescription: '',
       updatedImageUrl: '',
     };
   }
 
-  handleItemNameInput(event) {
-    this.setState({updatedItemName: event.target.value});
+  handleNameInput(event) {
+    this.setState({updatedName: event.target.value});
+  }
+
+  handleCategoryInput(event) {
+    this.setState({category: event.target.value});
   }
 
   handlePriceInput(event) {
@@ -67,8 +73,15 @@ class EditMenuItem extends React.Component {
             <input 
               type="text"
               name="item-name"
-              defaultValue={item.itemName}
-              onChange={this.handleItemNameInput.bind(this)} />
+              defaultValue={item.name}
+              onChange={this.handleNameInput.bind(this)} />
+            <br /><br />
+            Category<br />
+            <input 
+              type="text"
+              name="category"
+              defaultValue={item.category}
+              onChange={this.handleCategoryInput.bind(this)} />
             <br /><br />
             Price<br />
             <input 

@@ -252,8 +252,24 @@ app.get("/api/bar/survey", (req, res) => {
 // ///// BAR MENU ///// //
 
 //from EditMenu
-app.get('/api/bar/menu', (req) => {
-  console.log(req.query);
+app.get('/api/bar/menu', (req, res) => {
+  console.log('get request for menu items');
+  db.MenuItems.findAll()
+    .then((data) => {
+      console.log(data);
+      const menuData = data.map((item) => {
+        return {
+          id: item.id, 
+          name: item.name,
+          price: (+item.price).toFixed(2),
+          category: item.category,
+          imageUrl: item.imageUrl,
+          description: item.description,
+        }
+      });
+      res.send(menuData);
+    })
+    .catch((err) => console.log(err));
   //send request to database for menu items for the bar
   //res.send(data);
   //catch errors

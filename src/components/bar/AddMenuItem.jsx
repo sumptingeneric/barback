@@ -8,6 +8,7 @@ const ModalContainer = styled.div`
   padding: 15px;
   border-radius: 5px;
   text-align: center;
+  line-height: 8px;
 `;
 const ClickableWrapper = styled.button`
   margin: 3px;
@@ -19,15 +20,19 @@ class AddMenuItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemName: '',
+      name: '',
       price: '',
       description: '',
       imageUrl: './default-drink-image.jpg',
     };
   }
 
-  handleItemNameInput(event) {
-    this.setState({itemName: event.target.value});
+  handleNameInput(event) {
+    this.setState({name: event.target.value});
+  }
+
+  handleCategoryInput(event) {
+    this.setState({category: event.target.value});
   }
 
   handlePriceInput(event) {
@@ -62,16 +67,19 @@ class AddMenuItem extends React.Component {
         <div>
           <form>
             <h2>Add a New Menu Item</h2>
-            <p>Item Name</p>
-            <input type="text" name="item-name" onChange={this.handleItemNameInput.bind(this)}/>
+            Item Name<br />
+            <input type="text" name="item-name" onChange={this.handleNameInput.bind(this)}/>
             <br /><br />
-            <p>Price</p>
+            Category<br />
+            <input type="text" name="category" onChange={this.handleCategoryInput.bind(this)}/>
+            <br /><br />
+            Price<br />
             <input type="text" name="price" onChange={this.handlePriceInput.bind(this)}/>
             <br /><br />
-            <p>Description</p>
+            Description<br />
             <textarea rows="4" cols="100%" name="description" onChange={this.handleDescriptionInput.bind(this)}/>
             <br /><br />
-            <p>Image URL</p>
+            Image URL<br />
             <input type="text" name="image-url" onChange={this.handleImageUrlInput.bind(this)}/>
             <br /><br />
             <ClickableWrapper type="submit" onClick={this.handleSubmit.bind(this)}>
