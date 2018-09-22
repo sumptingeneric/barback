@@ -143,99 +143,61 @@ const mockOrderDetails = [
     quantity: 2,
     subtotal: 50,
     OrderId: 1,
-    MenuItemId: 2,
+    MenuItemId: 91
   },
   {
     quantity: 1,
     subtotal: 22.5,
     OrderId: 1,
-    MenuItemId: 1,
+    MenuItemId: 51
   },
   {
     quantity: 1,
     subtotal: 12,
-    OrderId: 2,
-    MenuItemId: 10,
+    OrderId: 11,
+    MenuItemId: 31
   },
   {
     quantity: 1,
     subtotal: 14,
-    OrderId: 3,
-    MenuItemId: 6,
+    OrderId: 21,
+    MenuItemId: 61
   },
   {
     quantity: 2,
     subtotal: 25,
-    OrderId: 4,
-    MenuItemId: 11,
+    OrderId: 41,
+    MenuItemId: 41
   },
   {
     quantity: 1,
     subtotal: 12,
-    OrderId: 4,
-    MenuItemId: 10,
+    OrderId: 41,
+    MenuItemId: 31
   },
   {
     quantity: 1,
     subtotal: 11,
-    OrderId: 5,
-    MenuItemId: 7,
+    OrderId: 31,
+    MenuItemId: 71
   },
   {
     quantity: 1,
     subtotal: 9,
-    OrderId: 5,
-    MenuItemId: 8,
+    OrderId: 31,
+    MenuItemId: 101
   },
   {
     quantity: 1,
     subtotal: 8.5,
-    OrderId: 6,
-    MenuItemId: 9,
+    OrderId: 51,
+    MenuItemId: 81
   },
   {
     quantity: 1,
     subtotal: 21,
-    OrderId: 7,
-    MenuItemId: 5,
-  }
-];
-
-const mockSurveys = [
-  {
-    drinkQuality: 2,
-    customerService: 5,
-    OrderId: 1
-  },
-  {
-    drinkQuality: 2,
-    customerService: 2,
-    OrderId: 2
-  },
-  {
-    drinkQuality: 1,
-    customerService: 1,
-    OrderId: 3
-  },
-  {
-    drinkQuality: 3,
-    customerService: 3,
-    OrderId: 4
-  },
-  {
-    drinkQuality: 1,
-    customerService: 5,
-    OrderId: 5
-  },
-  {
-    drinkQuality: 4,
-    customerService: 1,
-    OrderId: 6
-  },
-  {
-    drinkQuality: 3,
-    customerService: 4,
-    OrderId: 7
+    OrderId: 61,
+    MenuItemId: 21
   }
 ];
 
