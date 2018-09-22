@@ -10,7 +10,9 @@ deploy:
   provider: heroku
   api_key:
     secure: process.env.HEROKU_AUTH
-  app: barback
+  app: goonies-barback
+  on:
+    repo: The-Goonies/barback
 
 cache:
   directories:
