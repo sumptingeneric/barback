@@ -1,6 +1,9 @@
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
+// const utils = require("./utils.js");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 //variables
 const HOST = process.env.HOST || "localhost";
@@ -27,6 +30,61 @@ app.use(function (req, res, next) {
 });
 
 //Controllers
+
+// AUTHENTICATION
+app.get("/api/users/login", (req, res) => {
+  const { username, password, role } = req.query;
+  console.log('req.query is', req.query, 'role is ', role);
+  return db.doesUsernameExist(username, role)
+  .then((result) => {
+    if (!result) {
+      throw new Error("Username not recognized")
+    }
+  })
+  .then(() => {
+    console.log('fetching password')
+    return db.getPassword(username, role)
+  })
+  .then( (hash) => {
+    console.log('the hash is', hash)
+    // console.log(bcrypt.compare(password, hash))
+    return bcrypt.compare(password, hash)
+  })
+  .then((result) => {
+    console.log('result from bcrypt.compare promise is', result)
+    if (result) {
+      res.status(200).send('thansk!')
+    } else {
+      console.log('going to throw password incorrect error')
+      throw new Error('Password incorrect')
+    }
+  })
+  .catch( err => res.status(400).send('Could not login', err));
+});
+
+app.post("/api/users/create", (req, res) => {
+  console.log('req.body is', req.body);
+  const { username, password } = req.body
+  db.doesUsernameExist(username, "Customer")
+  .then((result) => {
+    if (result) {
+      throw { name: "Username taken", message: "Username taken" }
+    }
+    return bcrypt.hash(password, saltRounds)
+  })
+  .then((hash) => {
+    return db.Customers.create({
+      username,
+      password: hash,
+    })
+  })
+  .then(() => res.status(200).send('thanks!'))
+  .catch((err) => {
+    console.log(err);
+    res.statusMessage = err.message;
+    res.status(400).end();
+  });
+});
 
 //CUSTOMERS COLLECTION
 //List all customers (GET)
@@ -113,7 +171,7 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
     CustomerId: req.params.customer_id
   };
   let needID;
-  
+
   db.Orders.create(ordersBody)
     .then(function (response) {
       let drinkOrders = req.body.drinkOrder;
@@ -249,7 +307,7 @@ app.get("/api/bar/survey", (req, res) => {
       res.send(true);
     }
     console.log('RANDOM', orderCounter);
-    
+
 });
 
 // ///// BAR MENU ///// //
@@ -260,7 +318,7 @@ app.get('/api/bar/menu', (req, res) => {
     .then((data) => {
       const menuData = data.map((item) => {
         return {
-          id: item.id, 
+          id: item.id,
           name: item.name,
           price: (+item.price).toFixed(2),
           category: item.category,
@@ -328,6 +386,11 @@ app.get("/api/stats", (req, res) => {
 //     })
 //     .catch((err) => console.log(err));
 // });
+
+// atchall
+app.get('*', (req, res) => {
+  res.redirect('/');
+});
 
 //Port Listening
 

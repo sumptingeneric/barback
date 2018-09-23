@@ -25,7 +25,7 @@ class UserSurvey extends React.Component {
             customerServices: 5
         }
     }
-    
+
     handleChange = (e) => {
         this.setState({
           [e.target.name]: e.target.value,
@@ -47,9 +47,9 @@ class UserSurvey extends React.Component {
     // }
 
     handleSubmit = () => {
-        const orderID = this.props.id;
+        const OrderId = this.props.id;
         const {name, drinkQuality, customerServices} = this.state;
-        const userSurvey = {orderID, name, drinkQuality, customerServices};
+        const userSurvey = {OrderId, name, drinkQuality, customerServices};
         console.log('userSurvey sent', userSurvey);
         axios.post(`/api/stats/survey`, userSurvey)
         .then(res => {
@@ -62,7 +62,7 @@ class UserSurvey extends React.Component {
 
 
     render() {
-        
+
         return (
             <ModalContainer>
                 <div>
@@ -79,9 +79,9 @@ class UserSurvey extends React.Component {
                     <h1>How was your drink? </h1>
                 </div>
                 <div>
-                <Rating 
+                <Rating
                 name='drinkQuality'
-                
+
                 initialRating={this.state.drinkQuality}
                 onChange={(rate) => this.handleDrinkChange(rate)}
                 />
@@ -91,12 +91,12 @@ class UserSurvey extends React.Component {
                 </div>
                 <div>
                 <Rating
-                name='customerServices' 
+                name='customerServices'
                 initialRating={this.state.customerServices}
                 onChange={(rate) => this.handleCustomerChange(rate)}
                 />
                 </div>
-         
+
             <ClickableWrapper type="submit" onClick={this.handleSubmit}>
               Submit Survey
             </ClickableWrapper>
