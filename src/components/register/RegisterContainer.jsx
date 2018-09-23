@@ -27,29 +27,33 @@ class RegisterContainer extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { username, password, role, registered } = this.state;
-    const userInfo = { username, password, role };
-    const loginInfo = { username, password };
+    const loginInfo = { username, password, role };
+    const userInfo = { username, password };
     if (registered) {
       console.log('sending login to server');
       axios.get('/api/users/login', {
         params: loginInfo,
       }).then((response) => {
+        console.log('incoming response is', response);
         if (!response.error) {
           this.setState({ loggedIn: true })
-        } else {
-          alert('invalid login attempt, please try again')
         }
+      })
+      .catch(() => {
+        alert('invalid login attempt, please try again')
       })
     } else {
       console.log('sending signup to server');
       axios.post('/api/users/create', userInfo)
-        .then((response) => {
-          if (!response.error) {
-            this.setState({ loggedIn: true })
-          } else {
-            alert('invalid login attempt, please try again')
-          }
-        })
+      .then((response) => {
+        console.log('incoming response is', response);
+        if (!response.error) {
+          this.setState({ loggedIn: true })
+        }
+      })
+      .catch(() => {
+        alert('invalid login attempt, that username may be taken')
+      })
     }
   }
 
@@ -74,6 +78,8 @@ class RegisterContainer extends React.Component {
   }
 
   render() {
+    const { registered } = this.state;
+    let submitButton = registered ? "Login" : "Signup";
     return (
       <div className="login">
         <button onClick={() => this.setState({ registered: true })}>Login</button>
@@ -90,7 +96,7 @@ class RegisterContainer extends React.Component {
           </label>
           {this.renderView()}
           <br />
-          <input className="signup" type="button" value="Submit" onClick={this.handleSubmit} />
+          <input className="signup" type="button" value={submitButton} onClick={this.handleSubmit} />
         </form>
       </div>
     )

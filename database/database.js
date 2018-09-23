@@ -1,11 +1,12 @@
 let Sequelize = require("sequelize");
 require('dotenv').config();
 
-const orm = new Sequelize("barback", "root", `${process.env.sqlPassword}`, {
-  dialect: "mysql"
-});
+// const orm = new Sequelize("barback", "root", `${process.env.sqlPassword}`, {
+//   dialect: "mysql"
+// });
 
 // const orm = new Sequelize(`${process.env.DATABASE_URL}`);
+const orm = new Sequelize(`${process.env.DATABASE_URL2}`);
 
 orm
   .authenticate()
@@ -16,6 +17,7 @@ orm
     console.error("Unable to connect to the database:", err);
   });
 
+/***************DB SCHEMA ****************/
 let MenuItems = orm.define("MenuItems", {
   name: Sequelize.STRING,
   price: Sequelize.FLOAT,
@@ -25,17 +27,17 @@ let MenuItems = orm.define("MenuItems", {
 });
 
 let Customers = orm.define("Customers", {
-  name: Sequelize.STRING,
+  username: Sequelize.STRING,
   password: Sequelize.STRING,
 });
 
 let Bartenders = orm.define("Bartenders", {
-  name: Sequelize.STRING,
+  username: Sequelize.STRING,
   password: Sequelize.STRING,
 })
 
-let Business = orm.define("Admin", {
-  barname: Sequelize.STRING,
+let Admins = orm.define("Admin", {
+  username: Sequelize.STRING,
   password: Sequelize.STRING
 })
 
@@ -55,7 +57,7 @@ let Surveys = orm.define("Survey", {
   customerServices: Sequelize.INTEGER
 });
 Bartenders.hasMany(OrderDetails);
-Business.hasMany(Bartenders);
+Admins.hasMany(Bartenders);
 Customers.hasMany(Orders);
 Customers.hasMany(OrderDetails);
 Orders.belongsTo(Customers);
@@ -66,7 +68,17 @@ MenuItems.belongsToMany(Orders, { through: "OrderDetails" });
 OrderDetails.belongsTo(Orders);
 OrderDetails.belongsTo(MenuItems);
 Surveys.belongsTo(Orders);
+orm.sync();
+// OrderDetails.sync();
+// MenuItems.sync();
+// Customers.sync();
+// Orders.sync();
+// OrderDetails.sync();
+// Surveys.sync();
+// Bartenders.sync();
+// Admins.sync();
 
+<<<<<<< HEAD
 OrderDetails.sync();
 MenuItems.sync();
 Customers.sync();
@@ -75,10 +87,45 @@ OrderDetails.sync();
 Surveys.sync();
 Bartenders.sync();
 
+=======
+/****************DB HELPER FUNCTIONS *************/
+const doesUsernameExist = (username, role) => {
+  // check for username in database
+  return getTableFromRole(role).find({ where: { username } })
+    .then(data => data ? true : false)
+    .catch(err => console.log(err));
+};
+
+const getPassword = (username, role) => {
+  return getTableFromRole(role).find({ where: { username } })
+    .then(({ password }) => { return password })
+    .catch(err => console.log(err));
+}
+
+const getTableFromRole = (role) => {
+  if (role === "Customer") {
+    console.log('table is Customers')
+    return Customers
+  }
+  if (role === "Bartender") {
+    console.log('table is Bartenders')
+    return Bartenders
+  }
+  if (role === "Admin") {
+    console.log('table is Admins')
+    return Admins
+  }
+}
+
+>>>>>>> Complete working signup and login components wired to DB, tested on elephant SQL
 exports.MenuItems = MenuItems;
 exports.Customers = Customers;
+exports.Bartenders = Bartenders;
+exports.Admins = Admins;
 exports.Orders = Orders;
 exports.OrderDetails = OrderDetails;
 exports.Surveys = Surveys;
 exports.connection = orm;
-exports.Bartenders = Bartenders;
+exports.Surveys = Surveys;
+exports.doesUsernameExist = doesUsernameExist;
+exports.getPassword = getPassword;

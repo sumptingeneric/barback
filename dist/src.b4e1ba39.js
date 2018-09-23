@@ -97927,27 +97927,29 @@ var RegisterContainer = function (_React$Component) {
           role = _state.role,
           registered = _state.registered;
 
-      var userInfo = { username: username, password: password, role: role };
-      var loginInfo = { username: username, password: password };
+      var loginInfo = { username: username, password: password, role: role };
+      var userInfo = { username: username, password: password };
       if (registered) {
         console.log('sending login to server');
         _axios2.default.get('/api/users/login', {
           params: loginInfo
         }).then(function (response) {
+          console.log('incoming response is', response);
           if (!response.error) {
             _this2.setState({ loggedIn: true });
-          } else {
-            alert('invalid login attempt, please try again');
           }
+        }).catch(function () {
+          alert('invalid login attempt, please try again');
         });
       } else {
         console.log('sending signup to server');
         _axios2.default.post('/api/users/create', userInfo).then(function (response) {
+          console.log('incoming response is', response);
           if (!response.error) {
             _this2.setState({ loggedIn: true });
-          } else {
-            alert('invalid login attempt, please try again');
           }
+        }).catch(function () {
+          alert('invalid login attempt, that username may be taken');
         });
       }
     }
@@ -97999,6 +98001,9 @@ var RegisterContainer = function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
+      var registered = this.state.registered;
+
+      var submitButton = registered ? "Login" : "Signup";
       return _react2.default.createElement(
         'div',
         { className: 'login' },
@@ -98034,7 +98039,7 @@ var RegisterContainer = function (_React$Component) {
           ),
           this.renderView(),
           _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { className: 'signup', type: 'button', value: 'Submit', onClick: this.handleSubmit })
+          _react2.default.createElement('input', { className: 'signup', type: 'button', value: submitButton, onClick: this.handleSubmit })
         )
       );
     }
