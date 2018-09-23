@@ -78,16 +78,6 @@ orm.sync();
 // Bartenders.sync();
 // Admins.sync();
 
-<<<<<<< HEAD
-OrderDetails.sync();
-MenuItems.sync();
-Customers.sync();
-Orders.sync();
-OrderDetails.sync();
-Surveys.sync();
-Bartenders.sync();
-
-=======
 /****************DB HELPER FUNCTIONS *************/
 const doesUsernameExist = (username, role) => {
   // check for username in database
@@ -117,7 +107,6 @@ const getTableFromRole = (role) => {
   }
 }
 
->>>>>>> Complete working signup and login components wired to DB, tested on elephant SQL
 exports.MenuItems = MenuItems;
 exports.Customers = Customers;
 exports.Bartenders = Bartenders;

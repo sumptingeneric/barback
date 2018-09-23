@@ -49721,15 +49721,15 @@ var Checkout = function (_React$Component) {
 
       //console.log("Order SUBMitTED TO DB");
 
-      // TODO: need to has customer ID not hard coded 
       var custId = 1;
       var checkoutOrder = this.props.checkout;
       _axios2.default.post("/api/customers/" + custId + "/orders", checkoutOrder).then(function (res) {
-        console.log('checkout.jsx, res=', res);
+        var orderID = res.data.needID;
         _this2.props.getOrders();
         _this2.props.changeModal("");
         _this2.props.emptyCart();
         _this2.props.getSurvey();
+        _this2.props.getData(orderID);
       });
     }
   }, {
@@ -51874,13 +51874,14 @@ var UserSurvey = function (_React$Component) {
         };
 
         _this.handleSubmit = function () {
+            var orderID = _this.props.id;
             var _this$state = _this.state,
                 name = _this$state.name,
                 drinkQuality = _this$state.drinkQuality,
                 customerServices = _this$state.customerServices;
 
-            var userSurvey = { name: name, drinkQuality: drinkQuality, customerServices: customerServices };
-
+            var userSurvey = { orderID: orderID, name: name, drinkQuality: drinkQuality, customerServices: customerServices };
+            console.log('userSurvey sent', userSurvey);
             _axios2.default.post('/api/stats/survey', userSurvey).then(function (res) {
                 // alert("Thanks for taking the survey!");
                 console.log(res);
@@ -51892,16 +51893,17 @@ var UserSurvey = function (_React$Component) {
 
         _this.state = {
             name: "",
-            // email: "",
             drinkQuality: 1,
             customerServices: 5
         };
         return _this;
     }
 
-    // handleRatingChange(rating) {
-    //     console.log('rating', rating);
-    //   }
+    // GrabOrderID = (id) => {
+    //     let {orderID} = this.state;
+    //     this.setState({orderID: id})
+    //     console.log('inside the grab',orderID);
+    // }
 
     _createClass(UserSurvey, [{
         key: 'render',
@@ -51941,10 +51943,8 @@ var UserSurvey = function (_React$Component) {
                         _react2.default.createElement(_reactRating2.default, {
                             name: 'drinkQuality',
 
-                            initialRating: this.state.drinkQuality
-                            // emptySymbol={<img src="star-grey.png" className='icon' alt="empty star"/>}
-                            // fullSymbol={<img src="star-full.png" className='icon' alt="filled star"/>}
-                            , onChange: function onChange(rate) {
+                            initialRating: this.state.drinkQuality,
+                            onChange: function onChange(rate) {
                                 return _this2.handleDrinkChange(rate);
                             }
                         })
@@ -51967,8 +51967,6 @@ var UserSurvey = function (_React$Component) {
                             onChange: function onChange(rate) {
                                 return _this2.handleCustomerChange(rate);
                             }
-                            // emptySymbol={<img src="./assets/images/star-grey.png" className="icon" alt=""/>}
-                            // fullSymbol={<img src="./assets/images/star-yellow.png" className="icon" alt=""/>}
                         })
                     ),
                     _react2.default.createElement(
@@ -52083,7 +52081,8 @@ var App = function (_React$Component) {
       survey: false,
       search: "",
       modal: "",
-      showOrders: false
+      showOrders: false,
+      orderID: ""
     }, _this.checkOutUpdate = function (order) {
       var drinks = _this.state.checkout.drinkOrder;
       // console.log('drinks', drinks);
@@ -52108,6 +52107,9 @@ var App = function (_React$Component) {
           search: e.target.value
         });
       }
+    }, _this.getData = function (id) {
+      console.log('THE ID', id);
+      _this.setState({ orderID: id });
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -52120,7 +52122,7 @@ var App = function (_React$Component) {
       this.getCustomerOrders();
       this.interval = setInterval(function () {
         _this2.getCustomerOrders();
-      }, 10000);
+      }, 100000);
     }
   }, {
     key: "componentWillUnmount",
@@ -52152,7 +52154,7 @@ var App = function (_React$Component) {
       var _this4 = this;
 
       _axios2.default.get("/api/bar/survey").then(function (response) {
-        console.log('SURVEY GET IS', response);
+        console.log('Survey', response);
         if (response.data === true) {
           _this4.setState({
             survey: true
@@ -52176,7 +52178,8 @@ var App = function (_React$Component) {
         _this5.setState({
           orders: response.data
         });
-        // setTimeout(this.getCustomerOrders(), 2000);
+        // timeout below will spam the server, use with caution!
+        // setTimeout(this.getCustomerOrders(), 2000); 
       });
     }
 
@@ -52221,13 +52224,6 @@ var App = function (_React$Component) {
         }
       });
     }
-
-    // toggleHaveUserInfo = () => {
-    //   this.setState({
-    //    surveyInput: !this.state.surveyInput
-    //   })
-    // }
-
   }, {
     key: "renderModal",
     value: function renderModal() {
@@ -52240,7 +52236,9 @@ var App = function (_React$Component) {
             checkout: this.state.checkout,
             changeModal: this.changeModal.bind(this),
             getOrders: this.getCustomerOrders.bind(this),
-            getSurvey: this.getSurvey.bind(this)
+            getSurvey: this.getSurvey.bind(this),
+            getData: this.getData.bind(this)
+
           })
         );
       }
@@ -52261,9 +52259,8 @@ var App = function (_React$Component) {
           _modal2.default,
           null,
           _react2.default.createElement(_UserSurvey2.default, {
-
+            id: this.state.orderID,
             changeModal: this.changeModal.bind(this)
-
           })
         );
       }
@@ -52511,7 +52508,7 @@ var PendingQueueItem = function (_React$Component) {
       var _this2 = this;
 
       // call to API to update status of order from 'pending' to 'current'
-      console.log(item);
+      // console.log(item);
       var custId = 1;
       var orderId = item;
       if (this.props.current) {
@@ -52821,7 +52818,7 @@ var PreviousOrders = function (_React$Component) {
         _this2.setState({
           previousOrders: currentOrders
         });
-        console.log("These are the previous orders: ", _this2.state.previousOrders);
+        // console.log("These are the previous orders: ", this.state.previousOrders);
       });
     }
   }, {
@@ -98061,7 +98058,7 @@ var RegisterContainer = function (_React$Component) {
 
 exports.default = RegisterContainer;
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","@reach/router":"../node_modules/@reach/router/es/index.js"}],"barback-logo.png":[function(require,module,exports) {
-module.exports = "/487495d53d0d778145ab0c1a556d037f.png";
+module.exports = "/barback-logo.556d037f.png";
 },{}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -98277,7 +98274,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49751' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '55711' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
