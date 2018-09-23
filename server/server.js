@@ -211,11 +211,7 @@ app.get("/api/customers/:customer_id/orders/:order_id/status", (req, res) => {
 
 //Update order status by order id (PUT)
 app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
-  // console.log("customer id " + req.params.customer_id);
-  // console.log("order id " + req.params.order_id);
-  // console.log("current ID test  " + req.body.current);
   let status = req.params.status;
-  // let currentId = req.body.current;
   let orderId = req.params.order_id;
   if (status === "redo") {
     db.Orders.update(
@@ -283,10 +279,10 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
 // Survey POST Handler
 app.post("/api/stats/survey", (req, res) => {
   let surveyData = {
-   OrderId: req.body.OrderId,
-   name: req.body.name,
-   drinkQuality: req.body.drinkQuality,
-   customerServices: req.body.customerServices
+  OrderId: req.body.OrderId,
+  name: req.body.name,
+  drinkQuality: req.body.drinkQuality,
+  customerServices: req.body.customerServices
   };
   db.Surveys.create(surveyData)
     .then((response) => {

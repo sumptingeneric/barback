@@ -35,7 +35,6 @@ class PreviousOrders extends React.Component {
       this.setState({
         previousOrders: currentOrders
       });
-      // console.log("These are the previous orders: ", this.state.previousOrders);
     });
   }
 

@@ -45,8 +45,6 @@ class App extends React.Component {
   // called when adding drink(s) to your order for checkout
   checkOutUpdate = order => {
     let drinks = this.state.checkout.drinkOrder;
-    // console.log('drinks', drinks);
-    // console.log('order', order);
     let drinksExistsinCheckOut = false;
     for (var i = 0; i < drinks.length; i++) {
       if (drinks[i].menuItemId === order.menuItemId) {
@@ -99,7 +97,6 @@ class App extends React.Component {
     axios
       .get(`/api/customers/${customerID}/orders`)
       .then(response => {
-        // console.log('Customer orders',response.data);
         this.setState({
           orders: response.data
         });
@@ -169,7 +166,6 @@ class App extends React.Component {
             checkout={this.state.checkout} 
             updateTotal={this.changeModalUpdateTotal.bind(this)}
             changeModal={this.changeModal.bind(this)}
-            
             />
         </Modal> 
       )
@@ -206,7 +202,6 @@ class App extends React.Component {
           search={this.state.search.toLowerCase()}
         />
         <div>{this.renderModal()}</div>
-       
       </Wrapper>
     );
   }

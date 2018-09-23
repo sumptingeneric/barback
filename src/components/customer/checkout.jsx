@@ -36,9 +36,7 @@ class Checkout extends React.Component {
     this.completeOrder = this.completeOrder.bind(this);
   }
 
-  completeOrder() {
-    //console.log("Order SUBMitTED TO DB");
-    
+  completeOrder() {    
     let custId = 1;
     let checkoutOrder = this.props.checkout;
     axios
@@ -113,15 +111,3 @@ class Checkout extends React.Component {
 }
 
 export default Checkout;
-
-// Checkout Component
-//   - receives state from App / Home page(checkout state; running subtotal, complete order function)
-
-// Function:
-// Event handler: return to menu
-// Event handler: calls complete order function, sets checkout state to empty
-// Render:
-// < list of order items>
-//   <total {obtained from checkout state}>
-// <back to menu button onClick=returnToMenuEventHandler>
-//     <complete order button onClick=completeOrderEventHandler>

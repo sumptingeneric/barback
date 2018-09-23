@@ -39,7 +39,6 @@ class CurrentQueueItem extends React.Component {
         `/api/customers/${custId}/orders/${orderId}/complete`
       )
       .then(() => {
-        //TODO Reload not working
         this.props.reload();
       });
 

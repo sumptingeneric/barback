@@ -76,7 +76,6 @@ MenuItems.belongsToMany(Orders, { through: "OrderDetails" });
 OrderDetails.belongsTo(Orders);
 OrderDetails.belongsTo(MenuItems);
 Surveys.belongsTo(Orders);
-// orm.sync();
 OrderDetails.sync();
 MenuItems.sync();
 Customers.sync();
