@@ -1,8 +1,9 @@
 let Sequelize = require("sequelize");
-
-const orm = new Sequelize("barback", "root", "", {
-  dialect: "mysql"
-});
+require('dotenv').config();
+// const orm = new Sequelize("barback", "root", `${process.env.sqlPassword}`, {
+//   dialect: "mysql"
+// });
+const orm = new Sequelize(`${process.env.DATABASE_URL}`);
 
 orm
   .authenticate()
@@ -34,19 +35,35 @@ let OrderDetails = orm.define("OrderDetails", {
   subtotal: Sequelize.FLOAT
 });
 
+let Surveys = orm.define("Survey", {
+  name: Sequelize.STRING,
+  drinkQuality: Sequelize.INTEGER,
+  customerServices: Sequelize.INTEGER
+});
+
 Customers.hasMany(Orders);
 Orders.belongsTo(Customers);
 Orders.belongsToMany(MenuItems, { through: "OrderDetails" });
 MenuItems.belongsToMany(Orders, { through: "OrderDetails" });
+Surveys.belongsTo(Orders);
+// Orders.hasOne(Surveys);
+
+
 OrderDetails.belongsTo(Orders);
 OrderDetails.belongsTo(MenuItems);
+Surveys.belongsTo(Orders);
 MenuItems.sync();
 Customers.sync();
 Orders.sync();
+Surveys.sync();
 OrderDetails.sync();
+// orm.sync({force:true});
+Surveys.sync();
 
 exports.MenuItems = MenuItems;
 exports.Customers = Customers;
 exports.Orders = Orders;
 exports.OrderDetails = OrderDetails;
+exports.Surveys = Surveys;
 exports.connection = orm;
+exports.Surveys = Surveys;

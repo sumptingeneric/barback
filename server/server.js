@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
+const utils = require("./utils.js");
 
 //variables
 const HOST = process.env.HOST || "localhost";
@@ -9,9 +10,10 @@ const PORT = process.env.PORT || 7337;
 const app = express();
 const db = require("../database/database.js");
 // Express only serves static assets in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(__dirname + "/../dist"));
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(__dirname + "/../dist"));
+// }
+app.use(express.static(__dirname + "/../dist"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //allow cross origin AJAX  ->
@@ -69,6 +71,7 @@ app.get("/api/customers/:customer_id/orders", (req, res) => {
 });
 
 app.get("/api/orders/:order_status", (req, res) => {
+  // console.log('pending order request made it to the server')
   let queryStatus = req.params.order_status;
   db.OrderDetails.findAll({
     include: [
@@ -82,6 +85,7 @@ app.get("/api/orders/:order_status", (req, res) => {
       }
     ]
   }).then(data => {
+    // console.log('pending order data from db received', data);
     let orderIdObj = {};
 
     data.forEach(item => {
@@ -214,6 +218,142 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
     });
   }
 });
+// Survey POST Handler
+app.post("/api/stats/survey", (req, res) => {
+  console.log(req);
+  let surveyData = {
+   name: req.body.name,
+   drinkQuality: req.body.drinkQuality,
+   customerServices: req.body.customerServices
+  };
+  db.Surveys.create(surveyData)
+    .then((response) => {
+      console.log('Survey Data Sent to DB!', response);
+      })
+    .then(() => {
+      res.sendStatus(201);
+    });
+});
+
+app.get("/api/bar/survey", (req, res) => {
+  let orderCounter = 1;
+  const getRandomOrder = maxNum => {
+    return Math.floor(Math.random() * Math.floor(maxNum));
+  }
+  orderCounter = getRandomOrder(4);
+    // Customers random chance for survey
+    if (orderCounter === 1 || orderCounter === 3) {
+      res.send(true);
+    }
+    // console.log('RANDOM', orderCounter);
+    
+});
+
+// ///// BAR MENU ///// //
+
+//from EditMenu
+app.get('/api/bar/menu', (req, res) => {
+  db.MenuItems.findAll()
+    .then((data) => {
+      const menuData = data.map((item) => {
+        return {
+          id: item.id, 
+          name: item.name,
+          price: (+item.price).toFixed(2),
+          category: item.category,
+          imageUrl: item.imageUrl,
+          description: item.description,
+        }
+      });
+      res.send(menuData);
+    })
+    .catch((err) => console.log(err));
+});
+
+//from EditMenu
+app.delete('/api/bar/menu/delete', (req, res) => {
+  //delete item with this id
+  db.MenuItems.destroy({where: {id: req.query.id}})
+    .then(() => res.send('deleted item'))
+    .catch((err) => console.log(err));
+});
+
+//from AddMenuItem Modal
+app.post('/api/bar/menu/add', (req,res) => {
+  const itemData = req.body.item;
+  db.MenuItems.create(itemData)
+    .then((data)=> {
+      res.send(data.dataValues);
+    })
+    .catch((err) => console.log(err));
+});
+
+//from EditMenuItem Modal
+app.put('/api/bar/menu/edit', (req, res) => {
+  const itemData = req.body.item;
+  db.MenuItems.update(itemData, {where: {id: itemData.id}})
+    .then(() => {
+      res.send('saved updates');
+    })
+    .catch((err) => console.log(err));
+});
+
+//Bar Stats
+app.get("/api/stats", (req, res) => {
+  var compiledData;
+  db.Orders.findAll({where: {status: 'complete'}})
+    .then((data) => {
+      // return complete orders
+      var completedOrders = data;
+      var orderIds = [];
+      for (var i = 0; i < completedOrders.length; i++) {
+        orderIds.push(completedOrders[i]['id']);
+      }
+      return orderIds;
+    })
+    .then((ids) => {
+      // retrieve orderdetails sorted by highest quantity
+      return db.OrderDetails.findAll({
+        where: { OrderId: ids },
+        order: [['quantity', 'DESC']]
+      })
+    })
+    .then((data) => {
+      // save data onto global scope
+      compiledData = data.slice(0);
+      // pluck a list of menu item id;
+      // [13, 12]
+      return data.map(order => {
+        return order.MenuItemId;
+      })
+    })
+    .then((data) => {
+      // retrieve menuNames
+      return db.MenuItems.findAll({
+        where: { id: data }
+      })
+    })
+    .then((data) => {
+      res.send(data)
+      var slicedData = data.slice(0);
+      console.log(utils.fetchStats(compiledData, slicedData))
+      compiledData = utils.fetchStats(compiledData, data);
+      return compiledData;
+    })
+    .then((data) => {
+      res.send(data);
+    })
+});
+
+// //// BARTENDERS //// //
+//TODO: UNCOMMENT ONCE BARTENDER DB IS IN PLACE
+// app.get('/bar/staff', (req, res) => {
+//   db.Bartenders.findAll()
+//     .then((data) => {
+//       res.send(data);
+//     })
+//     .catch((err) => console.log(err));
+// });
 
 //Port Listening
 

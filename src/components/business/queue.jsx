@@ -4,9 +4,11 @@ import CurrentQueueItem from "./currentqueueitem.jsx";
 import PendingQueueItem from "./pendingqueueitem.jsx";
 import styled from 'styled-components';
 
+
+
 //Styled Components
 const DivMargin50 = styled.div`
-  margin-top: 50px; 
+  margin-top: 50px;
 `;
 
 class Queue extends React.Component {
@@ -21,7 +23,7 @@ class Queue extends React.Component {
     this.interval = setInterval(() => {
       this.getPendingOrders();
 
-    }, 10000);
+    }, 100000000);
 
   }
 
@@ -30,7 +32,7 @@ class Queue extends React.Component {
   }
 
   getCurrentOrder() {
-    axios.get(`http://${process.env.HOST}:${process.env.PORT}/api/orders/current`).then(response => {
+    axios.get(`/api/orders/current`).then(response => {
       var currentOrderArray = Object.values(response.data);
       this.setState({
         currentOrder: currentOrderArray[0]
@@ -39,7 +41,7 @@ class Queue extends React.Component {
   }
 
   getPendingOrders() {
-    axios.get(`http://${process.env.HOST}:${process.env.PORT}/api/orders/pending`).then(response => {
+    axios.get(`/api/orders/pending`).then(response => {
       this.setState({
         pendingOrders: response.data
       });

@@ -38,21 +38,23 @@ class Checkout extends React.Component {
 
   completeOrder() {
     //console.log("Order SUBMitTED TO DB");
+    
+    // TODO: need to has customer ID not hard coded 
     let custId = 1;
     let checkoutOrder = this.props.checkout;
     axios
       .post(
-        `http://${process.env.HOST}:${
-          process.env.PORT
-        }/api/customers/${custId}/orders`,
+        `/api/customers/${custId}/orders`,
         checkoutOrder
       )
       .then(() => {
         this.props.getOrders();
         this.props.changeModal("");
         this.props.emptyCart();
+        this.props.getSurvey();
       });
   }
+
 
   render() {
     return (
@@ -79,10 +81,7 @@ class Checkout extends React.Component {
             {" "}
             <h2>
               Total: $
-              {this.props.checkout.drinkOrder
-                .map(item => Number(item.subtotal))
-                .reduce((accum, value) => accum + value, Number(0))
-                .toFixed(2)}
+              {this.props.checkout.total}
             </h2>
           </div>
           <ClickableWrapper onClick={this.completeOrder}>
@@ -92,6 +91,11 @@ class Checkout extends React.Component {
         {/* <br /> */}
 
         <div>
+          <div>
+            <ClickableWrapper onClick={() => {this.props.changeModal("tipping")}}>
+              Tip
+            </ClickableWrapper>
+          </div>
           <div>
             <ClickableWrapper onClick={() => this.props.emptyCart()}>
               Empty Cart
