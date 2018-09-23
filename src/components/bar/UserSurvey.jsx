@@ -51,7 +51,7 @@ class UserSurvey extends React.Component {
 
         axios.post(`/api/stats/survey`, userSurvey)
         .then(res => {
-            alert("Thanks for taking the survey!");
+            // alert("Thanks for taking the survey!");
             console.log(res);
         })
         .catch(err => console.log(err));

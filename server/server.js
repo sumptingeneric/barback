@@ -1,7 +1,6 @@
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const utils = require("./utils.js");
 
 //variables
 const HOST = process.env.HOST || "localhost";
@@ -114,10 +113,12 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
     CustomerId: req.params.customer_id
   };
 
+  var orderId;
   db.Orders.create(ordersBody)
     .then(function (response) {
       let drinkOrders = req.body.drinkOrder;
       let id = response.dataValues.id;
+      orderId = id;
 
       drinkOrders.forEach(function (order) {
         let orderDetailsBody = {
@@ -129,9 +130,11 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
         //console.log(orderDetailsBody);
         db.OrderDetails.create(orderDetailsBody);
       });
+      // return id;
     })
     .then(function () {
-      res.sendStatus(201);
+      res.sendStatus(201).end(orderId);
+      // res.status(201).send(orderId);
     });
 });
 
@@ -220,7 +223,6 @@ app.put("/api/customers/:customer_id/orders/:order_id/:status", (req, res) => {
 });
 // Survey POST Handler
 app.post("/api/stats/survey", (req, res) => {
-  console.log(req);
   let surveyData = {
    name: req.body.name,
    drinkQuality: req.body.drinkQuality,
@@ -312,16 +314,6 @@ app.get("/api/stats", (req, res) => {
     }]
   })
     .then((data) => {
-<<<<<<< 0a51c39bed98d3df02e35f28d46f0726f79b83d1
-      res.send(data)
-      var slicedData = data.slice(0);
-      console.log(utils.fetchStats(compiledData, slicedData))
-      compiledData = utils.fetchStats(compiledData, data);
-      return compiledData;
-    })
-    .then((data) => {
-=======
->>>>>>> retrieve survey info
       res.send(data);
     })
 });

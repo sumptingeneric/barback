@@ -40,7 +40,7 @@ class CurrentQueueItem extends React.Component {
       )
       .then(() => {
         //TODO Reload not working
-        // this.props.reload();
+        this.props.reload();
       });
 
     console.log(

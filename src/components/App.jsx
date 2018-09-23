@@ -101,7 +101,7 @@ class App extends React.Component {
         this.setState({
           orders: response.data
         });
-        setTimeout(this.getCustomerOrders(), 2000);
+        // setTimeout(this.getCustomerOrders(), 2000);
       });
   }
 
