@@ -108,6 +108,7 @@ class EditMenu extends React.Component {
         <Wrapper>
           <h1>Edit Menu</h1>
           <button name="add" onClick={this.handleAdd.bind(this)}>Add New Menu Item</button>
+          <button name="add" onClick={this.componentDidMount.bind(this)}>Refresh</button>
           {/* <Search handleSearch={this.handleSearchOnKeyUp}/> */}
           <h3>Total Menu Items: {this.state.totalItems}</h3>
           {this.state.menuItems.map(item => {

@@ -12,7 +12,7 @@ class Bar extends React.Component {
     return (
       <div>
         <h1>{barInfo.barName}</h1>
-        <Link to="/bar/profile">View Profile</Link>
+        <Link to="/bar/staff">View Bar Staff</Link>
         <Link to="/bar/menu">Edit Menu</Link>
         <BarStats />
       </div>
