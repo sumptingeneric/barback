@@ -1,5 +1,6 @@
 import React from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
+// import axios from "axios"
 
 const Wrapper = styled.main`
   display: grid;
@@ -19,26 +20,33 @@ class BarStaff extends React.Component {
     this.state = {
       showInput: false,
       bartenders: [
-        {id: '1', name: 'Cliff Fall'}, 
-        {id: '2', name: 'Rex Rino'}, 
-        {id: '3', name: 'Regina Magina'}
+        {id: '1', name: 'Dwight Schrute'}, 
+        {id: '2', name: 'Jim Halpert'}, 
+        {id: '3', name: 'Pam Beesly'}, 
+        {id: '4', name: 'Michael Scott'},
       ],
     };
   }
 
   onComponentDidMount() {
     //axios request to get bartender names
-    axios.get('/bar/staff')
-      .then((data) => {
-        this.setState({bartenders: data});
-      });
+
+    //TODO: UNCOMMENT ONCE BARTENDER TABLE IN DB IS IN PLACE
+    // axios.get('/bar/staff')
+    //   .then((data) => {
+    //     const staff = {
+    //       id: data.id,
+    //       name: data.username,
+    //     };
+    //     this.setState({bartenders: staff});
+    //   });
   }
 
   render() {
     const bar = this.props.barInfo;
     return (
       <Wrapper>
-        <h1>Bartenders</h1>
+        <h1>Bartenders at {bar.barName}</h1>
         <Staff>
         {this.state.bartenders.map((bartender) => {
           return (
