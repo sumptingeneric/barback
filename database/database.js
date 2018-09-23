@@ -1,11 +1,11 @@
 let Sequelize = require("sequelize");
 require('dotenv').config();
 
-// const orm = new Sequelize("barback", "root", `${process.env.sqlPassword}`, {
-//   dialect: "mysql"
-// });
+const orm = new Sequelize("barback", "root", `${process.env.sqlPassword}`, {
+  dialect: "mysql"
+});
 
-const orm = new Sequelize(`${process.env.DATABASE_URL}`);
+// const orm = new Sequelize(`${process.env.DATABASE_URL}`);
 
 orm
   .authenticate()
@@ -63,7 +63,6 @@ OrderDetails.belongsTo(Orders);
 OrderDetails.belongsTo(MenuItems);
 Surveys.belongsTo(Orders);
 
-
 OrderDetails.sync();
 MenuItems.sync();
 Customers.sync();
@@ -71,7 +70,6 @@ Orders.sync();
 OrderDetails.sync();
 Surveys.sync();
 Bartenders.sync();
-
 
 exports.MenuItems = MenuItems;
 exports.Customers = Customers;

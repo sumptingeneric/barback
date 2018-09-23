@@ -112,14 +112,16 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
     status: req.body.status,
     CustomerId: req.params.customer_id
   };
-
+  let needID;
+  
   db.Orders.create(ordersBody)
     .then(function (response) {
       let drinkOrders = req.body.drinkOrder;
       let id = response.dataValues.id;
       let totalWTip = req.body.total;
+      needID = id;
+      drinkOrders.forEach(function(order) {
 
-      drinkOrders.forEach(function (order) {
         let orderDetailsBody = {
           quantity: order.quantity,
           subtotal: order.subtotal,
@@ -130,11 +132,10 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
         //console.log(orderDetailsBody);
         db.OrderDetails.create(orderDetailsBody);
       });
-      // return id;
     })
-    .then(function () {
-      res.sendStatus(201);
-      // res.status(201).send(orderId);
+    .then(() => {
+      console.log('Order ID sent back to client', needID);
+      res.send({needID});
     });
 });
 
@@ -247,7 +248,7 @@ app.get("/api/bar/survey", (req, res) => {
     if (orderCounter === 1 || orderCounter === 3) {
       res.send(true);
     }
-    // console.log('RANDOM', orderCounter);
+    console.log('RANDOM', orderCounter);
     
 });
 

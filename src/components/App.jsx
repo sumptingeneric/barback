@@ -27,7 +27,8 @@ class App extends React.Component {
     survey: false,
     search: "",
     modal: "",
-    showOrders: false
+    showOrders: false,
+    orderID: ""
   };
 
   componentDidMount() {
@@ -35,7 +36,7 @@ class App extends React.Component {
     this.getCustomerOrders();
     this.interval = setInterval(() => {
       this.getCustomerOrders();
-    }, 10000);
+    }, 100000);
   }
 
   componentWillUnmount() {
@@ -82,7 +83,7 @@ class App extends React.Component {
 
   getSurvey() {
     axios.get(`/api/bar/survey`).then(response => {
-      console.log('SURVEY GET IS', response);
+      console.log('Survey', response);
       if (response.data === true) {
         this.setState({
           survey: true,
@@ -101,7 +102,8 @@ class App extends React.Component {
         this.setState({
           orders: response.data
         });
-        // setTimeout(this.getCustomerOrders(), 2000);
+        // timeout below will spam the server, use with caution!
+        // setTimeout(this.getCustomerOrders(), 2000); 
       });
   }
 
@@ -138,11 +140,10 @@ class App extends React.Component {
     });
   }
 
-  // toggleHaveUserInfo = () => {
-  //   this.setState({
-  //    surveyInput: !this.state.surveyInput
-  //   })
-  // }
+  getData = (id) => {
+    console.log('THE ID', id);
+    this.setState({orderID: id})
+  }
 
   renderModal() {
     if (this.state.modal === "checkout") {
@@ -154,6 +155,8 @@ class App extends React.Component {
             changeModal={this.changeModal.bind(this)}
             getOrders={this.getCustomerOrders.bind(this)}
             getSurvey={this.getSurvey.bind(this)}
+            getData={this.getData.bind(this)}
+
           />
         </Modal>
       );
@@ -174,9 +177,8 @@ class App extends React.Component {
       return (
         <Modal>
           <UserSurvey
-            
+            id = {this.state.orderID}
             changeModal={this.changeModal.bind(this)}
-            
           />
         </Modal>
       );
@@ -203,10 +205,7 @@ class App extends React.Component {
           search={this.state.search.toLowerCase()}
         />
         <div>{this.renderModal()}</div>
-        {/* <ChatBot/>
-        {this.state.surveyInput
-          ? <ChatBot/>
-          : <UserInfoForm toggleHaveUserInfo={this.toggleHaveUserInfo}/>} */}
+       
       </Wrapper>
     );
   }

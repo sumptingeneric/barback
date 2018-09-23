@@ -21,7 +21,6 @@ class UserSurvey extends React.Component {
         super(props);
         this.state = {
             name: "",
-            // email: "",
             drinkQuality: 1,
             customerServices: 5
         }
@@ -41,14 +40,17 @@ class UserSurvey extends React.Component {
         this.setState({customerServices: rate});
     }
 
-    // handleRatingChange(rating) {
-    //     console.log('rating', rating);
-    //   }
+    // GrabOrderID = (id) => {
+    //     let {orderID} = this.state;
+    //     this.setState({orderID: id})
+    //     console.log('inside the grab',orderID);
+    // }
 
     handleSubmit = () => {
+        const orderID = this.props.id;
         const {name, drinkQuality, customerServices} = this.state;
-        const userSurvey = {name, drinkQuality, customerServices};
-
+        const userSurvey = {orderID, name, drinkQuality, customerServices};
+        console.log('userSurvey sent', userSurvey);
         axios.post(`/api/stats/survey`, userSurvey)
         .then(res => {
             // alert("Thanks for taking the survey!");
@@ -60,6 +62,7 @@ class UserSurvey extends React.Component {
 
 
     render() {
+        
         return (
             <ModalContainer>
                 <div>
@@ -72,14 +75,6 @@ class UserSurvey extends React.Component {
                 onChange={this.handleChange}
                 value={this.state.name}/>
 
-                {/* <div htmlFor="email">E-mail:</div>
-                <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="example@email.com"
-                onChange={this.handleChange}
-                value={this.state.email}/> */}
                 <div>
                     <h1>How was your drink? </h1>
                 </div>
@@ -88,8 +83,6 @@ class UserSurvey extends React.Component {
                 name='drinkQuality'
                 
                 initialRating={this.state.drinkQuality}
-                // emptySymbol={<img src="star-grey.png" className='icon' alt="empty star"/>}
-                // fullSymbol={<img src="star-full.png" className='icon' alt="filled star"/>}
                 onChange={(rate) => this.handleDrinkChange(rate)}
                 />
                 </div>
@@ -101,8 +94,6 @@ class UserSurvey extends React.Component {
                 name='customerServices' 
                 initialRating={this.state.customerServices}
                 onChange={(rate) => this.handleCustomerChange(rate)}
-                // emptySymbol={<img src="./assets/images/star-grey.png" className="icon" alt=""/>}
-                // fullSymbol={<img src="./assets/images/star-yellow.png" className="icon" alt=""/>}
                 />
                 </div>
          
@@ -113,8 +104,6 @@ class UserSurvey extends React.Component {
             <ClickableWrapper onClick={() => this.props.changeModal("")}>
             Return to Menu
           </ClickableWrapper>
-          
-            
             </div>
             </ModalContainer>
         );

@@ -13,5 +13,5 @@ const fetchStats = (orderDetails, menuItems) => {
   }
   return orderDetails;
 }
-
+// console.log(fetchStats(example, menus))
 exports.fetchStats = fetchStats;

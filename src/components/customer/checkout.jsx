@@ -39,7 +39,6 @@ class Checkout extends React.Component {
   completeOrder() {
     //console.log("Order SUBMitTED TO DB");
     
-    // TODO: need to has customer ID not hard coded 
     let custId = 1;
     let checkoutOrder = this.props.checkout;
     axios
@@ -48,11 +47,12 @@ class Checkout extends React.Component {
         checkoutOrder
       )
       .then((res) => {
-        console.log('checkout.jsx, res=', res);
+        let orderID = res.data.needID;
         this.props.getOrders();
         this.props.changeModal("");
         this.props.emptyCart();
         this.props.getSurvey();
+        this.props.getData(orderID);
       });
   }
 
