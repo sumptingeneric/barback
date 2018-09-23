@@ -387,6 +387,11 @@ app.get("/api/stats", (req, res) => {
 //     .catch((err) => console.log(err));
 // });
 
+// atchall
+app.get('*', (req, res) => {
+  res.redirect('/');
+});
+
 //Port Listening
 
 app.listen(PORT, () => {

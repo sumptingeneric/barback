@@ -36,7 +36,12 @@ class RegisterContainer extends React.Component {
       }).then((response) => {
         console.log('incoming response is', response);
         if (!response.error) {
-          this.setState({ loggedIn: true })
+          console.log(this.props)
+          this.props.changeRole(role);
+          this.setState({
+            loggedIn: true,
+            role: role,
+          })
         }
       })
       .catch(() => {
@@ -59,8 +64,12 @@ class RegisterContainer extends React.Component {
 
   renderView() {
     let { registered, role, loggedIn } = this.state;
-    if (loggedIn) {
+    if (loggedIn && role === 'Admin') {
+      return <Redirect noThrow to="/" />;
+    } else if (loggedIn && role === 'Customer') {
       return <Redirect noThrow to="/customer" />;
+    } else if (loggedIn && role === 'Bartender') {
+      return <Redirect noThrow to="/bartender" />
     }
     if (registered) {
       return (

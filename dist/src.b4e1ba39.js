@@ -97936,7 +97936,12 @@ var RegisterContainer = function (_React$Component) {
         }).then(function (response) {
           console.log('incoming response is', response);
           if (!response.error) {
-            _this2.setState({ loggedIn: true });
+            console.log(_this2.props);
+            _this2.props.changeRole(role);
+            _this2.setState({
+              loggedIn: true,
+              role: role
+            });
           }
         }).catch(function () {
           alert('invalid login attempt, please try again');
@@ -97961,8 +97966,12 @@ var RegisterContainer = function (_React$Component) {
           role = _state2.role,
           loggedIn = _state2.loggedIn;
 
-      if (loggedIn) {
+      if (loggedIn && role === 'Admin') {
+        return _react2.default.createElement(_router.Redirect, { noThrow: true, to: '/' });
+      } else if (loggedIn && role === 'Customer') {
         return _react2.default.createElement(_router.Redirect, { noThrow: true, to: '/customer' });
+      } else if (loggedIn && role === 'Bartender') {
+        return _react2.default.createElement(_router.Redirect, { noThrow: true, to: '/bartender' });
       }
       if (registered) {
         return _react2.default.createElement(
@@ -98052,7 +98061,7 @@ var RegisterContainer = function (_React$Component) {
 
 exports.default = RegisterContainer;
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","@reach/router":"../node_modules/@reach/router/es/index.js"}],"barback-logo.png":[function(require,module,exports) {
-module.exports = "/barback-logo.556d037f.png";
+module.exports = "/487495d53d0d778145ab0c1a556d037f.png";
 },{}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -98124,9 +98133,13 @@ var Login = function (_React$Component) {
         barName: 'The Best Bar',
         password: 'password'
       },
-      showLogo: true
+      showLogo: true,
+      role: '',
+      loggedIn: false
     };
     _this.hideLogo = _this.hideLogo.bind(_this);
+    _this.changeRole = _this.changeRole.bind(_this);
+    _this.logout = _this.logout.bind(_this);
     return _this;
   }
 
@@ -98134,6 +98147,68 @@ var Login = function (_React$Component) {
     key: "hideLogo",
     value: function hideLogo() {
       this.setState({ showLogo: false });
+    }
+  }, {
+    key: "changeRole",
+    value: function changeRole(role) {
+      this.setState({
+        role: role,
+        loggedIn: true
+      });
+    }
+  }, {
+    key: "logout",
+    value: function logout() {
+      this.setState({
+        role: '',
+        loggedIn: false
+      });
+      location.reload();
+    }
+  }, {
+    key: "renderView",
+    value: function renderView() {
+      var _state = this.state,
+          role = _state.role,
+          loggedIn = _state.loggedIn;
+
+      if (!loggedIn) {
+        return _react2.default.createElement(
+          _router.Link,
+          { to: "/register" },
+          "Sign Up/Login"
+        );
+      } else {
+        if (role === 'Admin') {
+          return _react2.default.createElement(
+            "nav",
+            null,
+            _react2.default.createElement(
+              _router.Link,
+              { to: "/customer", onClick: this.hideLogo },
+              "View like a Customer"
+            ),
+            ' | ',
+            _react2.default.createElement(
+              _router.Link,
+              { to: "/business" },
+              "View like a Bartender"
+            ),
+            ' | ',
+            _react2.default.createElement(
+              _router.Link,
+              { to: "/bar" },
+              "Bar Analytics"
+            )
+          );
+        }
+        if (role === 'Bartender') {
+          // just need to be navigated to bartender section
+        }
+        if (role === 'Customer') {
+          // just need to be navigated to customer section
+        }
+      }
     }
   }, {
     key: "render",
@@ -98145,28 +98220,11 @@ var Login = function (_React$Component) {
         _react2.default.createElement(
           "nav",
           null,
+          this.renderView(),
           _react2.default.createElement(
-            _router.Link,
-            { to: "/customer", onClick: this.hideLogo },
-            "Customer"
-          ),
-          ' | ',
-          _react2.default.createElement(
-            _router.Link,
-            { to: "/business", onClick: this.hideLogo },
-            "Bartender"
-          ),
-          ' | ',
-          _react2.default.createElement(
-            _router.Link,
-            { to: "/bar", onClick: this.hideLogo },
-            "Bar"
-          ),
-          ' | ',
-          _react2.default.createElement(
-            _router.Link,
-            { to: "/register", onClick: this.hideLogo },
-            "Sign Up/Login"
+            "button",
+            { onBlur: this.logout, onClick: this.logout },
+            "Log Out"
           )
         ),
         this.state.showLogo ? _react2.default.createElement("img", { alt: "barback logo", src: require("/barback-logo.png") }) : null,
@@ -98178,7 +98236,7 @@ var Login = function (_React$Component) {
           _react2.default.createElement(_Bar2.default, { path: "/bar", barInfo: bar }),
           _react2.default.createElement(_BarStaff2.default, { path: "/bar/staff", barInfo: bar }),
           _react2.default.createElement(_EditMenu2.default, { path: "/bar/menu", barInfo: bar }),
-          _react2.default.createElement(_RegisterContainer2.default, { path: "/register" })
+          _react2.default.createElement(_RegisterContainer2.default, { path: "/register", changeRole: this.changeRole })
         )
       );
     }
