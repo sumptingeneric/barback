@@ -69,7 +69,7 @@ class RegisterContainer extends React.Component {
     } else if (loggedIn && role === 'Customer') {
       return <Redirect noThrow to="/customer" />;
     } else if (loggedIn && role === 'Bartender') {
-      return <Redirect noThrow to="/bartender" />
+      return <Redirect noThrow to="/business" />
     }
     if (registered) {
       return (
