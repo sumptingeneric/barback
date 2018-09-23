@@ -1,8 +1,10 @@
 let Sequelize = require("sequelize");
 require('dotenv').config();
+
 // const orm = new Sequelize("barback", "root", `${process.env.sqlPassword}`, {
 //   dialect: "mysql"
 // });
+
 const orm = new Sequelize(`${process.env.DATABASE_URL}`);
 
 orm
@@ -45,20 +47,17 @@ Customers.hasMany(Orders);
 Orders.belongsTo(Customers);
 Orders.belongsToMany(MenuItems, { through: "OrderDetails" });
 MenuItems.belongsToMany(Orders, { through: "OrderDetails" });
-Surveys.belongsTo(Orders);
-// Orders.hasOne(Surveys);
-
 
 OrderDetails.belongsTo(Orders);
 OrderDetails.belongsTo(MenuItems);
 Surveys.belongsTo(Orders);
+
 MenuItems.sync();
 Customers.sync();
 Orders.sync();
-Surveys.sync();
 OrderDetails.sync();
-// orm.sync({force:true});
 Surveys.sync();
+// orm.sync({force:true});
 
 exports.MenuItems = MenuItems;
 exports.Customers = Customers;
@@ -66,4 +65,3 @@ exports.Orders = Orders;
 exports.OrderDetails = OrderDetails;
 exports.Surveys = Surveys;
 exports.connection = orm;
-exports.Surveys = Surveys;

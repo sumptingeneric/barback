@@ -47,7 +47,8 @@ class Checkout extends React.Component {
         `/api/customers/${custId}/orders`,
         checkoutOrder
       )
-      .then(() => {
+      .then((res) => {
+        console.log('checkout.jsx, res=', res);
         this.props.getOrders();
         this.props.changeModal("");
         this.props.emptyCart();
