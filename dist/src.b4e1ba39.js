@@ -70799,4 +70799,27621 @@ var nodeIsTypedArray = _nodeUtil2.default && _nodeUtil2.default.isTypedArray;
 var isTypedArray = nodeIsTypedArray ? (0, _baseUnary2.default)(nodeIsTypedArray) : _baseIsTypedArray2.default;
 
 exports.default = isTypedArray;
-},{"./_baseIsTypedArray.js":"../node_modules/lodash-es/_baseIsTypedArray.js","./_baseUnary.js":"../node_modules/lodash-es/_baseUnary.js","./_nodeUtil.js":"../node_modules/lodash-es/_nodeUtil.js"}]
+},{"./_baseIsTypedArray.js":"../node_modules/lodash-es/_baseIsTypedArray.js","./_baseUnary.js":"../node_modules/lodash-es/_baseUnary.js","./_nodeUtil.js":"../node_modules/lodash-es/_nodeUtil.js"}],"../node_modules/lodash-es/_arrayLikeKeys.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseTimes = require('./_baseTimes.js');
+
+var _baseTimes2 = _interopRequireDefault(_baseTimes);
+
+var _isArguments = require('./isArguments.js');
+
+var _isArguments2 = _interopRequireDefault(_isArguments);
+
+var _isArray = require('./isArray.js');
+
+var _isArray2 = _interopRequireDefault(_isArray);
+
+var _isBuffer = require('./isBuffer.js');
+
+var _isBuffer2 = _interopRequireDefault(_isBuffer);
+
+var _isIndex = require('./_isIndex.js');
+
+var _isIndex2 = _interopRequireDefault(_isIndex);
+
+var _isTypedArray = require('./isTypedArray.js');
+
+var _isTypedArray2 = _interopRequireDefault(_isTypedArray);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+function arrayLikeKeys(value, inherited) {
+  var isArr = (0, _isArray2.default)(value),
+      isArg = !isArr && (0, _isArguments2.default)(value),
+      isBuff = !isArr && !isArg && (0, _isBuffer2.default)(value),
+      isType = !isArr && !isArg && !isBuff && (0, _isTypedArray2.default)(value),
+      skipIndexes = isArr || isArg || isBuff || isType,
+      result = skipIndexes ? (0, _baseTimes2.default)(value.length, String) : [],
+      length = result.length;
+
+  for (var key in value) {
+    if ((inherited || hasOwnProperty.call(value, key)) && !(skipIndexes && (
+    // Safari 9 has enumerable `arguments.length` in strict mode.
+    key == 'length' ||
+    // Node.js 0.10 has enumerable non-index properties on buffers.
+    isBuff && (key == 'offset' || key == 'parent') ||
+    // PhantomJS 2 has enumerable non-index properties on typed arrays.
+    isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset') ||
+    // Skip index properties.
+    (0, _isIndex2.default)(key, length)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+exports.default = arrayLikeKeys;
+},{"./_baseTimes.js":"../node_modules/lodash-es/_baseTimes.js","./isArguments.js":"../node_modules/lodash-es/isArguments.js","./isArray.js":"../node_modules/lodash-es/isArray.js","./isBuffer.js":"../node_modules/lodash-es/isBuffer.js","./_isIndex.js":"../node_modules/lodash-es/_isIndex.js","./isTypedArray.js":"../node_modules/lodash-es/isTypedArray.js"}],"../node_modules/lodash-es/_isPrototype.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = typeof Ctor == 'function' && Ctor.prototype || objectProto;
+
+  return value === proto;
+}
+
+exports.default = isPrototype;
+},{}],"../node_modules/lodash-es/_overArg.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function (arg) {
+    return func(transform(arg));
+  };
+}
+
+exports.default = overArg;
+},{}],"../node_modules/lodash-es/_nativeKeys.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _overArg = require('./_overArg.js');
+
+var _overArg2 = _interopRequireDefault(_overArg);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeKeys = (0, _overArg2.default)(Object.keys, Object);
+
+exports.default = nativeKeys;
+},{"./_overArg.js":"../node_modules/lodash-es/_overArg.js"}],"../node_modules/lodash-es/_baseKeys.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isPrototype = require('./_isPrototype.js');
+
+var _isPrototype2 = _interopRequireDefault(_isPrototype);
+
+var _nativeKeys = require('./_nativeKeys.js');
+
+var _nativeKeys2 = _interopRequireDefault(_nativeKeys);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function baseKeys(object) {
+  if (!(0, _isPrototype2.default)(object)) {
+    return (0, _nativeKeys2.default)(object);
+  }
+  var result = [];
+  for (var key in Object(object)) {
+    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+exports.default = baseKeys;
+},{"./_isPrototype.js":"../node_modules/lodash-es/_isPrototype.js","./_nativeKeys.js":"../node_modules/lodash-es/_nativeKeys.js"}],"../node_modules/lodash-es/isArrayLike.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isFunction = require('./isFunction.js');
+
+var _isFunction2 = _interopRequireDefault(_isFunction);
+
+var _isLength = require('./isLength.js');
+
+var _isLength2 = _interopRequireDefault(_isLength);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && (0, _isLength2.default)(value.length) && !(0, _isFunction2.default)(value);
+}
+
+exports.default = isArrayLike;
+},{"./isFunction.js":"../node_modules/lodash-es/isFunction.js","./isLength.js":"../node_modules/lodash-es/isLength.js"}],"../node_modules/lodash-es/keys.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _arrayLikeKeys = require('./_arrayLikeKeys.js');
+
+var _arrayLikeKeys2 = _interopRequireDefault(_arrayLikeKeys);
+
+var _baseKeys = require('./_baseKeys.js');
+
+var _baseKeys2 = _interopRequireDefault(_baseKeys);
+
+var _isArrayLike = require('./isArrayLike.js');
+
+var _isArrayLike2 = _interopRequireDefault(_isArrayLike);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Creates an array of the own enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects. See the
+ * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * for more details.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keys(new Foo);
+ * // => ['a', 'b'] (iteration order is not guaranteed)
+ *
+ * _.keys('hi');
+ * // => ['0', '1']
+ */
+function keys(object) {
+  return (0, _isArrayLike2.default)(object) ? (0, _arrayLikeKeys2.default)(object) : (0, _baseKeys2.default)(object);
+}
+
+exports.default = keys;
+},{"./_arrayLikeKeys.js":"../node_modules/lodash-es/_arrayLikeKeys.js","./_baseKeys.js":"../node_modules/lodash-es/_baseKeys.js","./isArrayLike.js":"../node_modules/lodash-es/isArrayLike.js"}],"../node_modules/lodash-es/_getAllKeys.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseGetAllKeys = require('./_baseGetAllKeys.js');
+
+var _baseGetAllKeys2 = _interopRequireDefault(_baseGetAllKeys);
+
+var _getSymbols = require('./_getSymbols.js');
+
+var _getSymbols2 = _interopRequireDefault(_getSymbols);
+
+var _keys = require('./keys.js');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Creates an array of own enumerable property names and symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names and symbols.
+ */
+function getAllKeys(object) {
+  return (0, _baseGetAllKeys2.default)(object, _keys2.default, _getSymbols2.default);
+}
+
+exports.default = getAllKeys;
+},{"./_baseGetAllKeys.js":"../node_modules/lodash-es/_baseGetAllKeys.js","./_getSymbols.js":"../node_modules/lodash-es/_getSymbols.js","./keys.js":"../node_modules/lodash-es/keys.js"}],"../node_modules/lodash-es/_equalObjects.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getAllKeys = require('./_getAllKeys.js');
+
+var _getAllKeys2 = _interopRequireDefault(_getAllKeys);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG = 1;
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * A specialized version of `baseIsEqualDeep` for objects with support for
+ * partial deep comparisons.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} stack Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
+  var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
+      objProps = (0, _getAllKeys2.default)(object),
+      objLength = objProps.length,
+      othProps = (0, _getAllKeys2.default)(other),
+      othLength = othProps.length;
+
+  if (objLength != othLength && !isPartial) {
+    return false;
+  }
+  var index = objLength;
+  while (index--) {
+    var key = objProps[index];
+    if (!(isPartial ? key in other : hasOwnProperty.call(other, key))) {
+      return false;
+    }
+  }
+  // Assume cyclic values are equal.
+  var stacked = stack.get(object);
+  if (stacked && stack.get(other)) {
+    return stacked == other;
+  }
+  var result = true;
+  stack.set(object, other);
+  stack.set(other, object);
+
+  var skipCtor = isPartial;
+  while (++index < objLength) {
+    key = objProps[index];
+    var objValue = object[key],
+        othValue = other[key];
+
+    if (customizer) {
+      var compared = isPartial ? customizer(othValue, objValue, key, other, object, stack) : customizer(objValue, othValue, key, object, other, stack);
+    }
+    // Recursively compare objects (susceptible to call stack limits).
+    if (!(compared === undefined ? objValue === othValue || equalFunc(objValue, othValue, bitmask, customizer, stack) : compared)) {
+      result = false;
+      break;
+    }
+    skipCtor || (skipCtor = key == 'constructor');
+  }
+  if (result && !skipCtor) {
+    var objCtor = object.constructor,
+        othCtor = other.constructor;
+
+    // Non `Object` object instances with different constructors are not equal.
+    if (objCtor != othCtor && 'constructor' in object && 'constructor' in other && !(typeof objCtor == 'function' && objCtor instanceof objCtor && typeof othCtor == 'function' && othCtor instanceof othCtor)) {
+      result = false;
+    }
+  }
+  stack['delete'](object);
+  stack['delete'](other);
+  return result;
+}
+
+exports.default = equalObjects;
+},{"./_getAllKeys.js":"../node_modules/lodash-es/_getAllKeys.js"}],"../node_modules/lodash-es/_DataView.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getNative = require('./_getNative.js');
+
+var _getNative2 = _interopRequireDefault(_getNative);
+
+var _root = require('./_root.js');
+
+var _root2 = _interopRequireDefault(_root);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* Built-in method references that are verified to be native. */
+var DataView = (0, _getNative2.default)(_root2.default, 'DataView');
+
+exports.default = DataView;
+},{"./_getNative.js":"../node_modules/lodash-es/_getNative.js","./_root.js":"../node_modules/lodash-es/_root.js"}],"../node_modules/lodash-es/_Promise.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getNative = require('./_getNative.js');
+
+var _getNative2 = _interopRequireDefault(_getNative);
+
+var _root = require('./_root.js');
+
+var _root2 = _interopRequireDefault(_root);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* Built-in method references that are verified to be native. */
+var Promise = (0, _getNative2.default)(_root2.default, 'Promise');
+
+exports.default = Promise;
+},{"./_getNative.js":"../node_modules/lodash-es/_getNative.js","./_root.js":"../node_modules/lodash-es/_root.js"}],"../node_modules/lodash-es/_Set.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getNative = require('./_getNative.js');
+
+var _getNative2 = _interopRequireDefault(_getNative);
+
+var _root = require('./_root.js');
+
+var _root2 = _interopRequireDefault(_root);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* Built-in method references that are verified to be native. */
+var Set = (0, _getNative2.default)(_root2.default, 'Set');
+
+exports.default = Set;
+},{"./_getNative.js":"../node_modules/lodash-es/_getNative.js","./_root.js":"../node_modules/lodash-es/_root.js"}],"../node_modules/lodash-es/_WeakMap.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getNative = require('./_getNative.js');
+
+var _getNative2 = _interopRequireDefault(_getNative);
+
+var _root = require('./_root.js');
+
+var _root2 = _interopRequireDefault(_root);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* Built-in method references that are verified to be native. */
+var WeakMap = (0, _getNative2.default)(_root2.default, 'WeakMap');
+
+exports.default = WeakMap;
+},{"./_getNative.js":"../node_modules/lodash-es/_getNative.js","./_root.js":"../node_modules/lodash-es/_root.js"}],"../node_modules/lodash-es/_getTag.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _DataView = require('./_DataView.js');
+
+var _DataView2 = _interopRequireDefault(_DataView);
+
+var _Map = require('./_Map.js');
+
+var _Map2 = _interopRequireDefault(_Map);
+
+var _Promise = require('./_Promise.js');
+
+var _Promise2 = _interopRequireDefault(_Promise);
+
+var _Set = require('./_Set.js');
+
+var _Set2 = _interopRequireDefault(_Set);
+
+var _WeakMap = require('./_WeakMap.js');
+
+var _WeakMap2 = _interopRequireDefault(_WeakMap);
+
+var _baseGetTag = require('./_baseGetTag.js');
+
+var _baseGetTag2 = _interopRequireDefault(_baseGetTag);
+
+var _toSource = require('./_toSource.js');
+
+var _toSource2 = _interopRequireDefault(_toSource);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** `Object#toString` result references. */
+var mapTag = '[object Map]',
+    objectTag = '[object Object]',
+    promiseTag = '[object Promise]',
+    setTag = '[object Set]',
+    weakMapTag = '[object WeakMap]';
+
+var dataViewTag = '[object DataView]';
+
+/** Used to detect maps, sets, and weakmaps. */
+var dataViewCtorString = (0, _toSource2.default)(_DataView2.default),
+    mapCtorString = (0, _toSource2.default)(_Map2.default),
+    promiseCtorString = (0, _toSource2.default)(_Promise2.default),
+    setCtorString = (0, _toSource2.default)(_Set2.default),
+    weakMapCtorString = (0, _toSource2.default)(_WeakMap2.default);
+
+/**
+ * Gets the `toStringTag` of `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+var getTag = _baseGetTag2.default;
+
+// Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
+if (_DataView2.default && getTag(new _DataView2.default(new ArrayBuffer(1))) != dataViewTag || _Map2.default && getTag(new _Map2.default()) != mapTag || _Promise2.default && getTag(_Promise2.default.resolve()) != promiseTag || _Set2.default && getTag(new _Set2.default()) != setTag || _WeakMap2.default && getTag(new _WeakMap2.default()) != weakMapTag) {
+    getTag = function (value) {
+        var result = (0, _baseGetTag2.default)(value),
+            Ctor = result == objectTag ? value.constructor : undefined,
+            ctorString = Ctor ? (0, _toSource2.default)(Ctor) : '';
+
+        if (ctorString) {
+            switch (ctorString) {
+                case dataViewCtorString:
+                    return dataViewTag;
+                case mapCtorString:
+                    return mapTag;
+                case promiseCtorString:
+                    return promiseTag;
+                case setCtorString:
+                    return setTag;
+                case weakMapCtorString:
+                    return weakMapTag;
+            }
+        }
+        return result;
+    };
+}
+
+exports.default = getTag;
+},{"./_DataView.js":"../node_modules/lodash-es/_DataView.js","./_Map.js":"../node_modules/lodash-es/_Map.js","./_Promise.js":"../node_modules/lodash-es/_Promise.js","./_Set.js":"../node_modules/lodash-es/_Set.js","./_WeakMap.js":"../node_modules/lodash-es/_WeakMap.js","./_baseGetTag.js":"../node_modules/lodash-es/_baseGetTag.js","./_toSource.js":"../node_modules/lodash-es/_toSource.js"}],"../node_modules/lodash-es/_baseIsEqualDeep.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Stack = require('./_Stack.js');
+
+var _Stack2 = _interopRequireDefault(_Stack);
+
+var _equalArrays = require('./_equalArrays.js');
+
+var _equalArrays2 = _interopRequireDefault(_equalArrays);
+
+var _equalByTag = require('./_equalByTag.js');
+
+var _equalByTag2 = _interopRequireDefault(_equalByTag);
+
+var _equalObjects = require('./_equalObjects.js');
+
+var _equalObjects2 = _interopRequireDefault(_equalObjects);
+
+var _getTag = require('./_getTag.js');
+
+var _getTag2 = _interopRequireDefault(_getTag);
+
+var _isArray = require('./isArray.js');
+
+var _isArray2 = _interopRequireDefault(_isArray);
+
+var _isBuffer = require('./isBuffer.js');
+
+var _isBuffer2 = _interopRequireDefault(_isBuffer);
+
+var _isTypedArray = require('./isTypedArray.js');
+
+var _isTypedArray2 = _interopRequireDefault(_isTypedArray);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG = 1;
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    objectTag = '[object Object]';
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * A specialized version of `baseIsEqual` for arrays and objects which performs
+ * deep comparisons and tracks traversed objects enabling objects with circular
+ * references to be compared.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} [stack] Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
+  var objIsArr = (0, _isArray2.default)(object),
+      othIsArr = (0, _isArray2.default)(other),
+      objTag = objIsArr ? arrayTag : (0, _getTag2.default)(object),
+      othTag = othIsArr ? arrayTag : (0, _getTag2.default)(other);
+
+  objTag = objTag == argsTag ? objectTag : objTag;
+  othTag = othTag == argsTag ? objectTag : othTag;
+
+  var objIsObj = objTag == objectTag,
+      othIsObj = othTag == objectTag,
+      isSameTag = objTag == othTag;
+
+  if (isSameTag && (0, _isBuffer2.default)(object)) {
+    if (!(0, _isBuffer2.default)(other)) {
+      return false;
+    }
+    objIsArr = true;
+    objIsObj = false;
+  }
+  if (isSameTag && !objIsObj) {
+    stack || (stack = new _Stack2.default());
+    return objIsArr || (0, _isTypedArray2.default)(object) ? (0, _equalArrays2.default)(object, other, bitmask, customizer, equalFunc, stack) : (0, _equalByTag2.default)(object, other, objTag, bitmask, customizer, equalFunc, stack);
+  }
+  if (!(bitmask & COMPARE_PARTIAL_FLAG)) {
+    var objIsWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
+        othIsWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
+
+    if (objIsWrapped || othIsWrapped) {
+      var objUnwrapped = objIsWrapped ? object.value() : object,
+          othUnwrapped = othIsWrapped ? other.value() : other;
+
+      stack || (stack = new _Stack2.default());
+      return equalFunc(objUnwrapped, othUnwrapped, bitmask, customizer, stack);
+    }
+  }
+  if (!isSameTag) {
+    return false;
+  }
+  stack || (stack = new _Stack2.default());
+  return (0, _equalObjects2.default)(object, other, bitmask, customizer, equalFunc, stack);
+}
+
+exports.default = baseIsEqualDeep;
+},{"./_Stack.js":"../node_modules/lodash-es/_Stack.js","./_equalArrays.js":"../node_modules/lodash-es/_equalArrays.js","./_equalByTag.js":"../node_modules/lodash-es/_equalByTag.js","./_equalObjects.js":"../node_modules/lodash-es/_equalObjects.js","./_getTag.js":"../node_modules/lodash-es/_getTag.js","./isArray.js":"../node_modules/lodash-es/isArray.js","./isBuffer.js":"../node_modules/lodash-es/isBuffer.js","./isTypedArray.js":"../node_modules/lodash-es/isTypedArray.js"}],"../node_modules/lodash-es/_baseIsEqual.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseIsEqualDeep = require('./_baseIsEqualDeep.js');
+
+var _baseIsEqualDeep2 = _interopRequireDefault(_baseIsEqualDeep);
+
+var _isObjectLike = require('./isObjectLike.js');
+
+var _isObjectLike2 = _interopRequireDefault(_isObjectLike);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `_.isEqual` which supports partial comparisons
+ * and tracks traversed objects.
+ *
+ * @private
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @param {boolean} bitmask The bitmask flags.
+ *  1 - Unordered comparison
+ *  2 - Partial comparison
+ * @param {Function} [customizer] The function to customize comparisons.
+ * @param {Object} [stack] Tracks traversed `value` and `other` objects.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ */
+function baseIsEqual(value, other, bitmask, customizer, stack) {
+  if (value === other) {
+    return true;
+  }
+  if (value == null || other == null || !(0, _isObjectLike2.default)(value) && !(0, _isObjectLike2.default)(other)) {
+    return value !== value && other !== other;
+  }
+  return (0, _baseIsEqualDeep2.default)(value, other, bitmask, customizer, baseIsEqual, stack);
+}
+
+exports.default = baseIsEqual;
+},{"./_baseIsEqualDeep.js":"../node_modules/lodash-es/_baseIsEqualDeep.js","./isObjectLike.js":"../node_modules/lodash-es/isObjectLike.js"}],"../node_modules/lodash-es/isEqual.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseIsEqual = require('./_baseIsEqual.js');
+
+var _baseIsEqual2 = _interopRequireDefault(_baseIsEqual);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Performs a deep comparison between two values to determine if they are
+ * equivalent.
+ *
+ * **Note:** This method supports comparing arrays, array buffers, booleans,
+ * date objects, error objects, maps, numbers, `Object` objects, regexes,
+ * sets, strings, symbols, and typed arrays. `Object` objects are compared
+ * by their own, not inherited, enumerable properties. Functions and DOM
+ * nodes are compared by strict equality, i.e. `===`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.isEqual(object, other);
+ * // => true
+ *
+ * object === other;
+ * // => false
+ */
+function isEqual(value, other) {
+  return (0, _baseIsEqual2.default)(value, other);
+}
+
+exports.default = isEqual;
+},{"./_baseIsEqual.js":"../node_modules/lodash-es/_baseIsEqual.js"}],"../node_modules/lodash-es/_isFlattenable.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Symbol = require('./_Symbol.js');
+
+var _Symbol2 = _interopRequireDefault(_Symbol);
+
+var _isArguments = require('./isArguments.js');
+
+var _isArguments2 = _interopRequireDefault(_isArguments);
+
+var _isArray = require('./isArray.js');
+
+var _isArray2 = _interopRequireDefault(_isArray);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** Built-in value references. */
+var spreadableSymbol = _Symbol2.default ? _Symbol2.default.isConcatSpreadable : undefined;
+
+/**
+ * Checks if `value` is a flattenable `arguments` object or array.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is flattenable, else `false`.
+ */
+function isFlattenable(value) {
+  return (0, _isArray2.default)(value) || (0, _isArguments2.default)(value) || !!(spreadableSymbol && value && value[spreadableSymbol]);
+}
+
+exports.default = isFlattenable;
+},{"./_Symbol.js":"../node_modules/lodash-es/_Symbol.js","./isArguments.js":"../node_modules/lodash-es/isArguments.js","./isArray.js":"../node_modules/lodash-es/isArray.js"}],"../node_modules/lodash-es/_baseFlatten.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _arrayPush = require('./_arrayPush.js');
+
+var _arrayPush2 = _interopRequireDefault(_arrayPush);
+
+var _isFlattenable = require('./_isFlattenable.js');
+
+var _isFlattenable2 = _interopRequireDefault(_isFlattenable);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `_.flatten` with support for restricting flattening.
+ *
+ * @private
+ * @param {Array} array The array to flatten.
+ * @param {number} depth The maximum recursion depth.
+ * @param {boolean} [predicate=isFlattenable] The function invoked per iteration.
+ * @param {boolean} [isStrict] Restrict to values that pass `predicate` checks.
+ * @param {Array} [result=[]] The initial result value.
+ * @returns {Array} Returns the new flattened array.
+ */
+function baseFlatten(array, depth, predicate, isStrict, result) {
+  var index = -1,
+      length = array.length;
+
+  predicate || (predicate = _isFlattenable2.default);
+  result || (result = []);
+
+  while (++index < length) {
+    var value = array[index];
+    if (depth > 0 && predicate(value)) {
+      if (depth > 1) {
+        // Recursively flatten arrays (susceptible to call stack limits).
+        baseFlatten(value, depth - 1, predicate, isStrict, result);
+      } else {
+        (0, _arrayPush2.default)(result, value);
+      }
+    } else if (!isStrict) {
+      result[result.length] = value;
+    }
+  }
+  return result;
+}
+
+exports.default = baseFlatten;
+},{"./_arrayPush.js":"../node_modules/lodash-es/_arrayPush.js","./_isFlattenable.js":"../node_modules/lodash-es/_isFlattenable.js"}],"../node_modules/lodash-es/_baseIsMatch.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Stack = require('./_Stack.js');
+
+var _Stack2 = _interopRequireDefault(_Stack);
+
+var _baseIsEqual = require('./_baseIsEqual.js');
+
+var _baseIsEqual2 = _interopRequireDefault(_baseIsEqual);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG = 1,
+    COMPARE_UNORDERED_FLAG = 2;
+
+/**
+ * The base implementation of `_.isMatch` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Object} object The object to inspect.
+ * @param {Object} source The object of property values to match.
+ * @param {Array} matchData The property names, values, and compare flags to match.
+ * @param {Function} [customizer] The function to customize comparisons.
+ * @returns {boolean} Returns `true` if `object` is a match, else `false`.
+ */
+function baseIsMatch(object, source, matchData, customizer) {
+  var index = matchData.length,
+      length = index,
+      noCustomizer = !customizer;
+
+  if (object == null) {
+    return !length;
+  }
+  object = Object(object);
+  while (index--) {
+    var data = matchData[index];
+    if (noCustomizer && data[2] ? data[1] !== object[data[0]] : !(data[0] in object)) {
+      return false;
+    }
+  }
+  while (++index < length) {
+    data = matchData[index];
+    var key = data[0],
+        objValue = object[key],
+        srcValue = data[1];
+
+    if (noCustomizer && data[2]) {
+      if (objValue === undefined && !(key in object)) {
+        return false;
+      }
+    } else {
+      var stack = new _Stack2.default();
+      if (customizer) {
+        var result = customizer(objValue, srcValue, key, object, source, stack);
+      }
+      if (!(result === undefined ? (0, _baseIsEqual2.default)(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG, customizer, stack) : result)) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+exports.default = baseIsMatch;
+},{"./_Stack.js":"../node_modules/lodash-es/_Stack.js","./_baseIsEqual.js":"../node_modules/lodash-es/_baseIsEqual.js"}],"../node_modules/lodash-es/_isStrictComparable.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isObject = require('./isObject.js');
+
+var _isObject2 = _interopRequireDefault(_isObject);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` if suitable for strict
+ *  equality comparisons, else `false`.
+ */
+function isStrictComparable(value) {
+  return value === value && !(0, _isObject2.default)(value);
+}
+
+exports.default = isStrictComparable;
+},{"./isObject.js":"../node_modules/lodash-es/isObject.js"}],"../node_modules/lodash-es/_getMatchData.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isStrictComparable = require('./_isStrictComparable.js');
+
+var _isStrictComparable2 = _interopRequireDefault(_isStrictComparable);
+
+var _keys = require('./keys.js');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Gets the property names, values, and compare flags of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the match data of `object`.
+ */
+function getMatchData(object) {
+  var result = (0, _keys2.default)(object),
+      length = result.length;
+
+  while (length--) {
+    var key = result[length],
+        value = object[key];
+
+    result[length] = [key, value, (0, _isStrictComparable2.default)(value)];
+  }
+  return result;
+}
+
+exports.default = getMatchData;
+},{"./_isStrictComparable.js":"../node_modules/lodash-es/_isStrictComparable.js","./keys.js":"../node_modules/lodash-es/keys.js"}],"../node_modules/lodash-es/_matchesStrictComparable.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * A specialized version of `matchesProperty` for source values suitable
+ * for strict equality comparisons, i.e. `===`.
+ *
+ * @private
+ * @param {string} key The key of the property to get.
+ * @param {*} srcValue The value to match.
+ * @returns {Function} Returns the new spec function.
+ */
+function matchesStrictComparable(key, srcValue) {
+  return function (object) {
+    if (object == null) {
+      return false;
+    }
+    return object[key] === srcValue && (srcValue !== undefined || key in Object(object));
+  };
+}
+
+exports.default = matchesStrictComparable;
+},{}],"../node_modules/lodash-es/_baseMatches.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseIsMatch = require('./_baseIsMatch.js');
+
+var _baseIsMatch2 = _interopRequireDefault(_baseIsMatch);
+
+var _getMatchData = require('./_getMatchData.js');
+
+var _getMatchData2 = _interopRequireDefault(_getMatchData);
+
+var _matchesStrictComparable = require('./_matchesStrictComparable.js');
+
+var _matchesStrictComparable2 = _interopRequireDefault(_matchesStrictComparable);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `_.matches` which doesn't clone `source`.
+ *
+ * @private
+ * @param {Object} source The object of property values to match.
+ * @returns {Function} Returns the new spec function.
+ */
+function baseMatches(source) {
+  var matchData = (0, _getMatchData2.default)(source);
+  if (matchData.length == 1 && matchData[0][2]) {
+    return (0, _matchesStrictComparable2.default)(matchData[0][0], matchData[0][1]);
+  }
+  return function (object) {
+    return object === source || (0, _baseIsMatch2.default)(object, source, matchData);
+  };
+}
+
+exports.default = baseMatches;
+},{"./_baseIsMatch.js":"../node_modules/lodash-es/_baseIsMatch.js","./_getMatchData.js":"../node_modules/lodash-es/_getMatchData.js","./_matchesStrictComparable.js":"../node_modules/lodash-es/_matchesStrictComparable.js"}],"../node_modules/lodash-es/_baseHasIn.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * The base implementation of `_.hasIn` without support for deep paths.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {Array|string} key The key to check.
+ * @returns {boolean} Returns `true` if `key` exists, else `false`.
+ */
+function baseHasIn(object, key) {
+  return object != null && key in Object(object);
+}
+
+exports.default = baseHasIn;
+},{}],"../node_modules/lodash-es/_hasPath.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _castPath = require('./_castPath.js');
+
+var _castPath2 = _interopRequireDefault(_castPath);
+
+var _isArguments = require('./isArguments.js');
+
+var _isArguments2 = _interopRequireDefault(_isArguments);
+
+var _isArray = require('./isArray.js');
+
+var _isArray2 = _interopRequireDefault(_isArray);
+
+var _isIndex = require('./_isIndex.js');
+
+var _isIndex2 = _interopRequireDefault(_isIndex);
+
+var _isLength = require('./isLength.js');
+
+var _isLength2 = _interopRequireDefault(_isLength);
+
+var _toKey = require('./_toKey.js');
+
+var _toKey2 = _interopRequireDefault(_toKey);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Checks if `path` exists on `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path to check.
+ * @param {Function} hasFunc The function to check properties.
+ * @returns {boolean} Returns `true` if `path` exists, else `false`.
+ */
+function hasPath(object, path, hasFunc) {
+  path = (0, _castPath2.default)(path, object);
+
+  var index = -1,
+      length = path.length,
+      result = false;
+
+  while (++index < length) {
+    var key = (0, _toKey2.default)(path[index]);
+    if (!(result = object != null && hasFunc(object, key))) {
+      break;
+    }
+    object = object[key];
+  }
+  if (result || ++index != length) {
+    return result;
+  }
+  length = object == null ? 0 : object.length;
+  return !!length && (0, _isLength2.default)(length) && (0, _isIndex2.default)(key, length) && ((0, _isArray2.default)(object) || (0, _isArguments2.default)(object));
+}
+
+exports.default = hasPath;
+},{"./_castPath.js":"../node_modules/lodash-es/_castPath.js","./isArguments.js":"../node_modules/lodash-es/isArguments.js","./isArray.js":"../node_modules/lodash-es/isArray.js","./_isIndex.js":"../node_modules/lodash-es/_isIndex.js","./isLength.js":"../node_modules/lodash-es/isLength.js","./_toKey.js":"../node_modules/lodash-es/_toKey.js"}],"../node_modules/lodash-es/hasIn.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseHasIn = require('./_baseHasIn.js');
+
+var _baseHasIn2 = _interopRequireDefault(_baseHasIn);
+
+var _hasPath = require('./_hasPath.js');
+
+var _hasPath2 = _interopRequireDefault(_hasPath);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Checks if `path` is a direct or inherited property of `object`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path to check.
+ * @returns {boolean} Returns `true` if `path` exists, else `false`.
+ * @example
+ *
+ * var object = _.create({ 'a': _.create({ 'b': 2 }) });
+ *
+ * _.hasIn(object, 'a');
+ * // => true
+ *
+ * _.hasIn(object, 'a.b');
+ * // => true
+ *
+ * _.hasIn(object, ['a', 'b']);
+ * // => true
+ *
+ * _.hasIn(object, 'b');
+ * // => false
+ */
+function hasIn(object, path) {
+  return object != null && (0, _hasPath2.default)(object, path, _baseHasIn2.default);
+}
+
+exports.default = hasIn;
+},{"./_baseHasIn.js":"../node_modules/lodash-es/_baseHasIn.js","./_hasPath.js":"../node_modules/lodash-es/_hasPath.js"}],"../node_modules/lodash-es/_baseMatchesProperty.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseIsEqual = require('./_baseIsEqual.js');
+
+var _baseIsEqual2 = _interopRequireDefault(_baseIsEqual);
+
+var _get = require('./get.js');
+
+var _get2 = _interopRequireDefault(_get);
+
+var _hasIn = require('./hasIn.js');
+
+var _hasIn2 = _interopRequireDefault(_hasIn);
+
+var _isKey = require('./_isKey.js');
+
+var _isKey2 = _interopRequireDefault(_isKey);
+
+var _isStrictComparable = require('./_isStrictComparable.js');
+
+var _isStrictComparable2 = _interopRequireDefault(_isStrictComparable);
+
+var _matchesStrictComparable = require('./_matchesStrictComparable.js');
+
+var _matchesStrictComparable2 = _interopRequireDefault(_matchesStrictComparable);
+
+var _toKey = require('./_toKey.js');
+
+var _toKey2 = _interopRequireDefault(_toKey);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG = 1,
+    COMPARE_UNORDERED_FLAG = 2;
+
+/**
+ * The base implementation of `_.matchesProperty` which doesn't clone `srcValue`.
+ *
+ * @private
+ * @param {string} path The path of the property to get.
+ * @param {*} srcValue The value to match.
+ * @returns {Function} Returns the new spec function.
+ */
+function baseMatchesProperty(path, srcValue) {
+  if ((0, _isKey2.default)(path) && (0, _isStrictComparable2.default)(srcValue)) {
+    return (0, _matchesStrictComparable2.default)((0, _toKey2.default)(path), srcValue);
+  }
+  return function (object) {
+    var objValue = (0, _get2.default)(object, path);
+    return objValue === undefined && objValue === srcValue ? (0, _hasIn2.default)(object, path) : (0, _baseIsEqual2.default)(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG);
+  };
+}
+
+exports.default = baseMatchesProperty;
+},{"./_baseIsEqual.js":"../node_modules/lodash-es/_baseIsEqual.js","./get.js":"../node_modules/lodash-es/get.js","./hasIn.js":"../node_modules/lodash-es/hasIn.js","./_isKey.js":"../node_modules/lodash-es/_isKey.js","./_isStrictComparable.js":"../node_modules/lodash-es/_isStrictComparable.js","./_matchesStrictComparable.js":"../node_modules/lodash-es/_matchesStrictComparable.js","./_toKey.js":"../node_modules/lodash-es/_toKey.js"}],"../node_modules/lodash-es/identity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * This method returns the first argument it receives.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ *
+ * console.log(_.identity(object) === object);
+ * // => true
+ */
+function identity(value) {
+  return value;
+}
+
+exports.default = identity;
+},{}],"../node_modules/lodash-es/_baseProperty.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * The base implementation of `_.property` without support for deep paths.
+ *
+ * @private
+ * @param {string} key The key of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ */
+function baseProperty(key) {
+  return function (object) {
+    return object == null ? undefined : object[key];
+  };
+}
+
+exports.default = baseProperty;
+},{}],"../node_modules/lodash-es/_basePropertyDeep.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseGet = require('./_baseGet.js');
+
+var _baseGet2 = _interopRequireDefault(_baseGet);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * A specialized version of `baseProperty` which supports deep paths.
+ *
+ * @private
+ * @param {Array|string} path The path of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ */
+function basePropertyDeep(path) {
+  return function (object) {
+    return (0, _baseGet2.default)(object, path);
+  };
+}
+
+exports.default = basePropertyDeep;
+},{"./_baseGet.js":"../node_modules/lodash-es/_baseGet.js"}],"../node_modules/lodash-es/property.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseProperty = require('./_baseProperty.js');
+
+var _baseProperty2 = _interopRequireDefault(_baseProperty);
+
+var _basePropertyDeep = require('./_basePropertyDeep.js');
+
+var _basePropertyDeep2 = _interopRequireDefault(_basePropertyDeep);
+
+var _isKey = require('./_isKey.js');
+
+var _isKey2 = _interopRequireDefault(_isKey);
+
+var _toKey = require('./_toKey.js');
+
+var _toKey2 = _interopRequireDefault(_toKey);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Creates a function that returns the value at `path` of a given object.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {Array|string} path The path of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ * @example
+ *
+ * var objects = [
+ *   { 'a': { 'b': 2 } },
+ *   { 'a': { 'b': 1 } }
+ * ];
+ *
+ * _.map(objects, _.property('a.b'));
+ * // => [2, 1]
+ *
+ * _.map(_.sortBy(objects, _.property(['a', 'b'])), 'a.b');
+ * // => [1, 2]
+ */
+function property(path) {
+  return (0, _isKey2.default)(path) ? (0, _baseProperty2.default)((0, _toKey2.default)(path)) : (0, _basePropertyDeep2.default)(path);
+}
+
+exports.default = property;
+},{"./_baseProperty.js":"../node_modules/lodash-es/_baseProperty.js","./_basePropertyDeep.js":"../node_modules/lodash-es/_basePropertyDeep.js","./_isKey.js":"../node_modules/lodash-es/_isKey.js","./_toKey.js":"../node_modules/lodash-es/_toKey.js"}],"../node_modules/lodash-es/_baseIteratee.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseMatches = require('./_baseMatches.js');
+
+var _baseMatches2 = _interopRequireDefault(_baseMatches);
+
+var _baseMatchesProperty = require('./_baseMatchesProperty.js');
+
+var _baseMatchesProperty2 = _interopRequireDefault(_baseMatchesProperty);
+
+var _identity = require('./identity.js');
+
+var _identity2 = _interopRequireDefault(_identity);
+
+var _isArray = require('./isArray.js');
+
+var _isArray2 = _interopRequireDefault(_isArray);
+
+var _property = require('./property.js');
+
+var _property2 = _interopRequireDefault(_property);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `_.iteratee`.
+ *
+ * @private
+ * @param {*} [value=_.identity] The value to convert to an iteratee.
+ * @returns {Function} Returns the iteratee.
+ */
+function baseIteratee(value) {
+  // Don't store the `typeof` result in a variable to avoid a JIT bug in Safari 9.
+  // See https://bugs.webkit.org/show_bug.cgi?id=156034 for more details.
+  if (typeof value == 'function') {
+    return value;
+  }
+  if (value == null) {
+    return _identity2.default;
+  }
+  if (typeof value == 'object') {
+    return (0, _isArray2.default)(value) ? (0, _baseMatchesProperty2.default)(value[0], value[1]) : (0, _baseMatches2.default)(value);
+  }
+  return (0, _property2.default)(value);
+}
+
+exports.default = baseIteratee;
+},{"./_baseMatches.js":"../node_modules/lodash-es/_baseMatches.js","./_baseMatchesProperty.js":"../node_modules/lodash-es/_baseMatchesProperty.js","./identity.js":"../node_modules/lodash-es/identity.js","./isArray.js":"../node_modules/lodash-es/isArray.js","./property.js":"../node_modules/lodash-es/property.js"}],"../node_modules/lodash-es/_createBaseFor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseFor(fromRight) {
+  return function (object, iteratee, keysFunc) {
+    var index = -1,
+        iterable = Object(object),
+        props = keysFunc(object),
+        length = props.length;
+
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+    return object;
+  };
+}
+
+exports.default = createBaseFor;
+},{}],"../node_modules/lodash-es/_baseFor.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createBaseFor = require('./_createBaseFor.js');
+
+var _createBaseFor2 = _interopRequireDefault(_createBaseFor);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `baseForOwn` which iterates over `object`
+ * properties returned by `keysFunc` and invokes `iteratee` for each property.
+ * Iteratee functions may exit iteration early by explicitly returning `false`.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @returns {Object} Returns `object`.
+ */
+var baseFor = (0, _createBaseFor2.default)();
+
+exports.default = baseFor;
+},{"./_createBaseFor.js":"../node_modules/lodash-es/_createBaseFor.js"}],"../node_modules/lodash-es/_baseForOwn.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseFor = require('./_baseFor.js');
+
+var _baseFor2 = _interopRequireDefault(_baseFor);
+
+var _keys = require('./keys.js');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `_.forOwn` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Object} Returns `object`.
+ */
+function baseForOwn(object, iteratee) {
+  return object && (0, _baseFor2.default)(object, iteratee, _keys2.default);
+}
+
+exports.default = baseForOwn;
+},{"./_baseFor.js":"../node_modules/lodash-es/_baseFor.js","./keys.js":"../node_modules/lodash-es/keys.js"}],"../node_modules/lodash-es/_createBaseEach.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isArrayLike = require('./isArrayLike.js');
+
+var _isArrayLike2 = _interopRequireDefault(_isArrayLike);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Creates a `baseEach` or `baseEachRight` function.
+ *
+ * @private
+ * @param {Function} eachFunc The function to iterate over a collection.
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseEach(eachFunc, fromRight) {
+  return function (collection, iteratee) {
+    if (collection == null) {
+      return collection;
+    }
+    if (!(0, _isArrayLike2.default)(collection)) {
+      return eachFunc(collection, iteratee);
+    }
+    var length = collection.length,
+        index = fromRight ? length : -1,
+        iterable = Object(collection);
+
+    while (fromRight ? index-- : ++index < length) {
+      if (iteratee(iterable[index], index, iterable) === false) {
+        break;
+      }
+    }
+    return collection;
+  };
+}
+
+exports.default = createBaseEach;
+},{"./isArrayLike.js":"../node_modules/lodash-es/isArrayLike.js"}],"../node_modules/lodash-es/_baseEach.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseForOwn = require('./_baseForOwn.js');
+
+var _baseForOwn2 = _interopRequireDefault(_baseForOwn);
+
+var _createBaseEach = require('./_createBaseEach.js');
+
+var _createBaseEach2 = _interopRequireDefault(_createBaseEach);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `_.forEach` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array|Object} Returns `collection`.
+ */
+var baseEach = (0, _createBaseEach2.default)(_baseForOwn2.default);
+
+exports.default = baseEach;
+},{"./_baseForOwn.js":"../node_modules/lodash-es/_baseForOwn.js","./_createBaseEach.js":"../node_modules/lodash-es/_createBaseEach.js"}],"../node_modules/lodash-es/_baseMap.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseEach = require('./_baseEach.js');
+
+var _baseEach2 = _interopRequireDefault(_baseEach);
+
+var _isArrayLike = require('./isArrayLike.js');
+
+var _isArrayLike2 = _interopRequireDefault(_isArrayLike);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `_.map` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function baseMap(collection, iteratee) {
+  var index = -1,
+      result = (0, _isArrayLike2.default)(collection) ? Array(collection.length) : [];
+
+  (0, _baseEach2.default)(collection, function (value, key, collection) {
+    result[++index] = iteratee(value, key, collection);
+  });
+  return result;
+}
+
+exports.default = baseMap;
+},{"./_baseEach.js":"../node_modules/lodash-es/_baseEach.js","./isArrayLike.js":"../node_modules/lodash-es/isArrayLike.js"}],"../node_modules/lodash-es/_baseSortBy.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * The base implementation of `_.sortBy` which uses `comparer` to define the
+ * sort order of `array` and replaces criteria objects with their corresponding
+ * values.
+ *
+ * @private
+ * @param {Array} array The array to sort.
+ * @param {Function} comparer The function to define sort order.
+ * @returns {Array} Returns `array`.
+ */
+function baseSortBy(array, comparer) {
+  var length = array.length;
+
+  array.sort(comparer);
+  while (length--) {
+    array[length] = array[length].value;
+  }
+  return array;
+}
+
+exports.default = baseSortBy;
+},{}],"../node_modules/lodash-es/_compareAscending.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isSymbol = require('./isSymbol.js');
+
+var _isSymbol2 = _interopRequireDefault(_isSymbol);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Compares values to sort them in ascending order.
+ *
+ * @private
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {number} Returns the sort order indicator for `value`.
+ */
+function compareAscending(value, other) {
+  if (value !== other) {
+    var valIsDefined = value !== undefined,
+        valIsNull = value === null,
+        valIsReflexive = value === value,
+        valIsSymbol = (0, _isSymbol2.default)(value);
+
+    var othIsDefined = other !== undefined,
+        othIsNull = other === null,
+        othIsReflexive = other === other,
+        othIsSymbol = (0, _isSymbol2.default)(other);
+
+    if (!othIsNull && !othIsSymbol && !valIsSymbol && value > other || valIsSymbol && othIsDefined && othIsReflexive && !othIsNull && !othIsSymbol || valIsNull && othIsDefined && othIsReflexive || !valIsDefined && othIsReflexive || !valIsReflexive) {
+      return 1;
+    }
+    if (!valIsNull && !valIsSymbol && !othIsSymbol && value < other || othIsSymbol && valIsDefined && valIsReflexive && !valIsNull && !valIsSymbol || othIsNull && valIsDefined && valIsReflexive || !othIsDefined && valIsReflexive || !othIsReflexive) {
+      return -1;
+    }
+  }
+  return 0;
+}
+
+exports.default = compareAscending;
+},{"./isSymbol.js":"../node_modules/lodash-es/isSymbol.js"}],"../node_modules/lodash-es/_compareMultiple.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _compareAscending = require('./_compareAscending.js');
+
+var _compareAscending2 = _interopRequireDefault(_compareAscending);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Used by `_.orderBy` to compare multiple properties of a value to another
+ * and stable sort them.
+ *
+ * If `orders` is unspecified, all values are sorted in ascending order. Otherwise,
+ * specify an order of "desc" for descending or "asc" for ascending sort order
+ * of corresponding values.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {boolean[]|string[]} orders The order to sort by for each property.
+ * @returns {number} Returns the sort order indicator for `object`.
+ */
+function compareMultiple(object, other, orders) {
+  var index = -1,
+      objCriteria = object.criteria,
+      othCriteria = other.criteria,
+      length = objCriteria.length,
+      ordersLength = orders.length;
+
+  while (++index < length) {
+    var result = (0, _compareAscending2.default)(objCriteria[index], othCriteria[index]);
+    if (result) {
+      if (index >= ordersLength) {
+        return result;
+      }
+      var order = orders[index];
+      return result * (order == 'desc' ? -1 : 1);
+    }
+  }
+  // Fixes an `Array#sort` bug in the JS engine embedded in Adobe applications
+  // that causes it, under certain circumstances, to provide the same value for
+  // `object` and `other`. See https://github.com/jashkenas/underscore/pull/1247
+  // for more details.
+  //
+  // This also ensures a stable sort in V8 and other engines.
+  // See https://bugs.chromium.org/p/v8/issues/detail?id=90 for more details.
+  return object.index - other.index;
+}
+
+exports.default = compareMultiple;
+},{"./_compareAscending.js":"../node_modules/lodash-es/_compareAscending.js"}],"../node_modules/lodash-es/_baseOrderBy.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _arrayMap = require('./_arrayMap.js');
+
+var _arrayMap2 = _interopRequireDefault(_arrayMap);
+
+var _baseIteratee = require('./_baseIteratee.js');
+
+var _baseIteratee2 = _interopRequireDefault(_baseIteratee);
+
+var _baseMap = require('./_baseMap.js');
+
+var _baseMap2 = _interopRequireDefault(_baseMap);
+
+var _baseSortBy = require('./_baseSortBy.js');
+
+var _baseSortBy2 = _interopRequireDefault(_baseSortBy);
+
+var _baseUnary = require('./_baseUnary.js');
+
+var _baseUnary2 = _interopRequireDefault(_baseUnary);
+
+var _compareMultiple = require('./_compareMultiple.js');
+
+var _compareMultiple2 = _interopRequireDefault(_compareMultiple);
+
+var _identity = require('./identity.js');
+
+var _identity2 = _interopRequireDefault(_identity);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `_.orderBy` without param guards.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function[]|Object[]|string[]} iteratees The iteratees to sort by.
+ * @param {string[]} orders The sort orders of `iteratees`.
+ * @returns {Array} Returns the new sorted array.
+ */
+function baseOrderBy(collection, iteratees, orders) {
+  var index = -1;
+  iteratees = (0, _arrayMap2.default)(iteratees.length ? iteratees : [_identity2.default], (0, _baseUnary2.default)(_baseIteratee2.default));
+
+  var result = (0, _baseMap2.default)(collection, function (value, key, collection) {
+    var criteria = (0, _arrayMap2.default)(iteratees, function (iteratee) {
+      return iteratee(value);
+    });
+    return { 'criteria': criteria, 'index': ++index, 'value': value };
+  });
+
+  return (0, _baseSortBy2.default)(result, function (object, other) {
+    return (0, _compareMultiple2.default)(object, other, orders);
+  });
+}
+
+exports.default = baseOrderBy;
+},{"./_arrayMap.js":"../node_modules/lodash-es/_arrayMap.js","./_baseIteratee.js":"../node_modules/lodash-es/_baseIteratee.js","./_baseMap.js":"../node_modules/lodash-es/_baseMap.js","./_baseSortBy.js":"../node_modules/lodash-es/_baseSortBy.js","./_baseUnary.js":"../node_modules/lodash-es/_baseUnary.js","./_compareMultiple.js":"../node_modules/lodash-es/_compareMultiple.js","./identity.js":"../node_modules/lodash-es/identity.js"}],"../node_modules/lodash-es/_apply.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * A faster alternative to `Function#apply`, this function invokes `func`
+ * with the `this` binding of `thisArg` and the arguments of `args`.
+ *
+ * @private
+ * @param {Function} func The function to invoke.
+ * @param {*} thisArg The `this` binding of `func`.
+ * @param {Array} args The arguments to invoke `func` with.
+ * @returns {*} Returns the result of `func`.
+ */
+function apply(func, thisArg, args) {
+  switch (args.length) {
+    case 0:
+      return func.call(thisArg);
+    case 1:
+      return func.call(thisArg, args[0]);
+    case 2:
+      return func.call(thisArg, args[0], args[1]);
+    case 3:
+      return func.call(thisArg, args[0], args[1], args[2]);
+  }
+  return func.apply(thisArg, args);
+}
+
+exports.default = apply;
+},{}],"../node_modules/lodash-es/_overRest.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _apply = require('./_apply.js');
+
+var _apply2 = _interopRequireDefault(_apply);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max;
+
+/**
+ * A specialized version of `baseRest` which transforms the rest array.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @param {Function} transform The rest array transform.
+ * @returns {Function} Returns the new function.
+ */
+function overRest(func, start, transform) {
+  start = nativeMax(start === undefined ? func.length - 1 : start, 0);
+  return function () {
+    var args = arguments,
+        index = -1,
+        length = nativeMax(args.length - start, 0),
+        array = Array(length);
+
+    while (++index < length) {
+      array[index] = args[start + index];
+    }
+    index = -1;
+    var otherArgs = Array(start + 1);
+    while (++index < start) {
+      otherArgs[index] = args[index];
+    }
+    otherArgs[start] = transform(array);
+    return (0, _apply2.default)(func, this, otherArgs);
+  };
+}
+
+exports.default = overRest;
+},{"./_apply.js":"../node_modules/lodash-es/_apply.js"}],"../node_modules/lodash-es/constant.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Creates a function that returns `value`.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {*} value The value to return from the new function.
+ * @returns {Function} Returns the new constant function.
+ * @example
+ *
+ * var objects = _.times(2, _.constant({ 'a': 1 }));
+ *
+ * console.log(objects);
+ * // => [{ 'a': 1 }, { 'a': 1 }]
+ *
+ * console.log(objects[0] === objects[1]);
+ * // => true
+ */
+function constant(value) {
+  return function () {
+    return value;
+  };
+}
+
+exports.default = constant;
+},{}],"../node_modules/lodash-es/_defineProperty.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getNative = require('./_getNative.js');
+
+var _getNative2 = _interopRequireDefault(_getNative);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var defineProperty = function () {
+  try {
+    var func = (0, _getNative2.default)(Object, 'defineProperty');
+    func({}, '', {});
+    return func;
+  } catch (e) {}
+}();
+
+exports.default = defineProperty;
+},{"./_getNative.js":"../node_modules/lodash-es/_getNative.js"}],"../node_modules/lodash-es/_baseSetToString.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _constant = require('./constant.js');
+
+var _constant2 = _interopRequireDefault(_constant);
+
+var _defineProperty = require('./_defineProperty.js');
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+var _identity = require('./identity.js');
+
+var _identity2 = _interopRequireDefault(_identity);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `setToString` without support for hot loop shorting.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var baseSetToString = !_defineProperty2.default ? _identity2.default : function (func, string) {
+  return (0, _defineProperty2.default)(func, 'toString', {
+    'configurable': true,
+    'enumerable': false,
+    'value': (0, _constant2.default)(string),
+    'writable': true
+  });
+};
+
+exports.default = baseSetToString;
+},{"./constant.js":"../node_modules/lodash-es/constant.js","./_defineProperty.js":"../node_modules/lodash-es/_defineProperty.js","./identity.js":"../node_modules/lodash-es/identity.js"}],"../node_modules/lodash-es/_shortOut.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/** Used to detect hot functions by number of calls within a span of milliseconds. */
+var HOT_COUNT = 800,
+    HOT_SPAN = 16;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeNow = Date.now;
+
+/**
+ * Creates a function that'll short out and invoke `identity` instead
+ * of `func` when it's called `HOT_COUNT` or more times in `HOT_SPAN`
+ * milliseconds.
+ *
+ * @private
+ * @param {Function} func The function to restrict.
+ * @returns {Function} Returns the new shortable function.
+ */
+function shortOut(func) {
+  var count = 0,
+      lastCalled = 0;
+
+  return function () {
+    var stamp = nativeNow(),
+        remaining = HOT_SPAN - (stamp - lastCalled);
+
+    lastCalled = stamp;
+    if (remaining > 0) {
+      if (++count >= HOT_COUNT) {
+        return arguments[0];
+      }
+    } else {
+      count = 0;
+    }
+    return func.apply(undefined, arguments);
+  };
+}
+
+exports.default = shortOut;
+},{}],"../node_modules/lodash-es/_setToString.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseSetToString = require('./_baseSetToString.js');
+
+var _baseSetToString2 = _interopRequireDefault(_baseSetToString);
+
+var _shortOut = require('./_shortOut.js');
+
+var _shortOut2 = _interopRequireDefault(_shortOut);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Sets the `toString` method of `func` to return `string`.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var setToString = (0, _shortOut2.default)(_baseSetToString2.default);
+
+exports.default = setToString;
+},{"./_baseSetToString.js":"../node_modules/lodash-es/_baseSetToString.js","./_shortOut.js":"../node_modules/lodash-es/_shortOut.js"}],"../node_modules/lodash-es/_baseRest.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _identity = require('./identity.js');
+
+var _identity2 = _interopRequireDefault(_identity);
+
+var _overRest = require('./_overRest.js');
+
+var _overRest2 = _interopRequireDefault(_overRest);
+
+var _setToString = require('./_setToString.js');
+
+var _setToString2 = _interopRequireDefault(_setToString);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `_.rest` which doesn't validate or coerce arguments.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @returns {Function} Returns the new function.
+ */
+function baseRest(func, start) {
+  return (0, _setToString2.default)((0, _overRest2.default)(func, start, _identity2.default), func + '');
+}
+
+exports.default = baseRest;
+},{"./identity.js":"../node_modules/lodash-es/identity.js","./_overRest.js":"../node_modules/lodash-es/_overRest.js","./_setToString.js":"../node_modules/lodash-es/_setToString.js"}],"../node_modules/lodash-es/_isIterateeCall.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _eq = require('./eq.js');
+
+var _eq2 = _interopRequireDefault(_eq);
+
+var _isArrayLike = require('./isArrayLike.js');
+
+var _isArrayLike2 = _interopRequireDefault(_isArrayLike);
+
+var _isIndex = require('./_isIndex.js');
+
+var _isIndex2 = _interopRequireDefault(_isIndex);
+
+var _isObject = require('./isObject.js');
+
+var _isObject2 = _interopRequireDefault(_isObject);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Checks if the given arguments are from an iteratee call.
+ *
+ * @private
+ * @param {*} value The potential iteratee value argument.
+ * @param {*} index The potential iteratee index or key argument.
+ * @param {*} object The potential iteratee object argument.
+ * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+ *  else `false`.
+ */
+function isIterateeCall(value, index, object) {
+  if (!(0, _isObject2.default)(object)) {
+    return false;
+  }
+  var type = typeof index;
+  if (type == 'number' ? (0, _isArrayLike2.default)(object) && (0, _isIndex2.default)(index, object.length) : type == 'string' && index in object) {
+    return (0, _eq2.default)(object[index], value);
+  }
+  return false;
+}
+
+exports.default = isIterateeCall;
+},{"./eq.js":"../node_modules/lodash-es/eq.js","./isArrayLike.js":"../node_modules/lodash-es/isArrayLike.js","./_isIndex.js":"../node_modules/lodash-es/_isIndex.js","./isObject.js":"../node_modules/lodash-es/isObject.js"}],"../node_modules/lodash-es/sortBy.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseFlatten = require('./_baseFlatten.js');
+
+var _baseFlatten2 = _interopRequireDefault(_baseFlatten);
+
+var _baseOrderBy = require('./_baseOrderBy.js');
+
+var _baseOrderBy2 = _interopRequireDefault(_baseOrderBy);
+
+var _baseRest = require('./_baseRest.js');
+
+var _baseRest2 = _interopRequireDefault(_baseRest);
+
+var _isIterateeCall = require('./_isIterateeCall.js');
+
+var _isIterateeCall2 = _interopRequireDefault(_isIterateeCall);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Creates an array of elements, sorted in ascending order by the results of
+ * running each element in a collection thru each iteratee. This method
+ * performs a stable sort, that is, it preserves the original sort order of
+ * equal elements. The iteratees are invoked with one argument: (value).
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {...(Function|Function[])} [iteratees=[_.identity]]
+ *  The iteratees to sort by.
+ * @returns {Array} Returns the new sorted array.
+ * @example
+ *
+ * var users = [
+ *   { 'user': 'fred',   'age': 48 },
+ *   { 'user': 'barney', 'age': 36 },
+ *   { 'user': 'fred',   'age': 40 },
+ *   { 'user': 'barney', 'age': 34 }
+ * ];
+ *
+ * _.sortBy(users, [function(o) { return o.user; }]);
+ * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]]
+ *
+ * _.sortBy(users, ['user', 'age']);
+ * // => objects for [['barney', 34], ['barney', 36], ['fred', 40], ['fred', 48]]
+ */
+var sortBy = (0, _baseRest2.default)(function (collection, iteratees) {
+  if (collection == null) {
+    return [];
+  }
+  var length = iteratees.length;
+  if (length > 1 && (0, _isIterateeCall2.default)(collection, iteratees[0], iteratees[1])) {
+    iteratees = [];
+  } else if (length > 2 && (0, _isIterateeCall2.default)(iteratees[0], iteratees[1], iteratees[2])) {
+    iteratees = [iteratees[0]];
+  }
+  return (0, _baseOrderBy2.default)(collection, (0, _baseFlatten2.default)(iteratees, 1), []);
+});
+
+exports.default = sortBy;
+},{"./_baseFlatten.js":"../node_modules/lodash-es/_baseFlatten.js","./_baseOrderBy.js":"../node_modules/lodash-es/_baseOrderBy.js","./_baseRest.js":"../node_modules/lodash-es/_baseRest.js","./_isIterateeCall.js":"../node_modules/lodash-es/_isIterateeCall.js"}],"../node_modules/lodash-es/_baseExtremum.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isSymbol = require('./isSymbol.js');
+
+var _isSymbol2 = _interopRequireDefault(_isSymbol);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of methods like `_.max` and `_.min` which accepts a
+ * `comparator` to determine the extremum value.
+ *
+ * @private
+ * @param {Array} array The array to iterate over.
+ * @param {Function} iteratee The iteratee invoked per iteration.
+ * @param {Function} comparator The comparator used to compare values.
+ * @returns {*} Returns the extremum value.
+ */
+function baseExtremum(array, iteratee, comparator) {
+  var index = -1,
+      length = array.length;
+
+  while (++index < length) {
+    var value = array[index],
+        current = iteratee(value);
+
+    if (current != null && (computed === undefined ? current === current && !(0, _isSymbol2.default)(current) : comparator(current, computed))) {
+      var computed = current,
+          result = value;
+    }
+  }
+  return result;
+}
+
+exports.default = baseExtremum;
+},{"./isSymbol.js":"../node_modules/lodash-es/isSymbol.js"}],"../node_modules/lodash-es/_baseGt.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * The base implementation of `_.gt` which doesn't coerce arguments.
+ *
+ * @private
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if `value` is greater than `other`,
+ *  else `false`.
+ */
+function baseGt(value, other) {
+  return value > other;
+}
+
+exports.default = baseGt;
+},{}],"../node_modules/lodash-es/max.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseExtremum = require('./_baseExtremum.js');
+
+var _baseExtremum2 = _interopRequireDefault(_baseExtremum);
+
+var _baseGt = require('./_baseGt.js');
+
+var _baseGt2 = _interopRequireDefault(_baseGt);
+
+var _identity = require('./identity.js');
+
+var _identity2 = _interopRequireDefault(_identity);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Computes the maximum value of `array`. If `array` is empty or falsey,
+ * `undefined` is returned.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Math
+ * @param {Array} array The array to iterate over.
+ * @returns {*} Returns the maximum value.
+ * @example
+ *
+ * _.max([4, 2, 8, 6]);
+ * // => 8
+ *
+ * _.max([]);
+ * // => undefined
+ */
+function max(array) {
+  return array && array.length ? (0, _baseExtremum2.default)(array, _identity2.default, _baseGt2.default) : undefined;
+}
+
+exports.default = max;
+},{"./_baseExtremum.js":"../node_modules/lodash-es/_baseExtremum.js","./_baseGt.js":"../node_modules/lodash-es/_baseGt.js","./identity.js":"../node_modules/lodash-es/identity.js"}],"../node_modules/lodash-es/_baseLt.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * The base implementation of `_.lt` which doesn't coerce arguments.
+ *
+ * @private
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if `value` is less than `other`,
+ *  else `false`.
+ */
+function baseLt(value, other) {
+  return value < other;
+}
+
+exports.default = baseLt;
+},{}],"../node_modules/lodash-es/min.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseExtremum = require('./_baseExtremum.js');
+
+var _baseExtremum2 = _interopRequireDefault(_baseExtremum);
+
+var _baseLt = require('./_baseLt.js');
+
+var _baseLt2 = _interopRequireDefault(_baseLt);
+
+var _identity = require('./identity.js');
+
+var _identity2 = _interopRequireDefault(_identity);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Computes the minimum value of `array`. If `array` is empty or falsey,
+ * `undefined` is returned.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Math
+ * @param {Array} array The array to iterate over.
+ * @returns {*} Returns the minimum value.
+ * @example
+ *
+ * _.min([4, 2, 8, 6]);
+ * // => 2
+ *
+ * _.min([]);
+ * // => undefined
+ */
+function min(array) {
+  return array && array.length ? (0, _baseExtremum2.default)(array, _identity2.default, _baseLt2.default) : undefined;
+}
+
+exports.default = min;
+},{"./_baseExtremum.js":"../node_modules/lodash-es/_baseExtremum.js","./_baseLt.js":"../node_modules/lodash-es/_baseLt.js","./identity.js":"../node_modules/lodash-es/identity.js"}],"../node_modules/lodash-es/map.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _arrayMap = require('./_arrayMap.js');
+
+var _arrayMap2 = _interopRequireDefault(_arrayMap);
+
+var _baseIteratee = require('./_baseIteratee.js');
+
+var _baseIteratee2 = _interopRequireDefault(_baseIteratee);
+
+var _baseMap = require('./_baseMap.js');
+
+var _baseMap2 = _interopRequireDefault(_baseMap);
+
+var _isArray = require('./isArray.js');
+
+var _isArray2 = _interopRequireDefault(_isArray);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Creates an array of values by running each element in `collection` thru
+ * `iteratee`. The iteratee is invoked with three arguments:
+ * (value, index|key, collection).
+ *
+ * Many lodash methods are guarded to work as iteratees for methods like
+ * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
+ *
+ * The guarded methods are:
+ * `ary`, `chunk`, `curry`, `curryRight`, `drop`, `dropRight`, `every`,
+ * `fill`, `invert`, `parseInt`, `random`, `range`, `rangeRight`, `repeat`,
+ * `sampleSize`, `slice`, `some`, `sortBy`, `split`, `take`, `takeRight`,
+ * `template`, `trim`, `trimEnd`, `trimStart`, and `words`
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ * @example
+ *
+ * function square(n) {
+ *   return n * n;
+ * }
+ *
+ * _.map([4, 8], square);
+ * // => [16, 64]
+ *
+ * _.map({ 'a': 4, 'b': 8 }, square);
+ * // => [16, 64] (iteration order is not guaranteed)
+ *
+ * var users = [
+ *   { 'user': 'barney' },
+ *   { 'user': 'fred' }
+ * ];
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.map(users, 'user');
+ * // => ['barney', 'fred']
+ */
+function map(collection, iteratee) {
+  var func = (0, _isArray2.default)(collection) ? _arrayMap2.default : _baseMap2.default;
+  return func(collection, (0, _baseIteratee2.default)(iteratee, 3));
+}
+
+exports.default = map;
+},{"./_arrayMap.js":"../node_modules/lodash-es/_arrayMap.js","./_baseIteratee.js":"../node_modules/lodash-es/_baseIteratee.js","./_baseMap.js":"../node_modules/lodash-es/_baseMap.js","./isArray.js":"../node_modules/lodash-es/isArray.js"}],"../node_modules/lodash-es/flatMap.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseFlatten = require('./_baseFlatten.js');
+
+var _baseFlatten2 = _interopRequireDefault(_baseFlatten);
+
+var _map = require('./map.js');
+
+var _map2 = _interopRequireDefault(_map);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Creates a flattened array of values by running each element in `collection`
+ * thru `iteratee` and flattening the mapped results. The iteratee is invoked
+ * with three arguments: (value, index|key, collection).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @returns {Array} Returns the new flattened array.
+ * @example
+ *
+ * function duplicate(n) {
+ *   return [n, n];
+ * }
+ *
+ * _.flatMap([1, 2], duplicate);
+ * // => [1, 1, 2, 2]
+ */
+function flatMap(collection, iteratee) {
+  return (0, _baseFlatten2.default)((0, _map2.default)(collection, iteratee), 1);
+}
+
+exports.default = flatMap;
+},{"./_baseFlatten.js":"../node_modules/lodash-es/_baseFlatten.js","./map.js":"../node_modules/lodash-es/map.js"}],"../node_modules/recharts-scale/lib/util/utils.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var identity = function identity(i) {
+  return i;
+};
+
+var PLACE_HOLDER = exports.PLACE_HOLDER = {
+  '@@functional/placeholder': true
+};
+
+var isPlaceHolder = function isPlaceHolder(val) {
+  return val === PLACE_HOLDER;
+};
+
+var curry0 = function curry0(fn) {
+  return function _curried() {
+    if (arguments.length === 0 || arguments.length === 1 && isPlaceHolder(arguments.length <= 0 ? undefined : arguments[0])) {
+      return _curried;
+    }
+
+    return fn.apply(undefined, arguments);
+  };
+};
+
+var curryN = function curryN(n, fn) {
+  if (n === 1) {
+    return fn;
+  }
+
+  return curry0(function () {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    var argsLength = args.filter(function (arg) {
+      return arg !== PLACE_HOLDER;
+    }).length;
+
+    if (argsLength >= n) {
+      return fn.apply(undefined, args);
+    }
+
+    return curryN(n - argsLength, curry0(function () {
+      for (var _len2 = arguments.length, restArgs = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        restArgs[_key2] = arguments[_key2];
+      }
+
+      var newArgs = args.map(function (arg) {
+        return isPlaceHolder(arg) ? restArgs.shift() : arg;
+      });
+
+      return fn.apply(undefined, _toConsumableArray(newArgs).concat(restArgs));
+    }));
+  });
+};
+
+var curry = exports.curry = function curry(fn) {
+  return curryN(fn.length, fn);
+};
+
+var range = exports.range = function range(begin, end) {
+  var arr = [];
+
+  for (var i = begin; i < end; ++i) {
+    arr[i - begin] = i;
+  }
+
+  return arr;
+};
+
+var map = exports.map = curry(function (fn, arr) {
+  if (Array.isArray(arr)) {
+    return arr.map(fn);
+  }
+
+  return Object.keys(arr).map(function (key) {
+    return arr[key];
+  }).map(fn);
+});
+
+var compose = exports.compose = function compose() {
+  for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+    args[_key3] = arguments[_key3];
+  }
+
+  if (!args.length) {
+    return identity;
+  }
+
+  var fns = args.reverse();
+  // first function can receive multiply arguments
+  var firstFn = fns[0];
+  var tailsFn = fns.slice(1);
+
+  return function () {
+    return tailsFn.reduce(function (res, fn) {
+      return fn(res);
+    }, firstFn.apply(undefined, arguments));
+  };
+};
+
+var reverse = exports.reverse = function reverse(arr) {
+  if (Array.isArray(arr)) {
+    return arr.reverse();
+  }
+
+  // can be string
+  return arr.split('').reverse.join('');
+};
+
+var memoize = exports.memoize = function memoize(fn) {
+  var lastArgs = null;
+  var lastResult = null;
+
+  return function () {
+    for (var _len4 = arguments.length, args = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+      args[_key4] = arguments[_key4];
+    }
+
+    if (lastArgs && args.every(function (val, i) {
+      return val === lastArgs[i];
+    })) {
+      return lastResult;
+    }
+
+    lastArgs = args;
+    lastResult = fn.apply(undefined, args);
+
+    return lastResult;
+  };
+};
+},{}],"../node_modules/recharts-scale/lib/util/arithmetic.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _utils = require('./utils');
+
+/**
+ * 把错误的数据转正
+ * strip(0.09999999999999998)=0.1
+ * @param {Number} num       输入值
+ * @param {Number} precision 精度
+ * @return {Number} 数值
+ */
+function strip(num) {
+  var precision = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 12;
+
+  return +parseFloat(num.toPrecision(precision));
+}
+
+/**
+ * 判断数据是否为浮点类型
+ *
+ * @param {Number} num 输入值
+ * @return {Boolean} 是否是浮点类型
+ */
+/**
+ * @fileOverview 一些公用的运算方法
+ * @author xile611
+ * @date 2015-09-17
+ */
+function isFloat(num) {
+  return (/^([+-]?)\d*\.\d+$/.test(num)
+  );
+}
+
+/**
+ * 获取数值的位数
+ * 其中绝对值属于区间[0.1, 1)， 得到的值为0
+ * 绝对值属于区间[0.01, 0.1)，得到的位数为 -1
+ * 绝对值属于区间[0.001, 0.01)，得到的位数为 -2
+ *
+ * @param  {Number} value 数值
+ * @return {Integer} 位数
+ */
+function getDigitCount(value) {
+  var abs = Math.abs(value);
+  var result = void 0;
+
+  if (value === 0) {
+    result = 1;
+  } else {
+    result = Math.floor(Math.log(abs) / Math.log(10)) + 1;
+  }
+
+  return result;
+}
+/**
+ * 计算数值的小数点后的位数
+ * @param  {Number} a 数值，可能为整数，也可能为浮点数
+ * @return {Integer}   位数
+ */
+function getDecimalDigitCount(a) {
+  var str = a ? '' + a : '';
+
+  // scientific notation
+  if (str.indexOf('e') >= 0) {
+    return Math.abs(parseInt(str.slice(str.indexOf('e') + 1), 10));
+  }
+  var ary = str.split('.');
+
+  return ary.length > 1 ? ary[1].length : 0;
+}
+/**
+ * 乘法运算，解决了js运算的精度问题
+ * @param  {Number} a 被乘数
+ * @param  {Number} b 乘数
+ * @return {Number}   积
+ */
+function multiply(a, b) {
+  var intA = parseInt(('' + a).replace('.', ''), 10);
+  var intB = parseInt(('' + b).replace('.', ''), 10);
+  var count = getDecimalDigitCount(a) + getDecimalDigitCount(b);
+
+  return intA * intB / Math.pow(10, count);
+}
+/**
+ * 加法运算，解决了js运算的精度问题
+ * @param  {Number} a 被加数
+ * @param  {Number} b 加数
+ * @return {Number}   和
+ */
+function sum(a, b) {
+  var count = Math.max(getDecimalDigitCount(a), getDecimalDigitCount(b));
+
+  count = Math.pow(10, count);
+  return (multiply(a, count) + multiply(b, count)) / count;
+}
+/**
+ * 减法运算，解决了js运算的精度问题
+ * @param  {Number} a 被减数
+ * @param  {Number} b 减数
+ * @return {Number}   差
+ */
+function minus(a, b) {
+  return sum(a, -b);
+}
+/**
+ * 除法运算，解决了js运算的精度问题
+ * @param  {Number} a 被除数
+ * @param  {Number} b 除数
+ * @return {Number}   结果
+ */
+function divide(a, b) {
+  var ca = getDecimalDigitCount(a);
+  var cb = getDecimalDigitCount(b);
+  var intA = parseInt(('' + a).replace('.', ''), 10);
+  var intB = parseInt(('' + b).replace('.', ''), 10);
+
+  return intA / intB * Math.pow(10, cb - ca);
+}
+
+function modulo(a, b) {
+  var mod = Math.abs(b);
+
+  if (b <= 0) {
+    return a;
+  }
+
+  var cnt = Math.floor(a / mod);
+
+  return minus(a, multiply(mod, cnt));
+}
+
+/**
+ * 按照固定的步长获取[start, end)这个区间的数据
+ * 并且需要处理js计算精度的问题
+ *
+ * @param  {Number} start 起点
+ * @param  {Number} end   终点，不包含该值
+ * @param  {Number} step  步长
+ * @return {Array}        若干数值
+ */
+function rangeStep(start, end, step) {
+  var num = start;
+  var result = [];
+
+  while (num < end) {
+    result.push(num);
+
+    num = sum(num, step);
+  }
+
+  return result;
+}
+/**
+ * 对数值进行线性插值
+ *
+ * @param  {Number} a  定义域的极点
+ * @param  {Number} b  定义域的极点
+ * @param  {Number} t  [0, 1]内的某个值
+ * @return {Number}    定义域内的某个值
+ */
+var interpolateNumber = (0, _utils.curry)(function (a, b, t) {
+  var newA = +a;
+  var newB = +b;
+
+  return newA + t * (newB - newA);
+});
+/**
+ * 线性插值的逆运算
+ *
+ * @param  {Number} a 定义域的极点
+ * @param  {Number} b 定义域的极点
+ * @param  {Number} x 可以认为是插值后的一个输出值
+ * @return {Number}   当x在 a ~ b这个范围内时，返回值属于[0, 1]
+ */
+var uninterpolateNumber = (0, _utils.curry)(function (a, b, x) {
+  var diff = b - +a;
+
+  diff = diff || Infinity;
+
+  return (x - a) / diff;
+});
+/**
+ * 线性插值的逆运算，并且有截断的操作
+ *
+ * @param  {Number} a 定义域的极点
+ * @param  {Number} b 定义域的极点
+ * @param  {Number} x 可以认为是插值后的一个输出值
+ * @return {Number}   当x在 a ~ b这个区间内时，返回值属于[0, 1]，
+ * 当x不在 a ~ b这个区间时，会截断到 a ~ b 这个区间
+ */
+var uninterpolateTruncation = (0, _utils.curry)(function (a, b, x) {
+  var diff = b - +a;
+
+  diff = diff || Infinity;
+
+  return Math.max(0, Math.min(1, (x - a) / diff));
+});
+
+exports.default = {
+  rangeStep: rangeStep,
+  isFloat: isFloat,
+  getDigitCount: getDigitCount,
+  getDecimalDigitCount: getDecimalDigitCount,
+
+  sum: sum,
+  minus: minus,
+  multiply: multiply,
+  divide: divide,
+  modulo: modulo,
+  strip: strip,
+
+  interpolateNumber: interpolateNumber,
+  uninterpolateNumber: uninterpolateNumber,
+  uninterpolateTruncation: uninterpolateTruncation
+};
+},{"./utils":"../node_modules/recharts-scale/lib/util/utils.js"}],"../node_modules/recharts-scale/lib/getNiceTickValues.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getTickValuesFixedDomain = exports.getTickValues = exports.getNiceTickValues = undefined;
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * @fileOverview calculate tick values of scale
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * @author xile611, arcthur
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * @date 2015-09-17
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          */
+
+var _utils = require('./util/utils');
+
+var _arithmetic = require('./util/arithmetic');
+
+var _arithmetic2 = _interopRequireDefault(_arithmetic);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+/**
+ * Calculate a interval of a minimum value and a maximum value
+ *
+ * @param  {Number} min       The minimum value
+ * @param  {Number} max       The maximum value
+ * @return {Array} An interval
+ */
+function getValidInterval(_ref) {
+  var _ref2 = _slicedToArray(_ref, 2),
+      min = _ref2[0],
+      max = _ref2[1];
+
+  var validMin = min,
+      validMax = max;
+
+  // exchange
+
+  if (min > max) {
+    validMin = max;
+    validMax = min;
+  }
+
+  return [validMin, validMax];
+}
+
+/**
+ * Calculate the step which is easy to understand between ticks, like 10, 20, 25
+ *
+ * @param  {Number}  roughStep        The rough step calculated by deviding the
+ * difference by the tickCount
+ * @param  {Boolean} allowDecimals    Allow the ticks to be decimals or not
+ * @param  {Integer} correctionFactor A correction factor
+ * @return {Number}  The step which is easy to understand between two ticks
+ */
+function getFormatStep(roughStep, allowDecimals, correctionFactor) {
+  if (roughStep <= 0) {
+    return 0;
+  }
+
+  var digitCount = _arithmetic2.default.getDigitCount(roughStep);
+  // The ratio between the rough step and the smallest number which has a bigger
+  // order of magnitudes than the rough step
+  var stepRatio = roughStep / Math.pow(10, digitCount);
+  // When an integer and a float multiplied, the accuracy of result may be wrong
+  var amendStepRatio = digitCount !== 1 ? _arithmetic2.default.multiply(Math.ceil(stepRatio / 0.05) + correctionFactor, 0.05) : _arithmetic2.default.multiply(Math.ceil(stepRatio / 0.1) + correctionFactor, 0.1);
+
+  var formatStep = _arithmetic2.default.multiply(amendStepRatio, Math.pow(10, digitCount));
+
+  return allowDecimals ? formatStep : Math.ceil(formatStep);
+}
+
+/**
+ * calculate the ticks when the minimum value equals to the maximum value
+ *
+ * @param  {Number}  value         The minimum valuue which is also the maximum value
+ * @param  {Integer} tickCount     The count of ticks
+ * @param  {Boolean} allowDecimals Allow the ticks to be decimals or not
+ * @return {Array}                 ticks
+ */
+function getTickOfSingleValue(value, tickCount, allowDecimals) {
+  var isFlt = _arithmetic2.default.isFloat(value);
+  var step = 1;
+  // calculate the middle value of ticks
+  var middle = value;
+
+  if (isFlt && allowDecimals) {
+    var absVal = Math.abs(value);
+
+    if (absVal < 1) {
+      // The step should be a float number when the difference is smaller than 1
+      step = Math.pow(10, _arithmetic2.default.getDigitCount(value) - 1);
+
+      middle = _arithmetic2.default.multiply(Math.floor(value / step), step);
+    } else if (absVal > 1) {
+      // Return the maximum integer which is smaller than 'value' when 'value' is greater than 1
+      middle = Math.floor(value);
+    }
+  } else if (value === 0) {
+    middle = Math.floor((tickCount - 1) / 2);
+  } else if (!allowDecimals) {
+    middle = Math.floor(value);
+  }
+
+  var middleIndex = Math.floor((tickCount - 1) / 2);
+
+  var fn = (0, _utils.compose)((0, _utils.map)(function (n) {
+    return _arithmetic2.default.sum(middle, _arithmetic2.default.multiply(n - middleIndex, step));
+  }), _utils.range);
+
+  return fn(0, tickCount);
+}
+
+/**
+ * Calculate the step
+ *
+ * @param  {Number}  min              The minimum value of an interval
+ * @param  {Number}  max              The maximum value of an interval
+ * @param  {Integer} tickCount        The count of ticks
+ * @param  {Boolean} allowDecimals    Allow the ticks to be decimals or not
+ * @param  {Number}  correctionFactor A correction factor
+ * @return {Object}  The step, minimum value of ticks, maximum value of ticks
+ */
+function calculateStep(min, max, tickCount, allowDecimals) {
+  var correctionFactor = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
+
+  // The step which is easy to understand between two ticks
+  var step = getFormatStep((max - min) / (tickCount - 1), allowDecimals, correctionFactor);
+
+  // A medial value of ticks
+  var middle = void 0;
+
+  // When 0 is inside the interval, 0 should be a tick
+  if (min <= 0 && max >= 0) {
+    middle = 0;
+  } else {
+    // calculate the middle value
+    middle = _arithmetic2.default.divide(_arithmetic2.default.sum(min, max), 2);
+    // minus modulo value
+    middle = _arithmetic2.default.minus(middle, _arithmetic2.default.modulo(middle, step));
+    // strip
+    middle = _arithmetic2.default.strip(middle, 16);
+  }
+
+  var belowCount = Math.ceil((middle - min) / step);
+  var upCount = Math.ceil((max - middle) / step);
+  var scaleCount = belowCount + upCount + 1;
+
+  if (scaleCount > tickCount) {
+    // When more ticks need to cover the interval, step should be bigger.
+    return calculateStep(min, max, tickCount, allowDecimals, correctionFactor + 1);
+  } else if (scaleCount < tickCount) {
+    // When less ticks can cover the interval, we should add some additional ticks
+    upCount = max > 0 ? upCount + (tickCount - scaleCount) : upCount;
+    belowCount = max > 0 ? belowCount : belowCount + (tickCount - scaleCount);
+  }
+
+  return {
+    step: step,
+    tickMin: _arithmetic2.default.minus(middle, _arithmetic2.default.multiply(belowCount, step)),
+    tickMax: _arithmetic2.default.sum(middle, _arithmetic2.default.multiply(upCount, step))
+  };
+}
+/**
+ * Calculate the ticks of an interval
+ *
+ * @param  {Number}  min, max      min: The minimum value, max: The maximum value
+ * @param  {Integer} tickCount     The count of ticks
+ * @param  {Boolean} allowDecimals Allow the ticks to be decimals or not
+ * @return {Array}   ticks
+ */
+function getNiceTickValuesFn(_ref3) {
+  var _ref4 = _slicedToArray(_ref3, 2),
+      min = _ref4[0],
+      max = _ref4[1];
+
+  var tickCount = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 6;
+  var allowDecimals = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+  // More than two ticks should be return
+  var count = Math.max(tickCount, 2);
+
+  var _getValidInterval = getValidInterval([min, max]),
+      _getValidInterval2 = _slicedToArray(_getValidInterval, 2),
+      cormin = _getValidInterval2[0],
+      cormax = _getValidInterval2[1];
+
+  if (cormin === cormax) {
+    return getTickOfSingleValue(cormin, tickCount, allowDecimals);
+  }
+
+  // Get the step between two ticks
+
+  var _calculateStep = calculateStep(cormin, cormax, count, allowDecimals),
+      step = _calculateStep.step,
+      tickMin = _calculateStep.tickMin,
+      tickMax = _calculateStep.tickMax;
+
+  var values = _arithmetic2.default.rangeStep(tickMin, tickMax + 0.1 * step, step);
+
+  return min > max ? (0, _utils.reverse)(values) : values;
+}
+
+function getTickValuesFn(_ref5) {
+  var _ref6 = _slicedToArray(_ref5, 2),
+      min = _ref6[0],
+      max = _ref6[1];
+
+  var tickCount = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 6;
+  var allowDecimals = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+  // More than two ticks should be return
+  var count = Math.max(tickCount, 2);
+
+  var _getValidInterval3 = getValidInterval([min, max]),
+      _getValidInterval4 = _slicedToArray(_getValidInterval3, 2),
+      cormin = _getValidInterval4[0],
+      cormax = _getValidInterval4[1];
+
+  if (cormin === cormax) {
+    return getTickOfSingleValue(cormin, tickCount, allowDecimals);
+  }
+
+  var step = getFormatStep((cormax - cormin) / (count - 1), allowDecimals, 0);
+
+  var fn = (0, _utils.compose)((0, _utils.map)(function (n) {
+    return cormin + n * step;
+  }), _utils.range);
+
+  var values = fn(0, count).filter(function (entry) {
+    return entry >= cormin && entry <= cormax;
+  });
+
+  return min > max ? (0, _utils.reverse)(values) : values;
+}
+
+function getTickValuesFixedDomainFn(_ref7, tickCount) {
+  var _ref8 = _slicedToArray(_ref7, 2),
+      min = _ref8[0],
+      max = _ref8[1];
+
+  var allowDecimals = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+  // More than two ticks should be return
+  var _getValidInterval5 = getValidInterval([min, max]),
+      _getValidInterval6 = _slicedToArray(_getValidInterval5, 2),
+      cormin = _getValidInterval6[0],
+      cormax = _getValidInterval6[1];
+
+  if (cormin === cormax) {
+    return [cormin];
+  }
+
+  var count = Math.max(tickCount, 2);
+  var step = getFormatStep((cormax - cormin) / (count - 1), allowDecimals, 0);
+  var values = [].concat(_toConsumableArray(_arithmetic2.default.rangeStep(cormin, cormax - 0.99 * step, step)), [cormax]);
+
+  return min > max ? (0, _utils.reverse)(values) : values;
+}
+
+var getNiceTickValues = exports.getNiceTickValues = (0, _utils.memoize)(getNiceTickValuesFn);
+var getTickValues = exports.getTickValues = (0, _utils.memoize)(getTickValuesFn);
+var getTickValuesFixedDomain = exports.getTickValuesFixedDomain = (0, _utils.memoize)(getTickValuesFixedDomainFn);
+},{"./util/utils":"../node_modules/recharts-scale/lib/util/utils.js","./util/arithmetic":"../node_modules/recharts-scale/lib/util/arithmetic.js"}],"../node_modules/recharts-scale/lib/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getNiceTickValues = require('./getNiceTickValues');
+
+Object.defineProperty(exports, 'getTickValues', {
+  enumerable: true,
+  get: function get() {
+    return _getNiceTickValues.getTickValues;
+  }
+});
+Object.defineProperty(exports, 'getNiceTickValues', {
+  enumerable: true,
+  get: function get() {
+    return _getNiceTickValues.getNiceTickValues;
+  }
+});
+Object.defineProperty(exports, 'getTickValuesFixedDomain', {
+  enumerable: true,
+  get: function get() {
+    return _getNiceTickValues.getTickValuesFixedDomain;
+  }
+});
+},{"./getNiceTickValues":"../node_modules/recharts-scale/lib/getNiceTickValues.js"}],"../node_modules/d3-array/src/ascending.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (a, b) {
+  return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
+};
+},{}],"../node_modules/d3-array/src/bisector.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (compare) {
+  if (compare.length === 1) compare = ascendingComparator(compare);
+  return {
+    left: function (a, x, lo, hi) {
+      if (lo == null) lo = 0;
+      if (hi == null) hi = a.length;
+      while (lo < hi) {
+        var mid = lo + hi >>> 1;
+        if (compare(a[mid], x) < 0) lo = mid + 1;else hi = mid;
+      }
+      return lo;
+    },
+    right: function (a, x, lo, hi) {
+      if (lo == null) lo = 0;
+      if (hi == null) hi = a.length;
+      while (lo < hi) {
+        var mid = lo + hi >>> 1;
+        if (compare(a[mid], x) > 0) hi = mid;else lo = mid + 1;
+      }
+      return lo;
+    }
+  };
+};
+
+var _ascending = require("./ascending");
+
+var _ascending2 = _interopRequireDefault(_ascending);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ascendingComparator(f) {
+  return function (d, x) {
+    return (0, _ascending2.default)(f(d), x);
+  };
+}
+},{"./ascending":"../node_modules/d3-array/src/ascending.js"}],"../node_modules/d3-array/src/bisect.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.bisectLeft = exports.bisectRight = undefined;
+
+var _ascending = require("./ascending");
+
+var _ascending2 = _interopRequireDefault(_ascending);
+
+var _bisector = require("./bisector");
+
+var _bisector2 = _interopRequireDefault(_bisector);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ascendingBisect = (0, _bisector2.default)(_ascending2.default);
+var bisectRight = exports.bisectRight = ascendingBisect.right;
+var bisectLeft = exports.bisectLeft = ascendingBisect.left;
+exports.default = bisectRight;
+},{"./ascending":"../node_modules/d3-array/src/ascending.js","./bisector":"../node_modules/d3-array/src/bisector.js"}],"../node_modules/d3-array/src/pairs.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (array, f) {
+  if (f == null) f = pair;
+  var i = 0,
+      n = array.length - 1,
+      p = array[0],
+      pairs = new Array(n < 0 ? 0 : n);
+  while (i < n) pairs[i] = f(p, p = array[++i]);
+  return pairs;
+};
+
+exports.pair = pair;
+function pair(a, b) {
+  return [a, b];
+}
+},{}],"../node_modules/d3-array/src/cross.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values0, values1, reduce) {
+  var n0 = values0.length,
+      n1 = values1.length,
+      values = new Array(n0 * n1),
+      i0,
+      i1,
+      i,
+      value0;
+
+  if (reduce == null) reduce = _pairs.pair;
+
+  for (i0 = i = 0; i0 < n0; ++i0) {
+    for (value0 = values0[i0], i1 = 0; i1 < n1; ++i1, ++i) {
+      values[i] = reduce(value0, values1[i1]);
+    }
+  }
+
+  return values;
+};
+
+var _pairs = require("./pairs");
+},{"./pairs":"../node_modules/d3-array/src/pairs.js"}],"../node_modules/d3-array/src/descending.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (a, b) {
+  return b < a ? -1 : b > a ? 1 : b >= a ? 0 : NaN;
+};
+},{}],"../node_modules/d3-array/src/number.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (x) {
+  return x === null ? NaN : +x;
+};
+},{}],"../node_modules/d3-array/src/variance.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values, valueof) {
+  var n = values.length,
+      m = 0,
+      i = -1,
+      mean = 0,
+      value,
+      delta,
+      sum = 0;
+
+  if (valueof == null) {
+    while (++i < n) {
+      if (!isNaN(value = (0, _number2.default)(values[i]))) {
+        delta = value - mean;
+        mean += delta / ++m;
+        sum += delta * (value - mean);
+      }
+    }
+  } else {
+    while (++i < n) {
+      if (!isNaN(value = (0, _number2.default)(valueof(values[i], i, values)))) {
+        delta = value - mean;
+        mean += delta / ++m;
+        sum += delta * (value - mean);
+      }
+    }
+  }
+
+  if (m > 1) return sum / (m - 1);
+};
+
+var _number = require("./number");
+
+var _number2 = _interopRequireDefault(_number);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./number":"../node_modules/d3-array/src/number.js"}],"../node_modules/d3-array/src/deviation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (array, f) {
+  var v = (0, _variance2.default)(array, f);
+  return v ? Math.sqrt(v) : v;
+};
+
+var _variance = require("./variance");
+
+var _variance2 = _interopRequireDefault(_variance);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./variance":"../node_modules/d3-array/src/variance.js"}],"../node_modules/d3-array/src/extent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values, valueof) {
+  var n = values.length,
+      i = -1,
+      value,
+      min,
+      max;
+
+  if (valueof == null) {
+    while (++i < n) {
+      // Find the first comparable value.
+      if ((value = values[i]) != null && value >= value) {
+        min = max = value;
+        while (++i < n) {
+          // Compare the remaining values.
+          if ((value = values[i]) != null) {
+            if (min > value) min = value;
+            if (max < value) max = value;
+          }
+        }
+      }
+    }
+  } else {
+    while (++i < n) {
+      // Find the first comparable value.
+      if ((value = valueof(values[i], i, values)) != null && value >= value) {
+        min = max = value;
+        while (++i < n) {
+          // Compare the remaining values.
+          if ((value = valueof(values[i], i, values)) != null) {
+            if (min > value) min = value;
+            if (max < value) max = value;
+          }
+        }
+      }
+    }
+  }
+
+  return [min, max];
+};
+},{}],"../node_modules/d3-array/src/array.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var array = Array.prototype;
+
+var slice = exports.slice = array.slice;
+var map = exports.map = array.map;
+},{}],"../node_modules/d3-array/src/constant.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (x) {
+  return function () {
+    return x;
+  };
+};
+},{}],"../node_modules/d3-array/src/identity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (x) {
+  return x;
+};
+},{}],"../node_modules/d3-array/src/range.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (start, stop, step) {
+  start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
+
+  var i = -1,
+      n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
+      range = new Array(n);
+
+  while (++i < n) {
+    range[i] = start + i * step;
+  }
+
+  return range;
+};
+},{}],"../node_modules/d3-array/src/ticks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function (start, stop, count) {
+    var reverse,
+        i = -1,
+        n,
+        ticks,
+        step;
+
+    stop = +stop, start = +start, count = +count;
+    if (start === stop && count > 0) return [start];
+    if (reverse = stop < start) n = start, start = stop, stop = n;
+    if ((step = tickIncrement(start, stop, count)) === 0 || !isFinite(step)) return [];
+
+    if (step > 0) {
+        start = Math.ceil(start / step);
+        stop = Math.floor(stop / step);
+        ticks = new Array(n = Math.ceil(stop - start + 1));
+        while (++i < n) ticks[i] = (start + i) * step;
+    } else {
+        start = Math.floor(start * step);
+        stop = Math.ceil(stop * step);
+        ticks = new Array(n = Math.ceil(start - stop + 1));
+        while (++i < n) ticks[i] = (start - i) / step;
+    }
+
+    if (reverse) ticks.reverse();
+
+    return ticks;
+};
+
+exports.tickIncrement = tickIncrement;
+exports.tickStep = tickStep;
+var e10 = Math.sqrt(50),
+    e5 = Math.sqrt(10),
+    e2 = Math.sqrt(2);
+
+function tickIncrement(start, stop, count) {
+    var step = (stop - start) / Math.max(0, count),
+        power = Math.floor(Math.log(step) / Math.LN10),
+        error = step / Math.pow(10, power);
+    return power >= 0 ? (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * Math.pow(10, power) : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
+}
+
+function tickStep(start, stop, count) {
+    var step0 = Math.abs(stop - start) / Math.max(0, count),
+        step1 = Math.pow(10, Math.floor(Math.log(step0) / Math.LN10)),
+        error = step0 / step1;
+    if (error >= e10) step1 *= 10;else if (error >= e5) step1 *= 5;else if (error >= e2) step1 *= 2;
+    return stop < start ? -step1 : step1;
+}
+},{}],"../node_modules/d3-array/src/threshold/sturges.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values) {
+  return Math.ceil(Math.log(values.length) / Math.LN2) + 1;
+};
+},{}],"../node_modules/d3-array/src/histogram.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function () {
+  var value = _identity2.default,
+      domain = _extent2.default,
+      threshold = _sturges2.default;
+
+  function histogram(data) {
+    var i,
+        n = data.length,
+        x,
+        values = new Array(n);
+
+    for (i = 0; i < n; ++i) {
+      values[i] = value(data[i], i, data);
+    }
+
+    var xz = domain(values),
+        x0 = xz[0],
+        x1 = xz[1],
+        tz = threshold(values, x0, x1);
+
+    // Convert number of thresholds into uniform thresholds.
+    if (!Array.isArray(tz)) {
+      tz = (0, _ticks.tickStep)(x0, x1, tz);
+      tz = (0, _range2.default)(Math.ceil(x0 / tz) * tz, x1, tz); // exclusive
+    }
+
+    // Remove any thresholds outside the domain.
+    var m = tz.length;
+    while (tz[0] <= x0) tz.shift(), --m;
+    while (tz[m - 1] > x1) tz.pop(), --m;
+
+    var bins = new Array(m + 1),
+        bin;
+
+    // Initialize bins.
+    for (i = 0; i <= m; ++i) {
+      bin = bins[i] = [];
+      bin.x0 = i > 0 ? tz[i - 1] : x0;
+      bin.x1 = i < m ? tz[i] : x1;
+    }
+
+    // Assign data to bins by value, ignoring any outside the domain.
+    for (i = 0; i < n; ++i) {
+      x = values[i];
+      if (x0 <= x && x <= x1) {
+        bins[(0, _bisect2.default)(tz, x, 0, m)].push(data[i]);
+      }
+    }
+
+    return bins;
+  }
+
+  histogram.value = function (_) {
+    return arguments.length ? (value = typeof _ === "function" ? _ : (0, _constant2.default)(_), histogram) : value;
+  };
+
+  histogram.domain = function (_) {
+    return arguments.length ? (domain = typeof _ === "function" ? _ : (0, _constant2.default)([_[0], _[1]]), histogram) : domain;
+  };
+
+  histogram.thresholds = function (_) {
+    return arguments.length ? (threshold = typeof _ === "function" ? _ : Array.isArray(_) ? (0, _constant2.default)(_array.slice.call(_)) : (0, _constant2.default)(_), histogram) : threshold;
+  };
+
+  return histogram;
+};
+
+var _array = require("./array");
+
+var _bisect = require("./bisect");
+
+var _bisect2 = _interopRequireDefault(_bisect);
+
+var _constant = require("./constant");
+
+var _constant2 = _interopRequireDefault(_constant);
+
+var _extent = require("./extent");
+
+var _extent2 = _interopRequireDefault(_extent);
+
+var _identity = require("./identity");
+
+var _identity2 = _interopRequireDefault(_identity);
+
+var _range = require("./range");
+
+var _range2 = _interopRequireDefault(_range);
+
+var _ticks = require("./ticks");
+
+var _sturges = require("./threshold/sturges");
+
+var _sturges2 = _interopRequireDefault(_sturges);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./array":"../node_modules/d3-array/src/array.js","./bisect":"../node_modules/d3-array/src/bisect.js","./constant":"../node_modules/d3-array/src/constant.js","./extent":"../node_modules/d3-array/src/extent.js","./identity":"../node_modules/d3-array/src/identity.js","./range":"../node_modules/d3-array/src/range.js","./ticks":"../node_modules/d3-array/src/ticks.js","./threshold/sturges":"../node_modules/d3-array/src/threshold/sturges.js"}],"../node_modules/d3-array/src/quantile.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values, p, valueof) {
+  if (valueof == null) valueof = _number2.default;
+  if (!(n = values.length)) return;
+  if ((p = +p) <= 0 || n < 2) return +valueof(values[0], 0, values);
+  if (p >= 1) return +valueof(values[n - 1], n - 1, values);
+  var n,
+      i = (n - 1) * p,
+      i0 = Math.floor(i),
+      value0 = +valueof(values[i0], i0, values),
+      value1 = +valueof(values[i0 + 1], i0 + 1, values);
+  return value0 + (value1 - value0) * (i - i0);
+};
+
+var _number = require("./number");
+
+var _number2 = _interopRequireDefault(_number);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./number":"../node_modules/d3-array/src/number.js"}],"../node_modules/d3-array/src/threshold/freedmanDiaconis.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values, min, max) {
+  values = _array.map.call(values, _number2.default).sort(_ascending2.default);
+  return Math.ceil((max - min) / (2 * ((0, _quantile2.default)(values, 0.75) - (0, _quantile2.default)(values, 0.25)) * Math.pow(values.length, -1 / 3)));
+};
+
+var _array = require("../array");
+
+var _ascending = require("../ascending");
+
+var _ascending2 = _interopRequireDefault(_ascending);
+
+var _number = require("../number");
+
+var _number2 = _interopRequireDefault(_number);
+
+var _quantile = require("../quantile");
+
+var _quantile2 = _interopRequireDefault(_quantile);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"../array":"../node_modules/d3-array/src/array.js","../ascending":"../node_modules/d3-array/src/ascending.js","../number":"../node_modules/d3-array/src/number.js","../quantile":"../node_modules/d3-array/src/quantile.js"}],"../node_modules/d3-array/src/threshold/scott.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values, min, max) {
+  return Math.ceil((max - min) / (3.5 * (0, _deviation2.default)(values) * Math.pow(values.length, -1 / 3)));
+};
+
+var _deviation = require("../deviation");
+
+var _deviation2 = _interopRequireDefault(_deviation);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"../deviation":"../node_modules/d3-array/src/deviation.js"}],"../node_modules/d3-array/src/max.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values, valueof) {
+  var n = values.length,
+      i = -1,
+      value,
+      max;
+
+  if (valueof == null) {
+    while (++i < n) {
+      // Find the first comparable value.
+      if ((value = values[i]) != null && value >= value) {
+        max = value;
+        while (++i < n) {
+          // Compare the remaining values.
+          if ((value = values[i]) != null && value > max) {
+            max = value;
+          }
+        }
+      }
+    }
+  } else {
+    while (++i < n) {
+      // Find the first comparable value.
+      if ((value = valueof(values[i], i, values)) != null && value >= value) {
+        max = value;
+        while (++i < n) {
+          // Compare the remaining values.
+          if ((value = valueof(values[i], i, values)) != null && value > max) {
+            max = value;
+          }
+        }
+      }
+    }
+  }
+
+  return max;
+};
+},{}],"../node_modules/d3-array/src/mean.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values, valueof) {
+  var n = values.length,
+      m = n,
+      i = -1,
+      value,
+      sum = 0;
+
+  if (valueof == null) {
+    while (++i < n) {
+      if (!isNaN(value = (0, _number2.default)(values[i]))) sum += value;else --m;
+    }
+  } else {
+    while (++i < n) {
+      if (!isNaN(value = (0, _number2.default)(valueof(values[i], i, values)))) sum += value;else --m;
+    }
+  }
+
+  if (m) return sum / m;
+};
+
+var _number = require("./number");
+
+var _number2 = _interopRequireDefault(_number);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./number":"../node_modules/d3-array/src/number.js"}],"../node_modules/d3-array/src/median.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values, valueof) {
+  var n = values.length,
+      i = -1,
+      value,
+      numbers = [];
+
+  if (valueof == null) {
+    while (++i < n) {
+      if (!isNaN(value = (0, _number2.default)(values[i]))) {
+        numbers.push(value);
+      }
+    }
+  } else {
+    while (++i < n) {
+      if (!isNaN(value = (0, _number2.default)(valueof(values[i], i, values)))) {
+        numbers.push(value);
+      }
+    }
+  }
+
+  return (0, _quantile2.default)(numbers.sort(_ascending2.default), 0.5);
+};
+
+var _ascending = require("./ascending");
+
+var _ascending2 = _interopRequireDefault(_ascending);
+
+var _number = require("./number");
+
+var _number2 = _interopRequireDefault(_number);
+
+var _quantile = require("./quantile");
+
+var _quantile2 = _interopRequireDefault(_quantile);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./ascending":"../node_modules/d3-array/src/ascending.js","./number":"../node_modules/d3-array/src/number.js","./quantile":"../node_modules/d3-array/src/quantile.js"}],"../node_modules/d3-array/src/merge.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (arrays) {
+  var n = arrays.length,
+      m,
+      i = -1,
+      j = 0,
+      merged,
+      array;
+
+  while (++i < n) j += arrays[i].length;
+  merged = new Array(j);
+
+  while (--n >= 0) {
+    array = arrays[n];
+    m = array.length;
+    while (--m >= 0) {
+      merged[--j] = array[m];
+    }
+  }
+
+  return merged;
+};
+},{}],"../node_modules/d3-array/src/min.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values, valueof) {
+  var n = values.length,
+      i = -1,
+      value,
+      min;
+
+  if (valueof == null) {
+    while (++i < n) {
+      // Find the first comparable value.
+      if ((value = values[i]) != null && value >= value) {
+        min = value;
+        while (++i < n) {
+          // Compare the remaining values.
+          if ((value = values[i]) != null && min > value) {
+            min = value;
+          }
+        }
+      }
+    }
+  } else {
+    while (++i < n) {
+      // Find the first comparable value.
+      if ((value = valueof(values[i], i, values)) != null && value >= value) {
+        min = value;
+        while (++i < n) {
+          // Compare the remaining values.
+          if ((value = valueof(values[i], i, values)) != null && min > value) {
+            min = value;
+          }
+        }
+      }
+    }
+  }
+
+  return min;
+};
+},{}],"../node_modules/d3-array/src/permute.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (array, indexes) {
+  var i = indexes.length,
+      permutes = new Array(i);
+  while (i--) permutes[i] = array[indexes[i]];
+  return permutes;
+};
+},{}],"../node_modules/d3-array/src/scan.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values, compare) {
+  if (!(n = values.length)) return;
+  var n,
+      i = 0,
+      j = 0,
+      xi,
+      xj = values[j];
+
+  if (compare == null) compare = _ascending2.default;
+
+  while (++i < n) {
+    if (compare(xi = values[i], xj) < 0 || compare(xj, xj) !== 0) {
+      xj = xi, j = i;
+    }
+  }
+
+  if (compare(xj, xj) === 0) return j;
+};
+
+var _ascending = require("./ascending");
+
+var _ascending2 = _interopRequireDefault(_ascending);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./ascending":"../node_modules/d3-array/src/ascending.js"}],"../node_modules/d3-array/src/shuffle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (array, i0, i1) {
+  var m = (i1 == null ? array.length : i1) - (i0 = i0 == null ? 0 : +i0),
+      t,
+      i;
+
+  while (m) {
+    i = Math.random() * m-- | 0;
+    t = array[m + i0];
+    array[m + i0] = array[i + i0];
+    array[i + i0] = t;
+  }
+
+  return array;
+};
+},{}],"../node_modules/d3-array/src/sum.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values, valueof) {
+  var n = values.length,
+      i = -1,
+      value,
+      sum = 0;
+
+  if (valueof == null) {
+    while (++i < n) {
+      if (value = +values[i]) sum += value; // Note: zero and null are equivalent.
+    }
+  } else {
+    while (++i < n) {
+      if (value = +valueof(values[i], i, values)) sum += value;
+    }
+  }
+
+  return sum;
+};
+},{}],"../node_modules/d3-array/src/transpose.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (matrix) {
+  if (!(n = matrix.length)) return [];
+  for (var i = -1, m = (0, _min2.default)(matrix, length), transpose = new Array(m); ++i < m;) {
+    for (var j = -1, n, row = transpose[i] = new Array(n); ++j < n;) {
+      row[j] = matrix[j][i];
+    }
+  }
+  return transpose;
+};
+
+var _min = require("./min");
+
+var _min2 = _interopRequireDefault(_min);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function length(d) {
+  return d.length;
+}
+},{"./min":"../node_modules/d3-array/src/min.js"}],"../node_modules/d3-array/src/zip.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function () {
+  return (0, _transpose2.default)(arguments);
+};
+
+var _transpose = require("./transpose");
+
+var _transpose2 = _interopRequireDefault(_transpose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./transpose":"../node_modules/d3-array/src/transpose.js"}],"../node_modules/d3-array/src/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _bisect = require("./bisect");
+
+Object.defineProperty(exports, "bisect", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_bisect).default;
+  }
+});
+Object.defineProperty(exports, "bisectRight", {
+  enumerable: true,
+  get: function () {
+    return _bisect.bisectRight;
+  }
+});
+Object.defineProperty(exports, "bisectLeft", {
+  enumerable: true,
+  get: function () {
+    return _bisect.bisectLeft;
+  }
+});
+
+var _ascending = require("./ascending");
+
+Object.defineProperty(exports, "ascending", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_ascending).default;
+  }
+});
+
+var _bisector = require("./bisector");
+
+Object.defineProperty(exports, "bisector", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_bisector).default;
+  }
+});
+
+var _cross = require("./cross");
+
+Object.defineProperty(exports, "cross", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_cross).default;
+  }
+});
+
+var _descending = require("./descending");
+
+Object.defineProperty(exports, "descending", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_descending).default;
+  }
+});
+
+var _deviation = require("./deviation");
+
+Object.defineProperty(exports, "deviation", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_deviation).default;
+  }
+});
+
+var _extent = require("./extent");
+
+Object.defineProperty(exports, "extent", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_extent).default;
+  }
+});
+
+var _histogram = require("./histogram");
+
+Object.defineProperty(exports, "histogram", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_histogram).default;
+  }
+});
+
+var _freedmanDiaconis = require("./threshold/freedmanDiaconis");
+
+Object.defineProperty(exports, "thresholdFreedmanDiaconis", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_freedmanDiaconis).default;
+  }
+});
+
+var _scott = require("./threshold/scott");
+
+Object.defineProperty(exports, "thresholdScott", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_scott).default;
+  }
+});
+
+var _sturges = require("./threshold/sturges");
+
+Object.defineProperty(exports, "thresholdSturges", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_sturges).default;
+  }
+});
+
+var _max = require("./max");
+
+Object.defineProperty(exports, "max", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_max).default;
+  }
+});
+
+var _mean = require("./mean");
+
+Object.defineProperty(exports, "mean", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_mean).default;
+  }
+});
+
+var _median = require("./median");
+
+Object.defineProperty(exports, "median", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_median).default;
+  }
+});
+
+var _merge = require("./merge");
+
+Object.defineProperty(exports, "merge", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_merge).default;
+  }
+});
+
+var _min = require("./min");
+
+Object.defineProperty(exports, "min", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_min).default;
+  }
+});
+
+var _pairs = require("./pairs");
+
+Object.defineProperty(exports, "pairs", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_pairs).default;
+  }
+});
+
+var _permute = require("./permute");
+
+Object.defineProperty(exports, "permute", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_permute).default;
+  }
+});
+
+var _quantile = require("./quantile");
+
+Object.defineProperty(exports, "quantile", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_quantile).default;
+  }
+});
+
+var _range = require("./range");
+
+Object.defineProperty(exports, "range", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_range).default;
+  }
+});
+
+var _scan = require("./scan");
+
+Object.defineProperty(exports, "scan", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_scan).default;
+  }
+});
+
+var _shuffle = require("./shuffle");
+
+Object.defineProperty(exports, "shuffle", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_shuffle).default;
+  }
+});
+
+var _sum = require("./sum");
+
+Object.defineProperty(exports, "sum", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_sum).default;
+  }
+});
+
+var _ticks = require("./ticks");
+
+Object.defineProperty(exports, "ticks", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_ticks).default;
+  }
+});
+Object.defineProperty(exports, "tickIncrement", {
+  enumerable: true,
+  get: function () {
+    return _ticks.tickIncrement;
+  }
+});
+Object.defineProperty(exports, "tickStep", {
+  enumerable: true,
+  get: function () {
+    return _ticks.tickStep;
+  }
+});
+
+var _transpose = require("./transpose");
+
+Object.defineProperty(exports, "transpose", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_transpose).default;
+  }
+});
+
+var _variance = require("./variance");
+
+Object.defineProperty(exports, "variance", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_variance).default;
+  }
+});
+
+var _zip = require("./zip");
+
+Object.defineProperty(exports, "zip", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_zip).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./bisect":"../node_modules/d3-array/src/bisect.js","./ascending":"../node_modules/d3-array/src/ascending.js","./bisector":"../node_modules/d3-array/src/bisector.js","./cross":"../node_modules/d3-array/src/cross.js","./descending":"../node_modules/d3-array/src/descending.js","./deviation":"../node_modules/d3-array/src/deviation.js","./extent":"../node_modules/d3-array/src/extent.js","./histogram":"../node_modules/d3-array/src/histogram.js","./threshold/freedmanDiaconis":"../node_modules/d3-array/src/threshold/freedmanDiaconis.js","./threshold/scott":"../node_modules/d3-array/src/threshold/scott.js","./threshold/sturges":"../node_modules/d3-array/src/threshold/sturges.js","./max":"../node_modules/d3-array/src/max.js","./mean":"../node_modules/d3-array/src/mean.js","./median":"../node_modules/d3-array/src/median.js","./merge":"../node_modules/d3-array/src/merge.js","./min":"../node_modules/d3-array/src/min.js","./pairs":"../node_modules/d3-array/src/pairs.js","./permute":"../node_modules/d3-array/src/permute.js","./quantile":"../node_modules/d3-array/src/quantile.js","./range":"../node_modules/d3-array/src/range.js","./scan":"../node_modules/d3-array/src/scan.js","./shuffle":"../node_modules/d3-array/src/shuffle.js","./sum":"../node_modules/d3-array/src/sum.js","./ticks":"../node_modules/d3-array/src/ticks.js","./transpose":"../node_modules/d3-array/src/transpose.js","./variance":"../node_modules/d3-array/src/variance.js","./zip":"../node_modules/d3-array/src/zip.js"}],"../node_modules/d3-collection/src/map.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var prefix = exports.prefix = "$";
+
+function Map() {}
+
+Map.prototype = map.prototype = {
+  constructor: Map,
+  has: function (key) {
+    return prefix + key in this;
+  },
+  get: function (key) {
+    return this[prefix + key];
+  },
+  set: function (key, value) {
+    this[prefix + key] = value;
+    return this;
+  },
+  remove: function (key) {
+    var property = prefix + key;
+    return property in this && delete this[property];
+  },
+  clear: function () {
+    for (var property in this) if (property[0] === prefix) delete this[property];
+  },
+  keys: function () {
+    var keys = [];
+    for (var property in this) if (property[0] === prefix) keys.push(property.slice(1));
+    return keys;
+  },
+  values: function () {
+    var values = [];
+    for (var property in this) if (property[0] === prefix) values.push(this[property]);
+    return values;
+  },
+  entries: function () {
+    var entries = [];
+    for (var property in this) if (property[0] === prefix) entries.push({ key: property.slice(1), value: this[property] });
+    return entries;
+  },
+  size: function () {
+    var size = 0;
+    for (var property in this) if (property[0] === prefix) ++size;
+    return size;
+  },
+  empty: function () {
+    for (var property in this) if (property[0] === prefix) return false;
+    return true;
+  },
+  each: function (f) {
+    for (var property in this) if (property[0] === prefix) f(this[property], property.slice(1), this);
+  }
+};
+
+function map(object, f) {
+  var map = new Map();
+
+  // Copy constructor.
+  if (object instanceof Map) object.each(function (value, key) {
+    map.set(key, value);
+  });
+
+  // Index array by numeric index or specified key function.
+  else if (Array.isArray(object)) {
+      var i = -1,
+          n = object.length,
+          o;
+
+      if (f == null) while (++i < n) map.set(i, object[i]);else while (++i < n) map.set(f(o = object[i], i, object), o);
+    }
+
+    // Convert object to map.
+    else if (object) for (var key in object) map.set(key, object[key]);
+
+  return map;
+}
+
+exports.default = map;
+},{}],"../node_modules/d3-collection/src/nest.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function () {
+  var keys = [],
+      sortKeys = [],
+      sortValues,
+      rollup,
+      nest;
+
+  function apply(array, depth, createResult, setResult) {
+    if (depth >= keys.length) {
+      if (sortValues != null) array.sort(sortValues);
+      return rollup != null ? rollup(array) : array;
+    }
+
+    var i = -1,
+        n = array.length,
+        key = keys[depth++],
+        keyValue,
+        value,
+        valuesByKey = (0, _map2.default)(),
+        values,
+        result = createResult();
+
+    while (++i < n) {
+      if (values = valuesByKey.get(keyValue = key(value = array[i]) + "")) {
+        values.push(value);
+      } else {
+        valuesByKey.set(keyValue, [value]);
+      }
+    }
+
+    valuesByKey.each(function (values, key) {
+      setResult(result, key, apply(values, depth, createResult, setResult));
+    });
+
+    return result;
+  }
+
+  function entries(map, depth) {
+    if (++depth > keys.length) return map;
+    var array,
+        sortKey = sortKeys[depth - 1];
+    if (rollup != null && depth >= keys.length) array = map.entries();else array = [], map.each(function (v, k) {
+      array.push({ key: k, values: entries(v, depth) });
+    });
+    return sortKey != null ? array.sort(function (a, b) {
+      return sortKey(a.key, b.key);
+    }) : array;
+  }
+
+  return nest = {
+    object: function (array) {
+      return apply(array, 0, createObject, setObject);
+    },
+    map: function (array) {
+      return apply(array, 0, createMap, setMap);
+    },
+    entries: function (array) {
+      return entries(apply(array, 0, createMap, setMap), 0);
+    },
+    key: function (d) {
+      keys.push(d);return nest;
+    },
+    sortKeys: function (order) {
+      sortKeys[keys.length - 1] = order;return nest;
+    },
+    sortValues: function (order) {
+      sortValues = order;return nest;
+    },
+    rollup: function (f) {
+      rollup = f;return nest;
+    }
+  };
+};
+
+var _map = require("./map");
+
+var _map2 = _interopRequireDefault(_map);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function createObject() {
+  return {};
+}
+
+function setObject(object, key, value) {
+  object[key] = value;
+}
+
+function createMap() {
+  return (0, _map2.default)();
+}
+
+function setMap(map, key, value) {
+  map.set(key, value);
+}
+},{"./map":"../node_modules/d3-collection/src/map.js"}],"../node_modules/d3-collection/src/set.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _map = require("./map");
+
+var _map2 = _interopRequireDefault(_map);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Set() {}
+
+var proto = _map2.default.prototype;
+
+Set.prototype = set.prototype = {
+  constructor: Set,
+  has: proto.has,
+  add: function (value) {
+    value += "";
+    this[_map.prefix + value] = value;
+    return this;
+  },
+  remove: proto.remove,
+  clear: proto.clear,
+  values: proto.keys,
+  size: proto.size,
+  empty: proto.empty,
+  each: proto.each
+};
+
+function set(object, f) {
+  var set = new Set();
+
+  // Copy constructor.
+  if (object instanceof Set) object.each(function (value) {
+    set.add(value);
+  });
+
+  // Otherwise, assume it’s an array.
+  else if (object) {
+      var i = -1,
+          n = object.length;
+      if (f == null) while (++i < n) set.add(object[i]);else while (++i < n) set.add(f(object[i], i, object));
+    }
+
+  return set;
+}
+
+exports.default = set;
+},{"./map":"../node_modules/d3-collection/src/map.js"}],"../node_modules/d3-collection/src/keys.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (map) {
+  var keys = [];
+  for (var key in map) keys.push(key);
+  return keys;
+};
+},{}],"../node_modules/d3-collection/src/values.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (map) {
+  var values = [];
+  for (var key in map) values.push(map[key]);
+  return values;
+};
+},{}],"../node_modules/d3-collection/src/entries.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (map) {
+  var entries = [];
+  for (var key in map) entries.push({ key: key, value: map[key] });
+  return entries;
+};
+},{}],"../node_modules/d3-collection/src/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _nest = require("./nest");
+
+Object.defineProperty(exports, "nest", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_nest).default;
+  }
+});
+
+var _set = require("./set");
+
+Object.defineProperty(exports, "set", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_set).default;
+  }
+});
+
+var _map = require("./map");
+
+Object.defineProperty(exports, "map", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_map).default;
+  }
+});
+
+var _keys = require("./keys");
+
+Object.defineProperty(exports, "keys", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_keys).default;
+  }
+});
+
+var _values = require("./values");
+
+Object.defineProperty(exports, "values", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_values).default;
+  }
+});
+
+var _entries = require("./entries");
+
+Object.defineProperty(exports, "entries", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_entries).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./nest":"../node_modules/d3-collection/src/nest.js","./set":"../node_modules/d3-collection/src/set.js","./map":"../node_modules/d3-collection/src/map.js","./keys":"../node_modules/d3-collection/src/keys.js","./values":"../node_modules/d3-collection/src/values.js","./entries":"../node_modules/d3-collection/src/entries.js"}],"../node_modules/d3-scale/src/array.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var array = Array.prototype;
+
+var map = exports.map = array.map;
+var slice = exports.slice = array.slice;
+},{}],"../node_modules/d3-scale/src/ordinal.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.implicit = undefined;
+exports.default = ordinal;
+
+var _d3Collection = require("d3-collection");
+
+var _array = require("./array");
+
+var implicit = exports.implicit = { name: "implicit" };
+
+function ordinal(range) {
+  var index = (0, _d3Collection.map)(),
+      domain = [],
+      unknown = implicit;
+
+  range = range == null ? [] : _array.slice.call(range);
+
+  function scale(d) {
+    var key = d + "",
+        i = index.get(key);
+    if (!i) {
+      if (unknown !== implicit) return unknown;
+      index.set(key, i = domain.push(d));
+    }
+    return range[(i - 1) % range.length];
+  }
+
+  scale.domain = function (_) {
+    if (!arguments.length) return domain.slice();
+    domain = [], index = (0, _d3Collection.map)();
+    var i = -1,
+        n = _.length,
+        d,
+        key;
+    while (++i < n) if (!index.has(key = (d = _[i]) + "")) index.set(key, domain.push(d));
+    return scale;
+  };
+
+  scale.range = function (_) {
+    return arguments.length ? (range = _array.slice.call(_), scale) : range.slice();
+  };
+
+  scale.unknown = function (_) {
+    return arguments.length ? (unknown = _, scale) : unknown;
+  };
+
+  scale.copy = function () {
+    return ordinal().domain(domain).range(range).unknown(unknown);
+  };
+
+  return scale;
+}
+},{"d3-collection":"../node_modules/d3-collection/src/index.js","./array":"../node_modules/d3-scale/src/array.js"}],"../node_modules/d3-scale/src/band.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = band;
+exports.point = point;
+
+var _d3Array = require("d3-array");
+
+var _ordinal = require("./ordinal");
+
+var _ordinal2 = _interopRequireDefault(_ordinal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function band() {
+  var scale = (0, _ordinal2.default)().unknown(undefined),
+      domain = scale.domain,
+      ordinalRange = scale.range,
+      range = [0, 1],
+      step,
+      bandwidth,
+      round = false,
+      paddingInner = 0,
+      paddingOuter = 0,
+      align = 0.5;
+
+  delete scale.unknown;
+
+  function rescale() {
+    var n = domain().length,
+        reverse = range[1] < range[0],
+        start = range[reverse - 0],
+        stop = range[1 - reverse];
+    step = (stop - start) / Math.max(1, n - paddingInner + paddingOuter * 2);
+    if (round) step = Math.floor(step);
+    start += (stop - start - step * (n - paddingInner)) * align;
+    bandwidth = step * (1 - paddingInner);
+    if (round) start = Math.round(start), bandwidth = Math.round(bandwidth);
+    var values = (0, _d3Array.range)(n).map(function (i) {
+      return start + step * i;
+    });
+    return ordinalRange(reverse ? values.reverse() : values);
+  }
+
+  scale.domain = function (_) {
+    return arguments.length ? (domain(_), rescale()) : domain();
+  };
+
+  scale.range = function (_) {
+    return arguments.length ? (range = [+_[0], +_[1]], rescale()) : range.slice();
+  };
+
+  scale.rangeRound = function (_) {
+    return range = [+_[0], +_[1]], round = true, rescale();
+  };
+
+  scale.bandwidth = function () {
+    return bandwidth;
+  };
+
+  scale.step = function () {
+    return step;
+  };
+
+  scale.round = function (_) {
+    return arguments.length ? (round = !!_, rescale()) : round;
+  };
+
+  scale.padding = function (_) {
+    return arguments.length ? (paddingInner = paddingOuter = Math.max(0, Math.min(1, _)), rescale()) : paddingInner;
+  };
+
+  scale.paddingInner = function (_) {
+    return arguments.length ? (paddingInner = Math.max(0, Math.min(1, _)), rescale()) : paddingInner;
+  };
+
+  scale.paddingOuter = function (_) {
+    return arguments.length ? (paddingOuter = Math.max(0, Math.min(1, _)), rescale()) : paddingOuter;
+  };
+
+  scale.align = function (_) {
+    return arguments.length ? (align = Math.max(0, Math.min(1, _)), rescale()) : align;
+  };
+
+  scale.copy = function () {
+    return band().domain(domain()).range(range).round(round).paddingInner(paddingInner).paddingOuter(paddingOuter).align(align);
+  };
+
+  return rescale();
+}
+
+function pointish(scale) {
+  var copy = scale.copy;
+
+  scale.padding = scale.paddingOuter;
+  delete scale.paddingInner;
+  delete scale.paddingOuter;
+
+  scale.copy = function () {
+    return pointish(copy());
+  };
+
+  return scale;
+}
+
+function point() {
+  return pointish(band().paddingInner(1));
+}
+},{"d3-array":"../node_modules/d3-array/src/index.js","./ordinal":"../node_modules/d3-scale/src/ordinal.js"}],"../node_modules/d3-color/src/define.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (constructor, factory, prototype) {
+  constructor.prototype = factory.prototype = prototype;
+  prototype.constructor = constructor;
+};
+
+exports.extend = extend;
+function extend(parent, definition) {
+  var prototype = Object.create(parent.prototype);
+  for (var key in definition) prototype[key] = definition[key];
+  return prototype;
+}
+},{}],"../node_modules/d3-color/src/color.js":[function(require,module,exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.brighter = exports.darker = undefined;
+exports.Color = Color;
+exports.default = color;
+exports.rgbConvert = rgbConvert;
+exports.rgb = rgb;
+exports.Rgb = Rgb;
+exports.hslConvert = hslConvert;
+exports.hsl = hsl;
+
+var _define = require("./define");
+
+var _define2 = _interopRequireDefault(_define);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Color() {}
+
+var darker = exports.darker = 0.7;
+var brighter = exports.brighter = 1 / darker;
+
+var reI = "\\s*([+-]?\\d+)\\s*",
+    reN = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*",
+    reP = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*",
+    reHex3 = /^#([0-9a-f]{3})$/,
+    reHex6 = /^#([0-9a-f]{6})$/,
+    reRgbInteger = new RegExp("^rgb\\(" + [reI, reI, reI] + "\\)$"),
+    reRgbPercent = new RegExp("^rgb\\(" + [reP, reP, reP] + "\\)$"),
+    reRgbaInteger = new RegExp("^rgba\\(" + [reI, reI, reI, reN] + "\\)$"),
+    reRgbaPercent = new RegExp("^rgba\\(" + [reP, reP, reP, reN] + "\\)$"),
+    reHslPercent = new RegExp("^hsl\\(" + [reN, reP, reP] + "\\)$"),
+    reHslaPercent = new RegExp("^hsla\\(" + [reN, reP, reP, reN] + "\\)$");
+
+var named = {
+  aliceblue: 0xf0f8ff,
+  antiquewhite: 0xfaebd7,
+  aqua: 0x00ffff,
+  aquamarine: 0x7fffd4,
+  azure: 0xf0ffff,
+  beige: 0xf5f5dc,
+  bisque: 0xffe4c4,
+  black: 0x000000,
+  blanchedalmond: 0xffebcd,
+  blue: 0x0000ff,
+  blueviolet: 0x8a2be2,
+  brown: 0xa52a2a,
+  burlywood: 0xdeb887,
+  cadetblue: 0x5f9ea0,
+  chartreuse: 0x7fff00,
+  chocolate: 0xd2691e,
+  coral: 0xff7f50,
+  cornflowerblue: 0x6495ed,
+  cornsilk: 0xfff8dc,
+  crimson: 0xdc143c,
+  cyan: 0x00ffff,
+  darkblue: 0x00008b,
+  darkcyan: 0x008b8b,
+  darkgoldenrod: 0xb8860b,
+  darkgray: 0xa9a9a9,
+  darkgreen: 0x006400,
+  darkgrey: 0xa9a9a9,
+  darkkhaki: 0xbdb76b,
+  darkmagenta: 0x8b008b,
+  darkolivegreen: 0x556b2f,
+  darkorange: 0xff8c00,
+  darkorchid: 0x9932cc,
+  darkred: 0x8b0000,
+  darksalmon: 0xe9967a,
+  darkseagreen: 0x8fbc8f,
+  darkslateblue: 0x483d8b,
+  darkslategray: 0x2f4f4f,
+  darkslategrey: 0x2f4f4f,
+  darkturquoise: 0x00ced1,
+  darkviolet: 0x9400d3,
+  deeppink: 0xff1493,
+  deepskyblue: 0x00bfff,
+  dimgray: 0x696969,
+  dimgrey: 0x696969,
+  dodgerblue: 0x1e90ff,
+  firebrick: 0xb22222,
+  floralwhite: 0xfffaf0,
+  forestgreen: 0x228b22,
+  fuchsia: 0xff00ff,
+  gainsboro: 0xdcdcdc,
+  ghostwhite: 0xf8f8ff,
+  gold: 0xffd700,
+  goldenrod: 0xdaa520,
+  gray: 0x808080,
+  green: 0x008000,
+  greenyellow: 0xadff2f,
+  grey: 0x808080,
+  honeydew: 0xf0fff0,
+  hotpink: 0xff69b4,
+  indianred: 0xcd5c5c,
+  indigo: 0x4b0082,
+  ivory: 0xfffff0,
+  khaki: 0xf0e68c,
+  lavender: 0xe6e6fa,
+  lavenderblush: 0xfff0f5,
+  lawngreen: 0x7cfc00,
+  lemonchiffon: 0xfffacd,
+  lightblue: 0xadd8e6,
+  lightcoral: 0xf08080,
+  lightcyan: 0xe0ffff,
+  lightgoldenrodyellow: 0xfafad2,
+  lightgray: 0xd3d3d3,
+  lightgreen: 0x90ee90,
+  lightgrey: 0xd3d3d3,
+  lightpink: 0xffb6c1,
+  lightsalmon: 0xffa07a,
+  lightseagreen: 0x20b2aa,
+  lightskyblue: 0x87cefa,
+  lightslategray: 0x778899,
+  lightslategrey: 0x778899,
+  lightsteelblue: 0xb0c4de,
+  lightyellow: 0xffffe0,
+  lime: 0x00ff00,
+  limegreen: 0x32cd32,
+  linen: 0xfaf0e6,
+  magenta: 0xff00ff,
+  maroon: 0x800000,
+  mediumaquamarine: 0x66cdaa,
+  mediumblue: 0x0000cd,
+  mediumorchid: 0xba55d3,
+  mediumpurple: 0x9370db,
+  mediumseagreen: 0x3cb371,
+  mediumslateblue: 0x7b68ee,
+  mediumspringgreen: 0x00fa9a,
+  mediumturquoise: 0x48d1cc,
+  mediumvioletred: 0xc71585,
+  midnightblue: 0x191970,
+  mintcream: 0xf5fffa,
+  mistyrose: 0xffe4e1,
+  moccasin: 0xffe4b5,
+  navajowhite: 0xffdead,
+  navy: 0x000080,
+  oldlace: 0xfdf5e6,
+  olive: 0x808000,
+  olivedrab: 0x6b8e23,
+  orange: 0xffa500,
+  orangered: 0xff4500,
+  orchid: 0xda70d6,
+  palegoldenrod: 0xeee8aa,
+  palegreen: 0x98fb98,
+  paleturquoise: 0xafeeee,
+  palevioletred: 0xdb7093,
+  papayawhip: 0xffefd5,
+  peachpuff: 0xffdab9,
+  peru: 0xcd853f,
+  pink: 0xffc0cb,
+  plum: 0xdda0dd,
+  powderblue: 0xb0e0e6,
+  purple: 0x800080,
+  rebeccapurple: 0x663399,
+  red: 0xff0000,
+  rosybrown: 0xbc8f8f,
+  royalblue: 0x4169e1,
+  saddlebrown: 0x8b4513,
+  salmon: 0xfa8072,
+  sandybrown: 0xf4a460,
+  seagreen: 0x2e8b57,
+  seashell: 0xfff5ee,
+  sienna: 0xa0522d,
+  silver: 0xc0c0c0,
+  skyblue: 0x87ceeb,
+  slateblue: 0x6a5acd,
+  slategray: 0x708090,
+  slategrey: 0x708090,
+  snow: 0xfffafa,
+  springgreen: 0x00ff7f,
+  steelblue: 0x4682b4,
+  tan: 0xd2b48c,
+  teal: 0x008080,
+  thistle: 0xd8bfd8,
+  tomato: 0xff6347,
+  turquoise: 0x40e0d0,
+  violet: 0xee82ee,
+  wheat: 0xf5deb3,
+  white: 0xffffff,
+  whitesmoke: 0xf5f5f5,
+  yellow: 0xffff00,
+  yellowgreen: 0x9acd32
+};
+
+(0, _define2.default)(Color, color, {
+  displayable: function () {
+    return this.rgb().displayable();
+  },
+  hex: function () {
+    return this.rgb().hex();
+  },
+  toString: function () {
+    return this.rgb() + "";
+  }
+});
+
+function color(format) {
+  var m;
+  format = (format + "").trim().toLowerCase();
+  return (m = reHex3.exec(format)) ? (m = parseInt(m[1], 16), new Rgb(m >> 8 & 0xf | m >> 4 & 0x0f0, m >> 4 & 0xf | m & 0xf0, (m & 0xf) << 4 | m & 0xf, 1) // #f00
+  ) : (m = reHex6.exec(format)) ? rgbn(parseInt(m[1], 16)) // #ff0000
+  : (m = reRgbInteger.exec(format)) ? new Rgb(m[1], m[2], m[3], 1) // rgb(255, 0, 0)
+  : (m = reRgbPercent.exec(format)) ? new Rgb(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, 1) // rgb(100%, 0%, 0%)
+  : (m = reRgbaInteger.exec(format)) ? rgba(m[1], m[2], m[3], m[4]) // rgba(255, 0, 0, 1)
+  : (m = reRgbaPercent.exec(format)) ? rgba(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, m[4]) // rgb(100%, 0%, 0%, 1)
+  : (m = reHslPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, 1) // hsl(120, 50%, 50%)
+  : (m = reHslaPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, m[4]) // hsla(120, 50%, 50%, 1)
+  : named.hasOwnProperty(format) ? rgbn(named[format]) : format === "transparent" ? new Rgb(NaN, NaN, NaN, 0) : null;
+}
+
+function rgbn(n) {
+  return new Rgb(n >> 16 & 0xff, n >> 8 & 0xff, n & 0xff, 1);
+}
+
+function rgba(r, g, b, a) {
+  if (a <= 0) r = g = b = NaN;
+  return new Rgb(r, g, b, a);
+}
+
+function rgbConvert(o) {
+  if (!(o instanceof Color)) o = color(o);
+  if (!o) return new Rgb();
+  o = o.rgb();
+  return new Rgb(o.r, o.g, o.b, o.opacity);
+}
+
+function rgb(r, g, b, opacity) {
+  return arguments.length === 1 ? rgbConvert(r) : new Rgb(r, g, b, opacity == null ? 1 : opacity);
+}
+
+function Rgb(r, g, b, opacity) {
+  this.r = +r;
+  this.g = +g;
+  this.b = +b;
+  this.opacity = +opacity;
+}
+
+(0, _define2.default)(Rgb, rgb, (0, _define.extend)(Color, {
+  brighter: function (k) {
+    k = k == null ? brighter : Math.pow(brighter, k);
+    return new Rgb(this.r * k, this.g * k, this.b * k, this.opacity);
+  },
+  darker: function (k) {
+    k = k == null ? darker : Math.pow(darker, k);
+    return new Rgb(this.r * k, this.g * k, this.b * k, this.opacity);
+  },
+  rgb: function () {
+    return this;
+  },
+  displayable: function () {
+    return 0 <= this.r && this.r <= 255 && 0 <= this.g && this.g <= 255 && 0 <= this.b && this.b <= 255 && 0 <= this.opacity && this.opacity <= 1;
+  },
+  hex: function () {
+    return "#" + hex(this.r) + hex(this.g) + hex(this.b);
+  },
+  toString: function () {
+    var a = this.opacity;a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
+    return (a === 1 ? "rgb(" : "rgba(") + Math.max(0, Math.min(255, Math.round(this.r) || 0)) + ", " + Math.max(0, Math.min(255, Math.round(this.g) || 0)) + ", " + Math.max(0, Math.min(255, Math.round(this.b) || 0)) + (a === 1 ? ")" : ", " + a + ")");
+  }
+}));
+
+function hex(value) {
+  value = Math.max(0, Math.min(255, Math.round(value) || 0));
+  return (value < 16 ? "0" : "") + value.toString(16);
+}
+
+function hsla(h, s, l, a) {
+  if (a <= 0) h = s = l = NaN;else if (l <= 0 || l >= 1) h = s = NaN;else if (s <= 0) h = NaN;
+  return new Hsl(h, s, l, a);
+}
+
+function hslConvert(o) {
+  if (o instanceof Hsl) return new Hsl(o.h, o.s, o.l, o.opacity);
+  if (!(o instanceof Color)) o = color(o);
+  if (!o) return new Hsl();
+  if (o instanceof Hsl) return o;
+  o = o.rgb();
+  var r = o.r / 255,
+      g = o.g / 255,
+      b = o.b / 255,
+      min = Math.min(r, g, b),
+      max = Math.max(r, g, b),
+      h = NaN,
+      s = max - min,
+      l = (max + min) / 2;
+  if (s) {
+    if (r === max) h = (g - b) / s + (g < b) * 6;else if (g === max) h = (b - r) / s + 2;else h = (r - g) / s + 4;
+    s /= l < 0.5 ? max + min : 2 - max - min;
+    h *= 60;
+  } else {
+    s = l > 0 && l < 1 ? 0 : h;
+  }
+  return new Hsl(h, s, l, o.opacity);
+}
+
+function hsl(h, s, l, opacity) {
+  return arguments.length === 1 ? hslConvert(h) : new Hsl(h, s, l, opacity == null ? 1 : opacity);
+}
+
+function Hsl(h, s, l, opacity) {
+  this.h = +h;
+  this.s = +s;
+  this.l = +l;
+  this.opacity = +opacity;
+}
+
+(0, _define2.default)(Hsl, hsl, (0, _define.extend)(Color, {
+  brighter: function (k) {
+    k = k == null ? brighter : Math.pow(brighter, k);
+    return new Hsl(this.h, this.s, this.l * k, this.opacity);
+  },
+  darker: function (k) {
+    k = k == null ? darker : Math.pow(darker, k);
+    return new Hsl(this.h, this.s, this.l * k, this.opacity);
+  },
+  rgb: function () {
+    var h = this.h % 360 + (this.h < 0) * 360,
+        s = isNaN(h) || isNaN(this.s) ? 0 : this.s,
+        l = this.l,
+        m2 = l + (l < 0.5 ? l : 1 - l) * s,
+        m1 = 2 * l - m2;
+    return new Rgb(hsl2rgb(h >= 240 ? h - 240 : h + 120, m1, m2), hsl2rgb(h, m1, m2), hsl2rgb(h < 120 ? h + 240 : h - 120, m1, m2), this.opacity);
+  },
+  displayable: function () {
+    return (0 <= this.s && this.s <= 1 || isNaN(this.s)) && 0 <= this.l && this.l <= 1 && 0 <= this.opacity && this.opacity <= 1;
+  }
+}));
+
+/* From FvD 13.37, CSS Color Module Level 3 */
+function hsl2rgb(h, m1, m2) {
+  return (h < 60 ? m1 + (m2 - m1) * h / 60 : h < 180 ? m2 : h < 240 ? m1 + (m2 - m1) * (240 - h) / 60 : m1) * 255;
+}
+},{"./define":"../node_modules/d3-color/src/define.js"}],"../node_modules/d3-color/src/math.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var deg2rad = exports.deg2rad = Math.PI / 180;
+var rad2deg = exports.rad2deg = 180 / Math.PI;
+},{}],"../node_modules/d3-color/src/lab.js":[function(require,module,exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.gray = gray;
+exports.default = lab;
+exports.Lab = Lab;
+exports.lch = lch;
+exports.hcl = hcl;
+exports.Hcl = Hcl;
+
+var _define = require("./define");
+
+var _define2 = _interopRequireDefault(_define);
+
+var _color = require("./color");
+
+var _math = require("./math");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// https://beta.observablehq.com/@mbostock/lab-and-rgb
+var K = 18,
+    Xn = 0.96422,
+    Yn = 1,
+    Zn = 0.82521,
+    t0 = 4 / 29,
+    t1 = 6 / 29,
+    t2 = 3 * t1 * t1,
+    t3 = t1 * t1 * t1;
+
+function labConvert(o) {
+  if (o instanceof Lab) return new Lab(o.l, o.a, o.b, o.opacity);
+  if (o instanceof Hcl) {
+    if (isNaN(o.h)) return new Lab(o.l, 0, 0, o.opacity);
+    var h = o.h * _math.deg2rad;
+    return new Lab(o.l, Math.cos(h) * o.c, Math.sin(h) * o.c, o.opacity);
+  }
+  if (!(o instanceof _color.Rgb)) o = (0, _color.rgbConvert)(o);
+  var r = rgb2lrgb(o.r),
+      g = rgb2lrgb(o.g),
+      b = rgb2lrgb(o.b),
+      y = xyz2lab((0.2225045 * r + 0.7168786 * g + 0.0606169 * b) / Yn),
+      x,
+      z;
+  if (r === g && g === b) x = z = y;else {
+    x = xyz2lab((0.4360747 * r + 0.3850649 * g + 0.1430804 * b) / Xn);
+    z = xyz2lab((0.0139322 * r + 0.0971045 * g + 0.7141733 * b) / Zn);
+  }
+  return new Lab(116 * y - 16, 500 * (x - y), 200 * (y - z), o.opacity);
+}
+
+function gray(l, opacity) {
+  return new Lab(l, 0, 0, opacity == null ? 1 : opacity);
+}
+
+function lab(l, a, b, opacity) {
+  return arguments.length === 1 ? labConvert(l) : new Lab(l, a, b, opacity == null ? 1 : opacity);
+}
+
+function Lab(l, a, b, opacity) {
+  this.l = +l;
+  this.a = +a;
+  this.b = +b;
+  this.opacity = +opacity;
+}
+
+(0, _define2.default)(Lab, lab, (0, _define.extend)(_color.Color, {
+  brighter: function (k) {
+    return new Lab(this.l + K * (k == null ? 1 : k), this.a, this.b, this.opacity);
+  },
+  darker: function (k) {
+    return new Lab(this.l - K * (k == null ? 1 : k), this.a, this.b, this.opacity);
+  },
+  rgb: function () {
+    var y = (this.l + 16) / 116,
+        x = isNaN(this.a) ? y : y + this.a / 500,
+        z = isNaN(this.b) ? y : y - this.b / 200;
+    x = Xn * lab2xyz(x);
+    y = Yn * lab2xyz(y);
+    z = Zn * lab2xyz(z);
+    return new _color.Rgb(lrgb2rgb(3.1338561 * x - 1.6168667 * y - 0.4906146 * z), lrgb2rgb(-0.9787684 * x + 1.9161415 * y + 0.0334540 * z), lrgb2rgb(0.0719453 * x - 0.2289914 * y + 1.4052427 * z), this.opacity);
+  }
+}));
+
+function xyz2lab(t) {
+  return t > t3 ? Math.pow(t, 1 / 3) : t / t2 + t0;
+}
+
+function lab2xyz(t) {
+  return t > t1 ? t * t * t : t2 * (t - t0);
+}
+
+function lrgb2rgb(x) {
+  return 255 * (x <= 0.0031308 ? 12.92 * x : 1.055 * Math.pow(x, 1 / 2.4) - 0.055);
+}
+
+function rgb2lrgb(x) {
+  return (x /= 255) <= 0.04045 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4);
+}
+
+function hclConvert(o) {
+  if (o instanceof Hcl) return new Hcl(o.h, o.c, o.l, o.opacity);
+  if (!(o instanceof Lab)) o = labConvert(o);
+  if (o.a === 0 && o.b === 0) return new Hcl(NaN, 0, o.l, o.opacity);
+  var h = Math.atan2(o.b, o.a) * _math.rad2deg;
+  return new Hcl(h < 0 ? h + 360 : h, Math.sqrt(o.a * o.a + o.b * o.b), o.l, o.opacity);
+}
+
+function lch(l, c, h, opacity) {
+  return arguments.length === 1 ? hclConvert(l) : new Hcl(h, c, l, opacity == null ? 1 : opacity);
+}
+
+function hcl(h, c, l, opacity) {
+  return arguments.length === 1 ? hclConvert(h) : new Hcl(h, c, l, opacity == null ? 1 : opacity);
+}
+
+function Hcl(h, c, l, opacity) {
+  this.h = +h;
+  this.c = +c;
+  this.l = +l;
+  this.opacity = +opacity;
+}
+
+(0, _define2.default)(Hcl, hcl, (0, _define.extend)(_color.Color, {
+  brighter: function (k) {
+    return new Hcl(this.h, this.c, this.l + K * (k == null ? 1 : k), this.opacity);
+  },
+  darker: function (k) {
+    return new Hcl(this.h, this.c, this.l - K * (k == null ? 1 : k), this.opacity);
+  },
+  rgb: function () {
+    return labConvert(this).rgb();
+  }
+}));
+},{"./define":"../node_modules/d3-color/src/define.js","./color":"../node_modules/d3-color/src/color.js","./math":"../node_modules/d3-color/src/math.js"}],"../node_modules/d3-color/src/cubehelix.js":[function(require,module,exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = cubehelix;
+exports.Cubehelix = Cubehelix;
+
+var _define = require("./define");
+
+var _define2 = _interopRequireDefault(_define);
+
+var _color = require("./color");
+
+var _math = require("./math");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var A = -0.14861,
+    B = +1.78277,
+    C = -0.29227,
+    D = -0.90649,
+    E = +1.97294,
+    ED = E * D,
+    EB = E * B,
+    BC_DA = B * C - D * A;
+
+function cubehelixConvert(o) {
+  if (o instanceof Cubehelix) return new Cubehelix(o.h, o.s, o.l, o.opacity);
+  if (!(o instanceof _color.Rgb)) o = (0, _color.rgbConvert)(o);
+  var r = o.r / 255,
+      g = o.g / 255,
+      b = o.b / 255,
+      l = (BC_DA * b + ED * r - EB * g) / (BC_DA + ED - EB),
+      bl = b - l,
+      k = (E * (g - l) - C * bl) / D,
+      s = Math.sqrt(k * k + bl * bl) / (E * l * (1 - l)),
+      // NaN if l=0 or l=1
+  h = s ? Math.atan2(k, bl) * _math.rad2deg - 120 : NaN;
+  return new Cubehelix(h < 0 ? h + 360 : h, s, l, o.opacity);
+}
+
+function cubehelix(h, s, l, opacity) {
+  return arguments.length === 1 ? cubehelixConvert(h) : new Cubehelix(h, s, l, opacity == null ? 1 : opacity);
+}
+
+function Cubehelix(h, s, l, opacity) {
+  this.h = +h;
+  this.s = +s;
+  this.l = +l;
+  this.opacity = +opacity;
+}
+
+(0, _define2.default)(Cubehelix, cubehelix, (0, _define.extend)(_color.Color, {
+  brighter: function (k) {
+    k = k == null ? _color.brighter : Math.pow(_color.brighter, k);
+    return new Cubehelix(this.h, this.s, this.l * k, this.opacity);
+  },
+  darker: function (k) {
+    k = k == null ? _color.darker : Math.pow(_color.darker, k);
+    return new Cubehelix(this.h, this.s, this.l * k, this.opacity);
+  },
+  rgb: function () {
+    var h = isNaN(this.h) ? 0 : (this.h + 120) * _math.deg2rad,
+        l = +this.l,
+        a = isNaN(this.s) ? 0 : this.s * l * (1 - l),
+        cosh = Math.cos(h),
+        sinh = Math.sin(h);
+    return new _color.Rgb(255 * (l + a * (A * cosh + B * sinh)), 255 * (l + a * (C * cosh + D * sinh)), 255 * (l + a * (E * cosh)), this.opacity);
+  }
+}));
+},{"./define":"../node_modules/d3-color/src/define.js","./color":"../node_modules/d3-color/src/color.js","./math":"../node_modules/d3-color/src/math.js"}],"../node_modules/d3-color/src/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _color = require("./color");
+
+Object.defineProperty(exports, "color", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_color).default;
+  }
+});
+Object.defineProperty(exports, "rgb", {
+  enumerable: true,
+  get: function () {
+    return _color.rgb;
+  }
+});
+Object.defineProperty(exports, "hsl", {
+  enumerable: true,
+  get: function () {
+    return _color.hsl;
+  }
+});
+
+var _lab = require("./lab");
+
+Object.defineProperty(exports, "lab", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_lab).default;
+  }
+});
+Object.defineProperty(exports, "hcl", {
+  enumerable: true,
+  get: function () {
+    return _lab.hcl;
+  }
+});
+Object.defineProperty(exports, "lch", {
+  enumerable: true,
+  get: function () {
+    return _lab.lch;
+  }
+});
+Object.defineProperty(exports, "gray", {
+  enumerable: true,
+  get: function () {
+    return _lab.gray;
+  }
+});
+
+var _cubehelix = require("./cubehelix");
+
+Object.defineProperty(exports, "cubehelix", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_cubehelix).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./color":"../node_modules/d3-color/src/color.js","./lab":"../node_modules/d3-color/src/lab.js","./cubehelix":"../node_modules/d3-color/src/cubehelix.js"}],"../node_modules/d3-interpolate/src/basis.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.basis = basis;
+
+exports.default = function (values) {
+  var n = values.length - 1;
+  return function (t) {
+    var i = t <= 0 ? t = 0 : t >= 1 ? (t = 1, n - 1) : Math.floor(t * n),
+        v1 = values[i],
+        v2 = values[i + 1],
+        v0 = i > 0 ? values[i - 1] : 2 * v1 - v2,
+        v3 = i < n - 1 ? values[i + 2] : 2 * v2 - v1;
+    return basis((t - i / n) * n, v0, v1, v2, v3);
+  };
+};
+
+function basis(t1, v0, v1, v2, v3) {
+  var t2 = t1 * t1,
+      t3 = t2 * t1;
+  return ((1 - 3 * t1 + 3 * t2 - t3) * v0 + (4 - 6 * t2 + 3 * t3) * v1 + (1 + 3 * t1 + 3 * t2 - 3 * t3) * v2 + t3 * v3) / 6;
+}
+},{}],"../node_modules/d3-interpolate/src/basisClosed.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (values) {
+  var n = values.length;
+  return function (t) {
+    var i = Math.floor(((t %= 1) < 0 ? ++t : t) * n),
+        v0 = values[(i + n - 1) % n],
+        v1 = values[i % n],
+        v2 = values[(i + 1) % n],
+        v3 = values[(i + 2) % n];
+    return (0, _basis.basis)((t - i / n) * n, v0, v1, v2, v3);
+  };
+};
+
+var _basis = require("./basis");
+},{"./basis":"../node_modules/d3-interpolate/src/basis.js"}],"../node_modules/d3-interpolate/src/constant.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (x) {
+  return function () {
+    return x;
+  };
+};
+},{}],"../node_modules/d3-interpolate/src/color.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.hue = hue;
+exports.gamma = gamma;
+exports.default = nogamma;
+
+var _constant = require("./constant");
+
+var _constant2 = _interopRequireDefault(_constant);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function linear(a, d) {
+  return function (t) {
+    return a + t * d;
+  };
+}
+
+function exponential(a, b, y) {
+  return a = Math.pow(a, y), b = Math.pow(b, y) - a, y = 1 / y, function (t) {
+    return Math.pow(a + t * b, y);
+  };
+}
+
+function hue(a, b) {
+  var d = b - a;
+  return d ? linear(a, d > 180 || d < -180 ? d - 360 * Math.round(d / 360) : d) : (0, _constant2.default)(isNaN(a) ? b : a);
+}
+
+function gamma(y) {
+  return (y = +y) === 1 ? nogamma : function (a, b) {
+    return b - a ? exponential(a, b, y) : (0, _constant2.default)(isNaN(a) ? b : a);
+  };
+}
+
+function nogamma(a, b) {
+  var d = b - a;
+  return d ? linear(a, d) : (0, _constant2.default)(isNaN(a) ? b : a);
+}
+},{"./constant":"../node_modules/d3-interpolate/src/constant.js"}],"../node_modules/d3-interpolate/src/rgb.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.rgbBasisClosed = exports.rgbBasis = undefined;
+
+var _d3Color = require("d3-color");
+
+var _basis = require("./basis");
+
+var _basis2 = _interopRequireDefault(_basis);
+
+var _basisClosed = require("./basisClosed");
+
+var _basisClosed2 = _interopRequireDefault(_basisClosed);
+
+var _color = require("./color");
+
+var _color2 = _interopRequireDefault(_color);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function rgbGamma(y) {
+  var color = (0, _color.gamma)(y);
+
+  function rgb(start, end) {
+    var r = color((start = (0, _d3Color.rgb)(start)).r, (end = (0, _d3Color.rgb)(end)).r),
+        g = color(start.g, end.g),
+        b = color(start.b, end.b),
+        opacity = (0, _color2.default)(start.opacity, end.opacity);
+    return function (t) {
+      start.r = r(t);
+      start.g = g(t);
+      start.b = b(t);
+      start.opacity = opacity(t);
+      return start + "";
+    };
+  }
+
+  rgb.gamma = rgbGamma;
+
+  return rgb;
+}(1);
+
+function rgbSpline(spline) {
+  return function (colors) {
+    var n = colors.length,
+        r = new Array(n),
+        g = new Array(n),
+        b = new Array(n),
+        i,
+        color;
+    for (i = 0; i < n; ++i) {
+      color = (0, _d3Color.rgb)(colors[i]);
+      r[i] = color.r || 0;
+      g[i] = color.g || 0;
+      b[i] = color.b || 0;
+    }
+    r = spline(r);
+    g = spline(g);
+    b = spline(b);
+    color.opacity = 1;
+    return function (t) {
+      color.r = r(t);
+      color.g = g(t);
+      color.b = b(t);
+      return color + "";
+    };
+  };
+}
+
+var rgbBasis = exports.rgbBasis = rgbSpline(_basis2.default);
+var rgbBasisClosed = exports.rgbBasisClosed = rgbSpline(_basisClosed2.default);
+},{"d3-color":"../node_modules/d3-color/src/index.js","./basis":"../node_modules/d3-interpolate/src/basis.js","./basisClosed":"../node_modules/d3-interpolate/src/basisClosed.js","./color":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/array.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (a, b) {
+  var nb = b ? b.length : 0,
+      na = a ? Math.min(nb, a.length) : 0,
+      x = new Array(na),
+      c = new Array(nb),
+      i;
+
+  for (i = 0; i < na; ++i) x[i] = (0, _value2.default)(a[i], b[i]);
+  for (; i < nb; ++i) c[i] = b[i];
+
+  return function (t) {
+    for (i = 0; i < na; ++i) c[i] = x[i](t);
+    return c;
+  };
+};
+
+var _value = require("./value");
+
+var _value2 = _interopRequireDefault(_value);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./value":"../node_modules/d3-interpolate/src/value.js"}],"../node_modules/d3-interpolate/src/date.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (a, b) {
+  var d = new Date();
+  return a = +a, b -= a, function (t) {
+    return d.setTime(a + b * t), d;
+  };
+};
+},{}],"../node_modules/d3-interpolate/src/number.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (a, b) {
+  return a = +a, b -= a, function (t) {
+    return a + b * t;
+  };
+};
+},{}],"../node_modules/d3-interpolate/src/object.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (a, b) {
+  var i = {},
+      c = {},
+      k;
+
+  if (a === null || typeof a !== "object") a = {};
+  if (b === null || typeof b !== "object") b = {};
+
+  for (k in b) {
+    if (k in a) {
+      i[k] = (0, _value2.default)(a[k], b[k]);
+    } else {
+      c[k] = b[k];
+    }
+  }
+
+  return function (t) {
+    for (k in i) c[k] = i[k](t);
+    return c;
+  };
+};
+
+var _value = require("./value");
+
+var _value2 = _interopRequireDefault(_value);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./value":"../node_modules/d3-interpolate/src/value.js"}],"../node_modules/d3-interpolate/src/string.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (a, b) {
+  var bi = reA.lastIndex = reB.lastIndex = 0,
+      // scan index for next number in b
+  am,
+      // current match in a
+  bm,
+      // current match in b
+  bs,
+      // string preceding current number in b, if any
+  i = -1,
+      // index in s
+  s = [],
+      // string constants and placeholders
+  q = []; // number interpolators
+
+  // Coerce inputs to strings.
+  a = a + "", b = b + "";
+
+  // Interpolate pairs of numbers in a & b.
+  while ((am = reA.exec(a)) && (bm = reB.exec(b))) {
+    if ((bs = bm.index) > bi) {
+      // a string precedes the next number in b
+      bs = b.slice(bi, bs);
+      if (s[i]) s[i] += bs; // coalesce with previous string
+      else s[++i] = bs;
+    }
+    if ((am = am[0]) === (bm = bm[0])) {
+      // numbers in a & b match
+      if (s[i]) s[i] += bm; // coalesce with previous string
+      else s[++i] = bm;
+    } else {
+      // interpolate non-matching numbers
+      s[++i] = null;
+      q.push({ i: i, x: (0, _number2.default)(am, bm) });
+    }
+    bi = reB.lastIndex;
+  }
+
+  // Add remains of b.
+  if (bi < b.length) {
+    bs = b.slice(bi);
+    if (s[i]) s[i] += bs; // coalesce with previous string
+    else s[++i] = bs;
+  }
+
+  // Special optimization for only a single match.
+  // Otherwise, interpolate each of the numbers and rejoin the string.
+  return s.length < 2 ? q[0] ? one(q[0].x) : zero(b) : (b = q.length, function (t) {
+    for (var i = 0, o; i < b; ++i) s[(o = q[i]).i] = o.x(t);
+    return s.join("");
+  });
+};
+
+var _number = require("./number");
+
+var _number2 = _interopRequireDefault(_number);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var reA = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g,
+    reB = new RegExp(reA.source, "g");
+
+function zero(b) {
+  return function () {
+    return b;
+  };
+}
+
+function one(b) {
+  return function (t) {
+    return b(t) + "";
+  };
+}
+},{"./number":"../node_modules/d3-interpolate/src/number.js"}],"../node_modules/d3-interpolate/src/value.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function (a, b) {
+    var t = typeof b,
+        c;
+    return b == null || t === "boolean" ? (0, _constant2.default)(b) : (t === "number" ? _number2.default : t === "string" ? (c = (0, _d3Color.color)(b)) ? (b = c, _rgb2.default) : _string2.default : b instanceof _d3Color.color ? _rgb2.default : b instanceof Date ? _date2.default : Array.isArray(b) ? _array2.default : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? _object2.default : _number2.default)(a, b);
+};
+
+var _d3Color = require("d3-color");
+
+var _rgb = require("./rgb");
+
+var _rgb2 = _interopRequireDefault(_rgb);
+
+var _array = require("./array");
+
+var _array2 = _interopRequireDefault(_array);
+
+var _date = require("./date");
+
+var _date2 = _interopRequireDefault(_date);
+
+var _number = require("./number");
+
+var _number2 = _interopRequireDefault(_number);
+
+var _object = require("./object");
+
+var _object2 = _interopRequireDefault(_object);
+
+var _string = require("./string");
+
+var _string2 = _interopRequireDefault(_string);
+
+var _constant = require("./constant");
+
+var _constant2 = _interopRequireDefault(_constant);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"d3-color":"../node_modules/d3-color/src/index.js","./rgb":"../node_modules/d3-interpolate/src/rgb.js","./array":"../node_modules/d3-interpolate/src/array.js","./date":"../node_modules/d3-interpolate/src/date.js","./number":"../node_modules/d3-interpolate/src/number.js","./object":"../node_modules/d3-interpolate/src/object.js","./string":"../node_modules/d3-interpolate/src/string.js","./constant":"../node_modules/d3-interpolate/src/constant.js"}],"../node_modules/d3-interpolate/src/discrete.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (range) {
+  var n = range.length;
+  return function (t) {
+    return range[Math.max(0, Math.min(n - 1, Math.floor(t * n)))];
+  };
+};
+},{}],"../node_modules/d3-interpolate/src/hue.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (a, b) {
+  var i = (0, _color.hue)(+a, +b);
+  return function (t) {
+    var x = i(t);
+    return x - 360 * Math.floor(x / 360);
+  };
+};
+
+var _color = require("./color");
+},{"./color":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/round.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (a, b) {
+  return a = +a, b -= a, function (t) {
+    return Math.round(a + b * t);
+  };
+};
+},{}],"../node_modules/d3-interpolate/src/transform/decompose.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (a, b, c, d, e, f) {
+  var scaleX, scaleY, skewX;
+  if (scaleX = Math.sqrt(a * a + b * b)) a /= scaleX, b /= scaleX;
+  if (skewX = a * c + b * d) c -= a * skewX, d -= b * skewX;
+  if (scaleY = Math.sqrt(c * c + d * d)) c /= scaleY, d /= scaleY, skewX /= scaleY;
+  if (a * d < b * c) a = -a, b = -b, skewX = -skewX, scaleX = -scaleX;
+  return {
+    translateX: e,
+    translateY: f,
+    rotate: Math.atan2(b, a) * degrees,
+    skewX: Math.atan(skewX) * degrees,
+    scaleX: scaleX,
+    scaleY: scaleY
+  };
+};
+
+var degrees = 180 / Math.PI;
+
+var identity = exports.identity = {
+  translateX: 0,
+  translateY: 0,
+  rotate: 0,
+  skewX: 0,
+  scaleX: 1,
+  scaleY: 1
+};
+},{}],"../node_modules/d3-interpolate/src/transform/parse.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.parseCss = parseCss;
+exports.parseSvg = parseSvg;
+
+var _decompose = require("./decompose");
+
+var _decompose2 = _interopRequireDefault(_decompose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var cssNode, cssRoot, cssView, svgNode;
+
+function parseCss(value) {
+  if (value === "none") return _decompose.identity;
+  if (!cssNode) cssNode = document.createElement("DIV"), cssRoot = document.documentElement, cssView = document.defaultView;
+  cssNode.style.transform = value;
+  value = cssView.getComputedStyle(cssRoot.appendChild(cssNode), null).getPropertyValue("transform");
+  cssRoot.removeChild(cssNode);
+  value = value.slice(7, -1).split(",");
+  return (0, _decompose2.default)(+value[0], +value[1], +value[2], +value[3], +value[4], +value[5]);
+}
+
+function parseSvg(value) {
+  if (value == null) return _decompose.identity;
+  if (!svgNode) svgNode = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  svgNode.setAttribute("transform", value);
+  if (!(value = svgNode.transform.baseVal.consolidate())) return _decompose.identity;
+  value = value.matrix;
+  return (0, _decompose2.default)(value.a, value.b, value.c, value.d, value.e, value.f);
+}
+},{"./decompose":"../node_modules/d3-interpolate/src/transform/decompose.js"}],"../node_modules/d3-interpolate/src/transform/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.interpolateTransformSvg = exports.interpolateTransformCss = undefined;
+
+var _number = require("../number");
+
+var _number2 = _interopRequireDefault(_number);
+
+var _parse = require("./parse");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function interpolateTransform(parse, pxComma, pxParen, degParen) {
+
+  function pop(s) {
+    return s.length ? s.pop() + " " : "";
+  }
+
+  function translate(xa, ya, xb, yb, s, q) {
+    if (xa !== xb || ya !== yb) {
+      var i = s.push("translate(", null, pxComma, null, pxParen);
+      q.push({ i: i - 4, x: (0, _number2.default)(xa, xb) }, { i: i - 2, x: (0, _number2.default)(ya, yb) });
+    } else if (xb || yb) {
+      s.push("translate(" + xb + pxComma + yb + pxParen);
+    }
+  }
+
+  function rotate(a, b, s, q) {
+    if (a !== b) {
+      if (a - b > 180) b += 360;else if (b - a > 180) a += 360; // shortest path
+      q.push({ i: s.push(pop(s) + "rotate(", null, degParen) - 2, x: (0, _number2.default)(a, b) });
+    } else if (b) {
+      s.push(pop(s) + "rotate(" + b + degParen);
+    }
+  }
+
+  function skewX(a, b, s, q) {
+    if (a !== b) {
+      q.push({ i: s.push(pop(s) + "skewX(", null, degParen) - 2, x: (0, _number2.default)(a, b) });
+    } else if (b) {
+      s.push(pop(s) + "skewX(" + b + degParen);
+    }
+  }
+
+  function scale(xa, ya, xb, yb, s, q) {
+    if (xa !== xb || ya !== yb) {
+      var i = s.push(pop(s) + "scale(", null, ",", null, ")");
+      q.push({ i: i - 4, x: (0, _number2.default)(xa, xb) }, { i: i - 2, x: (0, _number2.default)(ya, yb) });
+    } else if (xb !== 1 || yb !== 1) {
+      s.push(pop(s) + "scale(" + xb + "," + yb + ")");
+    }
+  }
+
+  return function (a, b) {
+    var s = [],
+        // string constants and placeholders
+    q = []; // number interpolators
+    a = parse(a), b = parse(b);
+    translate(a.translateX, a.translateY, b.translateX, b.translateY, s, q);
+    rotate(a.rotate, b.rotate, s, q);
+    skewX(a.skewX, b.skewX, s, q);
+    scale(a.scaleX, a.scaleY, b.scaleX, b.scaleY, s, q);
+    a = b = null; // gc
+    return function (t) {
+      var i = -1,
+          n = q.length,
+          o;
+      while (++i < n) s[(o = q[i]).i] = o.x(t);
+      return s.join("");
+    };
+  };
+}
+
+var interpolateTransformCss = exports.interpolateTransformCss = interpolateTransform(_parse.parseCss, "px, ", "px)", "deg)");
+var interpolateTransformSvg = exports.interpolateTransformSvg = interpolateTransform(_parse.parseSvg, ", ", ")", ")");
+},{"../number":"../node_modules/d3-interpolate/src/number.js","./parse":"../node_modules/d3-interpolate/src/transform/parse.js"}],"../node_modules/d3-interpolate/src/zoom.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (p0, p1) {
+  var ux0 = p0[0],
+      uy0 = p0[1],
+      w0 = p0[2],
+      ux1 = p1[0],
+      uy1 = p1[1],
+      w1 = p1[2],
+      dx = ux1 - ux0,
+      dy = uy1 - uy0,
+      d2 = dx * dx + dy * dy,
+      i,
+      S;
+
+  // Special case for u0 ≅ u1.
+  if (d2 < epsilon2) {
+    S = Math.log(w1 / w0) / rho;
+    i = function (t) {
+      return [ux0 + t * dx, uy0 + t * dy, w0 * Math.exp(rho * t * S)];
+    };
+  }
+
+  // General case.
+  else {
+      var d1 = Math.sqrt(d2),
+          b0 = (w1 * w1 - w0 * w0 + rho4 * d2) / (2 * w0 * rho2 * d1),
+          b1 = (w1 * w1 - w0 * w0 - rho4 * d2) / (2 * w1 * rho2 * d1),
+          r0 = Math.log(Math.sqrt(b0 * b0 + 1) - b0),
+          r1 = Math.log(Math.sqrt(b1 * b1 + 1) - b1);
+      S = (r1 - r0) / rho;
+      i = function (t) {
+        var s = t * S,
+            coshr0 = cosh(r0),
+            u = w0 / (rho2 * d1) * (coshr0 * tanh(rho * s + r0) - sinh(r0));
+        return [ux0 + u * dx, uy0 + u * dy, w0 * coshr0 / cosh(rho * s + r0)];
+      };
+    }
+
+  i.duration = S * 1000;
+
+  return i;
+};
+
+var rho = Math.SQRT2,
+    rho2 = 2,
+    rho4 = 4,
+    epsilon2 = 1e-12;
+
+function cosh(x) {
+  return ((x = Math.exp(x)) + 1 / x) / 2;
+}
+
+function sinh(x) {
+  return ((x = Math.exp(x)) - 1 / x) / 2;
+}
+
+function tanh(x) {
+  return ((x = Math.exp(2 * x)) - 1) / (x + 1);
+}
+
+// p0 = [ux0, uy0, w0]
+// p1 = [ux1, uy1, w1]
+},{}],"../node_modules/d3-interpolate/src/hsl.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.hslLong = undefined;
+
+var _d3Color = require("d3-color");
+
+var _color = require("./color");
+
+var _color2 = _interopRequireDefault(_color);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function hsl(hue) {
+  return function (start, end) {
+    var h = hue((start = (0, _d3Color.hsl)(start)).h, (end = (0, _d3Color.hsl)(end)).h),
+        s = (0, _color2.default)(start.s, end.s),
+        l = (0, _color2.default)(start.l, end.l),
+        opacity = (0, _color2.default)(start.opacity, end.opacity);
+    return function (t) {
+      start.h = h(t);
+      start.s = s(t);
+      start.l = l(t);
+      start.opacity = opacity(t);
+      return start + "";
+    };
+  };
+}
+
+exports.default = hsl(_color.hue);
+var hslLong = exports.hslLong = hsl(_color2.default);
+},{"d3-color":"../node_modules/d3-color/src/index.js","./color":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/lab.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = lab;
+
+var _d3Color = require("d3-color");
+
+var _color = require("./color");
+
+var _color2 = _interopRequireDefault(_color);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function lab(start, end) {
+  var l = (0, _color2.default)((start = (0, _d3Color.lab)(start)).l, (end = (0, _d3Color.lab)(end)).l),
+      a = (0, _color2.default)(start.a, end.a),
+      b = (0, _color2.default)(start.b, end.b),
+      opacity = (0, _color2.default)(start.opacity, end.opacity);
+  return function (t) {
+    start.l = l(t);
+    start.a = a(t);
+    start.b = b(t);
+    start.opacity = opacity(t);
+    return start + "";
+  };
+}
+},{"d3-color":"../node_modules/d3-color/src/index.js","./color":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/hcl.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.hclLong = undefined;
+
+var _d3Color = require("d3-color");
+
+var _color = require("./color");
+
+var _color2 = _interopRequireDefault(_color);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function hcl(hue) {
+  return function (start, end) {
+    var h = hue((start = (0, _d3Color.hcl)(start)).h, (end = (0, _d3Color.hcl)(end)).h),
+        c = (0, _color2.default)(start.c, end.c),
+        l = (0, _color2.default)(start.l, end.l),
+        opacity = (0, _color2.default)(start.opacity, end.opacity);
+    return function (t) {
+      start.h = h(t);
+      start.c = c(t);
+      start.l = l(t);
+      start.opacity = opacity(t);
+      return start + "";
+    };
+  };
+}
+
+exports.default = hcl(_color.hue);
+var hclLong = exports.hclLong = hcl(_color2.default);
+},{"d3-color":"../node_modules/d3-color/src/index.js","./color":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/cubehelix.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.cubehelixLong = undefined;
+
+var _d3Color = require("d3-color");
+
+var _color = require("./color");
+
+var _color2 = _interopRequireDefault(_color);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function cubehelix(hue) {
+  return function cubehelixGamma(y) {
+    y = +y;
+
+    function cubehelix(start, end) {
+      var h = hue((start = (0, _d3Color.cubehelix)(start)).h, (end = (0, _d3Color.cubehelix)(end)).h),
+          s = (0, _color2.default)(start.s, end.s),
+          l = (0, _color2.default)(start.l, end.l),
+          opacity = (0, _color2.default)(start.opacity, end.opacity);
+      return function (t) {
+        start.h = h(t);
+        start.s = s(t);
+        start.l = l(Math.pow(t, y));
+        start.opacity = opacity(t);
+        return start + "";
+      };
+    }
+
+    cubehelix.gamma = cubehelixGamma;
+
+    return cubehelix;
+  }(1);
+}
+
+exports.default = cubehelix(_color.hue);
+var cubehelixLong = exports.cubehelixLong = cubehelix(_color2.default);
+},{"d3-color":"../node_modules/d3-color/src/index.js","./color":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/piecewise.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = piecewise;
+function piecewise(interpolate, values) {
+  var i = 0,
+      n = values.length - 1,
+      v = values[0],
+      I = new Array(n < 0 ? 0 : n);
+  while (i < n) I[i] = interpolate(v, v = values[++i]);
+  return function (t) {
+    var i = Math.max(0, Math.min(n - 1, Math.floor(t *= n)));
+    return I[i](t - i);
+  };
+}
+},{}],"../node_modules/d3-interpolate/src/quantize.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (interpolator, n) {
+  var samples = new Array(n);
+  for (var i = 0; i < n; ++i) samples[i] = interpolator(i / (n - 1));
+  return samples;
+};
+},{}],"../node_modules/d3-interpolate/src/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _value = require("./value");
+
+Object.defineProperty(exports, "interpolate", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_value).default;
+  }
+});
+
+var _array = require("./array");
+
+Object.defineProperty(exports, "interpolateArray", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_array).default;
+  }
+});
+
+var _basis = require("./basis");
+
+Object.defineProperty(exports, "interpolateBasis", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_basis).default;
+  }
+});
+
+var _basisClosed = require("./basisClosed");
+
+Object.defineProperty(exports, "interpolateBasisClosed", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_basisClosed).default;
+  }
+});
+
+var _date = require("./date");
+
+Object.defineProperty(exports, "interpolateDate", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_date).default;
+  }
+});
+
+var _discrete = require("./discrete");
+
+Object.defineProperty(exports, "interpolateDiscrete", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_discrete).default;
+  }
+});
+
+var _hue = require("./hue");
+
+Object.defineProperty(exports, "interpolateHue", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_hue).default;
+  }
+});
+
+var _number = require("./number");
+
+Object.defineProperty(exports, "interpolateNumber", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_number).default;
+  }
+});
+
+var _object = require("./object");
+
+Object.defineProperty(exports, "interpolateObject", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_object).default;
+  }
+});
+
+var _round = require("./round");
+
+Object.defineProperty(exports, "interpolateRound", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_round).default;
+  }
+});
+
+var _string = require("./string");
+
+Object.defineProperty(exports, "interpolateString", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_string).default;
+  }
+});
+
+var _index = require("./transform/index");
+
+Object.defineProperty(exports, "interpolateTransformCss", {
+  enumerable: true,
+  get: function () {
+    return _index.interpolateTransformCss;
+  }
+});
+Object.defineProperty(exports, "interpolateTransformSvg", {
+  enumerable: true,
+  get: function () {
+    return _index.interpolateTransformSvg;
+  }
+});
+
+var _zoom = require("./zoom");
+
+Object.defineProperty(exports, "interpolateZoom", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_zoom).default;
+  }
+});
+
+var _rgb = require("./rgb");
+
+Object.defineProperty(exports, "interpolateRgb", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_rgb).default;
+  }
+});
+Object.defineProperty(exports, "interpolateRgbBasis", {
+  enumerable: true,
+  get: function () {
+    return _rgb.rgbBasis;
+  }
+});
+Object.defineProperty(exports, "interpolateRgbBasisClosed", {
+  enumerable: true,
+  get: function () {
+    return _rgb.rgbBasisClosed;
+  }
+});
+
+var _hsl = require("./hsl");
+
+Object.defineProperty(exports, "interpolateHsl", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_hsl).default;
+  }
+});
+Object.defineProperty(exports, "interpolateHslLong", {
+  enumerable: true,
+  get: function () {
+    return _hsl.hslLong;
+  }
+});
+
+var _lab = require("./lab");
+
+Object.defineProperty(exports, "interpolateLab", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_lab).default;
+  }
+});
+
+var _hcl = require("./hcl");
+
+Object.defineProperty(exports, "interpolateHcl", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_hcl).default;
+  }
+});
+Object.defineProperty(exports, "interpolateHclLong", {
+  enumerable: true,
+  get: function () {
+    return _hcl.hclLong;
+  }
+});
+
+var _cubehelix = require("./cubehelix");
+
+Object.defineProperty(exports, "interpolateCubehelix", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_cubehelix).default;
+  }
+});
+Object.defineProperty(exports, "interpolateCubehelixLong", {
+  enumerable: true,
+  get: function () {
+    return _cubehelix.cubehelixLong;
+  }
+});
+
+var _piecewise = require("./piecewise");
+
+Object.defineProperty(exports, "piecewise", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_piecewise).default;
+  }
+});
+
+var _quantize = require("./quantize");
+
+Object.defineProperty(exports, "quantize", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_quantize).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./value":"../node_modules/d3-interpolate/src/value.js","./array":"../node_modules/d3-interpolate/src/array.js","./basis":"../node_modules/d3-interpolate/src/basis.js","./basisClosed":"../node_modules/d3-interpolate/src/basisClosed.js","./date":"../node_modules/d3-interpolate/src/date.js","./discrete":"../node_modules/d3-interpolate/src/discrete.js","./hue":"../node_modules/d3-interpolate/src/hue.js","./number":"../node_modules/d3-interpolate/src/number.js","./object":"../node_modules/d3-interpolate/src/object.js","./round":"../node_modules/d3-interpolate/src/round.js","./string":"../node_modules/d3-interpolate/src/string.js","./transform/index":"../node_modules/d3-interpolate/src/transform/index.js","./zoom":"../node_modules/d3-interpolate/src/zoom.js","./rgb":"../node_modules/d3-interpolate/src/rgb.js","./hsl":"../node_modules/d3-interpolate/src/hsl.js","./lab":"../node_modules/d3-interpolate/src/lab.js","./hcl":"../node_modules/d3-interpolate/src/hcl.js","./cubehelix":"../node_modules/d3-interpolate/src/cubehelix.js","./piecewise":"../node_modules/d3-interpolate/src/piecewise.js","./quantize":"../node_modules/d3-interpolate/src/quantize.js"}],"../node_modules/d3-scale/src/constant.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (x) {
+  return function () {
+    return x;
+  };
+};
+},{}],"../node_modules/d3-scale/src/number.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (x) {
+  return +x;
+};
+},{}],"../node_modules/d3-scale/src/continuous.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.deinterpolateLinear = deinterpolateLinear;
+exports.copy = copy;
+exports.default = continuous;
+
+var _d3Array = require("d3-array");
+
+var _d3Interpolate = require("d3-interpolate");
+
+var _array = require("./array");
+
+var _constant = require("./constant");
+
+var _constant2 = _interopRequireDefault(_constant);
+
+var _number = require("./number");
+
+var _number2 = _interopRequireDefault(_number);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var unit = [0, 1];
+
+function deinterpolateLinear(a, b) {
+  return (b -= a = +a) ? function (x) {
+    return (x - a) / b;
+  } : (0, _constant2.default)(b);
+}
+
+function deinterpolateClamp(deinterpolate) {
+  return function (a, b) {
+    var d = deinterpolate(a = +a, b = +b);
+    return function (x) {
+      return x <= a ? 0 : x >= b ? 1 : d(x);
+    };
+  };
+}
+
+function reinterpolateClamp(reinterpolate) {
+  return function (a, b) {
+    var r = reinterpolate(a = +a, b = +b);
+    return function (t) {
+      return t <= 0 ? a : t >= 1 ? b : r(t);
+    };
+  };
+}
+
+function bimap(domain, range, deinterpolate, reinterpolate) {
+  var d0 = domain[0],
+      d1 = domain[1],
+      r0 = range[0],
+      r1 = range[1];
+  if (d1 < d0) d0 = deinterpolate(d1, d0), r0 = reinterpolate(r1, r0);else d0 = deinterpolate(d0, d1), r0 = reinterpolate(r0, r1);
+  return function (x) {
+    return r0(d0(x));
+  };
+}
+
+function polymap(domain, range, deinterpolate, reinterpolate) {
+  var j = Math.min(domain.length, range.length) - 1,
+      d = new Array(j),
+      r = new Array(j),
+      i = -1;
+
+  // Reverse descending domains.
+  if (domain[j] < domain[0]) {
+    domain = domain.slice().reverse();
+    range = range.slice().reverse();
+  }
+
+  while (++i < j) {
+    d[i] = deinterpolate(domain[i], domain[i + 1]);
+    r[i] = reinterpolate(range[i], range[i + 1]);
+  }
+
+  return function (x) {
+    var i = (0, _d3Array.bisect)(domain, x, 1, j) - 1;
+    return r[i](d[i](x));
+  };
+}
+
+function copy(source, target) {
+  return target.domain(source.domain()).range(source.range()).interpolate(source.interpolate()).clamp(source.clamp());
+}
+
+// deinterpolate(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
+// reinterpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding domain value x in [a,b].
+function continuous(deinterpolate, reinterpolate) {
+  var domain = unit,
+      range = unit,
+      interpolate = _d3Interpolate.interpolate,
+      clamp = false,
+      piecewise,
+      output,
+      input;
+
+  function rescale() {
+    piecewise = Math.min(domain.length, range.length) > 2 ? polymap : bimap;
+    output = input = null;
+    return scale;
+  }
+
+  function scale(x) {
+    return (output || (output = piecewise(domain, range, clamp ? deinterpolateClamp(deinterpolate) : deinterpolate, interpolate)))(+x);
+  }
+
+  scale.invert = function (y) {
+    return (input || (input = piecewise(range, domain, deinterpolateLinear, clamp ? reinterpolateClamp(reinterpolate) : reinterpolate)))(+y);
+  };
+
+  scale.domain = function (_) {
+    return arguments.length ? (domain = _array.map.call(_, _number2.default), rescale()) : domain.slice();
+  };
+
+  scale.range = function (_) {
+    return arguments.length ? (range = _array.slice.call(_), rescale()) : range.slice();
+  };
+
+  scale.rangeRound = function (_) {
+    return range = _array.slice.call(_), interpolate = _d3Interpolate.interpolateRound, rescale();
+  };
+
+  scale.clamp = function (_) {
+    return arguments.length ? (clamp = !!_, rescale()) : clamp;
+  };
+
+  scale.interpolate = function (_) {
+    return arguments.length ? (interpolate = _, rescale()) : interpolate;
+  };
+
+  return rescale();
+}
+},{"d3-array":"../node_modules/d3-array/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js","./array":"../node_modules/d3-scale/src/array.js","./constant":"../node_modules/d3-scale/src/constant.js","./number":"../node_modules/d3-scale/src/number.js"}],"../node_modules/d3-format/src/formatDecimal.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (x, p) {
+  if ((i = (x = p ? x.toExponential(p - 1) : x.toExponential()).indexOf("e")) < 0) return null; // NaN, ±Infinity
+  var i,
+      coefficient = x.slice(0, i);
+
+  // The string returned by toExponential either has the form \d\.\d+e[-+]\d+
+  // (e.g., 1.2e+3) or the form \de[-+]\d+ (e.g., 1e+3).
+  return [coefficient.length > 1 ? coefficient[0] + coefficient.slice(2) : coefficient, +x.slice(i + 1)];
+};
+},{}],"../node_modules/d3-format/src/exponent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (x) {
+  return x = (0, _formatDecimal2.default)(Math.abs(x)), x ? x[1] : NaN;
+};
+
+var _formatDecimal = require("./formatDecimal");
+
+var _formatDecimal2 = _interopRequireDefault(_formatDecimal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./formatDecimal":"../node_modules/d3-format/src/formatDecimal.js"}],"../node_modules/d3-format/src/formatGroup.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (grouping, thousands) {
+  return function (value, width) {
+    var i = value.length,
+        t = [],
+        j = 0,
+        g = grouping[0],
+        length = 0;
+
+    while (i > 0 && g > 0) {
+      if (length + g + 1 > width) g = Math.max(1, width - length);
+      t.push(value.substring(i -= g, i + g));
+      if ((length += g + 1) > width) break;
+      g = grouping[j = (j + 1) % grouping.length];
+    }
+
+    return t.reverse().join(thousands);
+  };
+};
+},{}],"../node_modules/d3-format/src/formatNumerals.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (numerals) {
+  return function (value) {
+    return value.replace(/[0-9]/g, function (i) {
+      return numerals[+i];
+    });
+  };
+};
+},{}],"../node_modules/d3-format/src/formatSpecifier.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = formatSpecifier;
+// [[fill]align][sign][symbol][0][width][,][.precision][~][type]
+var re = /^(?:(.)?([<>=^]))?([+\-( ])?([$#])?(0)?(\d+)?(,)?(\.\d+)?(~)?([a-z%])?$/i;
+
+function formatSpecifier(specifier) {
+  return new FormatSpecifier(specifier);
+}
+
+formatSpecifier.prototype = FormatSpecifier.prototype; // instanceof
+
+function FormatSpecifier(specifier) {
+  if (!(match = re.exec(specifier))) throw new Error("invalid format: " + specifier);
+  var match;
+  this.fill = match[1] || " ";
+  this.align = match[2] || ">";
+  this.sign = match[3] || "-";
+  this.symbol = match[4] || "";
+  this.zero = !!match[5];
+  this.width = match[6] && +match[6];
+  this.comma = !!match[7];
+  this.precision = match[8] && +match[8].slice(1);
+  this.trim = !!match[9];
+  this.type = match[10] || "";
+}
+
+FormatSpecifier.prototype.toString = function () {
+  return this.fill + this.align + this.sign + this.symbol + (this.zero ? "0" : "") + (this.width == null ? "" : Math.max(1, this.width | 0)) + (this.comma ? "," : "") + (this.precision == null ? "" : "." + Math.max(0, this.precision | 0)) + (this.trim ? "~" : "") + this.type;
+};
+},{}],"../node_modules/d3-format/src/formatTrim.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (s) {
+  out: for (var n = s.length, i = 1, i0 = -1, i1; i < n; ++i) {
+    switch (s[i]) {
+      case ".":
+        i0 = i1 = i;break;
+      case "0":
+        if (i0 === 0) i0 = i;i1 = i;break;
+      default:
+        if (i0 > 0) {
+          if (!+s[i]) break out;i0 = 0;
+        }break;
+    }
+  }
+  return i0 > 0 ? s.slice(0, i0) + s.slice(i1 + 1) : s;
+};
+},{}],"../node_modules/d3-format/src/formatPrefixAuto.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.prefixExponent = undefined;
+
+exports.default = function (x, p) {
+    var d = (0, _formatDecimal2.default)(x, p);
+    if (!d) return x + "";
+    var coefficient = d[0],
+        exponent = d[1],
+        i = exponent - (exports.prefixExponent = prefixExponent = Math.max(-8, Math.min(8, Math.floor(exponent / 3))) * 3) + 1,
+        n = coefficient.length;
+    return i === n ? coefficient : i > n ? coefficient + new Array(i - n + 1).join("0") : i > 0 ? coefficient.slice(0, i) + "." + coefficient.slice(i) : "0." + new Array(1 - i).join("0") + (0, _formatDecimal2.default)(x, Math.max(0, p + i - 1))[0]; // less than 1y!
+};
+
+var _formatDecimal = require("./formatDecimal");
+
+var _formatDecimal2 = _interopRequireDefault(_formatDecimal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var prefixExponent = exports.prefixExponent = undefined;
+},{"./formatDecimal":"../node_modules/d3-format/src/formatDecimal.js"}],"../node_modules/d3-format/src/formatRounded.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports.default = function (x, p) {
+    var d = (0, _formatDecimal2.default)(x, p);
+    if (!d) return x + "";
+    var coefficient = d[0],
+        exponent = d[1];
+    return exponent < 0 ? "0." + new Array(-exponent).join("0") + coefficient : coefficient.length > exponent + 1 ? coefficient.slice(0, exponent + 1) + "." + coefficient.slice(exponent + 1) : coefficient + new Array(exponent - coefficient.length + 2).join("0");
+};
+
+var _formatDecimal = require("./formatDecimal");
+
+var _formatDecimal2 = _interopRequireDefault(_formatDecimal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./formatDecimal":"../node_modules/d3-format/src/formatDecimal.js"}],"../node_modules/d3-format/src/formatTypes.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _formatPrefixAuto = require("./formatPrefixAuto");
+
+var _formatPrefixAuto2 = _interopRequireDefault(_formatPrefixAuto);
+
+var _formatRounded = require("./formatRounded");
+
+var _formatRounded2 = _interopRequireDefault(_formatRounded);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  "%": function (x, p) {
+    return (x * 100).toFixed(p);
+  },
+  "b": function (x) {
+    return Math.round(x).toString(2);
+  },
+  "c": function (x) {
+    return x + "";
+  },
+  "d": function (x) {
+    return Math.round(x).toString(10);
+  },
+  "e": function (x, p) {
+    return x.toExponential(p);
+  },
+  "f": function (x, p) {
+    return x.toFixed(p);
+  },
+  "g": function (x, p) {
+    return x.toPrecision(p);
+  },
+  "o": function (x) {
+    return Math.round(x).toString(8);
+  },
+  "p": function (x, p) {
+    return (0, _formatRounded2.default)(x * 100, p);
+  },
+  "r": _formatRounded2.default,
+  "s": _formatPrefixAuto2.default,
+  "X": function (x) {
+    return Math.round(x).toString(16).toUpperCase();
+  },
+  "x": function (x) {
+    return Math.round(x).toString(16);
+  }
+};
+},{"./formatPrefixAuto":"../node_modules/d3-format/src/formatPrefixAuto.js","./formatRounded":"../node_modules/d3-format/src/formatRounded.js"}],"../node_modules/d3-format/src/identity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (x) {
+  return x;
+};
+},{}],"../node_modules/d3-format/src/locale.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (locale) {
+  var group = locale.grouping && locale.thousands ? (0, _formatGroup2.default)(locale.grouping, locale.thousands) : _identity2.default,
+      currency = locale.currency,
+      decimal = locale.decimal,
+      numerals = locale.numerals ? (0, _formatNumerals2.default)(locale.numerals) : _identity2.default,
+      percent = locale.percent || "%";
+
+  function newFormat(specifier) {
+    specifier = (0, _formatSpecifier2.default)(specifier);
+
+    var fill = specifier.fill,
+        align = specifier.align,
+        sign = specifier.sign,
+        symbol = specifier.symbol,
+        zero = specifier.zero,
+        width = specifier.width,
+        comma = specifier.comma,
+        precision = specifier.precision,
+        trim = specifier.trim,
+        type = specifier.type;
+
+    // The "n" type is an alias for ",g".
+    if (type === "n") comma = true, type = "g";
+
+    // The "" type, and any invalid type, is an alias for ".12~g".
+    else if (!_formatTypes2.default[type]) precision == null && (precision = 12), trim = true, type = "g";
+
+    // If zero fill is specified, padding goes after sign and before digits.
+    if (zero || fill === "0" && align === "=") zero = true, fill = "0", align = "=";
+
+    // Compute the prefix and suffix.
+    // For SI-prefix, the suffix is lazily computed.
+    var prefix = symbol === "$" ? currency[0] : symbol === "#" && /[boxX]/.test(type) ? "0" + type.toLowerCase() : "",
+        suffix = symbol === "$" ? currency[1] : /[%p]/.test(type) ? percent : "";
+
+    // What format function should we use?
+    // Is this an integer type?
+    // Can this type generate exponential notation?
+    var formatType = _formatTypes2.default[type],
+        maybeSuffix = /[defgprs%]/.test(type);
+
+    // Set the default precision if not specified,
+    // or clamp the specified precision to the supported range.
+    // For significant precision, it must be in [1, 21].
+    // For fixed precision, it must be in [0, 20].
+    precision = precision == null ? 6 : /[gprs]/.test(type) ? Math.max(1, Math.min(21, precision)) : Math.max(0, Math.min(20, precision));
+
+    function format(value) {
+      var valuePrefix = prefix,
+          valueSuffix = suffix,
+          i,
+          n,
+          c;
+
+      if (type === "c") {
+        valueSuffix = formatType(value) + valueSuffix;
+        value = "";
+      } else {
+        value = +value;
+
+        // Perform the initial formatting.
+        var valueNegative = value < 0;
+        value = formatType(Math.abs(value), precision);
+
+        // Trim insignificant zeros.
+        if (trim) value = (0, _formatTrim2.default)(value);
+
+        // If a negative value rounds to zero during formatting, treat as positive.
+        if (valueNegative && +value === 0) valueNegative = false;
+
+        // Compute the prefix and suffix.
+        valuePrefix = (valueNegative ? sign === "(" ? sign : "-" : sign === "-" || sign === "(" ? "" : sign) + valuePrefix;
+        valueSuffix = (type === "s" ? prefixes[8 + _formatPrefixAuto.prefixExponent / 3] : "") + valueSuffix + (valueNegative && sign === "(" ? ")" : "");
+
+        // Break the formatted value into the integer “value” part that can be
+        // grouped, and fractional or exponential “suffix” part that is not.
+        if (maybeSuffix) {
+          i = -1, n = value.length;
+          while (++i < n) {
+            if (c = value.charCodeAt(i), 48 > c || c > 57) {
+              valueSuffix = (c === 46 ? decimal + value.slice(i + 1) : value.slice(i)) + valueSuffix;
+              value = value.slice(0, i);
+              break;
+            }
+          }
+        }
+      }
+
+      // If the fill character is not "0", grouping is applied before padding.
+      if (comma && !zero) value = group(value, Infinity);
+
+      // Compute the padding.
+      var length = valuePrefix.length + value.length + valueSuffix.length,
+          padding = length < width ? new Array(width - length + 1).join(fill) : "";
+
+      // If the fill character is "0", grouping is applied after padding.
+      if (comma && zero) value = group(padding + value, padding.length ? width - valueSuffix.length : Infinity), padding = "";
+
+      // Reconstruct the final output based on the desired alignment.
+      switch (align) {
+        case "<":
+          value = valuePrefix + value + valueSuffix + padding;break;
+        case "=":
+          value = valuePrefix + padding + value + valueSuffix;break;
+        case "^":
+          value = padding.slice(0, length = padding.length >> 1) + valuePrefix + value + valueSuffix + padding.slice(length);break;
+        default:
+          value = padding + valuePrefix + value + valueSuffix;break;
+      }
+
+      return numerals(value);
+    }
+
+    format.toString = function () {
+      return specifier + "";
+    };
+
+    return format;
+  }
+
+  function formatPrefix(specifier, value) {
+    var f = newFormat((specifier = (0, _formatSpecifier2.default)(specifier), specifier.type = "f", specifier)),
+        e = Math.max(-8, Math.min(8, Math.floor((0, _exponent2.default)(value) / 3))) * 3,
+        k = Math.pow(10, -e),
+        prefix = prefixes[8 + e / 3];
+    return function (value) {
+      return f(k * value) + prefix;
+    };
+  }
+
+  return {
+    format: newFormat,
+    formatPrefix: formatPrefix
+  };
+};
+
+var _exponent = require("./exponent");
+
+var _exponent2 = _interopRequireDefault(_exponent);
+
+var _formatGroup = require("./formatGroup");
+
+var _formatGroup2 = _interopRequireDefault(_formatGroup);
+
+var _formatNumerals = require("./formatNumerals");
+
+var _formatNumerals2 = _interopRequireDefault(_formatNumerals);
+
+var _formatSpecifier = require("./formatSpecifier");
+
+var _formatSpecifier2 = _interopRequireDefault(_formatSpecifier);
+
+var _formatTrim = require("./formatTrim");
+
+var _formatTrim2 = _interopRequireDefault(_formatTrim);
+
+var _formatTypes = require("./formatTypes");
+
+var _formatTypes2 = _interopRequireDefault(_formatTypes);
+
+var _formatPrefixAuto = require("./formatPrefixAuto");
+
+var _identity = require("./identity");
+
+var _identity2 = _interopRequireDefault(_identity);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var prefixes = ["y", "z", "a", "f", "p", "n", "µ", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"];
+},{"./exponent":"../node_modules/d3-format/src/exponent.js","./formatGroup":"../node_modules/d3-format/src/formatGroup.js","./formatNumerals":"../node_modules/d3-format/src/formatNumerals.js","./formatSpecifier":"../node_modules/d3-format/src/formatSpecifier.js","./formatTrim":"../node_modules/d3-format/src/formatTrim.js","./formatTypes":"../node_modules/d3-format/src/formatTypes.js","./formatPrefixAuto":"../node_modules/d3-format/src/formatPrefixAuto.js","./identity":"../node_modules/d3-format/src/identity.js"}],"../node_modules/d3-format/src/defaultLocale.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.formatPrefix = exports.format = undefined;
+exports.default = defaultLocale;
+
+var _locale = require("./locale");
+
+var _locale2 = _interopRequireDefault(_locale);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var locale;
+var format = exports.format = undefined;
+var formatPrefix = exports.formatPrefix = undefined;
+
+defaultLocale({
+  decimal: ".",
+  thousands: ",",
+  grouping: [3],
+  currency: ["$", ""]
+});
+
+function defaultLocale(definition) {
+  locale = (0, _locale2.default)(definition);
+  exports.format = format = locale.format;
+  exports.formatPrefix = formatPrefix = locale.formatPrefix;
+  return locale;
+}
+},{"./locale":"../node_modules/d3-format/src/locale.js"}],"../node_modules/d3-format/src/precisionFixed.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (step) {
+  return Math.max(0, -(0, _exponent2.default)(Math.abs(step)));
+};
+
+var _exponent = require("./exponent");
+
+var _exponent2 = _interopRequireDefault(_exponent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./exponent":"../node_modules/d3-format/src/exponent.js"}],"../node_modules/d3-format/src/precisionPrefix.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (step, value) {
+  return Math.max(0, Math.max(-8, Math.min(8, Math.floor((0, _exponent2.default)(value) / 3))) * 3 - (0, _exponent2.default)(Math.abs(step)));
+};
+
+var _exponent = require("./exponent");
+
+var _exponent2 = _interopRequireDefault(_exponent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./exponent":"../node_modules/d3-format/src/exponent.js"}],"../node_modules/d3-format/src/precisionRound.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (step, max) {
+  step = Math.abs(step), max = Math.abs(max) - step;
+  return Math.max(0, (0, _exponent2.default)(max) - (0, _exponent2.default)(step)) + 1;
+};
+
+var _exponent = require("./exponent");
+
+var _exponent2 = _interopRequireDefault(_exponent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./exponent":"../node_modules/d3-format/src/exponent.js"}],"../node_modules/d3-format/src/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defaultLocale = require("./defaultLocale");
+
+Object.defineProperty(exports, "formatDefaultLocale", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_defaultLocale).default;
+  }
+});
+Object.defineProperty(exports, "format", {
+  enumerable: true,
+  get: function () {
+    return _defaultLocale.format;
+  }
+});
+Object.defineProperty(exports, "formatPrefix", {
+  enumerable: true,
+  get: function () {
+    return _defaultLocale.formatPrefix;
+  }
+});
+
+var _locale = require("./locale");
+
+Object.defineProperty(exports, "formatLocale", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_locale).default;
+  }
+});
+
+var _formatSpecifier = require("./formatSpecifier");
+
+Object.defineProperty(exports, "formatSpecifier", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_formatSpecifier).default;
+  }
+});
+
+var _precisionFixed = require("./precisionFixed");
+
+Object.defineProperty(exports, "precisionFixed", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_precisionFixed).default;
+  }
+});
+
+var _precisionPrefix = require("./precisionPrefix");
+
+Object.defineProperty(exports, "precisionPrefix", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_precisionPrefix).default;
+  }
+});
+
+var _precisionRound = require("./precisionRound");
+
+Object.defineProperty(exports, "precisionRound", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_precisionRound).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./defaultLocale":"../node_modules/d3-format/src/defaultLocale.js","./locale":"../node_modules/d3-format/src/locale.js","./formatSpecifier":"../node_modules/d3-format/src/formatSpecifier.js","./precisionFixed":"../node_modules/d3-format/src/precisionFixed.js","./precisionPrefix":"../node_modules/d3-format/src/precisionPrefix.js","./precisionRound":"../node_modules/d3-format/src/precisionRound.js"}],"../node_modules/d3-scale/src/tickFormat.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (domain, count, specifier) {
+  var start = domain[0],
+      stop = domain[domain.length - 1],
+      step = (0, _d3Array.tickStep)(start, stop, count == null ? 10 : count),
+      precision;
+  specifier = (0, _d3Format.formatSpecifier)(specifier == null ? ",f" : specifier);
+  switch (specifier.type) {
+    case "s":
+      {
+        var value = Math.max(Math.abs(start), Math.abs(stop));
+        if (specifier.precision == null && !isNaN(precision = (0, _d3Format.precisionPrefix)(step, value))) specifier.precision = precision;
+        return (0, _d3Format.formatPrefix)(specifier, value);
+      }
+    case "":
+    case "e":
+    case "g":
+    case "p":
+    case "r":
+      {
+        if (specifier.precision == null && !isNaN(precision = (0, _d3Format.precisionRound)(step, Math.max(Math.abs(start), Math.abs(stop))))) specifier.precision = precision - (specifier.type === "e");
+        break;
+      }
+    case "f":
+    case "%":
+      {
+        if (specifier.precision == null && !isNaN(precision = (0, _d3Format.precisionFixed)(step))) specifier.precision = precision - (specifier.type === "%") * 2;
+        break;
+      }
+  }
+  return (0, _d3Format.format)(specifier);
+};
+
+var _d3Array = require("d3-array");
+
+var _d3Format = require("d3-format");
+},{"d3-array":"../node_modules/d3-array/src/index.js","d3-format":"../node_modules/d3-format/src/index.js"}],"../node_modules/d3-scale/src/linear.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.linearish = linearish;
+exports.default = linear;
+
+var _d3Array = require("d3-array");
+
+var _d3Interpolate = require("d3-interpolate");
+
+var _continuous = require("./continuous");
+
+var _continuous2 = _interopRequireDefault(_continuous);
+
+var _tickFormat = require("./tickFormat");
+
+var _tickFormat2 = _interopRequireDefault(_tickFormat);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function linearish(scale) {
+  var domain = scale.domain;
+
+  scale.ticks = function (count) {
+    var d = domain();
+    return (0, _d3Array.ticks)(d[0], d[d.length - 1], count == null ? 10 : count);
+  };
+
+  scale.tickFormat = function (count, specifier) {
+    return (0, _tickFormat2.default)(domain(), count, specifier);
+  };
+
+  scale.nice = function (count) {
+    if (count == null) count = 10;
+
+    var d = domain(),
+        i0 = 0,
+        i1 = d.length - 1,
+        start = d[i0],
+        stop = d[i1],
+        step;
+
+    if (stop < start) {
+      step = start, start = stop, stop = step;
+      step = i0, i0 = i1, i1 = step;
+    }
+
+    step = (0, _d3Array.tickIncrement)(start, stop, count);
+
+    if (step > 0) {
+      start = Math.floor(start / step) * step;
+      stop = Math.ceil(stop / step) * step;
+      step = (0, _d3Array.tickIncrement)(start, stop, count);
+    } else if (step < 0) {
+      start = Math.ceil(start * step) / step;
+      stop = Math.floor(stop * step) / step;
+      step = (0, _d3Array.tickIncrement)(start, stop, count);
+    }
+
+    if (step > 0) {
+      d[i0] = Math.floor(start / step) * step;
+      d[i1] = Math.ceil(stop / step) * step;
+      domain(d);
+    } else if (step < 0) {
+      d[i0] = Math.ceil(start * step) / step;
+      d[i1] = Math.floor(stop * step) / step;
+      domain(d);
+    }
+
+    return scale;
+  };
+
+  return scale;
+}
+
+function linear() {
+  var scale = (0, _continuous2.default)(_continuous.deinterpolateLinear, _d3Interpolate.interpolateNumber);
+
+  scale.copy = function () {
+    return (0, _continuous.copy)(scale, linear());
+  };
+
+  return linearish(scale);
+}
+},{"d3-array":"../node_modules/d3-array/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js","./continuous":"../node_modules/d3-scale/src/continuous.js","./tickFormat":"../node_modules/d3-scale/src/tickFormat.js"}],"../node_modules/d3-scale/src/identity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = identity;
+
+var _array = require("./array");
+
+var _linear = require("./linear");
+
+var _number = require("./number");
+
+var _number2 = _interopRequireDefault(_number);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function identity() {
+  var domain = [0, 1];
+
+  function scale(x) {
+    return +x;
+  }
+
+  scale.invert = scale;
+
+  scale.domain = scale.range = function (_) {
+    return arguments.length ? (domain = _array.map.call(_, _number2.default), scale) : domain.slice();
+  };
+
+  scale.copy = function () {
+    return identity().domain(domain);
+  };
+
+  return (0, _linear.linearish)(scale);
+}
+},{"./array":"../node_modules/d3-scale/src/array.js","./linear":"../node_modules/d3-scale/src/linear.js","./number":"../node_modules/d3-scale/src/number.js"}],"../node_modules/d3-scale/src/nice.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (domain, interval) {
+  domain = domain.slice();
+
+  var i0 = 0,
+      i1 = domain.length - 1,
+      x0 = domain[i0],
+      x1 = domain[i1],
+      t;
+
+  if (x1 < x0) {
+    t = i0, i0 = i1, i1 = t;
+    t = x0, x0 = x1, x1 = t;
+  }
+
+  domain[i0] = interval.floor(x0);
+  domain[i1] = interval.ceil(x1);
+  return domain;
+};
+},{}],"../node_modules/d3-scale/src/log.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = log;
+
+var _d3Array = require("d3-array");
+
+var _d3Format = require("d3-format");
+
+var _constant = require("./constant");
+
+var _constant2 = _interopRequireDefault(_constant);
+
+var _nice = require("./nice");
+
+var _nice2 = _interopRequireDefault(_nice);
+
+var _continuous = require("./continuous");
+
+var _continuous2 = _interopRequireDefault(_continuous);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function deinterpolate(a, b) {
+  return (b = Math.log(b / a)) ? function (x) {
+    return Math.log(x / a) / b;
+  } : (0, _constant2.default)(b);
+}
+
+function reinterpolate(a, b) {
+  return a < 0 ? function (t) {
+    return -Math.pow(-b, t) * Math.pow(-a, 1 - t);
+  } : function (t) {
+    return Math.pow(b, t) * Math.pow(a, 1 - t);
+  };
+}
+
+function pow10(x) {
+  return isFinite(x) ? +("1e" + x) : x < 0 ? 0 : x;
+}
+
+function powp(base) {
+  return base === 10 ? pow10 : base === Math.E ? Math.exp : function (x) {
+    return Math.pow(base, x);
+  };
+}
+
+function logp(base) {
+  return base === Math.E ? Math.log : base === 10 && Math.log10 || base === 2 && Math.log2 || (base = Math.log(base), function (x) {
+    return Math.log(x) / base;
+  });
+}
+
+function reflect(f) {
+  return function (x) {
+    return -f(-x);
+  };
+}
+
+function log() {
+  var scale = (0, _continuous2.default)(deinterpolate, reinterpolate).domain([1, 10]),
+      domain = scale.domain,
+      base = 10,
+      logs = logp(10),
+      pows = powp(10);
+
+  function rescale() {
+    logs = logp(base), pows = powp(base);
+    if (domain()[0] < 0) logs = reflect(logs), pows = reflect(pows);
+    return scale;
+  }
+
+  scale.base = function (_) {
+    return arguments.length ? (base = +_, rescale()) : base;
+  };
+
+  scale.domain = function (_) {
+    return arguments.length ? (domain(_), rescale()) : domain();
+  };
+
+  scale.ticks = function (count) {
+    var d = domain(),
+        u = d[0],
+        v = d[d.length - 1],
+        r;
+
+    if (r = v < u) i = u, u = v, v = i;
+
+    var i = logs(u),
+        j = logs(v),
+        p,
+        k,
+        t,
+        n = count == null ? 10 : +count,
+        z = [];
+
+    if (!(base % 1) && j - i < n) {
+      i = Math.round(i) - 1, j = Math.round(j) + 1;
+      if (u > 0) for (; i < j; ++i) {
+        for (k = 1, p = pows(i); k < base; ++k) {
+          t = p * k;
+          if (t < u) continue;
+          if (t > v) break;
+          z.push(t);
+        }
+      } else for (; i < j; ++i) {
+        for (k = base - 1, p = pows(i); k >= 1; --k) {
+          t = p * k;
+          if (t < u) continue;
+          if (t > v) break;
+          z.push(t);
+        }
+      }
+    } else {
+      z = (0, _d3Array.ticks)(i, j, Math.min(j - i, n)).map(pows);
+    }
+
+    return r ? z.reverse() : z;
+  };
+
+  scale.tickFormat = function (count, specifier) {
+    if (specifier == null) specifier = base === 10 ? ".0e" : ",";
+    if (typeof specifier !== "function") specifier = (0, _d3Format.format)(specifier);
+    if (count === Infinity) return specifier;
+    if (count == null) count = 10;
+    var k = Math.max(1, base * count / scale.ticks().length); // TODO fast estimate?
+    return function (d) {
+      var i = d / pows(Math.round(logs(d)));
+      if (i * base < base - 0.5) i *= base;
+      return i <= k ? specifier(d) : "";
+    };
+  };
+
+  scale.nice = function () {
+    return domain((0, _nice2.default)(domain(), {
+      floor: function (x) {
+        return pows(Math.floor(logs(x)));
+      },
+      ceil: function (x) {
+        return pows(Math.ceil(logs(x)));
+      }
+    }));
+  };
+
+  scale.copy = function () {
+    return (0, _continuous.copy)(scale, log().base(base));
+  };
+
+  return scale;
+}
+},{"d3-array":"../node_modules/d3-array/src/index.js","d3-format":"../node_modules/d3-format/src/index.js","./constant":"../node_modules/d3-scale/src/constant.js","./nice":"../node_modules/d3-scale/src/nice.js","./continuous":"../node_modules/d3-scale/src/continuous.js"}],"../node_modules/d3-scale/src/pow.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = pow;
+exports.sqrt = sqrt;
+
+var _constant = require("./constant");
+
+var _constant2 = _interopRequireDefault(_constant);
+
+var _linear = require("./linear");
+
+var _continuous = require("./continuous");
+
+var _continuous2 = _interopRequireDefault(_continuous);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function raise(x, exponent) {
+  return x < 0 ? -Math.pow(-x, exponent) : Math.pow(x, exponent);
+}
+
+function pow() {
+  var exponent = 1,
+      scale = (0, _continuous2.default)(deinterpolate, reinterpolate),
+      domain = scale.domain;
+
+  function deinterpolate(a, b) {
+    return (b = raise(b, exponent) - (a = raise(a, exponent))) ? function (x) {
+      return (raise(x, exponent) - a) / b;
+    } : (0, _constant2.default)(b);
+  }
+
+  function reinterpolate(a, b) {
+    b = raise(b, exponent) - (a = raise(a, exponent));
+    return function (t) {
+      return raise(a + b * t, 1 / exponent);
+    };
+  }
+
+  scale.exponent = function (_) {
+    return arguments.length ? (exponent = +_, domain(domain())) : exponent;
+  };
+
+  scale.copy = function () {
+    return (0, _continuous.copy)(scale, pow().exponent(exponent));
+  };
+
+  return (0, _linear.linearish)(scale);
+}
+
+function sqrt() {
+  return pow().exponent(0.5);
+}
+},{"./constant":"../node_modules/d3-scale/src/constant.js","./linear":"../node_modules/d3-scale/src/linear.js","./continuous":"../node_modules/d3-scale/src/continuous.js"}],"../node_modules/d3-scale/src/quantile.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = quantile;
+
+var _d3Array = require("d3-array");
+
+var _array = require("./array");
+
+function quantile() {
+  var domain = [],
+      range = [],
+      thresholds = [];
+
+  function rescale() {
+    var i = 0,
+        n = Math.max(1, range.length);
+    thresholds = new Array(n - 1);
+    while (++i < n) thresholds[i - 1] = (0, _d3Array.quantile)(domain, i / n);
+    return scale;
+  }
+
+  function scale(x) {
+    if (!isNaN(x = +x)) return range[(0, _d3Array.bisect)(thresholds, x)];
+  }
+
+  scale.invertExtent = function (y) {
+    var i = range.indexOf(y);
+    return i < 0 ? [NaN, NaN] : [i > 0 ? thresholds[i - 1] : domain[0], i < thresholds.length ? thresholds[i] : domain[domain.length - 1]];
+  };
+
+  scale.domain = function (_) {
+    if (!arguments.length) return domain.slice();
+    domain = [];
+    for (var i = 0, n = _.length, d; i < n; ++i) if (d = _[i], d != null && !isNaN(d = +d)) domain.push(d);
+    domain.sort(_d3Array.ascending);
+    return rescale();
+  };
+
+  scale.range = function (_) {
+    return arguments.length ? (range = _array.slice.call(_), rescale()) : range.slice();
+  };
+
+  scale.quantiles = function () {
+    return thresholds.slice();
+  };
+
+  scale.copy = function () {
+    return quantile().domain(domain).range(range);
+  };
+
+  return scale;
+}
+},{"d3-array":"../node_modules/d3-array/src/index.js","./array":"../node_modules/d3-scale/src/array.js"}],"../node_modules/d3-scale/src/quantize.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = quantize;
+
+var _d3Array = require("d3-array");
+
+var _array = require("./array");
+
+var _linear = require("./linear");
+
+function quantize() {
+  var x0 = 0,
+      x1 = 1,
+      n = 1,
+      domain = [0.5],
+      range = [0, 1];
+
+  function scale(x) {
+    if (x <= x) return range[(0, _d3Array.bisect)(domain, x, 0, n)];
+  }
+
+  function rescale() {
+    var i = -1;
+    domain = new Array(n);
+    while (++i < n) domain[i] = ((i + 1) * x1 - (i - n) * x0) / (n + 1);
+    return scale;
+  }
+
+  scale.domain = function (_) {
+    return arguments.length ? (x0 = +_[0], x1 = +_[1], rescale()) : [x0, x1];
+  };
+
+  scale.range = function (_) {
+    return arguments.length ? (n = (range = _array.slice.call(_)).length - 1, rescale()) : range.slice();
+  };
+
+  scale.invertExtent = function (y) {
+    var i = range.indexOf(y);
+    return i < 0 ? [NaN, NaN] : i < 1 ? [x0, domain[0]] : i >= n ? [domain[n - 1], x1] : [domain[i - 1], domain[i]];
+  };
+
+  scale.copy = function () {
+    return quantize().domain([x0, x1]).range(range);
+  };
+
+  return (0, _linear.linearish)(scale);
+}
+},{"d3-array":"../node_modules/d3-array/src/index.js","./array":"../node_modules/d3-scale/src/array.js","./linear":"../node_modules/d3-scale/src/linear.js"}],"../node_modules/d3-scale/src/threshold.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = threshold;
+
+var _d3Array = require("d3-array");
+
+var _array = require("./array");
+
+function threshold() {
+  var domain = [0.5],
+      range = [0, 1],
+      n = 1;
+
+  function scale(x) {
+    if (x <= x) return range[(0, _d3Array.bisect)(domain, x, 0, n)];
+  }
+
+  scale.domain = function (_) {
+    return arguments.length ? (domain = _array.slice.call(_), n = Math.min(domain.length, range.length - 1), scale) : domain.slice();
+  };
+
+  scale.range = function (_) {
+    return arguments.length ? (range = _array.slice.call(_), n = Math.min(domain.length, range.length - 1), scale) : range.slice();
+  };
+
+  scale.invertExtent = function (y) {
+    var i = range.indexOf(y);
+    return [domain[i - 1], domain[i]];
+  };
+
+  scale.copy = function () {
+    return threshold().domain(domain).range(range);
+  };
+
+  return scale;
+}
+},{"d3-array":"../node_modules/d3-array/src/index.js","./array":"../node_modules/d3-scale/src/array.js"}],"../node_modules/d3-time/src/interval.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = newInterval;
+var t0 = new Date(),
+    t1 = new Date();
+
+function newInterval(floori, offseti, count, field) {
+
+  function interval(date) {
+    return floori(date = new Date(+date)), date;
+  }
+
+  interval.floor = interval;
+
+  interval.ceil = function (date) {
+    return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
+  };
+
+  interval.round = function (date) {
+    var d0 = interval(date),
+        d1 = interval.ceil(date);
+    return date - d0 < d1 - date ? d0 : d1;
+  };
+
+  interval.offset = function (date, step) {
+    return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
+  };
+
+  interval.range = function (start, stop, step) {
+    var range = [],
+        previous;
+    start = interval.ceil(start);
+    step = step == null ? 1 : Math.floor(step);
+    if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
+    do range.push(previous = new Date(+start)), offseti(start, step), floori(start); while (previous < start && start < stop);
+    return range;
+  };
+
+  interval.filter = function (test) {
+    return newInterval(function (date) {
+      if (date >= date) while (floori(date), !test(date)) date.setTime(date - 1);
+    }, function (date, step) {
+      if (date >= date) {
+        if (step < 0) while (++step <= 0) {
+          while (offseti(date, -1), !test(date)) {} // eslint-disable-line no-empty
+        } else while (--step >= 0) {
+          while (offseti(date, +1), !test(date)) {} // eslint-disable-line no-empty
+        }
+      }
+    });
+  };
+
+  if (count) {
+    interval.count = function (start, end) {
+      t0.setTime(+start), t1.setTime(+end);
+      floori(t0), floori(t1);
+      return Math.floor(count(t0, t1));
+    };
+
+    interval.every = function (step) {
+      step = Math.floor(step);
+      return !isFinite(step) || !(step > 0) ? null : !(step > 1) ? interval : interval.filter(field ? function (d) {
+        return field(d) % step === 0;
+      } : function (d) {
+        return interval.count(0, d) % step === 0;
+      });
+    };
+  }
+
+  return interval;
+}
+},{}],"../node_modules/d3-time/src/millisecond.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.milliseconds = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var millisecond = (0, _interval2.default)(function () {
+  // noop
+}, function (date, step) {
+  date.setTime(+date + step);
+}, function (start, end) {
+  return end - start;
+});
+
+// An optimized implementation for this simple case.
+millisecond.every = function (k) {
+  k = Math.floor(k);
+  if (!isFinite(k) || !(k > 0)) return null;
+  if (!(k > 1)) return millisecond;
+  return (0, _interval2.default)(function (date) {
+    date.setTime(Math.floor(date / k) * k);
+  }, function (date, step) {
+    date.setTime(+date + step * k);
+  }, function (start, end) {
+    return (end - start) / k;
+  });
+};
+
+exports.default = millisecond;
+var milliseconds = exports.milliseconds = millisecond.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/duration.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var durationSecond = exports.durationSecond = 1e3;
+var durationMinute = exports.durationMinute = 6e4;
+var durationHour = exports.durationHour = 36e5;
+var durationDay = exports.durationDay = 864e5;
+var durationWeek = exports.durationWeek = 6048e5;
+},{}],"../node_modules/d3-time/src/second.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.seconds = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+var _duration = require("./duration");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var second = (0, _interval2.default)(function (date) {
+  date.setTime(Math.floor(date / _duration.durationSecond) * _duration.durationSecond);
+}, function (date, step) {
+  date.setTime(+date + step * _duration.durationSecond);
+}, function (start, end) {
+  return (end - start) / _duration.durationSecond;
+}, function (date) {
+  return date.getUTCSeconds();
+});
+
+exports.default = second;
+var seconds = exports.seconds = second.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/minute.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.minutes = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+var _duration = require("./duration");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var minute = (0, _interval2.default)(function (date) {
+  date.setTime(Math.floor(date / _duration.durationMinute) * _duration.durationMinute);
+}, function (date, step) {
+  date.setTime(+date + step * _duration.durationMinute);
+}, function (start, end) {
+  return (end - start) / _duration.durationMinute;
+}, function (date) {
+  return date.getMinutes();
+});
+
+exports.default = minute;
+var minutes = exports.minutes = minute.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/hour.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.hours = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+var _duration = require("./duration");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var hour = (0, _interval2.default)(function (date) {
+  var offset = date.getTimezoneOffset() * _duration.durationMinute % _duration.durationHour;
+  if (offset < 0) offset += _duration.durationHour;
+  date.setTime(Math.floor((+date - offset) / _duration.durationHour) * _duration.durationHour + offset);
+}, function (date, step) {
+  date.setTime(+date + step * _duration.durationHour);
+}, function (start, end) {
+  return (end - start) / _duration.durationHour;
+}, function (date) {
+  return date.getHours();
+});
+
+exports.default = hour;
+var hours = exports.hours = hour.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/day.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.days = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+var _duration = require("./duration");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var day = (0, _interval2.default)(function (date) {
+  date.setHours(0, 0, 0, 0);
+}, function (date, step) {
+  date.setDate(date.getDate() + step);
+}, function (start, end) {
+  return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * _duration.durationMinute) / _duration.durationDay;
+}, function (date) {
+  return date.getDate() - 1;
+});
+
+exports.default = day;
+var days = exports.days = day.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/week.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.saturdays = exports.fridays = exports.thursdays = exports.wednesdays = exports.tuesdays = exports.mondays = exports.sundays = exports.saturday = exports.friday = exports.thursday = exports.wednesday = exports.tuesday = exports.monday = exports.sunday = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+var _duration = require("./duration");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function weekday(i) {
+  return (0, _interval2.default)(function (date) {
+    date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
+    date.setHours(0, 0, 0, 0);
+  }, function (date, step) {
+    date.setDate(date.getDate() + step * 7);
+  }, function (start, end) {
+    return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * _duration.durationMinute) / _duration.durationWeek;
+  });
+}
+
+var sunday = exports.sunday = weekday(0);
+var monday = exports.monday = weekday(1);
+var tuesday = exports.tuesday = weekday(2);
+var wednesday = exports.wednesday = weekday(3);
+var thursday = exports.thursday = weekday(4);
+var friday = exports.friday = weekday(5);
+var saturday = exports.saturday = weekday(6);
+
+var sundays = exports.sundays = sunday.range;
+var mondays = exports.mondays = monday.range;
+var tuesdays = exports.tuesdays = tuesday.range;
+var wednesdays = exports.wednesdays = wednesday.range;
+var thursdays = exports.thursdays = thursday.range;
+var fridays = exports.fridays = friday.range;
+var saturdays = exports.saturdays = saturday.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/month.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.months = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var month = (0, _interval2.default)(function (date) {
+  date.setDate(1);
+  date.setHours(0, 0, 0, 0);
+}, function (date, step) {
+  date.setMonth(date.getMonth() + step);
+}, function (start, end) {
+  return end.getMonth() - start.getMonth() + (end.getFullYear() - start.getFullYear()) * 12;
+}, function (date) {
+  return date.getMonth();
+});
+
+exports.default = month;
+var months = exports.months = month.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/year.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.years = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var year = (0, _interval2.default)(function (date) {
+  date.setMonth(0, 1);
+  date.setHours(0, 0, 0, 0);
+}, function (date, step) {
+  date.setFullYear(date.getFullYear() + step);
+}, function (start, end) {
+  return end.getFullYear() - start.getFullYear();
+}, function (date) {
+  return date.getFullYear();
+});
+
+// An optimized implementation for this simple case.
+year.every = function (k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : (0, _interval2.default)(function (date) {
+    date.setFullYear(Math.floor(date.getFullYear() / k) * k);
+    date.setMonth(0, 1);
+    date.setHours(0, 0, 0, 0);
+  }, function (date, step) {
+    date.setFullYear(date.getFullYear() + step * k);
+  });
+};
+
+exports.default = year;
+var years = exports.years = year.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/utcMinute.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.utcMinutes = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+var _duration = require("./duration");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var utcMinute = (0, _interval2.default)(function (date) {
+  date.setUTCSeconds(0, 0);
+}, function (date, step) {
+  date.setTime(+date + step * _duration.durationMinute);
+}, function (start, end) {
+  return (end - start) / _duration.durationMinute;
+}, function (date) {
+  return date.getUTCMinutes();
+});
+
+exports.default = utcMinute;
+var utcMinutes = exports.utcMinutes = utcMinute.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/utcHour.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.utcHours = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+var _duration = require("./duration");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var utcHour = (0, _interval2.default)(function (date) {
+  date.setUTCMinutes(0, 0, 0);
+}, function (date, step) {
+  date.setTime(+date + step * _duration.durationHour);
+}, function (start, end) {
+  return (end - start) / _duration.durationHour;
+}, function (date) {
+  return date.getUTCHours();
+});
+
+exports.default = utcHour;
+var utcHours = exports.utcHours = utcHour.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/utcDay.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.utcDays = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+var _duration = require("./duration");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var utcDay = (0, _interval2.default)(function (date) {
+  date.setUTCHours(0, 0, 0, 0);
+}, function (date, step) {
+  date.setUTCDate(date.getUTCDate() + step);
+}, function (start, end) {
+  return (end - start) / _duration.durationDay;
+}, function (date) {
+  return date.getUTCDate() - 1;
+});
+
+exports.default = utcDay;
+var utcDays = exports.utcDays = utcDay.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/utcWeek.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.utcSaturdays = exports.utcFridays = exports.utcThursdays = exports.utcWednesdays = exports.utcTuesdays = exports.utcMondays = exports.utcSundays = exports.utcSaturday = exports.utcFriday = exports.utcThursday = exports.utcWednesday = exports.utcTuesday = exports.utcMonday = exports.utcSunday = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+var _duration = require("./duration");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function utcWeekday(i) {
+  return (0, _interval2.default)(function (date) {
+    date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function (date, step) {
+    date.setUTCDate(date.getUTCDate() + step * 7);
+  }, function (start, end) {
+    return (end - start) / _duration.durationWeek;
+  });
+}
+
+var utcSunday = exports.utcSunday = utcWeekday(0);
+var utcMonday = exports.utcMonday = utcWeekday(1);
+var utcTuesday = exports.utcTuesday = utcWeekday(2);
+var utcWednesday = exports.utcWednesday = utcWeekday(3);
+var utcThursday = exports.utcThursday = utcWeekday(4);
+var utcFriday = exports.utcFriday = utcWeekday(5);
+var utcSaturday = exports.utcSaturday = utcWeekday(6);
+
+var utcSundays = exports.utcSundays = utcSunday.range;
+var utcMondays = exports.utcMondays = utcMonday.range;
+var utcTuesdays = exports.utcTuesdays = utcTuesday.range;
+var utcWednesdays = exports.utcWednesdays = utcWednesday.range;
+var utcThursdays = exports.utcThursdays = utcThursday.range;
+var utcFridays = exports.utcFridays = utcFriday.range;
+var utcSaturdays = exports.utcSaturdays = utcSaturday.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/utcMonth.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.utcMonths = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var utcMonth = (0, _interval2.default)(function (date) {
+  date.setUTCDate(1);
+  date.setUTCHours(0, 0, 0, 0);
+}, function (date, step) {
+  date.setUTCMonth(date.getUTCMonth() + step);
+}, function (start, end) {
+  return end.getUTCMonth() - start.getUTCMonth() + (end.getUTCFullYear() - start.getUTCFullYear()) * 12;
+}, function (date) {
+  return date.getUTCMonth();
+});
+
+exports.default = utcMonth;
+var utcMonths = exports.utcMonths = utcMonth.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/utcYear.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.utcYears = undefined;
+
+var _interval = require("./interval");
+
+var _interval2 = _interopRequireDefault(_interval);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var utcYear = (0, _interval2.default)(function (date) {
+  date.setUTCMonth(0, 1);
+  date.setUTCHours(0, 0, 0, 0);
+}, function (date, step) {
+  date.setUTCFullYear(date.getUTCFullYear() + step);
+}, function (start, end) {
+  return end.getUTCFullYear() - start.getUTCFullYear();
+}, function (date) {
+  return date.getUTCFullYear();
+});
+
+// An optimized implementation for this simple case.
+utcYear.every = function (k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : (0, _interval2.default)(function (date) {
+    date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
+    date.setUTCMonth(0, 1);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function (date, step) {
+    date.setUTCFullYear(date.getUTCFullYear() + step * k);
+  });
+};
+
+exports.default = utcYear;
+var utcYears = exports.utcYears = utcYear.range;
+},{"./interval":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _interval = require("./interval");
+
+Object.defineProperty(exports, "timeInterval", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_interval).default;
+  }
+});
+
+var _millisecond = require("./millisecond");
+
+Object.defineProperty(exports, "timeMillisecond", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_millisecond).default;
+  }
+});
+Object.defineProperty(exports, "timeMilliseconds", {
+  enumerable: true,
+  get: function () {
+    return _millisecond.milliseconds;
+  }
+});
+Object.defineProperty(exports, "utcMillisecond", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_millisecond).default;
+  }
+});
+Object.defineProperty(exports, "utcMilliseconds", {
+  enumerable: true,
+  get: function () {
+    return _millisecond.milliseconds;
+  }
+});
+
+var _second = require("./second");
+
+Object.defineProperty(exports, "timeSecond", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_second).default;
+  }
+});
+Object.defineProperty(exports, "timeSeconds", {
+  enumerable: true,
+  get: function () {
+    return _second.seconds;
+  }
+});
+Object.defineProperty(exports, "utcSecond", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_second).default;
+  }
+});
+Object.defineProperty(exports, "utcSeconds", {
+  enumerable: true,
+  get: function () {
+    return _second.seconds;
+  }
+});
+
+var _minute = require("./minute");
+
+Object.defineProperty(exports, "timeMinute", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_minute).default;
+  }
+});
+Object.defineProperty(exports, "timeMinutes", {
+  enumerable: true,
+  get: function () {
+    return _minute.minutes;
+  }
+});
+
+var _hour = require("./hour");
+
+Object.defineProperty(exports, "timeHour", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_hour).default;
+  }
+});
+Object.defineProperty(exports, "timeHours", {
+  enumerable: true,
+  get: function () {
+    return _hour.hours;
+  }
+});
+
+var _day = require("./day");
+
+Object.defineProperty(exports, "timeDay", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_day).default;
+  }
+});
+Object.defineProperty(exports, "timeDays", {
+  enumerable: true,
+  get: function () {
+    return _day.days;
+  }
+});
+
+var _week = require("./week");
+
+Object.defineProperty(exports, "timeWeek", {
+  enumerable: true,
+  get: function () {
+    return _week.sunday;
+  }
+});
+Object.defineProperty(exports, "timeWeeks", {
+  enumerable: true,
+  get: function () {
+    return _week.sundays;
+  }
+});
+Object.defineProperty(exports, "timeSunday", {
+  enumerable: true,
+  get: function () {
+    return _week.sunday;
+  }
+});
+Object.defineProperty(exports, "timeSundays", {
+  enumerable: true,
+  get: function () {
+    return _week.sundays;
+  }
+});
+Object.defineProperty(exports, "timeMonday", {
+  enumerable: true,
+  get: function () {
+    return _week.monday;
+  }
+});
+Object.defineProperty(exports, "timeMondays", {
+  enumerable: true,
+  get: function () {
+    return _week.mondays;
+  }
+});
+Object.defineProperty(exports, "timeTuesday", {
+  enumerable: true,
+  get: function () {
+    return _week.tuesday;
+  }
+});
+Object.defineProperty(exports, "timeTuesdays", {
+  enumerable: true,
+  get: function () {
+    return _week.tuesdays;
+  }
+});
+Object.defineProperty(exports, "timeWednesday", {
+  enumerable: true,
+  get: function () {
+    return _week.wednesday;
+  }
+});
+Object.defineProperty(exports, "timeWednesdays", {
+  enumerable: true,
+  get: function () {
+    return _week.wednesdays;
+  }
+});
+Object.defineProperty(exports, "timeThursday", {
+  enumerable: true,
+  get: function () {
+    return _week.thursday;
+  }
+});
+Object.defineProperty(exports, "timeThursdays", {
+  enumerable: true,
+  get: function () {
+    return _week.thursdays;
+  }
+});
+Object.defineProperty(exports, "timeFriday", {
+  enumerable: true,
+  get: function () {
+    return _week.friday;
+  }
+});
+Object.defineProperty(exports, "timeFridays", {
+  enumerable: true,
+  get: function () {
+    return _week.fridays;
+  }
+});
+Object.defineProperty(exports, "timeSaturday", {
+  enumerable: true,
+  get: function () {
+    return _week.saturday;
+  }
+});
+Object.defineProperty(exports, "timeSaturdays", {
+  enumerable: true,
+  get: function () {
+    return _week.saturdays;
+  }
+});
+
+var _month = require("./month");
+
+Object.defineProperty(exports, "timeMonth", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_month).default;
+  }
+});
+Object.defineProperty(exports, "timeMonths", {
+  enumerable: true,
+  get: function () {
+    return _month.months;
+  }
+});
+
+var _year = require("./year");
+
+Object.defineProperty(exports, "timeYear", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_year).default;
+  }
+});
+Object.defineProperty(exports, "timeYears", {
+  enumerable: true,
+  get: function () {
+    return _year.years;
+  }
+});
+
+var _utcMinute = require("./utcMinute");
+
+Object.defineProperty(exports, "utcMinute", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_utcMinute).default;
+  }
+});
+Object.defineProperty(exports, "utcMinutes", {
+  enumerable: true,
+  get: function () {
+    return _utcMinute.utcMinutes;
+  }
+});
+
+var _utcHour = require("./utcHour");
+
+Object.defineProperty(exports, "utcHour", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_utcHour).default;
+  }
+});
+Object.defineProperty(exports, "utcHours", {
+  enumerable: true,
+  get: function () {
+    return _utcHour.utcHours;
+  }
+});
+
+var _utcDay = require("./utcDay");
+
+Object.defineProperty(exports, "utcDay", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_utcDay).default;
+  }
+});
+Object.defineProperty(exports, "utcDays", {
+  enumerable: true,
+  get: function () {
+    return _utcDay.utcDays;
+  }
+});
+
+var _utcWeek = require("./utcWeek");
+
+Object.defineProperty(exports, "utcWeek", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcSunday;
+  }
+});
+Object.defineProperty(exports, "utcWeeks", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcSundays;
+  }
+});
+Object.defineProperty(exports, "utcSunday", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcSunday;
+  }
+});
+Object.defineProperty(exports, "utcSundays", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcSundays;
+  }
+});
+Object.defineProperty(exports, "utcMonday", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcMonday;
+  }
+});
+Object.defineProperty(exports, "utcMondays", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcMondays;
+  }
+});
+Object.defineProperty(exports, "utcTuesday", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcTuesday;
+  }
+});
+Object.defineProperty(exports, "utcTuesdays", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcTuesdays;
+  }
+});
+Object.defineProperty(exports, "utcWednesday", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcWednesday;
+  }
+});
+Object.defineProperty(exports, "utcWednesdays", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcWednesdays;
+  }
+});
+Object.defineProperty(exports, "utcThursday", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcThursday;
+  }
+});
+Object.defineProperty(exports, "utcThursdays", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcThursdays;
+  }
+});
+Object.defineProperty(exports, "utcFriday", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcFriday;
+  }
+});
+Object.defineProperty(exports, "utcFridays", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcFridays;
+  }
+});
+Object.defineProperty(exports, "utcSaturday", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcSaturday;
+  }
+});
+Object.defineProperty(exports, "utcSaturdays", {
+  enumerable: true,
+  get: function () {
+    return _utcWeek.utcSaturdays;
+  }
+});
+
+var _utcMonth = require("./utcMonth");
+
+Object.defineProperty(exports, "utcMonth", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_utcMonth).default;
+  }
+});
+Object.defineProperty(exports, "utcMonths", {
+  enumerable: true,
+  get: function () {
+    return _utcMonth.utcMonths;
+  }
+});
+
+var _utcYear = require("./utcYear");
+
+Object.defineProperty(exports, "utcYear", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_utcYear).default;
+  }
+});
+Object.defineProperty(exports, "utcYears", {
+  enumerable: true,
+  get: function () {
+    return _utcYear.utcYears;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./interval":"../node_modules/d3-time/src/interval.js","./millisecond":"../node_modules/d3-time/src/millisecond.js","./second":"../node_modules/d3-time/src/second.js","./minute":"../node_modules/d3-time/src/minute.js","./hour":"../node_modules/d3-time/src/hour.js","./day":"../node_modules/d3-time/src/day.js","./week":"../node_modules/d3-time/src/week.js","./month":"../node_modules/d3-time/src/month.js","./year":"../node_modules/d3-time/src/year.js","./utcMinute":"../node_modules/d3-time/src/utcMinute.js","./utcHour":"../node_modules/d3-time/src/utcHour.js","./utcDay":"../node_modules/d3-time/src/utcDay.js","./utcWeek":"../node_modules/d3-time/src/utcWeek.js","./utcMonth":"../node_modules/d3-time/src/utcMonth.js","./utcYear":"../node_modules/d3-time/src/utcYear.js"}],"../node_modules/d3-time-format/src/locale.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = formatLocale;
+
+var _d3Time = require("d3-time");
+
+function localDate(d) {
+  if (0 <= d.y && d.y < 100) {
+    var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
+    date.setFullYear(d.y);
+    return date;
+  }
+  return new Date(d.y, d.m, d.d, d.H, d.M, d.S, d.L);
+}
+
+function utcDate(d) {
+  if (0 <= d.y && d.y < 100) {
+    var date = new Date(Date.UTC(-1, d.m, d.d, d.H, d.M, d.S, d.L));
+    date.setUTCFullYear(d.y);
+    return date;
+  }
+  return new Date(Date.UTC(d.y, d.m, d.d, d.H, d.M, d.S, d.L));
+}
+
+function newYear(y) {
+  return { y: y, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0 };
+}
+
+function formatLocale(locale) {
+  var locale_dateTime = locale.dateTime,
+      locale_date = locale.date,
+      locale_time = locale.time,
+      locale_periods = locale.periods,
+      locale_weekdays = locale.days,
+      locale_shortWeekdays = locale.shortDays,
+      locale_months = locale.months,
+      locale_shortMonths = locale.shortMonths;
+
+  var periodRe = formatRe(locale_periods),
+      periodLookup = formatLookup(locale_periods),
+      weekdayRe = formatRe(locale_weekdays),
+      weekdayLookup = formatLookup(locale_weekdays),
+      shortWeekdayRe = formatRe(locale_shortWeekdays),
+      shortWeekdayLookup = formatLookup(locale_shortWeekdays),
+      monthRe = formatRe(locale_months),
+      monthLookup = formatLookup(locale_months),
+      shortMonthRe = formatRe(locale_shortMonths),
+      shortMonthLookup = formatLookup(locale_shortMonths);
+
+  var formats = {
+    "a": formatShortWeekday,
+    "A": formatWeekday,
+    "b": formatShortMonth,
+    "B": formatMonth,
+    "c": null,
+    "d": formatDayOfMonth,
+    "e": formatDayOfMonth,
+    "f": formatMicroseconds,
+    "H": formatHour24,
+    "I": formatHour12,
+    "j": formatDayOfYear,
+    "L": formatMilliseconds,
+    "m": formatMonthNumber,
+    "M": formatMinutes,
+    "p": formatPeriod,
+    "Q": formatUnixTimestamp,
+    "s": formatUnixTimestampSeconds,
+    "S": formatSeconds,
+    "u": formatWeekdayNumberMonday,
+    "U": formatWeekNumberSunday,
+    "V": formatWeekNumberISO,
+    "w": formatWeekdayNumberSunday,
+    "W": formatWeekNumberMonday,
+    "x": null,
+    "X": null,
+    "y": formatYear,
+    "Y": formatFullYear,
+    "Z": formatZone,
+    "%": formatLiteralPercent
+  };
+
+  var utcFormats = {
+    "a": formatUTCShortWeekday,
+    "A": formatUTCWeekday,
+    "b": formatUTCShortMonth,
+    "B": formatUTCMonth,
+    "c": null,
+    "d": formatUTCDayOfMonth,
+    "e": formatUTCDayOfMonth,
+    "f": formatUTCMicroseconds,
+    "H": formatUTCHour24,
+    "I": formatUTCHour12,
+    "j": formatUTCDayOfYear,
+    "L": formatUTCMilliseconds,
+    "m": formatUTCMonthNumber,
+    "M": formatUTCMinutes,
+    "p": formatUTCPeriod,
+    "Q": formatUnixTimestamp,
+    "s": formatUnixTimestampSeconds,
+    "S": formatUTCSeconds,
+    "u": formatUTCWeekdayNumberMonday,
+    "U": formatUTCWeekNumberSunday,
+    "V": formatUTCWeekNumberISO,
+    "w": formatUTCWeekdayNumberSunday,
+    "W": formatUTCWeekNumberMonday,
+    "x": null,
+    "X": null,
+    "y": formatUTCYear,
+    "Y": formatUTCFullYear,
+    "Z": formatUTCZone,
+    "%": formatLiteralPercent
+  };
+
+  var parses = {
+    "a": parseShortWeekday,
+    "A": parseWeekday,
+    "b": parseShortMonth,
+    "B": parseMonth,
+    "c": parseLocaleDateTime,
+    "d": parseDayOfMonth,
+    "e": parseDayOfMonth,
+    "f": parseMicroseconds,
+    "H": parseHour24,
+    "I": parseHour24,
+    "j": parseDayOfYear,
+    "L": parseMilliseconds,
+    "m": parseMonthNumber,
+    "M": parseMinutes,
+    "p": parsePeriod,
+    "Q": parseUnixTimestamp,
+    "s": parseUnixTimestampSeconds,
+    "S": parseSeconds,
+    "u": parseWeekdayNumberMonday,
+    "U": parseWeekNumberSunday,
+    "V": parseWeekNumberISO,
+    "w": parseWeekdayNumberSunday,
+    "W": parseWeekNumberMonday,
+    "x": parseLocaleDate,
+    "X": parseLocaleTime,
+    "y": parseYear,
+    "Y": parseFullYear,
+    "Z": parseZone,
+    "%": parseLiteralPercent
+  };
+
+  // These recursive directive definitions must be deferred.
+  formats.x = newFormat(locale_date, formats);
+  formats.X = newFormat(locale_time, formats);
+  formats.c = newFormat(locale_dateTime, formats);
+  utcFormats.x = newFormat(locale_date, utcFormats);
+  utcFormats.X = newFormat(locale_time, utcFormats);
+  utcFormats.c = newFormat(locale_dateTime, utcFormats);
+
+  function newFormat(specifier, formats) {
+    return function (date) {
+      var string = [],
+          i = -1,
+          j = 0,
+          n = specifier.length,
+          c,
+          pad,
+          format;
+
+      if (!(date instanceof Date)) date = new Date(+date);
+
+      while (++i < n) {
+        if (specifier.charCodeAt(i) === 37) {
+          string.push(specifier.slice(j, i));
+          if ((pad = pads[c = specifier.charAt(++i)]) != null) c = specifier.charAt(++i);else pad = c === "e" ? " " : "0";
+          if (format = formats[c]) c = format(date, pad);
+          string.push(c);
+          j = i + 1;
+        }
+      }
+
+      string.push(specifier.slice(j, i));
+      return string.join("");
+    };
+  }
+
+  function newParse(specifier, newDate) {
+    return function (string) {
+      var d = newYear(1900),
+          i = parseSpecifier(d, specifier, string += "", 0),
+          week,
+          day;
+      if (i != string.length) return null;
+
+      // If a UNIX timestamp is specified, return it.
+      if ("Q" in d) return new Date(d.Q);
+
+      // The am-pm flag is 0 for AM, and 1 for PM.
+      if ("p" in d) d.H = d.H % 12 + d.p * 12;
+
+      // Convert day-of-week and week-of-year to day-of-year.
+      if ("V" in d) {
+        if (d.V < 1 || d.V > 53) return null;
+        if (!("w" in d)) d.w = 1;
+        if ("Z" in d) {
+          week = utcDate(newYear(d.y)), day = week.getUTCDay();
+          week = day > 4 || day === 0 ? _d3Time.utcMonday.ceil(week) : (0, _d3Time.utcMonday)(week);
+          week = _d3Time.utcDay.offset(week, (d.V - 1) * 7);
+          d.y = week.getUTCFullYear();
+          d.m = week.getUTCMonth();
+          d.d = week.getUTCDate() + (d.w + 6) % 7;
+        } else {
+          week = newDate(newYear(d.y)), day = week.getDay();
+          week = day > 4 || day === 0 ? _d3Time.timeMonday.ceil(week) : (0, _d3Time.timeMonday)(week);
+          week = _d3Time.timeDay.offset(week, (d.V - 1) * 7);
+          d.y = week.getFullYear();
+          d.m = week.getMonth();
+          d.d = week.getDate() + (d.w + 6) % 7;
+        }
+      } else if ("W" in d || "U" in d) {
+        if (!("w" in d)) d.w = "u" in d ? d.u % 7 : "W" in d ? 1 : 0;
+        day = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
+        d.m = 0;
+        d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
+      }
+
+      // If a time zone is specified, all fields are interpreted as UTC and then
+      // offset according to the specified time zone.
+      if ("Z" in d) {
+        d.H += d.Z / 100 | 0;
+        d.M += d.Z % 100;
+        return utcDate(d);
+      }
+
+      // Otherwise, all fields are in local time.
+      return newDate(d);
+    };
+  }
+
+  function parseSpecifier(d, specifier, string, j) {
+    var i = 0,
+        n = specifier.length,
+        m = string.length,
+        c,
+        parse;
+
+    while (i < n) {
+      if (j >= m) return -1;
+      c = specifier.charCodeAt(i++);
+      if (c === 37) {
+        c = specifier.charAt(i++);
+        parse = parses[c in pads ? specifier.charAt(i++) : c];
+        if (!parse || (j = parse(d, string, j)) < 0) return -1;
+      } else if (c != string.charCodeAt(j++)) {
+        return -1;
+      }
+    }
+
+    return j;
+  }
+
+  function parsePeriod(d, string, i) {
+    var n = periodRe.exec(string.slice(i));
+    return n ? (d.p = periodLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseShortWeekday(d, string, i) {
+    var n = shortWeekdayRe.exec(string.slice(i));
+    return n ? (d.w = shortWeekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseWeekday(d, string, i) {
+    var n = weekdayRe.exec(string.slice(i));
+    return n ? (d.w = weekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseShortMonth(d, string, i) {
+    var n = shortMonthRe.exec(string.slice(i));
+    return n ? (d.m = shortMonthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseMonth(d, string, i) {
+    var n = monthRe.exec(string.slice(i));
+    return n ? (d.m = monthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
+  function parseLocaleDateTime(d, string, i) {
+    return parseSpecifier(d, locale_dateTime, string, i);
+  }
+
+  function parseLocaleDate(d, string, i) {
+    return parseSpecifier(d, locale_date, string, i);
+  }
+
+  function parseLocaleTime(d, string, i) {
+    return parseSpecifier(d, locale_time, string, i);
+  }
+
+  function formatShortWeekday(d) {
+    return locale_shortWeekdays[d.getDay()];
+  }
+
+  function formatWeekday(d) {
+    return locale_weekdays[d.getDay()];
+  }
+
+  function formatShortMonth(d) {
+    return locale_shortMonths[d.getMonth()];
+  }
+
+  function formatMonth(d) {
+    return locale_months[d.getMonth()];
+  }
+
+  function formatPeriod(d) {
+    return locale_periods[+(d.getHours() >= 12)];
+  }
+
+  function formatUTCShortWeekday(d) {
+    return locale_shortWeekdays[d.getUTCDay()];
+  }
+
+  function formatUTCWeekday(d) {
+    return locale_weekdays[d.getUTCDay()];
+  }
+
+  function formatUTCShortMonth(d) {
+    return locale_shortMonths[d.getUTCMonth()];
+  }
+
+  function formatUTCMonth(d) {
+    return locale_months[d.getUTCMonth()];
+  }
+
+  function formatUTCPeriod(d) {
+    return locale_periods[+(d.getUTCHours() >= 12)];
+  }
+
+  return {
+    format: function (specifier) {
+      var f = newFormat(specifier += "", formats);
+      f.toString = function () {
+        return specifier;
+      };
+      return f;
+    },
+    parse: function (specifier) {
+      var p = newParse(specifier += "", localDate);
+      p.toString = function () {
+        return specifier;
+      };
+      return p;
+    },
+    utcFormat: function (specifier) {
+      var f = newFormat(specifier += "", utcFormats);
+      f.toString = function () {
+        return specifier;
+      };
+      return f;
+    },
+    utcParse: function (specifier) {
+      var p = newParse(specifier, utcDate);
+      p.toString = function () {
+        return specifier;
+      };
+      return p;
+    }
+  };
+}
+
+var pads = { "-": "", "_": " ", "0": "0" },
+    numberRe = /^\s*\d+/,
+    // note: ignores next directive
+percentRe = /^%/,
+    requoteRe = /[\\^$*+?|[\]().{}]/g;
+
+function pad(value, fill, width) {
+  var sign = value < 0 ? "-" : "",
+      string = (sign ? -value : value) + "",
+      length = string.length;
+  return sign + (length < width ? new Array(width - length + 1).join(fill) + string : string);
+}
+
+function requote(s) {
+  return s.replace(requoteRe, "\\$&");
+}
+
+function formatRe(names) {
+  return new RegExp("^(?:" + names.map(requote).join("|") + ")", "i");
+}
+
+function formatLookup(names) {
+  var map = {},
+      i = -1,
+      n = names.length;
+  while (++i < n) map[names[i].toLowerCase()] = i;
+  return map;
+}
+
+function parseWeekdayNumberSunday(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 1));
+  return n ? (d.w = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekdayNumberMonday(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 1));
+  return n ? (d.u = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekNumberSunday(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.U = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekNumberISO(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.V = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekNumberMonday(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.W = +n[0], i + n[0].length) : -1;
+}
+
+function parseFullYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 4));
+  return n ? (d.y = +n[0], i + n[0].length) : -1;
+}
+
+function parseYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.y = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
+}
+
+function parseZone(d, string, i) {
+  var n = /^(Z)|([+-]\d\d)(?::?(\d\d))?/.exec(string.slice(i, i + 6));
+  return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
+}
+
+function parseMonthNumber(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.m = n[0] - 1, i + n[0].length) : -1;
+}
+
+function parseDayOfMonth(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.d = +n[0], i + n[0].length) : -1;
+}
+
+function parseDayOfYear(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 3));
+  return n ? (d.m = 0, d.d = +n[0], i + n[0].length) : -1;
+}
+
+function parseHour24(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.H = +n[0], i + n[0].length) : -1;
+}
+
+function parseMinutes(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.M = +n[0], i + n[0].length) : -1;
+}
+
+function parseSeconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.S = +n[0], i + n[0].length) : -1;
+}
+
+function parseMilliseconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 3));
+  return n ? (d.L = +n[0], i + n[0].length) : -1;
+}
+
+function parseMicroseconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 6));
+  return n ? (d.L = Math.floor(n[0] / 1000), i + n[0].length) : -1;
+}
+
+function parseLiteralPercent(d, string, i) {
+  var n = percentRe.exec(string.slice(i, i + 1));
+  return n ? i + n[0].length : -1;
+}
+
+function parseUnixTimestamp(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.Q = +n[0], i + n[0].length) : -1;
+}
+
+function parseUnixTimestampSeconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.Q = +n[0] * 1000, i + n[0].length) : -1;
+}
+
+function formatDayOfMonth(d, p) {
+  return pad(d.getDate(), p, 2);
+}
+
+function formatHour24(d, p) {
+  return pad(d.getHours(), p, 2);
+}
+
+function formatHour12(d, p) {
+  return pad(d.getHours() % 12 || 12, p, 2);
+}
+
+function formatDayOfYear(d, p) {
+  return pad(1 + _d3Time.timeDay.count((0, _d3Time.timeYear)(d), d), p, 3);
+}
+
+function formatMilliseconds(d, p) {
+  return pad(d.getMilliseconds(), p, 3);
+}
+
+function formatMicroseconds(d, p) {
+  return formatMilliseconds(d, p) + "000";
+}
+
+function formatMonthNumber(d, p) {
+  return pad(d.getMonth() + 1, p, 2);
+}
+
+function formatMinutes(d, p) {
+  return pad(d.getMinutes(), p, 2);
+}
+
+function formatSeconds(d, p) {
+  return pad(d.getSeconds(), p, 2);
+}
+
+function formatWeekdayNumberMonday(d) {
+  var day = d.getDay();
+  return day === 0 ? 7 : day;
+}
+
+function formatWeekNumberSunday(d, p) {
+  return pad(_d3Time.timeSunday.count((0, _d3Time.timeYear)(d), d), p, 2);
+}
+
+function formatWeekNumberISO(d, p) {
+  var day = d.getDay();
+  d = day >= 4 || day === 0 ? (0, _d3Time.timeThursday)(d) : _d3Time.timeThursday.ceil(d);
+  return pad(_d3Time.timeThursday.count((0, _d3Time.timeYear)(d), d) + ((0, _d3Time.timeYear)(d).getDay() === 4), p, 2);
+}
+
+function formatWeekdayNumberSunday(d) {
+  return d.getDay();
+}
+
+function formatWeekNumberMonday(d, p) {
+  return pad(_d3Time.timeMonday.count((0, _d3Time.timeYear)(d), d), p, 2);
+}
+
+function formatYear(d, p) {
+  return pad(d.getFullYear() % 100, p, 2);
+}
+
+function formatFullYear(d, p) {
+  return pad(d.getFullYear() % 10000, p, 4);
+}
+
+function formatZone(d) {
+  var z = d.getTimezoneOffset();
+  return (z > 0 ? "-" : (z *= -1, "+")) + pad(z / 60 | 0, "0", 2) + pad(z % 60, "0", 2);
+}
+
+function formatUTCDayOfMonth(d, p) {
+  return pad(d.getUTCDate(), p, 2);
+}
+
+function formatUTCHour24(d, p) {
+  return pad(d.getUTCHours(), p, 2);
+}
+
+function formatUTCHour12(d, p) {
+  return pad(d.getUTCHours() % 12 || 12, p, 2);
+}
+
+function formatUTCDayOfYear(d, p) {
+  return pad(1 + _d3Time.utcDay.count((0, _d3Time.utcYear)(d), d), p, 3);
+}
+
+function formatUTCMilliseconds(d, p) {
+  return pad(d.getUTCMilliseconds(), p, 3);
+}
+
+function formatUTCMicroseconds(d, p) {
+  return formatUTCMilliseconds(d, p) + "000";
+}
+
+function formatUTCMonthNumber(d, p) {
+  return pad(d.getUTCMonth() + 1, p, 2);
+}
+
+function formatUTCMinutes(d, p) {
+  return pad(d.getUTCMinutes(), p, 2);
+}
+
+function formatUTCSeconds(d, p) {
+  return pad(d.getUTCSeconds(), p, 2);
+}
+
+function formatUTCWeekdayNumberMonday(d) {
+  var dow = d.getUTCDay();
+  return dow === 0 ? 7 : dow;
+}
+
+function formatUTCWeekNumberSunday(d, p) {
+  return pad(_d3Time.utcSunday.count((0, _d3Time.utcYear)(d), d), p, 2);
+}
+
+function formatUTCWeekNumberISO(d, p) {
+  var day = d.getUTCDay();
+  d = day >= 4 || day === 0 ? (0, _d3Time.utcThursday)(d) : _d3Time.utcThursday.ceil(d);
+  return pad(_d3Time.utcThursday.count((0, _d3Time.utcYear)(d), d) + ((0, _d3Time.utcYear)(d).getUTCDay() === 4), p, 2);
+}
+
+function formatUTCWeekdayNumberSunday(d) {
+  return d.getUTCDay();
+}
+
+function formatUTCWeekNumberMonday(d, p) {
+  return pad(_d3Time.utcMonday.count((0, _d3Time.utcYear)(d), d), p, 2);
+}
+
+function formatUTCYear(d, p) {
+  return pad(d.getUTCFullYear() % 100, p, 2);
+}
+
+function formatUTCFullYear(d, p) {
+  return pad(d.getUTCFullYear() % 10000, p, 4);
+}
+
+function formatUTCZone() {
+  return "+0000";
+}
+
+function formatLiteralPercent() {
+  return "%";
+}
+
+function formatUnixTimestamp(d) {
+  return +d;
+}
+
+function formatUnixTimestampSeconds(d) {
+  return Math.floor(+d / 1000);
+}
+},{"d3-time":"../node_modules/d3-time/src/index.js"}],"../node_modules/d3-time-format/src/defaultLocale.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.utcParse = exports.utcFormat = exports.timeParse = exports.timeFormat = undefined;
+exports.default = defaultLocale;
+
+var _locale = require("./locale");
+
+var _locale2 = _interopRequireDefault(_locale);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var locale;
+var timeFormat = exports.timeFormat = undefined;
+var timeParse = exports.timeParse = undefined;
+var utcFormat = exports.utcFormat = undefined;
+var utcParse = exports.utcParse = undefined;
+
+defaultLocale({
+  dateTime: "%x, %X",
+  date: "%-m/%-d/%Y",
+  time: "%-I:%M:%S %p",
+  periods: ["AM", "PM"],
+  days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  shortMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+});
+
+function defaultLocale(definition) {
+  locale = (0, _locale2.default)(definition);
+  exports.timeFormat = timeFormat = locale.format;
+  exports.timeParse = timeParse = locale.parse;
+  exports.utcFormat = utcFormat = locale.utcFormat;
+  exports.utcParse = utcParse = locale.utcParse;
+  return locale;
+}
+},{"./locale":"../node_modules/d3-time-format/src/locale.js"}],"../node_modules/d3-time-format/src/isoFormat.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.isoSpecifier = undefined;
+
+var _defaultLocale = require("./defaultLocale");
+
+var isoSpecifier = exports.isoSpecifier = "%Y-%m-%dT%H:%M:%S.%LZ";
+
+function formatIsoNative(date) {
+    return date.toISOString();
+}
+
+var formatIso = Date.prototype.toISOString ? formatIsoNative : (0, _defaultLocale.utcFormat)(isoSpecifier);
+
+exports.default = formatIso;
+},{"./defaultLocale":"../node_modules/d3-time-format/src/defaultLocale.js"}],"../node_modules/d3-time-format/src/isoParse.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isoFormat = require("./isoFormat");
+
+var _defaultLocale = require("./defaultLocale");
+
+function parseIsoNative(string) {
+  var date = new Date(string);
+  return isNaN(date) ? null : date;
+}
+
+var parseIso = +new Date("2000-01-01T00:00:00.000Z") ? parseIsoNative : (0, _defaultLocale.utcParse)(_isoFormat.isoSpecifier);
+
+exports.default = parseIso;
+},{"./isoFormat":"../node_modules/d3-time-format/src/isoFormat.js","./defaultLocale":"../node_modules/d3-time-format/src/defaultLocale.js"}],"../node_modules/d3-time-format/src/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defaultLocale = require("./defaultLocale");
+
+Object.defineProperty(exports, "timeFormatDefaultLocale", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_defaultLocale).default;
+  }
+});
+Object.defineProperty(exports, "timeFormat", {
+  enumerable: true,
+  get: function () {
+    return _defaultLocale.timeFormat;
+  }
+});
+Object.defineProperty(exports, "timeParse", {
+  enumerable: true,
+  get: function () {
+    return _defaultLocale.timeParse;
+  }
+});
+Object.defineProperty(exports, "utcFormat", {
+  enumerable: true,
+  get: function () {
+    return _defaultLocale.utcFormat;
+  }
+});
+Object.defineProperty(exports, "utcParse", {
+  enumerable: true,
+  get: function () {
+    return _defaultLocale.utcParse;
+  }
+});
+
+var _locale = require("./locale");
+
+Object.defineProperty(exports, "timeFormatLocale", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_locale).default;
+  }
+});
+
+var _isoFormat = require("./isoFormat");
+
+Object.defineProperty(exports, "isoFormat", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_isoFormat).default;
+  }
+});
+
+var _isoParse = require("./isoParse");
+
+Object.defineProperty(exports, "isoParse", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_isoParse).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./defaultLocale":"../node_modules/d3-time-format/src/defaultLocale.js","./locale":"../node_modules/d3-time-format/src/locale.js","./isoFormat":"../node_modules/d3-time-format/src/isoFormat.js","./isoParse":"../node_modules/d3-time-format/src/isoParse.js"}],"../node_modules/d3-scale/src/time.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.calendar = calendar;
+
+exports.default = function () {
+  return calendar(_d3Time.timeYear, _d3Time.timeMonth, _d3Time.timeWeek, _d3Time.timeDay, _d3Time.timeHour, _d3Time.timeMinute, _d3Time.timeSecond, _d3Time.timeMillisecond, _d3TimeFormat.timeFormat).domain([new Date(2000, 0, 1), new Date(2000, 0, 2)]);
+};
+
+var _d3Array = require("d3-array");
+
+var _d3Interpolate = require("d3-interpolate");
+
+var _d3Time = require("d3-time");
+
+var _d3TimeFormat = require("d3-time-format");
+
+var _array = require("./array");
+
+var _continuous = require("./continuous");
+
+var _continuous2 = _interopRequireDefault(_continuous);
+
+var _nice = require("./nice");
+
+var _nice2 = _interopRequireDefault(_nice);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var durationSecond = 1000,
+    durationMinute = durationSecond * 60,
+    durationHour = durationMinute * 60,
+    durationDay = durationHour * 24,
+    durationWeek = durationDay * 7,
+    durationMonth = durationDay * 30,
+    durationYear = durationDay * 365;
+
+function date(t) {
+  return new Date(t);
+}
+
+function number(t) {
+  return t instanceof Date ? +t : +new Date(+t);
+}
+
+function calendar(year, month, week, day, hour, minute, second, millisecond, format) {
+  var scale = (0, _continuous2.default)(_continuous.deinterpolateLinear, _d3Interpolate.interpolateNumber),
+      invert = scale.invert,
+      domain = scale.domain;
+
+  var formatMillisecond = format(".%L"),
+      formatSecond = format(":%S"),
+      formatMinute = format("%I:%M"),
+      formatHour = format("%I %p"),
+      formatDay = format("%a %d"),
+      formatWeek = format("%b %d"),
+      formatMonth = format("%B"),
+      formatYear = format("%Y");
+
+  var tickIntervals = [[second, 1, durationSecond], [second, 5, 5 * durationSecond], [second, 15, 15 * durationSecond], [second, 30, 30 * durationSecond], [minute, 1, durationMinute], [minute, 5, 5 * durationMinute], [minute, 15, 15 * durationMinute], [minute, 30, 30 * durationMinute], [hour, 1, durationHour], [hour, 3, 3 * durationHour], [hour, 6, 6 * durationHour], [hour, 12, 12 * durationHour], [day, 1, durationDay], [day, 2, 2 * durationDay], [week, 1, durationWeek], [month, 1, durationMonth], [month, 3, 3 * durationMonth], [year, 1, durationYear]];
+
+  function tickFormat(date) {
+    return (second(date) < date ? formatMillisecond : minute(date) < date ? formatSecond : hour(date) < date ? formatMinute : day(date) < date ? formatHour : month(date) < date ? week(date) < date ? formatDay : formatWeek : year(date) < date ? formatMonth : formatYear)(date);
+  }
+
+  function tickInterval(interval, start, stop, step) {
+    if (interval == null) interval = 10;
+
+    // If a desired tick count is specified, pick a reasonable tick interval
+    // based on the extent of the domain and a rough estimate of tick size.
+    // Otherwise, assume interval is already a time interval and use it.
+    if (typeof interval === "number") {
+      var target = Math.abs(stop - start) / interval,
+          i = (0, _d3Array.bisector)(function (i) {
+        return i[2];
+      }).right(tickIntervals, target);
+      if (i === tickIntervals.length) {
+        step = (0, _d3Array.tickStep)(start / durationYear, stop / durationYear, interval);
+        interval = year;
+      } else if (i) {
+        i = tickIntervals[target / tickIntervals[i - 1][2] < tickIntervals[i][2] / target ? i - 1 : i];
+        step = i[1];
+        interval = i[0];
+      } else {
+        step = (0, _d3Array.tickStep)(start, stop, interval);
+        interval = millisecond;
+      }
+    }
+
+    return step == null ? interval : interval.every(step);
+  }
+
+  scale.invert = function (y) {
+    return new Date(invert(y));
+  };
+
+  scale.domain = function (_) {
+    return arguments.length ? domain(_array.map.call(_, number)) : domain().map(date);
+  };
+
+  scale.ticks = function (interval, step) {
+    var d = domain(),
+        t0 = d[0],
+        t1 = d[d.length - 1],
+        r = t1 < t0,
+        t;
+    if (r) t = t0, t0 = t1, t1 = t;
+    t = tickInterval(interval, t0, t1, step);
+    t = t ? t.range(t0, t1 + 1) : []; // inclusive stop
+    return r ? t.reverse() : t;
+  };
+
+  scale.tickFormat = function (count, specifier) {
+    return specifier == null ? tickFormat : format(specifier);
+  };
+
+  scale.nice = function (interval, step) {
+    var d = domain();
+    return (interval = tickInterval(interval, d[0], d[d.length - 1], step)) ? domain((0, _nice2.default)(d, interval)) : scale;
+  };
+
+  scale.copy = function () {
+    return (0, _continuous.copy)(scale, calendar(year, month, week, day, hour, minute, second, millisecond, format));
+  };
+
+  return scale;
+}
+},{"d3-array":"../node_modules/d3-array/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-time":"../node_modules/d3-time/src/index.js","d3-time-format":"../node_modules/d3-time-format/src/index.js","./array":"../node_modules/d3-scale/src/array.js","./continuous":"../node_modules/d3-scale/src/continuous.js","./nice":"../node_modules/d3-scale/src/nice.js"}],"../node_modules/d3-scale/src/utcTime.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function () {
+  return (0, _time.calendar)(_d3Time.utcYear, _d3Time.utcMonth, _d3Time.utcWeek, _d3Time.utcDay, _d3Time.utcHour, _d3Time.utcMinute, _d3Time.utcSecond, _d3Time.utcMillisecond, _d3TimeFormat.utcFormat).domain([Date.UTC(2000, 0, 1), Date.UTC(2000, 0, 2)]);
+};
+
+var _time = require("./time");
+
+var _d3TimeFormat = require("d3-time-format");
+
+var _d3Time = require("d3-time");
+},{"./time":"../node_modules/d3-scale/src/time.js","d3-time-format":"../node_modules/d3-time-format/src/index.js","d3-time":"../node_modules/d3-time/src/index.js"}],"../node_modules/d3-scale/src/colors.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (s) {
+  return s.match(/.{6}/g).map(function (x) {
+    return "#" + x;
+  });
+};
+},{}],"../node_modules/d3-scale/src/category10.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _colors = require("./colors");
+
+var _colors2 = _interopRequireDefault(_colors);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _colors2.default)("1f77b4ff7f0e2ca02cd627289467bd8c564be377c27f7f7fbcbd2217becf");
+},{"./colors":"../node_modules/d3-scale/src/colors.js"}],"../node_modules/d3-scale/src/category20b.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _colors = require("./colors");
+
+var _colors2 = _interopRequireDefault(_colors);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _colors2.default)("393b795254a36b6ecf9c9ede6379398ca252b5cf6bcedb9c8c6d31bd9e39e7ba52e7cb94843c39ad494ad6616be7969c7b4173a55194ce6dbdde9ed6");
+},{"./colors":"../node_modules/d3-scale/src/colors.js"}],"../node_modules/d3-scale/src/category20c.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _colors = require("./colors");
+
+var _colors2 = _interopRequireDefault(_colors);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _colors2.default)("3182bd6baed69ecae1c6dbefe6550dfd8d3cfdae6bfdd0a231a35474c476a1d99bc7e9c0756bb19e9ac8bcbddcdadaeb636363969696bdbdbdd9d9d9");
+},{"./colors":"../node_modules/d3-scale/src/colors.js"}],"../node_modules/d3-scale/src/category20.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _colors = require("./colors");
+
+var _colors2 = _interopRequireDefault(_colors);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _colors2.default)("1f77b4aec7e8ff7f0effbb782ca02c98df8ad62728ff98969467bdc5b0d58c564bc49c94e377c2f7b6d27f7f7fc7c7c7bcbd22dbdb8d17becf9edae5");
+},{"./colors":"../node_modules/d3-scale/src/colors.js"}],"../node_modules/d3-scale/src/cubehelix.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _d3Color = require("d3-color");
+
+var _d3Interpolate = require("d3-interpolate");
+
+exports.default = (0, _d3Interpolate.interpolateCubehelixLong)((0, _d3Color.cubehelix)(300, 0.5, 0.0), (0, _d3Color.cubehelix)(-240, 0.5, 1.0));
+},{"d3-color":"../node_modules/d3-color/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js"}],"../node_modules/d3-scale/src/rainbow.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.cool = exports.warm = undefined;
+
+exports.default = function (t) {
+  if (t < 0 || t > 1) t -= Math.floor(t);
+  var ts = Math.abs(t - 0.5);
+  rainbow.h = 360 * t - 100;
+  rainbow.s = 1.5 - 1.5 * ts;
+  rainbow.l = 0.8 - 0.9 * ts;
+  return rainbow + "";
+};
+
+var _d3Color = require("d3-color");
+
+var _d3Interpolate = require("d3-interpolate");
+
+var warm = exports.warm = (0, _d3Interpolate.interpolateCubehelixLong)((0, _d3Color.cubehelix)(-100, 0.75, 0.35), (0, _d3Color.cubehelix)(80, 1.50, 0.8));
+
+var cool = exports.cool = (0, _d3Interpolate.interpolateCubehelixLong)((0, _d3Color.cubehelix)(260, 0.75, 0.35), (0, _d3Color.cubehelix)(80, 1.50, 0.8));
+
+var rainbow = (0, _d3Color.cubehelix)();
+},{"d3-color":"../node_modules/d3-color/src/index.js","d3-interpolate":"../node_modules/d3-interpolate/src/index.js"}],"../node_modules/d3-scale/src/viridis.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.plasma = exports.inferno = exports.magma = undefined;
+
+var _colors = require("./colors");
+
+var _colors2 = _interopRequireDefault(_colors);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ramp(range) {
+  var n = range.length;
+  return function (t) {
+    return range[Math.max(0, Math.min(n - 1, Math.floor(t * n)))];
+  };
+}
+
+exports.default = ramp((0, _colors2.default)("44015444025645045745055946075a46085c460a5d460b5e470d60470e6147106347116447136548146748166848176948186a481a6c481b6d481c6e481d6f481f70482071482173482374482475482576482677482878482979472a7a472c7a472d7b472e7c472f7d46307e46327e46337f463480453581453781453882443983443a83443b84433d84433e85423f854240864241864142874144874045884046883f47883f48893e49893e4a893e4c8a3d4d8a3d4e8a3c4f8a3c508b3b518b3b528b3a538b3a548c39558c39568c38588c38598c375a8c375b8d365c8d365d8d355e8d355f8d34608d34618d33628d33638d32648e32658e31668e31678e31688e30698e306a8e2f6b8e2f6c8e2e6d8e2e6e8e2e6f8e2d708e2d718e2c718e2c728e2c738e2b748e2b758e2a768e2a778e2a788e29798e297a8e297b8e287c8e287d8e277e8e277f8e27808e26818e26828e26828e25838e25848e25858e24868e24878e23888e23898e238a8d228b8d228c8d228d8d218e8d218f8d21908d21918c20928c20928c20938c1f948c1f958b1f968b1f978b1f988b1f998a1f9a8a1e9b8a1e9c891e9d891f9e891f9f881fa0881fa1881fa1871fa28720a38620a48621a58521a68522a78522a88423a98324aa8325ab8225ac8226ad8127ad8128ae8029af7f2ab07f2cb17e2db27d2eb37c2fb47c31b57b32b67a34b67935b77937b87838b9773aba763bbb753dbc743fbc7340bd7242be7144bf7046c06f48c16e4ac16d4cc26c4ec36b50c46a52c56954c56856c66758c7655ac8645cc8635ec96260ca6063cb5f65cb5e67cc5c69cd5b6ccd5a6ece5870cf5773d05675d05477d1537ad1517cd2507fd34e81d34d84d44b86d54989d5488bd6468ed64590d74393d74195d84098d83e9bd93c9dd93ba0da39a2da37a5db36a8db34aadc32addc30b0dd2fb2dd2db5de2bb8de29bade28bddf26c0df25c2df23c5e021c8e020cae11fcde11dd0e11cd2e21bd5e21ad8e219dae319dde318dfe318e2e418e5e419e7e419eae51aece51befe51cf1e51df4e61ef6e620f8e621fbe723fde725"));
+var magma = exports.magma = ramp((0, _colors2.default)("00000401000501010601010802010902020b02020d03030f03031204041405041606051806051a07061c08071e0907200a08220b09240c09260d0a290e0b2b100b2d110c2f120d31130d34140e36150e38160f3b180f3d19103f1a10421c10441d11471e114920114b21114e22115024125325125527125829115a2a115c2c115f2d11612f116331116533106734106936106b38106c390f6e3b0f703d0f713f0f72400f74420f75440f764510774710784910784a10794c117a4e117b4f127b51127c52137c54137d56147d57157e59157e5a167e5c167f5d177f5f187f601880621980641a80651a80671b80681c816a1c816b1d816d1d816e1e81701f81721f817320817521817621817822817922827b23827c23827e24828025828125818326818426818627818827818928818b29818c29818e2a81902a81912b81932b80942c80962c80982d80992d809b2e7f9c2e7f9e2f7fa02f7fa1307ea3307ea5317ea6317da8327daa337dab337cad347cae347bb0357bb2357bb3367ab5367ab73779b83779ba3878bc3978bd3977bf3a77c03a76c23b75c43c75c53c74c73d73c83e73ca3e72cc3f71cd4071cf4070d0416fd2426fd3436ed5446dd6456cd8456cd9466bdb476adc4869de4968df4a68e04c67e24d66e34e65e44f64e55064e75263e85362e95462ea5661eb5760ec5860ed5a5fee5b5eef5d5ef05f5ef1605df2625df2645cf3655cf4675cf4695cf56b5cf66c5cf66e5cf7705cf7725cf8745cf8765cf9785df9795df97b5dfa7d5efa7f5efa815ffb835ffb8560fb8761fc8961fc8a62fc8c63fc8e64fc9065fd9266fd9467fd9668fd9869fd9a6afd9b6bfe9d6cfe9f6dfea16efea36ffea571fea772fea973feaa74feac76feae77feb078feb27afeb47bfeb67cfeb77efeb97ffebb81febd82febf84fec185fec287fec488fec68afec88cfeca8dfecc8ffecd90fecf92fed194fed395fed597fed799fed89afdda9cfddc9efddea0fde0a1fde2a3fde3a5fde5a7fde7a9fde9aafdebacfcecaefceeb0fcf0b2fcf2b4fcf4b6fcf6b8fcf7b9fcf9bbfcfbbdfcfdbf"));
+
+var inferno = exports.inferno = ramp((0, _colors2.default)("00000401000501010601010802010a02020c02020e03021004031204031405041706041907051b08051d09061f0a07220b07240c08260d08290e092b10092d110a30120a32140b34150b37160b39180c3c190c3e1b0c411c0c431e0c451f0c48210c4a230c4c240c4f260c51280b53290b552b0b572d0b592f0a5b310a5c320a5e340a5f3609613809623909633b09643d09653e0966400a67420a68440a68450a69470b6a490b6a4a0c6b4c0c6b4d0d6c4f0d6c510e6c520e6d540f6d550f6d57106e59106e5a116e5c126e5d126e5f136e61136e62146e64156e65156e67166e69166e6a176e6c186e6d186e6f196e71196e721a6e741a6e751b6e771c6d781c6d7a1d6d7c1d6d7d1e6d7f1e6c801f6c82206c84206b85216b87216b88226a8a226a8c23698d23698f24699025689225689326679526679727669827669a28659b29649d29649f2a63a02a63a22b62a32c61a52c60a62d60a82e5fa92e5eab2f5ead305dae305cb0315bb1325ab3325ab43359b63458b73557b93556ba3655bc3754bd3853bf3952c03a51c13a50c33b4fc43c4ec63d4dc73e4cc83f4bca404acb4149cc4248ce4347cf4446d04545d24644d34743d44842d54a41d74b3fd84c3ed94d3dda4e3cdb503bdd513ade5238df5337e05536e15635e25734e35933e45a31e55c30e65d2fe75e2ee8602de9612bea632aeb6429eb6628ec6726ed6925ee6a24ef6c23ef6e21f06f20f1711ff1731df2741cf3761bf37819f47918f57b17f57d15f67e14f68013f78212f78410f8850ff8870ef8890cf98b0bf98c0af98e09fa9008fa9207fa9407fb9606fb9706fb9906fb9b06fb9d07fc9f07fca108fca309fca50afca60cfca80dfcaa0ffcac11fcae12fcb014fcb216fcb418fbb61afbb81dfbba1ffbbc21fbbe23fac026fac228fac42afac62df9c72ff9c932f9cb35f8cd37f8cf3af7d13df7d340f6d543f6d746f5d949f5db4cf4dd4ff4df53f4e156f3e35af3e55df2e661f2e865f2ea69f1ec6df1ed71f1ef75f1f179f2f27df2f482f3f586f3f68af4f88ef5f992f6fa96f8fb9af9fc9dfafda1fcffa4"));
+
+var plasma = exports.plasma = ramp((0, _colors2.default)("0d088710078813078916078a19068c1b068d1d068e20068f2206902406912605912805922a05932c05942e05952f059631059733059735049837049938049a3a049a3c049b3e049c3f049c41049d43039e44039e46039f48039f4903a04b03a14c02a14e02a25002a25102a35302a35502a45601a45801a45901a55b01a55c01a65e01a66001a66100a76300a76400a76600a76700a86900a86a00a86c00a86e00a86f00a87100a87201a87401a87501a87701a87801a87a02a87b02a87d03a87e03a88004a88104a78305a78405a78606a68707a68808a68a09a58b0aa58d0ba58e0ca48f0da4910ea3920fa39410a29511a19613a19814a099159f9a169f9c179e9d189d9e199da01a9ca11b9ba21d9aa31e9aa51f99a62098a72197a82296aa2395ab2494ac2694ad2793ae2892b02991b12a90b22b8fb32c8eb42e8db52f8cb6308bb7318ab83289ba3388bb3488bc3587bd3786be3885bf3984c03a83c13b82c23c81c33d80c43e7fc5407ec6417dc7427cc8437bc9447aca457acb4679cc4778cc4977cd4a76ce4b75cf4c74d04d73d14e72d24f71d35171d45270d5536fd5546ed6556dd7566cd8576bd9586ada5a6ada5b69db5c68dc5d67dd5e66de5f65de6164df6263e06363e16462e26561e26660e3685fe4695ee56a5de56b5de66c5ce76e5be76f5ae87059e97158e97257ea7457eb7556eb7655ec7754ed7953ed7a52ee7b51ef7c51ef7e50f07f4ff0804ef1814df1834cf2844bf3854bf3874af48849f48948f58b47f58c46f68d45f68f44f79044f79143f79342f89441f89540f9973ff9983ef99a3efa9b3dfa9c3cfa9e3bfb9f3afba139fba238fca338fca537fca636fca835fca934fdab33fdac33fdae32fdaf31fdb130fdb22ffdb42ffdb52efeb72dfeb82cfeba2cfebb2bfebd2afebe2afec029fdc229fdc328fdc527fdc627fdc827fdca26fdcb26fccd25fcce25fcd025fcd225fbd324fbd524fbd724fad824fada24f9dc24f9dd25f8df25f8e125f7e225f7e425f6e626f6e826f5e926f5eb27f4ed27f3ee27f3f027f2f227f1f426f1f525f0f724f0f921"));
+},{"./colors":"../node_modules/d3-scale/src/colors.js"}],"../node_modules/d3-scale/src/sequential.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = sequential;
+
+var _linear = require("./linear");
+
+function sequential(interpolator) {
+  var x0 = 0,
+      x1 = 1,
+      clamp = false;
+
+  function scale(x) {
+    var t = (x - x0) / (x1 - x0);
+    return interpolator(clamp ? Math.max(0, Math.min(1, t)) : t);
+  }
+
+  scale.domain = function (_) {
+    return arguments.length ? (x0 = +_[0], x1 = +_[1], scale) : [x0, x1];
+  };
+
+  scale.clamp = function (_) {
+    return arguments.length ? (clamp = !!_, scale) : clamp;
+  };
+
+  scale.interpolator = function (_) {
+    return arguments.length ? (interpolator = _, scale) : interpolator;
+  };
+
+  scale.copy = function () {
+    return sequential(interpolator).domain([x0, x1]).clamp(clamp);
+  };
+
+  return (0, _linear.linearish)(scale);
+}
+},{"./linear":"../node_modules/d3-scale/src/linear.js"}],"../node_modules/d3-scale/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _band = require("./src/band");
+
+Object.defineProperty(exports, "scaleBand", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_band).default;
+  }
+});
+Object.defineProperty(exports, "scalePoint", {
+  enumerable: true,
+  get: function () {
+    return _band.point;
+  }
+});
+
+var _identity = require("./src/identity");
+
+Object.defineProperty(exports, "scaleIdentity", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_identity).default;
+  }
+});
+
+var _linear = require("./src/linear");
+
+Object.defineProperty(exports, "scaleLinear", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_linear).default;
+  }
+});
+
+var _log = require("./src/log");
+
+Object.defineProperty(exports, "scaleLog", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_log).default;
+  }
+});
+
+var _ordinal = require("./src/ordinal");
+
+Object.defineProperty(exports, "scaleOrdinal", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_ordinal).default;
+  }
+});
+Object.defineProperty(exports, "scaleImplicit", {
+  enumerable: true,
+  get: function () {
+    return _ordinal.implicit;
+  }
+});
+
+var _pow = require("./src/pow");
+
+Object.defineProperty(exports, "scalePow", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_pow).default;
+  }
+});
+Object.defineProperty(exports, "scaleSqrt", {
+  enumerable: true,
+  get: function () {
+    return _pow.sqrt;
+  }
+});
+
+var _quantile = require("./src/quantile");
+
+Object.defineProperty(exports, "scaleQuantile", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_quantile).default;
+  }
+});
+
+var _quantize = require("./src/quantize");
+
+Object.defineProperty(exports, "scaleQuantize", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_quantize).default;
+  }
+});
+
+var _threshold = require("./src/threshold");
+
+Object.defineProperty(exports, "scaleThreshold", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_threshold).default;
+  }
+});
+
+var _time = require("./src/time");
+
+Object.defineProperty(exports, "scaleTime", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_time).default;
+  }
+});
+
+var _utcTime = require("./src/utcTime");
+
+Object.defineProperty(exports, "scaleUtc", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_utcTime).default;
+  }
+});
+
+var _category = require("./src/category10");
+
+Object.defineProperty(exports, "schemeCategory10", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_category).default;
+  }
+});
+
+var _category20b = require("./src/category20b");
+
+Object.defineProperty(exports, "schemeCategory20b", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_category20b).default;
+  }
+});
+
+var _category20c = require("./src/category20c");
+
+Object.defineProperty(exports, "schemeCategory20c", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_category20c).default;
+  }
+});
+
+var _category2 = require("./src/category20");
+
+Object.defineProperty(exports, "schemeCategory20", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_category2).default;
+  }
+});
+
+var _cubehelix = require("./src/cubehelix");
+
+Object.defineProperty(exports, "interpolateCubehelixDefault", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_cubehelix).default;
+  }
+});
+
+var _rainbow = require("./src/rainbow");
+
+Object.defineProperty(exports, "interpolateRainbow", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_rainbow).default;
+  }
+});
+Object.defineProperty(exports, "interpolateWarm", {
+  enumerable: true,
+  get: function () {
+    return _rainbow.warm;
+  }
+});
+Object.defineProperty(exports, "interpolateCool", {
+  enumerable: true,
+  get: function () {
+    return _rainbow.cool;
+  }
+});
+
+var _viridis = require("./src/viridis");
+
+Object.defineProperty(exports, "interpolateViridis", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_viridis).default;
+  }
+});
+Object.defineProperty(exports, "interpolateMagma", {
+  enumerable: true,
+  get: function () {
+    return _viridis.magma;
+  }
+});
+Object.defineProperty(exports, "interpolateInferno", {
+  enumerable: true,
+  get: function () {
+    return _viridis.inferno;
+  }
+});
+Object.defineProperty(exports, "interpolatePlasma", {
+  enumerable: true,
+  get: function () {
+    return _viridis.plasma;
+  }
+});
+
+var _sequential = require("./src/sequential");
+
+Object.defineProperty(exports, "scaleSequential", {
+  enumerable: true,
+  get: function () {
+    return _interopRequireDefault(_sequential).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./src/band":"../node_modules/d3-scale/src/band.js","./src/identity":"../node_modules/d3-scale/src/identity.js","./src/linear":"../node_modules/d3-scale/src/linear.js","./src/log":"../node_modules/d3-scale/src/log.js","./src/ordinal":"../node_modules/d3-scale/src/ordinal.js","./src/pow":"../node_modules/d3-scale/src/pow.js","./src/quantile":"../node_modules/d3-scale/src/quantile.js","./src/quantize":"../node_modules/d3-scale/src/quantize.js","./src/threshold":"../node_modules/d3-scale/src/threshold.js","./src/time":"../node_modules/d3-scale/src/time.js","./src/utcTime":"../node_modules/d3-scale/src/utcTime.js","./src/category10":"../node_modules/d3-scale/src/category10.js","./src/category20b":"../node_modules/d3-scale/src/category20b.js","./src/category20c":"../node_modules/d3-scale/src/category20c.js","./src/category20":"../node_modules/d3-scale/src/category20.js","./src/cubehelix":"../node_modules/d3-scale/src/cubehelix.js","./src/rainbow":"../node_modules/d3-scale/src/rainbow.js","./src/viridis":"../node_modules/d3-scale/src/viridis.js","./src/sequential":"../node_modules/d3-scale/src/sequential.js"}],"../node_modules/recharts/es6/shape/Dot.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require("classnames");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _ReactUtils = require("../util/ReactUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Dot
+ */
+
+
+var Dot = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(Dot, _Component);
+
+  function Dot() {
+    _classCallCheck(this, Dot);
+
+    return _possibleConstructorReturn(this, (Dot.__proto__ || Object.getPrototypeOf(Dot)).apply(this, arguments));
+  }
+
+  _createClass(Dot, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          cx = _props.cx,
+          cy = _props.cy,
+          r = _props.r,
+          className = _props.className;
+
+      var layerClass = (0, _classnames2.default)('recharts-dot', className);
+
+      if (cx === +cx && cy === +cy && r === +r) {
+        return _react2.default.createElement('circle', _extends({}, (0, _ReactUtils.getPresentationAttributes)(this.props), (0, _ReactUtils.filterEventAttributes)(this.props, null, true), {
+          className: layerClass,
+          cx: cx,
+          cy: cy,
+          r: r
+        }));
+      }
+
+      return null;
+    }
+  }]);
+
+  return Dot;
+}(_react.Component), _class2.displayName = 'Dot', _class2.propTypes = {
+  className: _propTypes2.default.string,
+  cx: _propTypes2.default.number,
+  cy: _propTypes2.default.number,
+  r: _propTypes2.default.number
+}, _temp)) || _class;
+
+exports.default = Dot;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js"}],"../node_modules/lodash-es/_arrayEvery.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * A specialized version of `_.every` for arrays without support for
+ * iteratee shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {boolean} Returns `true` if all elements pass the predicate check,
+ *  else `false`.
+ */
+function arrayEvery(array, predicate) {
+  var index = -1,
+      length = array == null ? 0 : array.length;
+
+  while (++index < length) {
+    if (!predicate(array[index], index, array)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+exports.default = arrayEvery;
+},{}],"../node_modules/lodash-es/_baseEvery.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseEach = require('./_baseEach.js');
+
+var _baseEach2 = _interopRequireDefault(_baseEach);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `_.every` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {boolean} Returns `true` if all elements pass the predicate check,
+ *  else `false`
+ */
+function baseEvery(collection, predicate) {
+  var result = true;
+  (0, _baseEach2.default)(collection, function (value, index, collection) {
+    result = !!predicate(value, index, collection);
+    return result;
+  });
+  return result;
+}
+
+exports.default = baseEvery;
+},{"./_baseEach.js":"../node_modules/lodash-es/_baseEach.js"}],"../node_modules/lodash-es/every.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _arrayEvery = require('./_arrayEvery.js');
+
+var _arrayEvery2 = _interopRequireDefault(_arrayEvery);
+
+var _baseEvery = require('./_baseEvery.js');
+
+var _baseEvery2 = _interopRequireDefault(_baseEvery);
+
+var _baseIteratee = require('./_baseIteratee.js');
+
+var _baseIteratee2 = _interopRequireDefault(_baseIteratee);
+
+var _isArray = require('./isArray.js');
+
+var _isArray2 = _interopRequireDefault(_isArray);
+
+var _isIterateeCall = require('./_isIterateeCall.js');
+
+var _isIterateeCall2 = _interopRequireDefault(_isIterateeCall);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Checks if `predicate` returns truthy for **all** elements of `collection`.
+ * Iteration is stopped once `predicate` returns falsey. The predicate is
+ * invoked with three arguments: (value, index|key, collection).
+ *
+ * **Note:** This method returns `true` for
+ * [empty collections](https://en.wikipedia.org/wiki/Empty_set) because
+ * [everything is true](https://en.wikipedia.org/wiki/Vacuous_truth) of
+ * elements of empty collections.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} [predicate=_.identity] The function invoked per iteration.
+ * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
+ * @returns {boolean} Returns `true` if all elements pass the predicate check,
+ *  else `false`.
+ * @example
+ *
+ * _.every([true, 1, null, 'yes'], Boolean);
+ * // => false
+ *
+ * var users = [
+ *   { 'user': 'barney', 'age': 36, 'active': false },
+ *   { 'user': 'fred',   'age': 40, 'active': false }
+ * ];
+ *
+ * // The `_.matches` iteratee shorthand.
+ * _.every(users, { 'user': 'barney', 'active': false });
+ * // => false
+ *
+ * // The `_.matchesProperty` iteratee shorthand.
+ * _.every(users, ['active', false]);
+ * // => true
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.every(users, 'active');
+ * // => false
+ */
+function every(collection, predicate, guard) {
+  var func = (0, _isArray2.default)(collection) ? _arrayEvery2.default : _baseEvery2.default;
+  if (guard && (0, _isIterateeCall2.default)(collection, predicate, guard)) {
+    predicate = undefined;
+  }
+  return func(collection, (0, _baseIteratee2.default)(predicate, 3));
+}
+
+exports.default = every;
+},{"./_arrayEvery.js":"../node_modules/lodash-es/_arrayEvery.js","./_baseEvery.js":"../node_modules/lodash-es/_baseEvery.js","./_baseIteratee.js":"../node_modules/lodash-es/_baseIteratee.js","./isArray.js":"../node_modules/lodash-es/isArray.js","./_isIterateeCall.js":"../node_modules/lodash-es/_isIterateeCall.js"}],"../node_modules/lodash-es/_baseAssignValue.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty = require('./_defineProperty.js');
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `assignValue` and `assignMergeValue` without
+ * value checks.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function baseAssignValue(object, key, value) {
+  if (key == '__proto__' && _defineProperty2.default) {
+    (0, _defineProperty2.default)(object, key, {
+      'configurable': true,
+      'enumerable': true,
+      'value': value,
+      'writable': true
+    });
+  } else {
+    object[key] = value;
+  }
+}
+
+exports.default = baseAssignValue;
+},{"./_defineProperty.js":"../node_modules/lodash-es/_defineProperty.js"}],"../node_modules/lodash-es/mapValues.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseAssignValue = require('./_baseAssignValue.js');
+
+var _baseAssignValue2 = _interopRequireDefault(_baseAssignValue);
+
+var _baseForOwn = require('./_baseForOwn.js');
+
+var _baseForOwn2 = _interopRequireDefault(_baseForOwn);
+
+var _baseIteratee = require('./_baseIteratee.js');
+
+var _baseIteratee2 = _interopRequireDefault(_baseIteratee);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Creates an object with the same keys as `object` and values generated
+ * by running each own enumerable string keyed property of `object` thru
+ * `iteratee`. The iteratee is invoked with three arguments:
+ * (value, key, object).
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Object
+ * @param {Object} object The object to iterate over.
+ * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+ * @returns {Object} Returns the new mapped object.
+ * @see _.mapKeys
+ * @example
+ *
+ * var users = {
+ *   'fred':    { 'user': 'fred',    'age': 40 },
+ *   'pebbles': { 'user': 'pebbles', 'age': 1 }
+ * };
+ *
+ * _.mapValues(users, function(o) { return o.age; });
+ * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.mapValues(users, 'age');
+ * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
+ */
+function mapValues(object, iteratee) {
+  var result = {};
+  iteratee = (0, _baseIteratee2.default)(iteratee, 3);
+
+  (0, _baseForOwn2.default)(object, function (value, key, object) {
+    (0, _baseAssignValue2.default)(result, key, iteratee(value, key, object));
+  });
+  return result;
+}
+
+exports.default = mapValues;
+},{"./_baseAssignValue.js":"../node_modules/lodash-es/_baseAssignValue.js","./_baseForOwn.js":"../node_modules/lodash-es/_baseForOwn.js","./_baseIteratee.js":"../node_modules/lodash-es/_baseIteratee.js"}],"../node_modules/recharts/es6/util/CartesianUtils.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.LabeledScaleHelper = exports.ScaleHelper = exports.rectWithCoords = exports.rectWithPoints = exports.formatAxisMap = undefined;
+
+var _every2 = require('lodash-es/every');
+
+var _every3 = _interopRequireDefault(_every2);
+
+var _mapValues2 = require('lodash-es/mapValues');
+
+var _mapValues3 = _interopRequireDefault(_mapValues2);
+
+var _ChartUtils = require('./ChartUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _temp;
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }return obj;
+}
+
+/**
+ * Calculate the scale function, position, width, height of axes
+ * @param  {Object} props     Latest props
+ * @param  {Object} axisMap   The configuration of axes
+ * @param  {Object} offset    The offset of main part in the svg element
+ * @param  {String} axisType  The type of axes, x-axis or y-axis
+ * @param  {String} chartName The name of chart
+ * @return {Object} Configuration
+ */
+var formatAxisMap = exports.formatAxisMap = function formatAxisMap(props, axisMap, offset, axisType, chartName) {
+  var width = props.width,
+      height = props.height,
+      layout = props.layout;
+
+  var ids = Object.keys(axisMap);
+  var steps = {
+    left: offset.left,
+    leftMirror: offset.left,
+    right: width - offset.right,
+    rightMirror: width - offset.right,
+    top: offset.top,
+    topMirror: offset.top,
+    bottom: height - offset.bottom,
+    bottomMirror: height - offset.bottom
+  };
+
+  return ids.reduce(function (result, id) {
+    var axis = axisMap[id];
+    var orientation = axis.orientation,
+        domain = axis.domain,
+        _axis$padding = axis.padding,
+        padding = _axis$padding === undefined ? {} : _axis$padding,
+        mirror = axis.mirror,
+        reversed = axis.reversed;
+
+    var offsetKey = '' + orientation + (mirror ? 'Mirror' : '');
+
+    var range = void 0,
+        x = void 0,
+        y = void 0,
+        needSpace = void 0;
+
+    if (axisType === 'xAxis') {
+      range = [offset.left + (padding.left || 0), offset.left + offset.width - (padding.right || 0)];
+    } else if (axisType === 'yAxis') {
+      range = layout === 'horizontal' ? [offset.top + offset.height - (padding.bottom || 0), offset.top + (padding.top || 0)] : [offset.top + (padding.top || 0), offset.top + offset.height - (padding.bottom || 0)];
+    } else {
+      range = axis.range;
+    }
+
+    if (reversed) {
+      range = [range[1], range[0]];
+    }
+
+    var _parseScale = (0, _ChartUtils.parseScale)(axis, chartName),
+        scale = _parseScale.scale,
+        realScaleType = _parseScale.realScaleType;
+
+    scale.domain(domain).range(range);
+    (0, _ChartUtils.checkDomainOfScale)(scale);
+    var ticks = (0, _ChartUtils.getTicksOfScale)(scale, _extends({}, axis, { realScaleType: realScaleType }));
+
+    if (axisType === 'xAxis') {
+      needSpace = orientation === 'top' && !mirror || orientation === 'bottom' && mirror;
+      x = offset.left;
+      y = steps[offsetKey] - needSpace * axis.height;
+    } else if (axisType === 'yAxis') {
+      needSpace = orientation === 'left' && !mirror || orientation === 'right' && mirror;
+      x = steps[offsetKey] - needSpace * axis.width;
+      y = offset.top;
+    }
+
+    var finalAxis = _extends({}, axis, ticks, {
+      realScaleType: realScaleType, x: x, y: y, scale: scale,
+      width: axisType === 'xAxis' ? offset.width : axis.width,
+      height: axisType === 'yAxis' ? offset.height : axis.height
+    });
+
+    finalAxis.bandSize = (0, _ChartUtils.getBandSizeOfAxis)(finalAxis, ticks);
+
+    if (!axis.hide && axisType === 'xAxis') {
+      steps[offsetKey] += (needSpace ? -1 : 1) * finalAxis.height;
+    } else if (!axis.hide) {
+      steps[offsetKey] += (needSpace ? -1 : 1) * finalAxis.width;
+    }
+
+    return _extends({}, result, _defineProperty({}, id, finalAxis));
+  }, {});
+};
+
+var rectWithPoints = exports.rectWithPoints = function rectWithPoints(_ref, _ref2) {
+  var x1 = _ref.x,
+      y1 = _ref.y;
+  var x2 = _ref2.x,
+      y2 = _ref2.y;
+  return {
+    x: Math.min(x1, x2),
+    y: Math.min(y1, y2),
+    width: Math.abs(x2 - x1),
+    height: Math.abs(y2 - y1)
+  };
+};
+
+/**
+ * Compute the x, y, width, and height of a box from two reference points.
+ * @param  {Object} coords     x1, x2, y1, and y2
+ * @return {Object} object
+ */
+var rectWithCoords = exports.rectWithCoords = function rectWithCoords(_ref3) {
+  var x1 = _ref3.x1,
+      y1 = _ref3.y1,
+      x2 = _ref3.x2,
+      y2 = _ref3.y2;
+  return rectWithPoints({ x: x1, y: y1 }, { x: x2, y: y2 });
+};
+
+var ScaleHelper = exports.ScaleHelper = (_temp = _class = function () {
+  _createClass(ScaleHelper, null, [{
+    key: 'create',
+    value: function create(obj) {
+      return new ScaleHelper(obj);
+    }
+  }]);
+
+  function ScaleHelper(scale) {
+    _classCallCheck(this, ScaleHelper);
+
+    this.scale = scale;
+  }
+
+  _createClass(ScaleHelper, [{
+    key: 'apply',
+    value: function apply(value) {
+      var _ref4 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+          bandAware = _ref4.bandAware;
+
+      if (value === undefined) {
+        return undefined;
+      } else if (bandAware) {
+        var offset = this.bandwidth ? this.bandwidth() / 2 : 0;
+        return this.scale(value) + offset;
+      }
+      return this.scale(value);
+    }
+  }, {
+    key: 'isInRange',
+    value: function isInRange(value) {
+      var range = this.range();
+
+      var first = range[0];
+      var last = range[range.length - 1];
+
+      return first <= last ? value >= first && value <= last : value >= last && value <= first;
+    }
+  }, {
+    key: 'domain',
+    get: function get() {
+      return this.scale.domain;
+    }
+  }, {
+    key: 'range',
+    get: function get() {
+      return this.scale.range;
+    }
+  }, {
+    key: 'rangeMin',
+    get: function get() {
+      return this.range()[0];
+    }
+  }, {
+    key: 'rangeMax',
+    get: function get() {
+      return this.range()[1];
+    }
+  }, {
+    key: 'bandwidth',
+    get: function get() {
+      return this.scale.bandwidth;
+    }
+  }]);
+
+  return ScaleHelper;
+}(), _class.EPS = 1e-4, _temp);
+
+var LabeledScaleHelper = exports.LabeledScaleHelper = function () {
+  _createClass(LabeledScaleHelper, null, [{
+    key: 'create',
+    value: function create(obj) {
+      return new this(obj);
+    }
+  }]);
+
+  function LabeledScaleHelper(scales) {
+    _classCallCheck(this, LabeledScaleHelper);
+
+    this.scales = (0, _mapValues3.default)(scales, ScaleHelper.create);
+    Object.assign(this, this.scales);
+  }
+
+  _createClass(LabeledScaleHelper, [{
+    key: 'apply',
+    value: function apply(coords) {
+      var _ref5 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+          bandAware = _ref5.bandAware;
+
+      var scales = this.scales;
+
+      return (0, _mapValues3.default)(coords, function (value, label) {
+        return scales[label].apply(value, { bandAware: bandAware });
+      });
+    }
+  }, {
+    key: 'isInRange',
+    value: function isInRange(coords) {
+      var scales = this.scales;
+
+      return (0, _every3.default)(coords, function (value, label) {
+        return scales[label].isInRange(value);
+      });
+    }
+  }]);
+
+  return LabeledScaleHelper;
+}();
+},{"lodash-es/every":"../node_modules/lodash-es/every.js","lodash-es/mapValues":"../node_modules/lodash-es/mapValues.js","./ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js"}],"../node_modules/recharts/es6/cartesian/ReferenceDot.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isFunction2 = require("lodash-es/isFunction");
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require("classnames");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _Layer = require("../container/Layer");
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _Dot = require("../shape/Dot");
+
+var _Dot2 = _interopRequireDefault(_Dot);
+
+var _ReactUtils = require("../util/ReactUtils");
+
+var _Label = require("../component/Label");
+
+var _Label2 = _interopRequireDefault(_Label);
+
+var _DataUtils = require("../util/DataUtils");
+
+var _ChartUtils = require("../util/ChartUtils");
+
+var _CartesianUtils = require("../util/CartesianUtils");
+
+var _LogUtils = require("../util/LogUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Reference Dot
+ */
+
+
+var ReferenceDot = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(ReferenceDot, _Component);
+
+  function ReferenceDot() {
+    _classCallCheck(this, ReferenceDot);
+
+    return _possibleConstructorReturn(this, (ReferenceDot.__proto__ || Object.getPrototypeOf(ReferenceDot)).apply(this, arguments));
+  }
+
+  _createClass(ReferenceDot, [{
+    key: 'getCoordinate',
+    value: function getCoordinate() {
+      var _props = this.props,
+          x = _props.x,
+          y = _props.y,
+          xAxis = _props.xAxis,
+          yAxis = _props.yAxis;
+
+      var scales = _CartesianUtils.LabeledScaleHelper.create({ x: xAxis.scale, y: yAxis.scale });
+
+      var result = scales.apply({ x: x, y: y }, { bandAware: true });
+
+      if ((0, _ChartUtils.ifOverflowMatches)(this.props, 'discard') && !scales.isInRange(result)) {
+        return null;
+      }
+
+      return result;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          x = _props2.x,
+          y = _props2.y,
+          r = _props2.r,
+          alwaysShow = _props2.alwaysShow,
+          clipPathId = _props2.clipPathId;
+
+      var isX = (0, _DataUtils.isNumOrStr)(x);
+      var isY = (0, _DataUtils.isNumOrStr)(y);
+
+      (0, _LogUtils.warn)(alwaysShow === undefined, 'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.');
+
+      if (!isX || !isY) {
+        return null;
+      }
+
+      var coordinate = this.getCoordinate();
+
+      if (!coordinate) {
+        return null;
+      }
+
+      var cx = coordinate.x,
+          cy = coordinate.y;
+      var _props3 = this.props,
+          shape = _props3.shape,
+          className = _props3.className;
+
+      var clipPath = (0, _ChartUtils.ifOverflowMatches)(this.props, 'hidden') ? 'url(#' + clipPathId + ')' : undefined;
+
+      var dotProps = _extends({
+        clipPath: clipPath
+      }, (0, _ReactUtils.getPresentationAttributes)(this.props), (0, _ReactUtils.filterEventAttributes)(this.props), {
+        cx: cx,
+        cy: cy
+      });
+
+      return _react2.default.createElement(_Layer2.default, { className: (0, _classnames2.default)('recharts-reference-dot', className) }, this.constructor.renderDot(shape, dotProps), _Label2.default.renderCallByParent(this.props, {
+        x: cx - r,
+        y: cy - r,
+        width: 2 * r,
+        height: 2 * r
+      }));
+    }
+  }], [{
+    key: 'renderDot',
+    value: function renderDot(option, props) {
+      var dot = void 0;
+
+      if (_react2.default.isValidElement(option)) {
+        dot = _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        dot = option(props);
+      } else {
+        dot = _react2.default.createElement(_Dot2.default, _extends({}, props, {
+          cx: props.cx,
+          cy: props.cy,
+          className: 'recharts-reference-dot-dot'
+        }));
+      }
+
+      return dot;
+    }
+  }]);
+
+  return ReferenceDot;
+}(_react.Component), _class2.displayName = 'ReferenceDot', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, _ReactUtils.EVENT_ATTRIBUTES, {
+  r: _propTypes2.default.number,
+
+  xAxis: _propTypes2.default.shape({ scale: _propTypes2.default.func }),
+  yAxis: _propTypes2.default.shape({ scale: _propTypes2.default.func }),
+
+  isFront: _propTypes2.default.bool,
+  alwaysShow: _propTypes2.default.bool,
+  ifOverflow: _propTypes2.default.oneOf(['hidden', 'visible', 'discard', 'extendDomain']),
+  x: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  y: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+
+  className: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  yAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  xAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  shape: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.element]),
+
+  clipPathId: _propTypes2.default.string
+}), _class2.defaultProps = {
+  isFront: false,
+  ifOverflow: 'discard',
+  xAxisId: 0,
+  yAxisId: 0,
+  r: 10,
+  fill: '#fff',
+  stroke: '#ccc',
+  fillOpacity: 1,
+  strokeWidth: 1
+}, _temp)) || _class;
+
+exports.default = ReferenceDot;
+},{"lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../shape/Dot":"../node_modules/recharts/es6/shape/Dot.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../component/Label":"../node_modules/recharts/es6/component/Label.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js","../util/CartesianUtils":"../node_modules/recharts/es6/util/CartesianUtils.js","../util/LogUtils":"../node_modules/recharts/es6/util/LogUtils.js"}],"../node_modules/lodash-es/_baseSome.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseEach = require('./_baseEach.js');
+
+var _baseEach2 = _interopRequireDefault(_baseEach);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The base implementation of `_.some` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {boolean} Returns `true` if any element passes the predicate check,
+ *  else `false`.
+ */
+function baseSome(collection, predicate) {
+  var result;
+
+  (0, _baseEach2.default)(collection, function (value, index, collection) {
+    result = predicate(value, index, collection);
+    return !result;
+  });
+  return !!result;
+}
+
+exports.default = baseSome;
+},{"./_baseEach.js":"../node_modules/lodash-es/_baseEach.js"}],"../node_modules/lodash-es/some.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _arraySome = require('./_arraySome.js');
+
+var _arraySome2 = _interopRequireDefault(_arraySome);
+
+var _baseIteratee = require('./_baseIteratee.js');
+
+var _baseIteratee2 = _interopRequireDefault(_baseIteratee);
+
+var _baseSome = require('./_baseSome.js');
+
+var _baseSome2 = _interopRequireDefault(_baseSome);
+
+var _isArray = require('./isArray.js');
+
+var _isArray2 = _interopRequireDefault(_isArray);
+
+var _isIterateeCall = require('./_isIterateeCall.js');
+
+var _isIterateeCall2 = _interopRequireDefault(_isIterateeCall);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Checks if `predicate` returns truthy for **any** element of `collection`.
+ * Iteration is stopped once `predicate` returns truthy. The predicate is
+ * invoked with three arguments: (value, index|key, collection).
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} [predicate=_.identity] The function invoked per iteration.
+ * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
+ * @returns {boolean} Returns `true` if any element passes the predicate check,
+ *  else `false`.
+ * @example
+ *
+ * _.some([null, 0, 'yes', false], Boolean);
+ * // => true
+ *
+ * var users = [
+ *   { 'user': 'barney', 'active': true },
+ *   { 'user': 'fred',   'active': false }
+ * ];
+ *
+ * // The `_.matches` iteratee shorthand.
+ * _.some(users, { 'user': 'barney', 'active': false });
+ * // => false
+ *
+ * // The `_.matchesProperty` iteratee shorthand.
+ * _.some(users, ['active', false]);
+ * // => true
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.some(users, 'active');
+ * // => true
+ */
+function some(collection, predicate, guard) {
+  var func = (0, _isArray2.default)(collection) ? _arraySome2.default : _baseSome2.default;
+  if (guard && (0, _isIterateeCall2.default)(collection, predicate, guard)) {
+    predicate = undefined;
+  }
+  return func(collection, (0, _baseIteratee2.default)(predicate, 3));
+}
+
+exports.default = some;
+},{"./_arraySome.js":"../node_modules/lodash-es/_arraySome.js","./_baseIteratee.js":"../node_modules/lodash-es/_baseIteratee.js","./_baseSome.js":"../node_modules/lodash-es/_baseSome.js","./isArray.js":"../node_modules/lodash-es/isArray.js","./_isIterateeCall.js":"../node_modules/lodash-es/_isIterateeCall.js"}],"../node_modules/recharts/es6/cartesian/ReferenceLine.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _some2 = require('lodash-es/some');
+
+var _some3 = _interopRequireDefault(_some2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _Label = require('../component/Label');
+
+var _Label2 = _interopRequireDefault(_Label);
+
+var _ChartUtils = require('../util/ChartUtils');
+
+var _DataUtils = require('../util/DataUtils');
+
+var _CartesianUtils = require('../util/CartesianUtils');
+
+var _LogUtils = require('../util/LogUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _slicedToArray = function () {
+  function sliceIterator(arr, i) {
+    var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;_e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"]) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }return _arr;
+  }return function (arr, i) {
+    if (Array.isArray(arr)) {
+      return arr;
+    } else if (Symbol.iterator in Object(arr)) {
+      return sliceIterator(arr, i);
+    } else {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance");
+    }
+  };
+}();
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Reference Line
+ */
+
+
+var renderLine = function renderLine(option, props) {
+  var line = void 0;
+
+  if (_react2.default.isValidElement(option)) {
+    line = _react2.default.cloneElement(option, props);
+  } else if ((0, _isFunction3.default)(option)) {
+    line = option(props);
+  } else {
+    line = _react2.default.createElement('line', _extends({}, props, {
+      className: 'recharts-reference-line-line'
+    }));
+  }
+
+  return line;
+};
+
+var ReferenceLine = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(ReferenceLine, _Component);
+
+  function ReferenceLine() {
+    _classCallCheck(this, ReferenceLine);
+
+    return _possibleConstructorReturn(this, (ReferenceLine.__proto__ || Object.getPrototypeOf(ReferenceLine)).apply(this, arguments));
+  }
+
+  _createClass(ReferenceLine, [{
+    key: 'getEndPoints',
+    value: function getEndPoints(scales, isFixedX, isFixedY, isSegment) {
+      var _props$viewBox = this.props.viewBox,
+          x = _props$viewBox.x,
+          y = _props$viewBox.y,
+          width = _props$viewBox.width,
+          height = _props$viewBox.height;
+
+      if (isFixedY) {
+        var _props = this.props,
+            yCoord = _props.y,
+            orientation = _props.yAxis.orientation;
+
+        var coord = scales.y.apply(yCoord);
+
+        if ((0, _ChartUtils.ifOverflowMatches)(this.props, 'discard') && !scales.y.isInRange(coord)) {
+          return null;
+        }
+
+        var points = [{ x: x + width, y: coord }, { x: x, y: coord }];
+        return orientation === 'left' ? points.reverse() : points;
+      } else if (isFixedX) {
+        var _props2 = this.props,
+            xCoord = _props2.x,
+            _orientation = _props2.xAxis.orientation;
+
+        var _coord = scales.x.apply(xCoord);
+
+        if ((0, _ChartUtils.ifOverflowMatches)(this.props, 'discard') && !scales.x.isInRange(_coord)) {
+          return null;
+        }
+
+        var _points = [{ x: _coord, y: y + height }, { x: _coord, y: y }];
+        return _orientation === 'top' ? _points.reverse() : _points;
+      } else if (isSegment) {
+        var segment = this.props.segment;
+
+        var _points2 = segment.map(function (p) {
+          return scales.apply(p);
+        });
+
+        if ((0, _ChartUtils.ifOverflowMatches)(this.props, 'discard') && (0, _some3.default)(_points2, function (p) {
+          return !scales.isInRange(p);
+        })) {
+          return null;
+        }
+
+        return _points2;
+      }
+
+      return null;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props3 = this.props,
+          fixedX = _props3.x,
+          fixedY = _props3.y,
+          segment = _props3.segment,
+          xAxis = _props3.xAxis,
+          yAxis = _props3.yAxis,
+          shape = _props3.shape,
+          className = _props3.className,
+          alwaysShow = _props3.alwaysShow,
+          clipPathId = _props3.clipPathId;
+
+      (0, _LogUtils.warn)(alwaysShow === undefined, 'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.');
+
+      var scales = _CartesianUtils.LabeledScaleHelper.create({ x: xAxis.scale, y: yAxis.scale });
+
+      var isX = (0, _DataUtils.isNumOrStr)(fixedX);
+      var isY = (0, _DataUtils.isNumOrStr)(fixedY);
+      var isSegment = segment && segment.length === 2;
+
+      var endPoints = this.getEndPoints(scales, isX, isY, isSegment);
+      if (!endPoints) {
+        return null;
+      }
+
+      var _endPoints = _slicedToArray(endPoints, 2),
+          _endPoints$ = _endPoints[0],
+          x1 = _endPoints$.x,
+          y1 = _endPoints$.y,
+          _endPoints$2 = _endPoints[1],
+          x2 = _endPoints$2.x,
+          y2 = _endPoints$2.y;
+
+      var clipPath = (0, _ChartUtils.ifOverflowMatches)(this.props, 'hidden') ? 'url(#' + clipPathId + ')' : undefined;
+
+      var props = _extends({
+        clipPath: clipPath
+      }, (0, _ReactUtils.getPresentationAttributes)(this.props), (0, _ReactUtils.filterEventAttributes)(this.props), {
+        x1: x1,
+        y1: y1,
+        x2: x2,
+        y2: y2
+      });
+
+      return _react2.default.createElement(_Layer2.default, { className: (0, _classnames2.default)('recharts-reference-line', className) }, renderLine(shape, props), _Label2.default.renderCallByParent(this.props, (0, _CartesianUtils.rectWithCoords)({ x1: x1, y1: y1, x2: x2, y2: y2 })));
+    }
+  }]);
+
+  return ReferenceLine;
+}(_react.Component), _class2.displayName = 'ReferenceLine', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, {
+  viewBox: _propTypes2.default.shape({
+    x: _propTypes2.default.number,
+    y: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    height: _propTypes2.default.number
+  }),
+
+  xAxis: _propTypes2.default.object,
+  yAxis: _propTypes2.default.object,
+
+  isFront: _propTypes2.default.bool,
+  alwaysShow: _propTypes2.default.bool,
+  ifOverflow: _propTypes2.default.oneOf(['hidden', 'visible', 'discard', 'extendDomain']),
+  x: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  y: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  segment: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    x: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    y: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
+  })),
+
+  className: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  yAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  xAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+
+  shape: _propTypes2.default.func
+}), _class2.defaultProps = {
+  isFront: false,
+  ifOverflow: 'discard',
+  xAxisId: 0,
+  yAxisId: 0,
+  fill: 'none',
+  stroke: '#ccc',
+  fillOpacity: 1,
+  strokeWidth: 1
+}, _temp)) || _class;
+
+exports.default = ReferenceLine;
+},{"lodash-es/some":"../node_modules/lodash-es/some.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../component/Label":"../node_modules/recharts/es6/component/Label.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/CartesianUtils":"../node_modules/recharts/es6/util/CartesianUtils.js","../util/LogUtils":"../node_modules/recharts/es6/util/LogUtils.js"}],"../node_modules/recharts/es6/shape/Rectangle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require("classnames");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _reactSmooth = require("react-smooth");
+
+var _reactSmooth2 = _interopRequireDefault(_reactSmooth);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _ReactUtils = require("../util/ReactUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp2;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Rectangle
+ */
+
+
+var getRectangePath = function getRectangePath(x, y, width, height, radius) {
+  var maxRadius = Math.min(Math.abs(width) / 2, Math.abs(height) / 2);
+  var sign = height >= 0 ? 1 : -1;
+  var clockWise = height >= 0 ? 1 : 0;
+  var path = void 0;
+
+  if (maxRadius > 0 && radius instanceof Array) {
+    var newRadius = [];
+    for (var i = 0, len = 4; i < len; i++) {
+      newRadius[i] = radius[i] > maxRadius ? maxRadius : radius[i];
+    }
+
+    path = 'M' + x + ',' + (y + sign * newRadius[0]);
+
+    if (newRadius[0] > 0) {
+      path += 'A ' + newRadius[0] + ',' + newRadius[0] + ',0,0,' + clockWise + ',' + (x + newRadius[0]) + ',' + y;
+    }
+
+    path += 'L ' + (x + width - newRadius[1]) + ',' + y;
+
+    if (newRadius[1] > 0) {
+      path += 'A ' + newRadius[1] + ',' + newRadius[1] + ',0,0,' + clockWise + ',\n        ' + (x + width) + ',' + (y + sign * newRadius[1]);
+    }
+    path += 'L ' + (x + width) + ',' + (y + height - sign * newRadius[2]);
+
+    if (newRadius[2] > 0) {
+      path += 'A ' + newRadius[2] + ',' + newRadius[2] + ',0,0,' + clockWise + ',\n        ' + (x + width - newRadius[2]) + ',' + (y + height);
+    }
+    path += 'L ' + (x + newRadius[3]) + ',' + (y + height);
+
+    if (newRadius[3] > 0) {
+      path += 'A ' + newRadius[3] + ',' + newRadius[3] + ',0,0,' + clockWise + ',\n        ' + x + ',' + (y + height - sign * newRadius[3]);
+    }
+    path += 'Z';
+  } else if (maxRadius > 0 && radius === +radius && radius > 0) {
+    var _newRadius = Math.min(maxRadius, radius);
+
+    path = 'M ' + x + ',' + (y + sign * _newRadius) + '\n            A ' + _newRadius + ',' + _newRadius + ',0,0,' + clockWise + ',' + (x + _newRadius) + ',' + y + '\n            L ' + (x + width - _newRadius) + ',' + y + '\n            A ' + _newRadius + ',' + _newRadius + ',0,0,' + clockWise + ',' + (x + width) + ',' + (y + sign * _newRadius) + '\n            L ' + (x + width) + ',' + (y + height - sign * _newRadius) + '\n            A ' + _newRadius + ',' + _newRadius + ',0,0,' + clockWise + ',' + (x + width - _newRadius) + ',' + (y + height) + '\n            L ' + (x + _newRadius) + ',' + (y + height) + '\n            A ' + _newRadius + ',' + _newRadius + ',0,0,' + clockWise + ',' + x + ',' + (y + height - sign * _newRadius) + ' Z';
+  } else {
+    path = 'M ' + x + ',' + y + ' h ' + width + ' v ' + height + ' h ' + -width + ' Z';
+  }
+
+  return path;
+};
+
+var Rectangle = (0, _PureRender2.default)(_class = (_temp2 = _class2 = function (_Component) {
+  _inherits(Rectangle, _Component);
+
+  function Rectangle() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Rectangle);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Rectangle.__proto__ || Object.getPrototypeOf(Rectangle)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      totalLength: -1
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Rectangle, [{
+    key: 'componentDidMount',
+
+    /* eslint-disable  react/no-did-mount-set-state */
+    value: function componentDidMount() {
+      if (this.node && this.node.getTotalLength) {
+        try {
+          var totalLength = this.node.getTotalLength();
+
+          if (totalLength) {
+            this.setState({
+              totalLength: totalLength
+            });
+          }
+        } catch (err) {
+          // calculate total length error
+        }
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          x = _props.x,
+          y = _props.y,
+          width = _props.width,
+          height = _props.height,
+          radius = _props.radius,
+          className = _props.className;
+      var totalLength = this.state.totalLength;
+      var _props2 = this.props,
+          animationEasing = _props2.animationEasing,
+          animationDuration = _props2.animationDuration,
+          animationBegin = _props2.animationBegin,
+          isAnimationActive = _props2.isAnimationActive,
+          isUpdateAnimationActive = _props2.isUpdateAnimationActive;
+
+      if (x !== +x || y !== +y || width !== +width || height !== +height || width === 0 || height === 0) {
+        return null;
+      }
+
+      var layerClass = (0, _classnames2.default)('recharts-rectangle', className);
+
+      if (!isUpdateAnimationActive) {
+        return _react2.default.createElement('path', _extends({}, (0, _ReactUtils.getPresentationAttributes)(this.props), (0, _ReactUtils.filterEventAttributes)(this.props), {
+          className: layerClass,
+          d: getRectangePath(x, y, width, height, radius)
+        }));
+      }
+
+      return _react2.default.createElement(_reactSmooth2.default, {
+        canBegin: totalLength > 0,
+        from: { width: width, height: height, x: x, y: y },
+        to: { width: width, height: height, x: x, y: y },
+        duration: animationDuration,
+        animationEasing: animationEasing,
+        isActive: isUpdateAnimationActive
+      }, function (_ref2) {
+        var currWidth = _ref2.width,
+            currHeight = _ref2.height,
+            currX = _ref2.x,
+            currY = _ref2.y;
+        return _react2.default.createElement(_reactSmooth2.default, {
+          canBegin: totalLength > 0,
+          from: '0px ' + (totalLength === -1 ? 1 : totalLength) + 'px',
+          to: totalLength + 'px 0px',
+          attributeName: 'strokeDasharray',
+          begin: animationBegin,
+          duration: animationDuration,
+          isActive: isAnimationActive,
+          easing: animationEasing
+        }, _react2.default.createElement('path', _extends({}, (0, _ReactUtils.getPresentationAttributes)(_this2.props), (0, _ReactUtils.filterEventAttributes)(_this2.props), {
+          className: layerClass,
+          d: getRectangePath(currX, currY, currWidth, currHeight, radius),
+          ref: function ref(node) {
+            _this2.node = node;
+          }
+        })));
+      });
+    }
+  }]);
+
+  return Rectangle;
+}(_react.Component), _class2.displayName = 'Rectangle', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, _ReactUtils.EVENT_ATTRIBUTES, {
+  className: _propTypes2.default.string,
+  x: _propTypes2.default.number,
+  y: _propTypes2.default.number,
+  width: _propTypes2.default.number,
+  height: _propTypes2.default.number,
+  radius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.array]),
+  isAnimationActive: _propTypes2.default.bool,
+  isUpdateAnimationActive: _propTypes2.default.bool,
+  animationBegin: _propTypes2.default.number,
+  animationDuration: _propTypes2.default.number,
+  animationEasing: _propTypes2.default.oneOf(['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear'])
+}), _class2.defaultProps = {
+  x: 0,
+  y: 0,
+  width: 0,
+  height: 0,
+  // The radius of border
+  // The radius of four corners when radius is a number
+  // The radius of left-top, right-top, right-bottom, left-bottom when radius is an array
+  radius: 0,
+  isAnimationActive: false,
+  isUpdateAnimationActive: false,
+  animationBegin: 0,
+  animationDuration: 1500,
+  animationEasing: 'ease'
+}, _temp2)) || _class;
+
+exports.default = Rectangle;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","react-smooth":"../node_modules/react-smooth/lib/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js"}],"../node_modules/recharts/es6/cartesian/ReferenceArea.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isFunction2 = require("lodash-es/isFunction");
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require("classnames");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _Layer = require("../container/Layer");
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _Label = require("../component/Label");
+
+var _Label2 = _interopRequireDefault(_Label);
+
+var _CartesianUtils = require("../util/CartesianUtils");
+
+var _ChartUtils = require("../util/ChartUtils");
+
+var _DataUtils = require("../util/DataUtils");
+
+var _LogUtils = require("../util/LogUtils");
+
+var _ReactUtils = require("../util/ReactUtils");
+
+var _Rectangle = require("../shape/Rectangle");
+
+var _Rectangle2 = _interopRequireDefault(_Rectangle);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Reference Line
+ */
+
+
+var ReferenceArea = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(ReferenceArea, _Component);
+
+  function ReferenceArea() {
+    _classCallCheck(this, ReferenceArea);
+
+    return _possibleConstructorReturn(this, (ReferenceArea.__proto__ || Object.getPrototypeOf(ReferenceArea)).apply(this, arguments));
+  }
+
+  _createClass(ReferenceArea, [{
+    key: 'getRect',
+    value: function getRect(hasX1, hasX2, hasY1, hasY2) {
+      var _props = this.props,
+          xValue1 = _props.x1,
+          xValue2 = _props.x2,
+          yValue1 = _props.y1,
+          yValue2 = _props.y2,
+          xAxis = _props.xAxis,
+          yAxis = _props.yAxis;
+
+      var scale = _CartesianUtils.LabeledScaleHelper.create({ x: xAxis.scale, y: yAxis.scale });
+
+      var p1 = {
+        x: hasX1 ? scale.x.apply(xValue1) : scale.x.rangeMin,
+        y: hasY1 ? scale.y.apply(yValue1) : scale.y.rangeMin
+      };
+
+      var p2 = {
+        x: hasX2 ? scale.x.apply(xValue2) : scale.x.rangeMax,
+        y: hasY2 ? scale.y.apply(yValue2) : scale.y.rangeMax
+      };
+
+      if ((0, _ChartUtils.ifOverflowMatches)(this.props, 'discard') && (!scale.isInRange(p1) || !scale.isInRange(p2))) {
+        return null;
+      }
+
+      return (0, _CartesianUtils.rectWithPoints)(p1, p2);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          x1 = _props2.x1,
+          x2 = _props2.x2,
+          y1 = _props2.y1,
+          y2 = _props2.y2,
+          className = _props2.className,
+          alwaysShow = _props2.alwaysShow,
+          clipPathId = _props2.clipPathId;
+
+      (0, _LogUtils.warn)(alwaysShow === undefined, 'The alwaysShow prop is deprecated. Please use ifOverflow="extendDomain" instead.');
+
+      var hasX1 = (0, _DataUtils.isNumOrStr)(x1);
+      var hasX2 = (0, _DataUtils.isNumOrStr)(x2);
+      var hasY1 = (0, _DataUtils.isNumOrStr)(y1);
+      var hasY2 = (0, _DataUtils.isNumOrStr)(y2);
+
+      if (!hasX1 && !hasX2 && !hasY1 && !hasY2) {
+        return null;
+      }
+
+      var rect = this.getRect(hasX1, hasX2, hasY1, hasY2);
+
+      if (!rect) {
+        return null;
+      }
+
+      var shape = this.props.shape;
+
+      var clipPath = (0, _ChartUtils.ifOverflowMatches)(this.props, 'hidden') ? 'url(#' + clipPathId + ')' : undefined;
+
+      return _react2.default.createElement(_Layer2.default, { className: (0, _classnames2.default)('recharts-reference-area', className) }, this.constructor.renderRect(shape, _extends({ clipPath: clipPath }, this.props, rect)), _Label2.default.renderCallByParent(this.props, rect));
+    }
+  }], [{
+    key: 'renderRect',
+    value: function renderRect(option, props) {
+      var rect = void 0;
+
+      if (_react2.default.isValidElement(option)) {
+        rect = _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        rect = option(props);
+      } else {
+        rect = _react2.default.createElement(_Rectangle2.default, _extends({}, props, {
+          className: 'recharts-reference-area-rect'
+        }));
+      }
+
+      return rect;
+    }
+  }]);
+
+  return ReferenceArea;
+}(_react.Component), _class2.displayName = 'ReferenceArea', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, {
+  viewBox: _propTypes2.default.shape({
+    x: _propTypes2.default.number,
+    y: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    height: _propTypes2.default.number
+  }),
+
+  xAxis: _propTypes2.default.object,
+  yAxis: _propTypes2.default.object,
+
+  isFront: _propTypes2.default.bool,
+  alwaysShow: _propTypes2.default.bool,
+  ifOverflow: _propTypes2.default.oneOf(['hidden', 'visible', 'discard', 'extendDomain']),
+  x1: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  x2: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  y1: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  y2: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+
+  className: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  yAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  xAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  shape: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.element])
+}), _class2.defaultProps = {
+  isFront: false,
+  ifOverflow: 'discard',
+  xAxisId: 0,
+  yAxisId: 0,
+  r: 10,
+  fill: '#ccc',
+  fillOpacity: 0.5,
+  stroke: 'none',
+  strokeWidth: 1
+}, _temp)) || _class;
+
+exports.default = ReferenceArea;
+},{"lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../component/Label":"../node_modules/recharts/es6/component/Label.js","../util/CartesianUtils":"../node_modules/recharts/es6/util/CartesianUtils.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/LogUtils":"../node_modules/recharts/es6/util/LogUtils.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../shape/Rectangle":"../node_modules/recharts/es6/shape/Rectangle.js"}],"../node_modules/recharts/es6/cartesian/ErrorBar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Layer = require("../container/Layer");
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _ReactUtils = require("../util/ReactUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _slicedToArray = function () {
+  function sliceIterator(arr, i) {
+    var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;_e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"]) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }return _arr;
+  }return function (arr, i) {
+    if (Array.isArray(arr)) {
+      return arr;
+    } else if (Symbol.iterator in Object(arr)) {
+      return sliceIterator(arr, i);
+    } else {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance");
+    }
+  };
+}();
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _temp;
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Render a group of error bar
+*/
+
+
+var ErrorBar = (_temp = _class = function (_Component) {
+  _inherits(ErrorBar, _Component);
+
+  function ErrorBar() {
+    _classCallCheck(this, ErrorBar);
+
+    return _possibleConstructorReturn(this, (ErrorBar.__proto__ || Object.getPrototypeOf(ErrorBar)).apply(this, arguments));
+  }
+
+  _createClass(ErrorBar, [{
+    key: 'renderErrorBars',
+    value: function renderErrorBars() {
+      var _props = this.props,
+          offset = _props.offset,
+          layout = _props.layout,
+          width = _props.width,
+          dataKey = _props.dataKey,
+          data = _props.data,
+          dataPointFormatter = _props.dataPointFormatter,
+          xAxis = _props.xAxis,
+          yAxis = _props.yAxis,
+          others = _objectWithoutProperties(_props, ['offset', 'layout', 'width', 'dataKey', 'data', 'dataPointFormatter', 'xAxis', 'yAxis']);
+
+      var props = (0, _ReactUtils.getPresentationAttributes)(others);
+
+      return data.map(function (entry, i) {
+        var _dataPointFormatter = dataPointFormatter(entry, dataKey),
+            x = _dataPointFormatter.x,
+            y = _dataPointFormatter.y,
+            value = _dataPointFormatter.value,
+            errorVal = _dataPointFormatter.errorVal;
+
+        if (!errorVal) {
+          return null;
+        }
+
+        var xMid = void 0,
+            yMid = void 0,
+            xMin = void 0,
+            yMin = void 0,
+            xMax = void 0,
+            yMax = void 0,
+            scale = void 0,
+            coordsTop = void 0,
+            coordsMid = void 0,
+            coordsBot = void 0,
+            lowBound = void 0,
+            highBound = void 0;
+
+        if (Array.isArray(errorVal)) {
+          var _errorVal = _slicedToArray(errorVal, 2);
+
+          lowBound = _errorVal[0];
+          highBound = _errorVal[1];
+        } else {
+          lowBound = highBound = errorVal;
+        }
+
+        if (layout === 'vertical') {
+          scale = xAxis.scale;
+
+          xMid = value;
+          yMid = y + offset;
+          xMin = scale(xMid - lowBound);
+          yMin = yMid + width;
+          xMax = scale(xMid + highBound);
+          yMax = yMid - width;
+          coordsTop = { x1: xMax, y1: yMin, x2: xMax, y2: yMax };
+          coordsMid = { x1: xMin, y1: yMid, x2: xMax, y2: yMid };
+          coordsBot = { x1: xMin, y1: yMin, x2: xMin, y2: yMax };
+        } else if (layout === 'horizontal') {
+          scale = yAxis.scale;
+
+          xMid = x + offset;
+          yMid = value;
+          xMin = xMid - width;
+          xMax = xMid + width;
+          yMin = scale(yMid - lowBound);
+          yMax = scale(yMid + highBound);
+          coordsTop = { x1: xMin, y1: yMax, x2: xMax, y2: yMax };
+          coordsMid = { x1: xMid, y1: yMin, x2: xMid, y2: yMax };
+          coordsBot = { x1: xMin, y1: yMin, x2: xMax, y2: yMin };
+        }
+
+        return _react2.default.createElement(_Layer2.default, _extends({ className: 'recharts-errorBar', key: 'bar-' + i }, props), _react2.default.createElement('line', coordsTop), _react2.default.createElement('line', coordsMid), _react2.default.createElement('line', coordsBot));
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-errorBars' }, this.renderErrorBars());
+    }
+  }]);
+
+  return ErrorBar;
+}(_react.Component), _class.propTypes = {
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]).isRequired,
+  data: _propTypes2.default.array,
+  xAxis: _propTypes2.default.object,
+  yAxis: _propTypes2.default.object,
+  layout: _propTypes2.default.string,
+  dataPointFormatter: _propTypes2.default.func,
+  stroke: _propTypes2.default.string,
+  strokeWidth: _propTypes2.default.number,
+  width: _propTypes2.default.number,
+  offset: _propTypes2.default.number
+}, _class.defaultProps = {
+  stroke: 'black',
+  strokeWidth: 1.5,
+  width: 5,
+  offset: 0,
+  layout: 'horizontal'
+}, _temp);
+
+exports.default = ErrorBar;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js"}],"../node_modules/recharts/es6/util/ChartUtils.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.parseDomainOfCategoryAxis = exports.getBandSizeOfAxis = exports.parseSpecifiedDomain = exports.MAX_VALUE_REG = exports.MIN_VALUE_REG = exports.getDomainOfStackGroups = exports.getStackedDataOfItem = exports.detectReferenceElementsDomain = exports.ifOverflowMatches = exports.getBaseValueOfBar = exports.getCateCoordinateOfBar = exports.getCateCoordinateOfLine = exports.getTicksOfScale = exports.calculateDomainOfTicks = exports.getStackGroupsByAxisId = exports.getStackedData = exports.offsetSign = exports.truncateByDomain = exports.findPositionOfBar = exports.checkDomainOfScale = exports.parseScale = exports.combineEventHandlers = exports.getTicksOfAxis = exports.getCoordinatesOfGrid = exports.isCategorialAxis = exports.getDomainOfItemsWithSameAxis = exports.parseErrorBarsOfAxis = exports.getDomainOfErrorBars = exports.appendOffsetOfLegend = exports.getBarPosition = exports.getBarSizeList = exports.getLegendProps = exports.getMainColorOfGraphicItem = exports.calculateActiveTickIndex = exports.getDomainOfDataByKey = exports.getValueByDataKey = undefined;
+
+var _isEqual2 = require('lodash-es/isEqual');
+
+var _isEqual3 = _interopRequireDefault(_isEqual2);
+
+var _sortBy2 = require('lodash-es/sortBy');
+
+var _sortBy3 = _interopRequireDefault(_sortBy2);
+
+var _isNaN2 = require('lodash-es/isNaN');
+
+var _isNaN3 = _interopRequireDefault(_isNaN2);
+
+var _isString2 = require('lodash-es/isString');
+
+var _isString3 = _interopRequireDefault(_isString2);
+
+var _max2 = require('lodash-es/max');
+
+var _max3 = _interopRequireDefault(_max2);
+
+var _min2 = require('lodash-es/min');
+
+var _min3 = _interopRequireDefault(_min2);
+
+var _isArray2 = require('lodash-es/isArray');
+
+var _isArray3 = _interopRequireDefault(_isArray2);
+
+var _flatMap2 = require('lodash-es/flatMap');
+
+var _flatMap3 = _interopRequireDefault(_flatMap2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _get2 = require('lodash-es/get');
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _isNil2 = require('lodash-es/isNil');
+
+var _isNil3 = _interopRequireDefault(_isNil2);
+
+var _rechartsScale = require('recharts-scale');
+
+var _d3Scale = require('d3-scale');
+
+var d3Scales = _interopRequireWildcard(_d3Scale);
+
+var _d3Shape = require('d3-shape');
+
+var _DataUtils = require('./DataUtils');
+
+var _ReferenceDot = require('../cartesian/ReferenceDot');
+
+var _ReferenceDot2 = _interopRequireDefault(_ReferenceDot);
+
+var _ReferenceLine = require('../cartesian/ReferenceLine');
+
+var _ReferenceLine2 = _interopRequireDefault(_ReferenceLine);
+
+var _ReferenceArea = require('../cartesian/ReferenceArea');
+
+var _ReferenceArea2 = _interopRequireDefault(_ReferenceArea);
+
+var _ErrorBar = require('../cartesian/ErrorBar');
+
+var _ErrorBar2 = _interopRequireDefault(_ErrorBar);
+
+var _Legend = require('../component/Legend');
+
+var _Legend2 = _interopRequireDefault(_Legend);
+
+var _ReactUtils = require('./ReactUtils');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }return obj;
+}
+
+function _toConsumableArray(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }return arr2;
+  } else {
+    return Array.from(arr);
+  }
+}
+
+var getValueByDataKey = exports.getValueByDataKey = function getValueByDataKey(obj, dataKey, defaultValue) {
+  if ((0, _isNil3.default)(obj) || (0, _isNil3.default)(dataKey)) {
+    return defaultValue;
+  }
+
+  if ((0, _DataUtils.isNumOrStr)(dataKey)) {
+    return (0, _get3.default)(obj, dataKey, defaultValue);
+  }
+
+  if ((0, _isFunction3.default)(dataKey)) {
+    return dataKey(obj);
+  }
+
+  return defaultValue;
+};
+/**
+ * Get domain of data by key
+ * @param  {Array}   data      The data displayed in the chart
+ * @param  {String}  key       The unique key of a group of data
+ * @param  {String}  type      The type of axis
+ * @param  {Boolean} filterNil Whether or not filter nil values
+ * @return {Array} Domain of data
+ */
+var getDomainOfDataByKey = exports.getDomainOfDataByKey = function getDomainOfDataByKey(data, key, type, filterNil) {
+  var flattenData = (0, _flatMap3.default)(data, function (entry) {
+    return getValueByDataKey(entry, key);
+  });
+
+  if (type === 'number') {
+    var domain = flattenData.filter(_DataUtils.isNumber);
+
+    return [Math.min.apply(null, domain), Math.max.apply(null, domain)];
+  }
+
+  var validateData = filterNil ? flattenData.filter(function (entry) {
+    return !(0, _isNil3.default)(entry);
+  }) : flattenData;
+
+  return validateData.map(function (entry) {
+    return (0, _DataUtils.isNumOrStr)(entry) ? entry : '';
+  });
+};
+
+var calculateActiveTickIndex = exports.calculateActiveTickIndex = function calculateActiveTickIndex(coordinate, ticks, unsortedTicks, axis) {
+  var index = -1;
+  var len = ticks.length;
+
+  if (len > 1) {
+    if (axis && axis.axisType === 'angleAxis' && Math.abs(Math.abs(axis.range[1] - axis.range[0]) - 360) <= 1e-6) {
+      var range = axis.range;
+      // ticks are distributed in a circle
+
+      for (var i = 0; i < len; i++) {
+        var before = i > 0 ? unsortedTicks[i - 1].coordinate : unsortedTicks[len - 1].coordinate;
+        var cur = unsortedTicks[i].coordinate;
+        var after = i >= len - 1 ? unsortedTicks[0].coordinate : unsortedTicks[i + 1].coordinate;
+        var sameDirectionCoord = void 0;
+
+        if ((0, _DataUtils.mathSign)(cur - before) !== (0, _DataUtils.mathSign)(after - cur)) {
+          var diffInterval = [];
+          if ((0, _DataUtils.mathSign)(after - cur) === (0, _DataUtils.mathSign)(range[1] - range[0])) {
+            sameDirectionCoord = after;
+
+            var curInRange = cur + range[1] - range[0];
+            diffInterval[0] = Math.min(curInRange, (curInRange + before) / 2);
+            diffInterval[1] = Math.max(curInRange, (curInRange + before) / 2);
+          } else {
+            sameDirectionCoord = before;
+
+            var afterInRange = after + range[1] - range[0];
+            diffInterval[0] = Math.min(cur, (afterInRange + cur) / 2);
+            diffInterval[1] = Math.max(cur, (afterInRange + cur) / 2);
+          }
+          var sameInterval = [Math.min(cur, (sameDirectionCoord + cur) / 2), Math.max(cur, (sameDirectionCoord + cur) / 2)];
+
+          if (coordinate > sameInterval[0] && coordinate <= sameInterval[1] || coordinate >= diffInterval[0] && coordinate <= diffInterval[1]) {
+            index = unsortedTicks[i].index;
+
+            break;
+          }
+        } else {
+          var min = Math.min(before, after);
+          var max = Math.max(before, after);
+
+          if (coordinate > (min + cur) / 2 && coordinate <= (max + cur) / 2) {
+            index = unsortedTicks[i].index;
+
+            break;
+          }
+        }
+      }
+    } else {
+      // ticks are distributed in a single direction
+      for (var _i = 0; _i < len; _i++) {
+        if (_i === 0 && coordinate <= (ticks[_i].coordinate + ticks[_i + 1].coordinate) / 2 || _i > 0 && _i < len - 1 && coordinate > (ticks[_i].coordinate + ticks[_i - 1].coordinate) / 2 && coordinate <= (ticks[_i].coordinate + ticks[_i + 1].coordinate) / 2 || _i === len - 1 && coordinate > (ticks[_i].coordinate + ticks[_i - 1].coordinate) / 2) {
+          index = ticks[_i].index;
+
+          break;
+        }
+      }
+    }
+  } else {
+    index = 0;
+  }
+
+  return index;
+};
+
+/**
+ * Get the main color of each graphic item
+ * @param  {ReactElement} item A graphic item
+ * @return {String}            Color
+ */
+var getMainColorOfGraphicItem = exports.getMainColorOfGraphicItem = function getMainColorOfGraphicItem(item) {
+  var displayName = item.type.displayName;
+
+  var result = void 0;
+
+  switch (displayName) {
+    case 'Line':
+    case 'Area':
+    case 'Radar':
+      result = item.props.stroke;
+      break;
+    default:
+      result = item.props.fill;
+      break;
+  }
+
+  return result;
+};
+
+var getLegendProps = exports.getLegendProps = function getLegendProps(_ref) {
+  var children = _ref.children,
+      formatedGraphicalItems = _ref.formatedGraphicalItems,
+      legendWidth = _ref.legendWidth,
+      legendContent = _ref.legendContent;
+
+  var legendItem = (0, _ReactUtils.findChildByType)(children, _Legend2.default);
+  if (!legendItem) {
+    return null;
+  }
+
+  var legendData = void 0;
+  if (legendItem.props && legendItem.props.payload) {
+    legendData = legendItem.props && legendItem.props.payload;
+  } else if (legendContent === 'children') {
+    legendData = (formatedGraphicalItems || []).reduce(function (result, _ref2) {
+      var item = _ref2.item,
+          props = _ref2.props;
+
+      var data = props.sectors || props.data || [];
+
+      return result.concat(data.map(function (entry) {
+        return {
+          type: legendItem.props.iconType || item.props.legendType,
+          value: entry.name,
+          color: entry.fill,
+          payload: entry
+        };
+      }));
+    }, []);
+  } else {
+    legendData = (formatedGraphicalItems || []).map(function (_ref3) {
+      var item = _ref3.item;
+      var _item$props = item.props,
+          dataKey = _item$props.dataKey,
+          name = _item$props.name,
+          legendType = _item$props.legendType,
+          hide = _item$props.hide;
+
+      return {
+        inactive: hide,
+        dataKey: dataKey,
+        type: legendItem.props.iconType || legendType || 'square',
+        color: getMainColorOfGraphicItem(item),
+        value: name || dataKey,
+        payload: item.props
+      };
+    });
+  }
+
+  return _extends({}, legendItem.props, _Legend2.default.getWithHeight(legendItem, legendWidth), {
+    payload: legendData,
+    item: legendItem
+  });
+};
+/**
+ * Calculate the size of all groups for stacked bar graph
+ * @param  {Object} stackGroups The items grouped by axisId and stackId
+ * @return {Object} The size of all groups
+ */
+var getBarSizeList = exports.getBarSizeList = function getBarSizeList(_ref4) {
+  var globalSize = _ref4.barSize,
+      _ref4$stackGroups = _ref4.stackGroups,
+      stackGroups = _ref4$stackGroups === undefined ? {} : _ref4$stackGroups;
+
+  if (!stackGroups) {
+    return {};
+  }
+
+  var result = {};
+  var numericAxisIds = Object.keys(stackGroups);
+
+  for (var i = 0, len = numericAxisIds.length; i < len; i++) {
+    var sgs = stackGroups[numericAxisIds[i]].stackGroups;
+    var stackIds = Object.keys(sgs);
+
+    for (var j = 0, sLen = stackIds.length; j < sLen; j++) {
+      var _sgs$stackIds$j = sgs[stackIds[j]],
+          items = _sgs$stackIds$j.items,
+          cateAxisId = _sgs$stackIds$j.cateAxisId;
+
+      var barItems = items.filter(function (item) {
+        return (0, _ReactUtils.getDisplayName)(item.type).indexOf('Bar') >= 0;
+      });
+
+      if (barItems && barItems.length) {
+        var selfSize = barItems[0].props.barSize;
+
+        var cateId = barItems[0].props[cateAxisId];
+
+        if (!result[cateId]) {
+          result[cateId] = [];
+        }
+
+        result[cateId].push({
+          item: barItems[0],
+          stackList: barItems.slice(1),
+          barSize: (0, _isNil3.default)(selfSize) ? globalSize : selfSize
+        });
+      }
+    }
+  }
+
+  return result;
+};
+
+/**
+   * Calculate the size of each bar and the gap between two bars
+   * @param  {Number} bandSize  The size of each category
+   * @param  {sizeList} sizeList  The size of all groups
+   * @param  {maxBarSize} maxBarSize The maximum size of bar
+   * @return {Number} The size of each bar and the gap between two bars
+   */
+var getBarPosition = exports.getBarPosition = function getBarPosition(_ref5) {
+  var barGap = _ref5.barGap,
+      barCategoryGap = _ref5.barCategoryGap,
+      bandSize = _ref5.bandSize,
+      _ref5$sizeList = _ref5.sizeList,
+      sizeList = _ref5$sizeList === undefined ? [] : _ref5$sizeList,
+      maxBarSize = _ref5.maxBarSize;
+
+  var len = sizeList.length;
+  if (len < 1) return null;
+
+  var realBarGap = (0, _DataUtils.getPercentValue)(barGap, bandSize, 0, true);
+  var result = void 0;
+
+  // whether or not is barSize setted by user
+  if (sizeList[0].barSize === +sizeList[0].barSize) {
+    var useFull = false;
+    var fullBarSize = bandSize / len;
+    var sum = sizeList.reduce(function (res, entry) {
+      return res + entry.barSize || 0;
+    }, 0);
+    sum += (len - 1) * realBarGap;
+
+    if (sum >= bandSize) {
+      sum -= (len - 1) * realBarGap;
+      realBarGap = 0;
+    }
+    if (sum >= bandSize && fullBarSize > 0) {
+      useFull = true;
+      fullBarSize *= 0.9;
+      sum = len * fullBarSize;
+    }
+
+    var offset = (bandSize - sum) / 2 >> 0;
+    var prev = { offset: offset - realBarGap, size: 0 };
+
+    result = sizeList.reduce(function (res, entry) {
+      var newRes = [].concat(_toConsumableArray(res), [{
+        item: entry.item,
+        position: {
+          offset: prev.offset + prev.size + realBarGap,
+          size: useFull ? fullBarSize : entry.barSize
+        }
+      }]);
+
+      prev = newRes[newRes.length - 1].position;
+
+      if (entry.stackList && entry.stackList.length) {
+        entry.stackList.forEach(function (item) {
+          newRes.push({ item: item, position: prev });
+        });
+      }
+      return newRes;
+    }, []);
+  } else {
+    var _offset = (0, _DataUtils.getPercentValue)(barCategoryGap, bandSize, 0, true);
+
+    if (bandSize - 2 * _offset - (len - 1) * realBarGap <= 0) {
+      realBarGap = 0;
+    }
+
+    var originalSize = (bandSize - 2 * _offset - (len - 1) * realBarGap) / len;
+    if (originalSize > 1) {
+      originalSize >>= 0;
+    }
+    var size = maxBarSize === +maxBarSize ? Math.min(originalSize, maxBarSize) : originalSize;
+
+    result = sizeList.reduce(function (res, entry, i) {
+      var newRes = [].concat(_toConsumableArray(res), [{
+        item: entry.item,
+        position: {
+          offset: _offset + (originalSize + realBarGap) * i + (originalSize - size) / 2,
+          size: size
+        }
+      }]);
+
+      if (entry.stackList && entry.stackList.length) {
+        entry.stackList.forEach(function (item) {
+          newRes.push({ item: item, position: newRes[newRes.length - 1].position });
+        });
+      }
+      return newRes;
+    }, []);
+  }
+
+  return result;
+};
+
+var appendOffsetOfLegend = exports.appendOffsetOfLegend = function appendOffsetOfLegend(offset, items, props, legendBox) {
+  var children = props.children,
+      width = props.width,
+      height = props.height,
+      margin = props.margin;
+
+  var legendWidth = width - (margin.left || 0) - (margin.right || 0);
+  var legendHeight = height - (margin.top || 0) - (margin.bottom || 0);
+  var legendProps = getLegendProps({ children: children, items: items, legendWidth: legendWidth, legendHeight: legendHeight });
+  var newOffset = offset;
+
+  if (legendProps) {
+    var box = legendBox || {};
+    var align = legendProps.align,
+        verticalAlign = legendProps.verticalAlign,
+        layout = legendProps.layout;
+
+    if ((layout === 'vertical' || layout === 'horizontal' && verticalAlign === 'center') && (0, _DataUtils.isNumber)(offset[align])) {
+      newOffset = _extends({}, offset, _defineProperty({}, align, newOffset[align] + (box.width || 0)));
+    }
+
+    if ((layout === 'horizontal' || layout === 'vertical' && align === 'center') && (0, _DataUtils.isNumber)(offset[verticalAlign])) {
+      newOffset = _extends({}, offset, _defineProperty({}, verticalAlign, newOffset[verticalAlign] + (box.height || 0)));
+    }
+  }
+
+  return newOffset;
+};
+
+var getDomainOfErrorBars = exports.getDomainOfErrorBars = function getDomainOfErrorBars(data, item, dataKey, axisType) {
+  var children = item.props.children;
+
+  var errorBars = (0, _ReactUtils.findAllByType)(children, _ErrorBar2.default).filter(function (errorBarChild) {
+    var direction = errorBarChild.props.direction;
+
+    return (0, _isNil3.default)(direction) || (0, _isNil3.default)(axisType) ? true : axisType.indexOf(direction) >= 0;
+  });
+
+  if (errorBars && errorBars.length) {
+    var keys = errorBars.map(function (errorBarChild) {
+      return errorBarChild.props.dataKey;
+    });
+
+    return data.reduce(function (result, entry) {
+      var entryValue = getValueByDataKey(entry, dataKey, 0);
+      var mainValue = (0, _isArray3.default)(entryValue) ? [(0, _min3.default)(entryValue), (0, _max3.default)(entryValue)] : [entryValue, entryValue];
+      var errorDomain = keys.reduce(function (prevErrorArr, k) {
+        var errorValue = getValueByDataKey(entry, k, 0);
+        var lowerValue = mainValue[0] - Math.abs((0, _isArray3.default)(errorValue) ? errorValue[0] : errorValue);
+        var upperValue = mainValue[1] + Math.abs((0, _isArray3.default)(errorValue) ? errorValue[1] : errorValue);
+
+        return [Math.min(lowerValue, prevErrorArr[0]), Math.max(upperValue, prevErrorArr[1])];
+      }, [Infinity, -Infinity]);
+
+      return [Math.min(errorDomain[0], result[0]), Math.max(errorDomain[1], result[1])];
+    }, [Infinity, -Infinity]);
+  }
+
+  return null;
+};
+var parseErrorBarsOfAxis = exports.parseErrorBarsOfAxis = function parseErrorBarsOfAxis(data, items, dataKey, axisType) {
+  var domains = items.map(function (item) {
+    return getDomainOfErrorBars(data, item, dataKey, axisType);
+  }).filter(function (entry) {
+    return !(0, _isNil3.default)(entry);
+  });
+
+  if (domains && domains.length) {
+    return domains.reduce(function (result, entry) {
+      return [Math.min(result[0], entry[0]), Math.max(result[1], entry[1])];
+    }, [Infinity, -Infinity]);
+  }
+
+  return null;
+};
+/**
+ * Get domain of data by the configuration of item element
+ * @param  {Array}   data      The data displayed in the chart
+ * @param  {Array}   items     The instances of item
+ * @param  {String}  type      The type of axis, number - Number Axis, category - Category Axis
+ * @param  {Boolean} filterNil Whether or not filter nil values
+ * @return {Array}        Domain
+ */
+var getDomainOfItemsWithSameAxis = exports.getDomainOfItemsWithSameAxis = function getDomainOfItemsWithSameAxis(data, items, type, filterNil) {
+  var domains = items.map(function (item) {
+    var dataKey = item.props.dataKey;
+
+    if (type === 'number' && dataKey) {
+      return getDomainOfErrorBars(data, item, dataKey) || getDomainOfDataByKey(data, dataKey, type, filterNil);
+    }
+    return getDomainOfDataByKey(data, dataKey, type, filterNil);
+  });
+
+  if (type === 'number') {
+    // Calculate the domain of number axis
+    return domains.reduce(function (result, entry) {
+      return [Math.min(result[0], entry[0]), Math.max(result[1], entry[1])];
+    }, [Infinity, -Infinity]);
+  }
+
+  var tag = {};
+  // Get the union set of category axis
+  return domains.reduce(function (result, entry) {
+    for (var i = 0, len = entry.length; i < len; i++) {
+      if (!tag[entry[i]]) {
+        tag[entry[i]] = true;
+
+        result.push(entry[i]);
+      }
+    }
+    return result;
+  }, []);
+};
+
+var isCategorialAxis = exports.isCategorialAxis = function isCategorialAxis(layout, axisType) {
+  return layout === 'horizontal' && axisType === 'xAxis' || layout === 'vertical' && axisType === 'yAxis' || layout === 'centric' && axisType === 'angleAxis' || layout === 'radial' && axisType === 'radiusAxis';
+};
+
+/**
+ * Calculate the Coordinates of grid
+ * @param  {Array} ticks The ticks in axis
+ * @param {Number} min   The minimun value of axis
+ * @param {Number} max   The maximun value of axis
+ * @return {Array}       Coordinates
+ */
+var getCoordinatesOfGrid = exports.getCoordinatesOfGrid = function getCoordinatesOfGrid(ticks, min, max) {
+  var hasMin = void 0,
+      hasMax = void 0;
+
+  var values = ticks.map(function (entry) {
+    if (entry.coordinate === min) {
+      hasMin = true;
+    }
+    if (entry.coordinate === max) {
+      hasMax = true;
+    }
+
+    return entry.coordinate;
+  });
+
+  if (!hasMin) {
+    values.push(min);
+  }
+  if (!hasMax) {
+    values.push(max);
+  }
+
+  return values;
+};
+
+/**
+ * Get the ticks of an axis
+ * @param  {Object}  axis The configuration of an axis
+ * @param {Boolean} isGrid Whether or not are the ticks in grid
+ * @param {Boolean} isAll Return the ticks of all the points or not
+ * @return {Array}  Ticks
+ */
+var getTicksOfAxis = exports.getTicksOfAxis = function getTicksOfAxis(axis, isGrid, isAll) {
+  if (!axis) return null;
+  var scale = axis.scale;
+  var duplicateDomain = axis.duplicateDomain,
+      type = axis.type,
+      range = axis.range;
+
+  var offset = (isGrid || isAll) && type === 'category' && scale.bandwidth ? scale.bandwidth() / 2 : 0;
+  offset = axis.axisType === 'angleAxis' ? (0, _DataUtils.mathSign)(range[0] - range[1]) * 2 * offset : offset;
+
+  // The ticks setted by user should only affect the ticks adjacent to axis line
+  if (isGrid && (axis.ticks || axis.niceTicks)) {
+    return (axis.ticks || axis.niceTicks).map(function (entry) {
+      var scaleContent = duplicateDomain ? duplicateDomain.indexOf(entry) : entry;
+
+      return {
+        coordinate: scale(scaleContent) + offset,
+        value: entry,
+        offset: offset
+      };
+    });
+  }
+
+  if (axis.isCategorial && axis.categoricalDomain) {
+    return axis.categoricalDomain.map(function (entry, index) {
+      return {
+        coordinate: scale(entry),
+        value: entry,
+        index: index,
+        offset: offset
+      };
+    });
+  }
+
+  if (scale.ticks && !isAll) {
+    return scale.ticks(axis.tickCount).map(function (entry) {
+      return { coordinate: scale(entry) + offset, value: entry, offset: offset };
+    });
+  }
+
+  // When axis has duplicated text, serial numbers are used to generate scale
+  return scale.domain().map(function (entry, index) {
+    return {
+      coordinate: scale(entry) + offset,
+      value: duplicateDomain ? duplicateDomain[entry] : entry,
+      index: index,
+      offset: offset
+    };
+  });
+};
+
+/**
+ * combine the handlers
+ * @param  {Function} defaultHandler Internal private handler
+ * @param  {Function} parentHandler  Handler function specified in parent component
+ * @param  {Function} childHandler   Handler function specified in child component
+ * @return {Function}                The combined handler
+ */
+var combineEventHandlers = exports.combineEventHandlers = function combineEventHandlers(defaultHandler, parentHandler, childHandler) {
+  var customizedHandler = void 0;
+
+  if ((0, _isFunction3.default)(childHandler)) {
+    customizedHandler = childHandler;
+  } else if ((0, _isFunction3.default)(parentHandler)) {
+    customizedHandler = parentHandler;
+  }
+
+  if ((0, _isFunction3.default)(defaultHandler) || customizedHandler) {
+    return function (arg1, arg2, arg3, arg4) {
+      if ((0, _isFunction3.default)(defaultHandler)) {
+        defaultHandler(arg1, arg2, arg3, arg4);
+      }
+      if ((0, _isFunction3.default)(customizedHandler)) {
+        customizedHandler(arg1, arg2, arg3, arg4);
+      }
+    };
+  }
+
+  return null;
+};
+/**
+ * Parse the scale function of axis
+ * @param  {Object}   axis          The option of axis
+ * @param  {String}   chartType     The displayName of chart
+ * @return {Function}               The scale funcion
+ */
+var parseScale = exports.parseScale = function parseScale(axis, chartType) {
+  var scale = axis.scale,
+      type = axis.type,
+      layout = axis.layout,
+      axisType = axis.axisType;
+
+  if (scale === 'auto') {
+    if (layout === 'radial' && axisType === 'radiusAxis') {
+      return { scale: d3Scales.scaleBand(), realScaleType: 'band' };
+    } else if (layout === 'radial' && axisType === 'angleAxis') {
+      return { scale: d3Scales.scaleLinear(), realScaleType: 'linear' };
+    }
+
+    if (type === 'category' && chartType && (chartType.indexOf('LineChart') >= 0 || chartType.indexOf('AreaChart') >= 0)) {
+      return { scale: d3Scales.scalePoint(), realScaleType: 'point' };
+    } else if (type === 'category') {
+      return { scale: d3Scales.scaleBand(), realScaleType: 'band' };
+    }
+
+    return { scale: d3Scales.scaleLinear(), realScaleType: 'linear' };
+  } else if ((0, _isString3.default)(scale)) {
+    var name = 'scale' + scale.slice(0, 1).toUpperCase() + scale.slice(1);
+
+    return {
+      scale: (d3Scales[name] || d3Scales.scalePoint)(),
+      realScaleType: d3Scales[name] ? name : 'point'
+    };
+  }
+
+  return (0, _isFunction3.default)(scale) ? { scale: scale } : { scale: d3Scales.scalePoint(), realScaleType: 'point' };
+};
+var EPS = 1e-4;
+var checkDomainOfScale = exports.checkDomainOfScale = function checkDomainOfScale(scale) {
+  var domain = scale.domain();
+
+  if (!domain || domain.length <= 2) {
+    return;
+  }
+
+  var len = domain.length;
+  var range = scale.range();
+  var min = Math.min(range[0], range[1]) - EPS;
+  var max = Math.max(range[0], range[1]) + EPS;
+  var first = scale(domain[0]);
+  var last = scale(domain[len - 1]);
+
+  if (first < min || first > max || last < min || last > max) {
+    scale.domain([domain[0], domain[len - 1]]);
+  }
+};
+
+var findPositionOfBar = exports.findPositionOfBar = function findPositionOfBar(barPosition, child) {
+  if (!barPosition) {
+    return null;
+  }
+
+  for (var i = 0, len = barPosition.length; i < len; i++) {
+    if (barPosition[i].item === child) {
+      return barPosition[i].position;
+    }
+  }
+
+  return null;
+};
+
+var truncateByDomain = exports.truncateByDomain = function truncateByDomain(value, domain) {
+  if (!domain || domain.length !== 2 || !(0, _DataUtils.isNumber)(domain[0]) || !(0, _DataUtils.isNumber)(domain[1])) {
+    return value;
+  }
+
+  var min = Math.min(domain[0], domain[1]);
+  var max = Math.max(domain[0], domain[1]);
+
+  var result = [value[0], value[1]];
+  if (!(0, _DataUtils.isNumber)(value[0]) || value[0] < min) {
+    result[0] = min;
+  }
+
+  if (!(0, _DataUtils.isNumber)(value[1]) || value[1] > max) {
+    result[1] = max;
+  }
+
+  if (result[0] > max) {
+    result[0] = max;
+  }
+
+  if (result[1] < min) {
+    result[1] = min;
+  }
+
+  return result;
+};
+
+/* eslint no-param-reassign: 0 */
+var offsetSign = exports.offsetSign = function offsetSign(series) {
+  var n = series.length;
+  if (n <= 0) {
+    return;
+  }
+
+  for (var j = 0, m = series[0].length; j < m; ++j) {
+    var positive = 0;
+    var negative = 0;
+
+    for (var i = 0; i < n; ++i) {
+      var value = (0, _isNaN3.default)(series[i][j][1]) ? series[i][j][0] : series[i][j][1];
+
+      /* eslint-disable prefer-destructuring */
+      if (value >= 0) {
+        series[i][j][0] = positive;
+        series[i][j][1] = positive + value;
+        positive = series[i][j][1];
+      } else {
+        series[i][j][0] = negative;
+        series[i][j][1] = negative + value;
+        negative = series[i][j][1];
+      }
+      /* eslint-enable prefer-destructuring */
+    }
+  }
+};
+
+var STACK_OFFSET_MAP = {
+  sign: offsetSign,
+  expand: _d3Shape.stackOffsetExpand,
+  none: _d3Shape.stackOffsetNone,
+  silhouette: _d3Shape.stackOffsetSilhouette,
+  wiggle: _d3Shape.stackOffsetWiggle
+};
+
+var getStackedData = exports.getStackedData = function getStackedData(data, stackItems, offsetType) {
+  var dataKeys = stackItems.map(function (item) {
+    return item.props.dataKey;
+  });
+  var stack = (0, _d3Shape.stack)().keys(dataKeys).value(function (d, key) {
+    return +getValueByDataKey(d, key, 0);
+  }).order(_d3Shape.stackOrderNone).offset(STACK_OFFSET_MAP[offsetType]);
+
+  return stack(data);
+};
+
+var getStackGroupsByAxisId = exports.getStackGroupsByAxisId = function getStackGroupsByAxisId(data, _items, numericAxisId, cateAxisId, offsetType, reverseStackOrder) {
+  if (!data) {
+    return null;
+  }
+
+  // reversing items to affect render order (for layering)
+  var items = reverseStackOrder ? _items.reverse() : _items;
+
+  var stackGroups = items.reduce(function (result, item) {
+    var _item$props2 = item.props,
+        stackId = _item$props2.stackId,
+        hide = _item$props2.hide;
+
+    if (hide) {
+      return result;
+    }
+
+    var axisId = item.props[numericAxisId];
+    var parentGroup = result[axisId] || { hasStack: false, stackGroups: {} };
+
+    if ((0, _DataUtils.isNumOrStr)(stackId)) {
+      var childGroup = parentGroup.stackGroups[stackId] || {
+        numericAxisId: numericAxisId, cateAxisId: cateAxisId, items: []
+      };
+
+      childGroup.items.push(item);
+
+      parentGroup.hasStack = true;
+
+      parentGroup.stackGroups[stackId] = childGroup;
+    } else {
+      parentGroup.stackGroups[(0, _DataUtils.uniqueId)('_stackId_')] = {
+        numericAxisId: numericAxisId, cateAxisId: cateAxisId, items: [item]
+      };
+    }
+
+    return _extends({}, result, _defineProperty({}, axisId, parentGroup));
+  }, {});
+
+  return Object.keys(stackGroups).reduce(function (result, axisId) {
+    var group = stackGroups[axisId];
+
+    if (group.hasStack) {
+      group.stackGroups = Object.keys(group.stackGroups).reduce(function (res, stackId) {
+        var g = group.stackGroups[stackId];
+
+        return _extends({}, res, _defineProperty({}, stackId, {
+          numericAxisId: numericAxisId,
+          cateAxisId: cateAxisId,
+          items: g.items,
+          stackedData: getStackedData(data, g.items, offsetType)
+        }));
+      }, {});
+    }
+
+    return _extends({}, result, _defineProperty({}, axisId, group));
+  }, {});
+};
+
+/**
+ * get domain of ticks
+ * @param  {Array} ticks Ticks of axis
+ * @param  {String} type  The type of axis
+ * @return {Array} domain
+ */
+var calculateDomainOfTicks = exports.calculateDomainOfTicks = function calculateDomainOfTicks(ticks, type) {
+  if (type === 'number') {
+    return [Math.min.apply(null, ticks), Math.max.apply(null, ticks)];
+  }
+
+  return ticks;
+};
+
+/**
+ * Configure the scale function of axis
+ * @param {Object} scale The scale function
+ * @param {Object} opts  The configuration of axis
+ * @return {Object}      null
+ */
+var getTicksOfScale = exports.getTicksOfScale = function getTicksOfScale(scale, opts) {
+  var realScaleType = opts.realScaleType,
+      type = opts.type,
+      tickCount = opts.tickCount,
+      originalDomain = opts.originalDomain,
+      allowDecimals = opts.allowDecimals;
+
+  var scaleType = realScaleType || opts.scale;
+
+  if (scaleType !== 'auto' && scaleType !== 'linear') {
+    return null;
+  }
+
+  if (tickCount && type === 'number' && originalDomain && (originalDomain[0] === 'auto' || originalDomain[1] === 'auto')) {
+    // Calculate the ticks by the number of grid when the axis is a number axis
+    var domain = scale.domain();
+    var tickValues = (0, _rechartsScale.getNiceTickValues)(domain, tickCount, allowDecimals);
+
+    scale.domain(calculateDomainOfTicks(tickValues, type));
+
+    return { niceTicks: tickValues };
+  } else if (tickCount && type === 'number') {
+    var _domain = scale.domain();
+    var _tickValues = (0, _rechartsScale.getTickValuesFixedDomain)(_domain, tickCount, allowDecimals);
+
+    return { niceTicks: _tickValues };
+  }
+
+  return null;
+};
+
+var getCateCoordinateOfLine = exports.getCateCoordinateOfLine = function getCateCoordinateOfLine(_ref6) {
+  var axis = _ref6.axis,
+      ticks = _ref6.ticks,
+      bandSize = _ref6.bandSize,
+      entry = _ref6.entry,
+      index = _ref6.index;
+
+  if (axis.type === 'category') {
+    // find coordinate of category axis by the value of category
+    if (!axis.allowDuplicatedCategory && axis.dataKey && !(0, _isNil3.default)(entry[axis.dataKey])) {
+      var matchedTick = (0, _DataUtils.findEntryInArray)(ticks, 'value', entry[axis.dataKey]);
+
+      if (matchedTick) {
+        return matchedTick.coordinate + bandSize / 2;
+      }
+    }
+
+    return ticks[index] ? ticks[index].coordinate + bandSize / 2 : null;
+  }
+
+  var value = getValueByDataKey(entry, axis.dataKey);
+
+  return !(0, _isNil3.default)(value) ? axis.scale(value) : null;
+};
+
+var getCateCoordinateOfBar = exports.getCateCoordinateOfBar = function getCateCoordinateOfBar(_ref7) {
+  var axis = _ref7.axis,
+      ticks = _ref7.ticks,
+      offset = _ref7.offset,
+      bandSize = _ref7.bandSize,
+      entry = _ref7.entry,
+      index = _ref7.index;
+
+  if (axis.type === 'category') {
+    return ticks[index] ? ticks[index].coordinate + offset : null;
+  }
+  var value = getValueByDataKey(entry, axis.dataKey, axis.domain[index]);
+
+  return !(0, _isNil3.default)(value) ? axis.scale(value) - bandSize / 2 + offset : null;
+};
+
+var getBaseValueOfBar = exports.getBaseValueOfBar = function getBaseValueOfBar(_ref8) {
+  var numericAxis = _ref8.numericAxis;
+
+  var domain = numericAxis.scale.domain();
+
+  if (numericAxis.type === 'number') {
+    var min = Math.min(domain[0], domain[1]);
+    var max = Math.max(domain[0], domain[1]);
+
+    if (min <= 0 && max >= 0) {
+      return 0;
+    }
+    if (max < 0) {
+      return max;
+    }
+
+    return min;
+  }
+
+  return domain[0];
+};
+
+var ifOverflowMatches = exports.ifOverflowMatches = function ifOverflowMatches(props, value) {
+  var alwaysShow = props.alwaysShow;
+  var ifOverflow = props.ifOverflow;
+
+  if (alwaysShow) {
+    ifOverflow = 'extendDomain';
+  }
+
+  return ifOverflow === value;
+};
+
+var detectReferenceElementsDomain = exports.detectReferenceElementsDomain = function detectReferenceElementsDomain(children, domain, axisId, axisType, specifiedTicks) {
+  var lines = (0, _ReactUtils.findAllByType)(children, _ReferenceLine2.default);
+  var dots = (0, _ReactUtils.findAllByType)(children, _ReferenceDot2.default);
+  var elements = lines.concat(dots);
+  var areas = (0, _ReactUtils.findAllByType)(children, _ReferenceArea2.default);
+  var idKey = axisType + 'Id';
+  var valueKey = axisType[0];
+  var finalDomain = domain;
+
+  if (elements.length) {
+    finalDomain = elements.reduce(function (result, el) {
+      if (el.props[idKey] === axisId && ifOverflowMatches(el.props, 'extendDomain') && (0, _DataUtils.isNumber)(el.props[valueKey])) {
+        var value = el.props[valueKey];
+
+        return [Math.min(result[0], value), Math.max(result[1], value)];
+      }
+      return result;
+    }, finalDomain);
+  }
+
+  if (areas.length) {
+    var key1 = valueKey + '1';
+    var key2 = valueKey + '2';
+
+    finalDomain = areas.reduce(function (result, el) {
+      if (el.props[idKey] === axisId && ifOverflowMatches(el.props, 'extendDomain') && (0, _DataUtils.isNumber)(el.props[key1]) && (0, _DataUtils.isNumber)(el.props[key2])) {
+        var value1 = el.props[key1];
+        var value2 = el.props[key2];
+
+        return [Math.min(result[0], value1, value2), Math.max(result[1], value1, value2)];
+      }
+      return result;
+    }, finalDomain);
+  }
+
+  if (specifiedTicks && specifiedTicks.length) {
+    finalDomain = specifiedTicks.reduce(function (result, tick) {
+      if ((0, _DataUtils.isNumber)(tick)) {
+        return [Math.min(result[0], tick), Math.max(result[1], tick)];
+      }
+
+      return result;
+    }, finalDomain);
+  }
+
+  return finalDomain;
+};
+
+var getStackedDataOfItem = exports.getStackedDataOfItem = function getStackedDataOfItem(item, stackGroups) {
+  var stackId = item.props.stackId;
+
+  if ((0, _DataUtils.isNumOrStr)(stackId)) {
+    var group = stackGroups[stackId];
+
+    if (group && group.items.length) {
+      var itemIndex = -1;
+
+      for (var i = 0, len = group.items.length; i < len; i++) {
+        if (group.items[i] === item) {
+          itemIndex = i;
+          break;
+        }
+      }
+      return itemIndex >= 0 ? group.stackedData[itemIndex] : null;
+    }
+  }
+
+  return null;
+};
+
+var getDomainOfSingle = function getDomainOfSingle(data) {
+  return data.reduce(function (result, entry) {
+    return [Math.min.apply(null, entry.concat([result[0]]).filter(_DataUtils.isNumber)), Math.max.apply(null, entry.concat([result[1]]).filter(_DataUtils.isNumber))];
+  }, [Infinity, -Infinity]);
+};
+
+var getDomainOfStackGroups = exports.getDomainOfStackGroups = function getDomainOfStackGroups(stackGroups, startIndex, endIndex) {
+  return Object.keys(stackGroups).reduce(function (result, stackId) {
+    var group = stackGroups[stackId];
+    var stackedData = group.stackedData;
+
+    var domain = stackedData.reduce(function (res, entry) {
+      var s = getDomainOfSingle(entry.slice(startIndex, endIndex + 1));
+
+      return [Math.min(res[0], s[0]), Math.max(res[1], s[1])];
+    }, [Infinity, -Infinity]);
+
+    return [Math.min(domain[0], result[0]), Math.max(domain[1], result[1])];
+  }, [Infinity, -Infinity]).map(function (result) {
+    return result === Infinity || result === -Infinity ? 0 : result;
+  });
+};
+
+var MIN_VALUE_REG = exports.MIN_VALUE_REG = /^dataMin[\s]*-[\s]*([0-9]+([.]{1}[0-9]+){0,1})$/;
+var MAX_VALUE_REG = exports.MAX_VALUE_REG = /^dataMax[\s]*\+[\s]*([0-9]+([.]{1}[0-9]+){0,1})$/;
+
+var parseSpecifiedDomain = exports.parseSpecifiedDomain = function parseSpecifiedDomain(specifiedDomain, dataDomain, allowDataOverflow) {
+  if (!(0, _isArray3.default)(specifiedDomain)) {
+    return dataDomain;
+  }
+
+  var domain = [];
+
+  /* eslint-disable prefer-destructuring */
+  if ((0, _DataUtils.isNumber)(specifiedDomain[0])) {
+    domain[0] = allowDataOverflow ? specifiedDomain[0] : Math.min(specifiedDomain[0], dataDomain[0]);
+  } else if (MIN_VALUE_REG.test(specifiedDomain[0])) {
+    var value = +MIN_VALUE_REG.exec(specifiedDomain[0])[1];
+
+    domain[0] = dataDomain[0] - value;
+  } else if ((0, _isFunction3.default)(specifiedDomain[0])) {
+    domain[0] = specifiedDomain[0](dataDomain[0]);
+  } else {
+    domain[0] = dataDomain[0];
+  }
+
+  if ((0, _DataUtils.isNumber)(specifiedDomain[1])) {
+    domain[1] = allowDataOverflow ? specifiedDomain[1] : Math.max(specifiedDomain[1], dataDomain[1]);
+  } else if (MAX_VALUE_REG.test(specifiedDomain[1])) {
+    var _value = +MAX_VALUE_REG.exec(specifiedDomain[1])[1];
+
+    domain[1] = dataDomain[1] + _value;
+  } else if ((0, _isFunction3.default)(specifiedDomain[1])) {
+    domain[1] = specifiedDomain[1](dataDomain[1]);
+  } else {
+    domain[1] = dataDomain[1];
+  }
+  /* eslint-enable prefer-destructuring */
+
+  return domain;
+};
+
+/**
+ * Calculate the size between two category
+ * @param  {Object} axis  The options of axis
+ * @param  {Array}  ticks The ticks of axis
+ * @return {Number} Size
+ */
+var getBandSizeOfAxis = exports.getBandSizeOfAxis = function getBandSizeOfAxis(axis, ticks) {
+  if (axis && axis.scale && axis.scale.bandwidth) {
+    return axis.scale.bandwidth();
+  }
+
+  if (axis && ticks && ticks.length >= 2) {
+    var orderedTicks = (0, _sortBy3.default)(ticks, function (o) {
+      return o.coordinate;
+    });
+    var bandSize = Infinity;
+
+    for (var i = 1, len = orderedTicks.length; i < len; i++) {
+      var cur = orderedTicks[i];
+      var prev = orderedTicks[i - 1];
+
+      bandSize = Math.min((cur.coordinate || 0) - (prev.coordinate || 0), bandSize);
+    }
+
+    return bandSize === Infinity ? 0 : bandSize;
+  }
+
+  return 0;
+};
+/**
+ * parse the domain of a category axis when a domain is specified
+ * @param   {Array}        specifiedDomain  The domain specified by users
+ * @param   {Array}        calculatedDomain The domain calculated by dateKey
+ * @param   {ReactElement} axisChild        The axis element
+ * @returns {Array}        domains
+ */
+var parseDomainOfCategoryAxis = exports.parseDomainOfCategoryAxis = function parseDomainOfCategoryAxis(specifiedDomain, calculatedDomain, axisChild) {
+  if (!specifiedDomain || !specifiedDomain.length) {
+    return calculatedDomain;
+  }
+
+  if ((0, _isEqual3.default)(specifiedDomain, (0, _get3.default)(axisChild, 'type.defaultProps.domain'))) {
+    return calculatedDomain;
+  }
+
+  return specifiedDomain;
+};
+},{"lodash-es/isEqual":"../node_modules/lodash-es/isEqual.js","lodash-es/sortBy":"../node_modules/lodash-es/sortBy.js","lodash-es/isNaN":"../node_modules/lodash-es/isNaN.js","lodash-es/isString":"../node_modules/lodash-es/isString.js","lodash-es/max":"../node_modules/lodash-es/max.js","lodash-es/min":"../node_modules/lodash-es/min.js","lodash-es/isArray":"../node_modules/lodash-es/isArray.js","lodash-es/flatMap":"../node_modules/lodash-es/flatMap.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/get":"../node_modules/lodash-es/get.js","lodash-es/isNil":"../node_modules/lodash-es/isNil.js","recharts-scale":"../node_modules/recharts-scale/lib/index.js","d3-scale":"../node_modules/d3-scale/index.js","d3-shape":"../node_modules/d3-shape/index.js","./DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../cartesian/ReferenceDot":"../node_modules/recharts/es6/cartesian/ReferenceDot.js","../cartesian/ReferenceLine":"../node_modules/recharts/es6/cartesian/ReferenceLine.js","../cartesian/ReferenceArea":"../node_modules/recharts/es6/cartesian/ReferenceArea.js","../cartesian/ErrorBar":"../node_modules/recharts/es6/cartesian/ErrorBar.js","../component/Legend":"../node_modules/recharts/es6/component/Legend.js","./ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js"}],"../node_modules/recharts/es6/util/PolarUtils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.inRangeOfSector = exports.formatAngleOfSector = exports.getAngleOfPoint = exports.distanceBetweenPoints = exports.formatAxisMap = exports.getMaxRadius = exports.polarToCartesian = exports.radianToDegree = exports.degreeToRadian = exports.RADIAN = undefined;
+
+var _isNil2 = require("lodash-es/isNil");
+
+var _isNil3 = _interopRequireDefault(_isNil2);
+
+var _DataUtils = require("./DataUtils");
+
+var _ChartUtils = require("./ChartUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _slicedToArray = function () {
+  function sliceIterator(arr, i) {
+    var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
+      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;_e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"]) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }return _arr;
+  }return function (arr, i) {
+    if (Array.isArray(arr)) {
+      return arr;
+    } else if (Symbol.iterator in Object(arr)) {
+      return sliceIterator(arr, i);
+    } else {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance");
+    }
+  };
+}();
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }return obj;
+}
+
+var RADIAN = exports.RADIAN = Math.PI / 180;
+
+var degreeToRadian = exports.degreeToRadian = function degreeToRadian(angle) {
+  return angle * Math.PI / 180;
+};
+
+var radianToDegree = exports.radianToDegree = function radianToDegree(angleInRadian) {
+  return angleInRadian * 180 / Math.PI;
+};
+
+var polarToCartesian = exports.polarToCartesian = function polarToCartesian(cx, cy, radius, angle) {
+  return {
+    x: cx + Math.cos(-RADIAN * angle) * radius,
+    y: cy + Math.sin(-RADIAN * angle) * radius
+  };
+};
+
+var getMaxRadius = exports.getMaxRadius = function getMaxRadius(width, height) {
+  var offset = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    top: 0, right: 0, bottom: 0, left: 0
+  };
+  return Math.min(Math.abs(width - (offset.left || 0) - (offset.right || 0)), Math.abs(height - (offset.top || 0) - (offset.bottom || 0))) / 2;
+};
+
+/**
+ * Calculate the scale function, position, width, height of axes
+ * @param  {Object} props     Latest props
+ * @param  {Object} axisMap   The configuration of axes
+ * @param  {Object} offset    The offset of main part in the svg element
+ * @param  {Object} axisType  The type of axes, radius-axis or angle-axis
+ * @param  {String} chartName The name of chart
+ * @return {Object} Configuration
+ */
+var formatAxisMap = exports.formatAxisMap = function formatAxisMap(props, axisMap, offset, axisType, chartName) {
+  var width = props.width,
+      height = props.height;
+  var startAngle = props.startAngle,
+      endAngle = props.endAngle;
+
+  var cx = (0, _DataUtils.getPercentValue)(props.cx, width, width / 2);
+  var cy = (0, _DataUtils.getPercentValue)(props.cy, height, height / 2);
+  var maxRadius = getMaxRadius(width, height, offset);
+  var innerRadius = (0, _DataUtils.getPercentValue)(props.innerRadius, maxRadius, 0);
+  var outerRadius = (0, _DataUtils.getPercentValue)(props.outerRadius, maxRadius, maxRadius * 0.8);
+  var ids = Object.keys(axisMap);
+
+  return ids.reduce(function (result, id) {
+    var axis = axisMap[id];
+    var domain = axis.domain,
+        reversed = axis.reversed;
+
+    var range = void 0;
+
+    if ((0, _isNil3.default)(axis.range)) {
+      if (axisType === 'angleAxis') {
+        range = [startAngle, endAngle];
+      } else if (axisType === 'radiusAxis') {
+        range = [innerRadius, outerRadius];
+      }
+
+      if (reversed) {
+        range = [range[1], range[0]];
+      }
+    } else {
+      range = axis.range;
+      var _range = range;
+
+      var _range2 = _slicedToArray(_range, 2);
+
+      startAngle = _range2[0];
+      endAngle = _range2[1];
+    }
+
+    var _parseScale = (0, _ChartUtils.parseScale)(axis, chartName),
+        realScaleType = _parseScale.realScaleType,
+        scale = _parseScale.scale;
+
+    scale.domain(domain).range(range);
+    (0, _ChartUtils.checkDomainOfScale)(scale);
+    var ticks = (0, _ChartUtils.getTicksOfScale)(scale, _extends({}, axis, { realScaleType: realScaleType }));
+
+    var finalAxis = _extends({}, axis, ticks, {
+      range: range,
+      radius: outerRadius,
+      realScaleType: realScaleType, scale: scale, cx: cx, cy: cy, innerRadius: innerRadius, outerRadius: outerRadius, startAngle: startAngle, endAngle: endAngle
+    });
+
+    return _extends({}, result, _defineProperty({}, id, finalAxis));
+  }, {});
+};
+
+var distanceBetweenPoints = exports.distanceBetweenPoints = function distanceBetweenPoints(point, anotherPoint) {
+  var x1 = point.x,
+      y1 = point.y;
+  var x2 = anotherPoint.x,
+      y2 = anotherPoint.y;
+
+  return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+};
+
+var getAngleOfPoint = exports.getAngleOfPoint = function getAngleOfPoint(_ref, _ref2) {
+  var x = _ref.x,
+      y = _ref.y;
+  var cx = _ref2.cx,
+      cy = _ref2.cy;
+
+  var radius = distanceBetweenPoints({ x: x, y: y }, { x: cx, y: cy });
+
+  if (radius <= 0) {
+    return { radius: radius };
+  }
+
+  var cos = (x - cx) / radius;
+  var angleInRadian = Math.acos(cos);
+
+  if (y > cy) {
+    angleInRadian = 2 * Math.PI - angleInRadian;
+  }
+
+  return { radius: radius, angle: radianToDegree(angleInRadian), angleInRadian: angleInRadian };
+};
+
+var formatAngleOfSector = exports.formatAngleOfSector = function formatAngleOfSector(_ref3) {
+  var startAngle = _ref3.startAngle,
+      endAngle = _ref3.endAngle;
+
+  var startCnt = Math.floor(startAngle / 360);
+  var endCnt = Math.floor(endAngle / 360);
+  var min = Math.min(startCnt, endCnt);
+
+  return {
+    startAngle: startAngle - min * 360,
+    endAngle: endAngle - min * 360
+  };
+};
+
+var reverseFormatAngleOfSetor = function reverseFormatAngleOfSetor(angle, _ref4) {
+  var startAngle = _ref4.startAngle,
+      endAngle = _ref4.endAngle;
+
+  var startCnt = Math.floor(startAngle / 360);
+  var endCnt = Math.floor(endAngle / 360);
+  var min = Math.min(startCnt, endCnt);
+
+  return angle + min * 360;
+};
+
+var inRangeOfSector = exports.inRangeOfSector = function inRangeOfSector(_ref5, sector) {
+  var x = _ref5.x,
+      y = _ref5.y;
+
+  var _getAngleOfPoint = getAngleOfPoint({ x: x, y: y }, sector),
+      radius = _getAngleOfPoint.radius,
+      angle = _getAngleOfPoint.angle;
+
+  var innerRadius = sector.innerRadius,
+      outerRadius = sector.outerRadius;
+
+  if (radius < innerRadius || radius > outerRadius) {
+    return false;
+  }
+
+  if (radius === 0) {
+    return true;
+  }
+
+  var _formatAngleOfSector = formatAngleOfSector(sector),
+      startAngle = _formatAngleOfSector.startAngle,
+      endAngle = _formatAngleOfSector.endAngle;
+
+  var formatAngle = angle;
+  var inRange = void 0;
+
+  if (startAngle <= endAngle) {
+    while (formatAngle > endAngle) {
+      formatAngle -= 360;
+    }
+    while (formatAngle < startAngle) {
+      formatAngle += 360;
+    }
+    inRange = formatAngle >= startAngle && formatAngle <= endAngle;
+  } else {
+    while (formatAngle > startAngle) {
+      formatAngle -= 360;
+    }
+    while (formatAngle < endAngle) {
+      formatAngle += 360;
+    }
+    inRange = formatAngle >= endAngle && formatAngle <= startAngle;
+  }
+
+  if (inRange) {
+    return _extends({}, sector, { radius: radius, angle: reverseFormatAngleOfSetor(formatAngle, sector) });
+  }
+
+  return null;
+};
+},{"lodash-es/isNil":"../node_modules/lodash-es/isNil.js","./DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","./ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js"}],"../node_modules/recharts/es6/component/Label.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isObject2 = require('lodash-es/isObject');
+
+var _isObject3 = _interopRequireDefault(_isObject2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _isNil2 = require('lodash-es/isNil');
+
+var _isNil3 = _interopRequireDefault(_isNil2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _Text = require('./Text');
+
+var _Text2 = _interopRequireDefault(_Text);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _DataUtils = require('../util/DataUtils');
+
+var _PolarUtils = require('../util/PolarUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+function _toConsumableArray(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }return arr2;
+  } else {
+    return Array.from(arr);
+  }
+}
+
+var cartesianViewBoxShape = _propTypes2.default.shape({
+  x: _propTypes2.default.number,
+  y: _propTypes2.default.number,
+  width: _propTypes2.default.number,
+  height: _propTypes2.default.number
+});
+var polarViewBoxShape = _propTypes2.default.shape({
+  cx: _propTypes2.default.number,
+  cy: _propTypes2.default.number,
+  innerRadius: _propTypes2.default.number,
+  outerRadius: _propTypes2.default.number,
+  startAngle: _propTypes2.default.number,
+  endAngle: _propTypes2.default.number
+});
+
+var propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, {
+  viewBox: _propTypes2.default.oneOfType([cartesianViewBoxShape, polarViewBoxShape]),
+  formatter: _propTypes2.default.func,
+  value: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  offset: _propTypes2.default.number,
+  position: _propTypes2.default.oneOf(['top', 'left', 'right', 'bottom', 'inside', 'outside', 'insideLeft', 'insideRight', 'insideTop', 'insideBottom', 'insideTopLeft', 'insideBottomLeft', 'insideTopRight', 'insideBottomRight', 'insideStart', 'insideEnd', 'end', 'center', 'centerTop', 'centerBottom']),
+  children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]),
+  className: _propTypes2.default.string,
+  content: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.func])
+});
+
+var defaultProps = {
+  offset: 5
+};
+
+var getLabel = function getLabel(props) {
+  var value = props.value,
+      formatter = props.formatter;
+
+  var label = (0, _isNil3.default)(props.children) ? value : props.children;
+
+  if ((0, _isFunction3.default)(formatter)) {
+    return formatter(label);
+  }
+
+  return label;
+};
+
+var getDeltaAngle = function getDeltaAngle(startAngle, endAngle) {
+  var sign = (0, _DataUtils.mathSign)(endAngle - startAngle);
+  var deltaAngle = Math.min(Math.abs(endAngle - startAngle), 360);
+
+  return sign * deltaAngle;
+};
+
+var renderRadialLabel = function renderRadialLabel(labelProps, label, attrs) {
+  var position = labelProps.position,
+      viewBox = labelProps.viewBox,
+      offset = labelProps.offset,
+      className = labelProps.className;
+  var cx = viewBox.cx,
+      cy = viewBox.cy,
+      innerRadius = viewBox.innerRadius,
+      outerRadius = viewBox.outerRadius,
+      startAngle = viewBox.startAngle,
+      endAngle = viewBox.endAngle,
+      clockWise = viewBox.clockWise;
+
+  var radius = (innerRadius + outerRadius) / 2;
+  var deltaAngle = getDeltaAngle(startAngle, endAngle);
+  var sign = deltaAngle >= 0 ? 1 : -1;
+  var labelAngle = void 0,
+      direction = void 0;
+
+  if (position === 'insideStart') {
+    labelAngle = startAngle + sign * offset;
+    direction = clockWise;
+  } else if (position === 'insideEnd') {
+    labelAngle = endAngle - sign * offset;
+    direction = !clockWise;
+  } else if (position === 'end') {
+    labelAngle = endAngle + sign * offset;
+    direction = clockWise;
+  }
+
+  direction = deltaAngle <= 0 ? direction : !direction;
+
+  var startPoint = (0, _PolarUtils.polarToCartesian)(cx, cy, radius, labelAngle);
+  var endPoint = (0, _PolarUtils.polarToCartesian)(cx, cy, radius, labelAngle + (direction ? 1 : -1) * 359);
+  var path = 'M' + startPoint.x + ',' + startPoint.y + '\n    A' + radius + ',' + radius + ',0,1,' + (direction ? 0 : 1) + ',\n    ' + endPoint.x + ',' + endPoint.y;
+  var id = (0, _isNil3.default)(labelProps.id) ? (0, _DataUtils.uniqueId)('recharts-radial-line-') : labelProps.id;
+
+  return _react2.default.createElement('text', _extends({}, attrs, {
+    dominantBaseline: 'central',
+    className: (0, _classnames2.default)('recharts-radial-bar-label', className)
+  }), _react2.default.createElement('defs', null, _react2.default.createElement('path', { id: id, d: path })), _react2.default.createElement('textPath', { xlinkHref: '#' + id }, label));
+};
+
+var getAttrsOfPolarLabel = function getAttrsOfPolarLabel(props) {
+  var viewBox = props.viewBox,
+      offset = props.offset,
+      position = props.position;
+  var cx = viewBox.cx,
+      cy = viewBox.cy,
+      innerRadius = viewBox.innerRadius,
+      outerRadius = viewBox.outerRadius,
+      startAngle = viewBox.startAngle,
+      endAngle = viewBox.endAngle;
+
+  var midAngle = (startAngle + endAngle) / 2;
+
+  if (position === 'outside') {
+    var _polarToCartesian = (0, _PolarUtils.polarToCartesian)(cx, cy, outerRadius + offset, midAngle),
+        _x = _polarToCartesian.x,
+        _y = _polarToCartesian.y;
+
+    return {
+      x: _x,
+      y: _y,
+      textAnchor: _x >= cx ? 'start' : 'end',
+      verticalAnchor: 'middle'
+    };
+  }
+
+  if (position === 'center') {
+    return {
+      x: cx,
+      y: cy,
+      textAnchor: 'middle',
+      verticalAnchor: 'middle'
+    };
+  }
+
+  if (position === 'centerTop') {
+    return {
+      x: cx,
+      y: cy,
+      textAnchor: 'middle',
+      verticalAnchor: 'start'
+    };
+  }
+
+  if (position === 'centerBottom') {
+    return {
+      x: cx,
+      y: cy,
+      textAnchor: 'middle',
+      verticalAnchor: 'end'
+    };
+  }
+
+  var r = (innerRadius + outerRadius) / 2;
+
+  var _polarToCartesian2 = (0, _PolarUtils.polarToCartesian)(cx, cy, r, midAngle),
+      x = _polarToCartesian2.x,
+      y = _polarToCartesian2.y;
+
+  return {
+    x: x,
+    y: y,
+    textAnchor: 'middle',
+    verticalAnchor: 'middle'
+  };
+};
+
+var getAttrsOfCartesianLabel = function getAttrsOfCartesianLabel(props) {
+  var viewBox = props.viewBox,
+      offset = props.offset,
+      position = props.position;
+  var x = viewBox.x,
+      y = viewBox.y,
+      width = viewBox.width,
+      height = viewBox.height;
+
+  var sign = height >= 0 ? 1 : -1;
+
+  if (position === 'top') {
+    return {
+      x: x + width / 2,
+      y: y - sign * offset,
+      textAnchor: 'middle',
+      verticalAnchor: sign > 0 ? 'end' : 'start'
+    };
+  }
+
+  if (position === 'bottom') {
+    return {
+      x: x + width / 2,
+      y: y + height + sign * offset,
+      textAnchor: 'middle',
+      verticalAnchor: 'start'
+    };
+  }
+
+  if (position === 'left') {
+    return {
+      x: x - offset,
+      y: y + height / 2,
+      textAnchor: 'end',
+      verticalAnchor: 'middle'
+    };
+  }
+
+  if (position === 'right') {
+    return {
+      x: x + width + offset,
+      y: y + height / 2,
+      textAnchor: 'start',
+      verticalAnchor: 'middle'
+    };
+  }
+
+  if (position === 'insideLeft') {
+    return {
+      x: x + offset,
+      y: y + height / 2,
+      textAnchor: 'start',
+      verticalAnchor: 'middle'
+    };
+  }
+
+  if (position === 'insideRight') {
+    return {
+      x: x + width - offset,
+      y: y + height / 2,
+      textAnchor: 'end',
+      verticalAnchor: 'middle'
+    };
+  }
+
+  if (position === 'insideTop') {
+    return {
+      x: x + width / 2,
+      y: y + sign * offset,
+      textAnchor: 'middle',
+      verticalAnchor: 'start'
+    };
+  }
+
+  if (position === 'insideBottom') {
+    return {
+      x: x + width / 2,
+      y: y + height - sign * offset,
+      textAnchor: 'middle',
+      verticalAnchor: 'end'
+    };
+  }
+
+  if (position === 'insideTopLeft') {
+    return {
+      x: x + offset,
+      y: y + sign * offset,
+      textAnchor: 'start',
+      verticalAnchor: 'start'
+    };
+  }
+
+  if (position === 'insideTopRight') {
+    return {
+      x: x + width - offset,
+      y: y + sign * offset,
+      textAnchor: 'end',
+      verticalAnchor: 'start'
+    };
+  }
+
+  if (position === 'insideBottomLeft') {
+    return {
+      x: x + offset,
+      y: y + height - sign * offset,
+      textAnchor: 'start',
+      verticalAnchor: 'end'
+    };
+  }
+
+  if (position === 'insideBottomRight') {
+    return {
+      x: x + width - offset,
+      y: y + height - sign * offset,
+      textAnchor: 'end',
+      verticalAnchor: 'end'
+    };
+  }
+
+  if ((0, _isObject3.default)(position) && ((0, _DataUtils.isNumber)(position.x) || (0, _DataUtils.isPercent)(position.x)) && ((0, _DataUtils.isNumber)(position.y) || (0, _DataUtils.isPercent)(position.y))) {
+    return {
+      x: x + (0, _DataUtils.getPercentValue)(position.x, width),
+      y: y + (0, _DataUtils.getPercentValue)(position.y, height),
+      textAnchor: 'end',
+      verticalAnchor: 'end'
+    };
+  }
+
+  return {
+    x: x + width / 2,
+    y: y + height / 2,
+    textAnchor: 'middle',
+    verticalAnchor: 'middle'
+  };
+};
+
+var isPolar = function isPolar(viewBox) {
+  return (0, _DataUtils.isNumber)(viewBox.cx);
+};
+
+function Label(props) {
+  var viewBox = props.viewBox,
+      position = props.position,
+      value = props.value,
+      children = props.children,
+      content = props.content,
+      _props$className = props.className,
+      className = _props$className === undefined ? '' : _props$className;
+
+  if (!viewBox || (0, _isNil3.default)(value) && (0, _isNil3.default)(children) && !(0, _react.isValidElement)(content) && !(0, _isFunction3.default)(content)) {
+    return null;
+  }
+
+  if ((0, _react.isValidElement)(content)) {
+    return (0, _react.cloneElement)(content, props);
+  }
+
+  var label = void 0;
+  if ((0, _isFunction3.default)(content)) {
+    label = content(props);
+
+    if ((0, _react.isValidElement)(label)) {
+      return label;
+    }
+  } else {
+    label = getLabel(props);
+  }
+
+  var isPolarLabel = isPolar(viewBox);
+  var attrs = (0, _ReactUtils.getPresentationAttributes)(props);
+
+  if (isPolarLabel && (position === 'insideStart' || position === 'insideEnd' || position === 'end')) {
+    return renderRadialLabel(props, label, attrs);
+  }
+
+  var positionAttrs = isPolarLabel ? getAttrsOfPolarLabel(props) : getAttrsOfCartesianLabel(props);
+
+  return _react2.default.createElement(_Text2.default, _extends({
+    className: (0, _classnames2.default)('recharts-label', className)
+  }, attrs, positionAttrs), label);
+}
+
+Label.displayName = 'Label';
+Label.defaultProps = defaultProps;
+Label.propTypes = propTypes;
+
+var parseViewBox = function parseViewBox(props) {
+  var cx = props.cx,
+      cy = props.cy,
+      angle = props.angle,
+      startAngle = props.startAngle,
+      endAngle = props.endAngle,
+      r = props.r,
+      radius = props.radius,
+      innerRadius = props.innerRadius,
+      outerRadius = props.outerRadius,
+      x = props.x,
+      y = props.y,
+      top = props.top,
+      left = props.left,
+      width = props.width,
+      height = props.height,
+      clockWise = props.clockWise;
+
+  if ((0, _DataUtils.isNumber)(width) && (0, _DataUtils.isNumber)(height)) {
+    if ((0, _DataUtils.isNumber)(x) && (0, _DataUtils.isNumber)(y)) {
+      return { x: x, y: y, width: width, height: height };
+    } else if ((0, _DataUtils.isNumber)(top) && (0, _DataUtils.isNumber)(left)) {
+      return { x: top, y: left, width: width, height: height };
+    }
+  }
+
+  if ((0, _DataUtils.isNumber)(x) && (0, _DataUtils.isNumber)(y)) {
+    return { x: x, y: y, width: 0, height: 0 };
+  }
+
+  if ((0, _DataUtils.isNumber)(cx) && (0, _DataUtils.isNumber)(cy)) {
+    return {
+      cx: cx, cy: cy,
+      startAngle: startAngle || angle || 0,
+      endAngle: endAngle || angle || 0,
+      innerRadius: innerRadius || 0,
+      outerRadius: outerRadius || radius || r || 0,
+      clockWise: clockWise
+    };
+  }
+
+  if (props.viewBox) {
+    return props.viewBox;
+  }
+
+  return {};
+};
+
+var parseLabel = function parseLabel(label, viewBox) {
+  if (!label) {
+    return null;
+  }
+
+  if (label === true) {
+    return _react2.default.createElement(Label, { key: 'label-implicit', viewBox: viewBox });
+  }
+
+  if ((0, _DataUtils.isNumOrStr)(label)) {
+    return _react2.default.createElement(Label, { key: 'label-implicit', viewBox: viewBox, value: label });
+  }
+
+  if ((0, _react.isValidElement)(label) || (0, _isFunction3.default)(label)) {
+    return _react2.default.createElement(Label, { key: 'label-implicit', content: label, viewBox: viewBox });
+  }
+
+  if ((0, _isObject3.default)(label)) {
+    return _react2.default.createElement(Label, _extends({ viewBox: viewBox }, label, { key: 'label-implicit' }));
+  }
+
+  return null;
+};
+
+var renderCallByParent = function renderCallByParent(parentProps, viewBox) {
+  var ckeckPropsLabel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+  if (!parentProps || !parentProps.children && ckeckPropsLabel && !parentProps.label) {
+    return null;
+  }
+  var children = parentProps.children;
+
+  var parentViewBox = parseViewBox(parentProps);
+
+  var explicitChilren = (0, _ReactUtils.findAllByType)(children, Label).map(function (child, index) {
+    return (0, _react.cloneElement)(child, {
+      viewBox: viewBox || parentViewBox,
+      key: 'label-' + index
+    });
+  });
+
+  if (!ckeckPropsLabel) {
+    return explicitChilren;
+  }
+  var implicitLabel = parseLabel(parentProps.label, viewBox || parentViewBox);
+
+  return [implicitLabel].concat(_toConsumableArray(explicitChilren));
+};
+
+Label.parseViewBox = parseViewBox;
+Label.renderCallByParent = renderCallByParent;
+
+exports.default = Label;
+},{"lodash-es/isObject":"../node_modules/lodash-es/isObject.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/isNil":"../node_modules/lodash-es/isNil.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","./Text":"../node_modules/recharts/es6/component/Text.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/PolarUtils":"../node_modules/recharts/es6/util/PolarUtils.js"}],"../node_modules/lodash-es/last.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Gets the last element of `array`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Array
+ * @param {Array} array The array to query.
+ * @returns {*} Returns the last element of `array`.
+ * @example
+ *
+ * _.last([1, 2, 3]);
+ * // => 3
+ */
+function last(array) {
+  var length = array == null ? 0 : array.length;
+  return length ? array[length - 1] : undefined;
+}
+
+exports.default = last;
+},{}],"../node_modules/recharts/es6/component/LabelList.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isObject2 = require('lodash-es/isObject');
+
+var _isObject3 = _interopRequireDefault(_isObject2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _isNil2 = require('lodash-es/isNil');
+
+var _isNil3 = _interopRequireDefault(_isNil2);
+
+var _last2 = require('lodash-es/last');
+
+var _last3 = _interopRequireDefault(_last2);
+
+var _isArray2 = require('lodash-es/isArray');
+
+var _isArray3 = _interopRequireDefault(_isArray2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Label = require('./Label');
+
+var _Label2 = _interopRequireDefault(_Label);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _ChartUtils = require('../util/ChartUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+function _toConsumableArray(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }return arr2;
+  } else {
+    return Array.from(arr);
+  }
+}
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+var propTypes = {
+  id: _propTypes2.default.string,
+  data: _propTypes2.default.arrayOf(_propTypes2.default.object),
+  valueAccessor: _propTypes2.default.func,
+  clockWise: _propTypes2.default.bool,
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func])
+};
+
+var defaultProps = {
+  valueAccessor: function valueAccessor(entry) {
+    return (0, _isArray3.default)(entry.value) ? (0, _last3.default)(entry.value) : entry.value;
+  }
+};
+
+function LabelList(props) {
+  var data = props.data,
+      valueAccessor = props.valueAccessor,
+      dataKey = props.dataKey,
+      clockWise = props.clockWise,
+      id = props.id,
+      others = _objectWithoutProperties(props, ['data', 'valueAccessor', 'dataKey', 'clockWise', 'id']);
+
+  if (!data || !data.length) {
+    return null;
+  }
+
+  return _react2.default.createElement(_Layer2.default, { className: 'recharts-label-list' }, data.map(function (entry, index) {
+    var value = (0, _isNil3.default)(dataKey) ? valueAccessor(entry, index) : (0, _ChartUtils.getValueByDataKey)(entry && entry.payload, dataKey);
+    var idProps = (0, _isNil3.default)(id) ? {} : {
+      id: id + '-' + index
+    };
+
+    return _react2.default.createElement(_Label2.default, _extends({}, (0, _ReactUtils.getPresentationAttributes)(entry), others, idProps, {
+      index: index,
+      value: value,
+      viewBox: _Label2.default.parseViewBox((0, _isNil3.default)(clockWise) ? entry : _extends({}, entry, { clockWise: clockWise })),
+      key: 'label-' + index
+    }));
+  }));
+}
+
+LabelList.propTypes = propTypes;
+LabelList.displayName = 'LabelList';
+
+var parseLabelList = function parseLabelList(label, data) {
+  if (!label) {
+    return null;
+  }
+
+  if (label === true) {
+    return _react2.default.createElement(LabelList, { key: 'labelList-implicit', data: data });
+  }
+
+  if (_react2.default.isValidElement(label) || (0, _isFunction3.default)(label)) {
+    return _react2.default.createElement(LabelList, { key: 'labelList-implicit', data: data, content: label });
+  }
+
+  if ((0, _isObject3.default)(label)) {
+    return _react2.default.createElement(LabelList, _extends({ data: data }, label, { key: 'labelList-implicit' }));
+  }
+
+  return null;
+};
+
+var renderCallByParent = function renderCallByParent(parentProps, data) {
+  var ckeckPropsLabel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+  if (!parentProps || !parentProps.children && ckeckPropsLabel && !parentProps.label) {
+    return null;
+  }
+  var children = parentProps.children;
+
+  var explicitChilren = (0, _ReactUtils.findAllByType)(children, LabelList).map(function (child, index) {
+    return (0, _react.cloneElement)(child, {
+      data: data,
+      key: 'labelList-' + index
+    });
+  });
+  if (!ckeckPropsLabel) {
+    return explicitChilren;
+  }
+
+  var implicitLabelList = parseLabelList(parentProps.label, data);
+
+  return [implicitLabelList].concat(_toConsumableArray(explicitChilren));
+};
+
+LabelList.renderCallByParent = renderCallByParent;
+LabelList.defaultProps = defaultProps;
+
+exports.default = LabelList;
+},{"lodash-es/isObject":"../node_modules/lodash-es/isObject.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/isNil":"../node_modules/lodash-es/isNil.js","lodash-es/last":"../node_modules/lodash-es/last.js","lodash-es/isArray":"../node_modules/lodash-es/isArray.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","./Label":"../node_modules/recharts/es6/component/Label.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js"}],"../node_modules/recharts/es6/shape/Sector.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require("classnames");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _ReactUtils = require("../util/ReactUtils");
+
+var _PolarUtils = require("../util/PolarUtils");
+
+var _DataUtils = require("../util/DataUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Sector
+ */
+
+
+var getDeltaAngle = function getDeltaAngle(startAngle, endAngle) {
+  var sign = (0, _DataUtils.mathSign)(endAngle - startAngle);
+  var deltaAngle = Math.min(Math.abs(endAngle - startAngle), 359.999);
+
+  return sign * deltaAngle;
+};
+
+var getTangentCircle = function getTangentCircle(_ref) {
+  var cx = _ref.cx,
+      cy = _ref.cy,
+      radius = _ref.radius,
+      angle = _ref.angle,
+      sign = _ref.sign,
+      isExternal = _ref.isExternal,
+      cornerRadius = _ref.cornerRadius;
+
+  var centerRadius = cornerRadius * (isExternal ? 1 : -1) + radius;
+  var theta = Math.asin(cornerRadius / centerRadius) / _PolarUtils.RADIAN;
+  var centerAngle = angle + sign * theta;
+  var center = (0, _PolarUtils.polarToCartesian)(cx, cy, centerRadius, centerAngle);
+  // The coordinate of point which is tangent to the circle
+  var circleTangency = (0, _PolarUtils.polarToCartesian)(cx, cy, radius, centerAngle);
+  // The coordinate of point which is tangent to the radius line
+  var lineTangency = (0, _PolarUtils.polarToCartesian)(cx, cy, centerRadius * Math.cos(theta * _PolarUtils.RADIAN), angle);
+
+  return { center: center, circleTangency: circleTangency, lineTangency: lineTangency, theta: theta };
+};
+
+var getSectorPath = function getSectorPath(_ref2) {
+  var cx = _ref2.cx,
+      cy = _ref2.cy,
+      innerRadius = _ref2.innerRadius,
+      outerRadius = _ref2.outerRadius,
+      startAngle = _ref2.startAngle,
+      endAngle = _ref2.endAngle;
+
+  var angle = getDeltaAngle(startAngle, endAngle);
+
+  // When the angle of sector equals to 360, star point and end point coincide
+  var tempEndAngle = startAngle + angle;
+  var outerStartPoint = (0, _PolarUtils.polarToCartesian)(cx, cy, outerRadius, startAngle);
+  var outerEndPoint = (0, _PolarUtils.polarToCartesian)(cx, cy, outerRadius, tempEndAngle);
+
+  var path = 'M ' + outerStartPoint.x + ',' + outerStartPoint.y + '\n    A ' + outerRadius + ',' + outerRadius + ',0,\n    ' + +(Math.abs(angle) > 180) + ',' + +(startAngle > tempEndAngle) + ',\n    ' + outerEndPoint.x + ',' + outerEndPoint.y + '\n  ';
+
+  if (innerRadius > 0) {
+    var innerStartPoint = (0, _PolarUtils.polarToCartesian)(cx, cy, innerRadius, startAngle);
+    var innerEndPoint = (0, _PolarUtils.polarToCartesian)(cx, cy, innerRadius, tempEndAngle);
+    path += 'L ' + innerEndPoint.x + ',' + innerEndPoint.y + '\n            A ' + innerRadius + ',' + innerRadius + ',0,\n            ' + +(Math.abs(angle) > 180) + ',' + +(startAngle <= tempEndAngle) + ',\n            ' + innerStartPoint.x + ',' + innerStartPoint.y + ' Z';
+  } else {
+    path += 'L ' + cx + ',' + cy + ' Z';
+  }
+
+  return path;
+};
+
+var getSectorWithCorner = function getSectorWithCorner(_ref3) {
+  var cx = _ref3.cx,
+      cy = _ref3.cy,
+      innerRadius = _ref3.innerRadius,
+      outerRadius = _ref3.outerRadius,
+      cornerRadius = _ref3.cornerRadius,
+      startAngle = _ref3.startAngle,
+      endAngle = _ref3.endAngle;
+
+  var sign = (0, _DataUtils.mathSign)(endAngle - startAngle);
+
+  var _getTangentCircle = getTangentCircle({
+    cx: cx, cy: cy, radius: outerRadius, angle: startAngle, sign: sign, cornerRadius: cornerRadius
+  }),
+      soct = _getTangentCircle.circleTangency,
+      solt = _getTangentCircle.lineTangency,
+      sot = _getTangentCircle.theta;
+
+  var _getTangentCircle2 = getTangentCircle({
+    cx: cx, cy: cy, radius: outerRadius, angle: endAngle, sign: -sign, cornerRadius: cornerRadius
+  }),
+      eoct = _getTangentCircle2.circleTangency,
+      eolt = _getTangentCircle2.lineTangency,
+      eot = _getTangentCircle2.theta;
+
+  var outerArcAngle = Math.abs(startAngle - endAngle) - sot - eot;
+
+  if (outerArcAngle < 0) {
+    return getSectorPath({
+      cx: cx, cy: cy, innerRadius: innerRadius, outerRadius: outerRadius, startAngle: startAngle, endAngle: endAngle
+    });
+  }
+
+  var path = 'M ' + solt.x + ',' + solt.y + '\n    A' + cornerRadius + ',' + cornerRadius + ',0,0,' + +(sign < 0) + ',' + soct.x + ',' + soct.y + '\n    A' + outerRadius + ',' + outerRadius + ',0,' + +(outerArcAngle > 180) + ',' + +(sign < 0) + ',' + eoct.x + ',' + eoct.y + '\n    A' + cornerRadius + ',' + cornerRadius + ',0,0,' + +(sign < 0) + ',' + eolt.x + ',' + eolt.y + '\n  ';
+
+  if (innerRadius > 0) {
+    var _getTangentCircle3 = getTangentCircle({
+      cx: cx, cy: cy, radius: innerRadius, angle: startAngle, sign: sign, isExternal: true, cornerRadius: cornerRadius
+    }),
+        sict = _getTangentCircle3.circleTangency,
+        silt = _getTangentCircle3.lineTangency,
+        sit = _getTangentCircle3.theta;
+
+    var _getTangentCircle4 = getTangentCircle({
+      cx: cx, cy: cy, radius: innerRadius, angle: endAngle, sign: -sign, isExternal: true, cornerRadius: cornerRadius
+    }),
+        eict = _getTangentCircle4.circleTangency,
+        eilt = _getTangentCircle4.lineTangency,
+        eit = _getTangentCircle4.theta;
+
+    var innerArcAngle = Math.abs(startAngle - endAngle) - sit - eit;
+
+    if (innerArcAngle < 0) {
+      return path + 'L' + cx + ',' + cy + 'Z';
+    }
+
+    path += 'L' + eilt.x + ',' + eilt.y + '\n      A' + cornerRadius + ',' + cornerRadius + ',0,0,' + +(sign < 0) + ',' + eict.x + ',' + eict.y + '\n      A' + innerRadius + ',' + innerRadius + ',0,' + +(innerArcAngle > 180) + ',' + +(sign > 0) + ',' + sict.x + ',' + sict.y + '\n      A' + cornerRadius + ',' + cornerRadius + ',0,0,' + +(sign < 0) + ',' + silt.x + ',' + silt.y + 'Z';
+  } else {
+    path += 'L' + cx + ',' + cy + 'Z';
+  }
+
+  return path;
+};
+
+var Sector = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(Sector, _Component);
+
+  function Sector() {
+    _classCallCheck(this, Sector);
+
+    return _possibleConstructorReturn(this, (Sector.__proto__ || Object.getPrototypeOf(Sector)).apply(this, arguments));
+  }
+
+  _createClass(Sector, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          cx = _props.cx,
+          cy = _props.cy,
+          innerRadius = _props.innerRadius,
+          outerRadius = _props.outerRadius,
+          cornerRadius = _props.cornerRadius,
+          startAngle = _props.startAngle,
+          endAngle = _props.endAngle,
+          className = _props.className;
+
+      if (outerRadius < innerRadius || startAngle === endAngle) {
+        return null;
+      }
+
+      var layerClass = (0, _classnames2.default)('recharts-sector', className);
+      var deltaRadius = outerRadius - innerRadius;
+      var cr = (0, _DataUtils.getPercentValue)(cornerRadius, deltaRadius, 0, true);
+      var path = void 0;
+
+      if (cr > 0 && Math.abs(startAngle - endAngle) < 360) {
+        path = getSectorWithCorner({
+          cx: cx, cy: cy, innerRadius: innerRadius, outerRadius: outerRadius,
+          cornerRadius: Math.min(cr, deltaRadius / 2),
+          startAngle: startAngle, endAngle: endAngle
+        });
+      } else {
+        path = getSectorPath({ cx: cx, cy: cy, innerRadius: innerRadius, outerRadius: outerRadius, startAngle: startAngle, endAngle: endAngle });
+      }
+
+      return _react2.default.createElement('path', _extends({}, (0, _ReactUtils.getPresentationAttributes)(this.props), (0, _ReactUtils.filterEventAttributes)(this.props), {
+        className: layerClass,
+        d: path
+      }));
+    }
+  }]);
+
+  return Sector;
+}(_react.Component), _class2.displayName = 'Sector', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, {
+  className: _propTypes2.default.string,
+  cx: _propTypes2.default.number,
+  cy: _propTypes2.default.number,
+  innerRadius: _propTypes2.default.number,
+  outerRadius: _propTypes2.default.number,
+  startAngle: _propTypes2.default.number,
+  endAngle: _propTypes2.default.number,
+  cornerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
+}), _class2.defaultProps = {
+  cx: 0,
+  cy: 0,
+  innerRadius: 0,
+  outerRadius: 0,
+  startAngle: 0,
+  endAngle: 0,
+  cornerRadius: 0
+}, _temp)) || _class;
+
+exports.default = Sector;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/PolarUtils":"../node_modules/recharts/es6/util/PolarUtils.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js"}],"../node_modules/recharts/es6/shape/Curve.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isArray2 = require('lodash-es/isArray');
+
+var _isArray3 = _interopRequireDefault(_isArray2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _d3Shape = require('d3-shape');
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _DataUtils = require('../util/DataUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Curve
+ */
+
+
+var CURVE_FACTORIES = {
+  curveBasisClosed: _d3Shape.curveBasisClosed, curveBasisOpen: _d3Shape.curveBasisOpen, curveBasis: _d3Shape.curveBasis, curveLinearClosed: _d3Shape.curveLinearClosed, curveLinear: _d3Shape.curveLinear,
+  curveMonotoneX: _d3Shape.curveMonotoneX, curveMonotoneY: _d3Shape.curveMonotoneY, curveNatural: _d3Shape.curveNatural, curveStep: _d3Shape.curveStep, curveStepAfter: _d3Shape.curveStepAfter,
+  curveStepBefore: _d3Shape.curveStepBefore
+};
+
+var defined = function defined(p) {
+  return p.x === +p.x && p.y === +p.y;
+};
+var getX = function getX(p) {
+  return p.x;
+};
+var getY = function getY(p) {
+  return p.y;
+};
+
+var getCurveFactory = function getCurveFactory(type, layout) {
+  if ((0, _isFunction3.default)(type)) {
+    return type;
+  }
+
+  var name = 'curve' + type.slice(0, 1).toUpperCase() + type.slice(1);
+
+  if (name === 'curveMonotone' && layout) {
+    return CURVE_FACTORIES['' + name + (layout === 'vertical' ? 'Y' : 'X')];
+  }
+  return CURVE_FACTORIES[name] || _d3Shape.curveLinear;
+};
+
+var Curve = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(Curve, _Component);
+
+  function Curve() {
+    _classCallCheck(this, Curve);
+
+    return _possibleConstructorReturn(this, (Curve.__proto__ || Object.getPrototypeOf(Curve)).apply(this, arguments));
+  }
+
+  _createClass(Curve, [{
+    key: 'getPath',
+
+    /**
+     * Calculate the path of curve
+     * @return {String} path
+     */
+    value: function getPath() {
+      var _props = this.props,
+          type = _props.type,
+          points = _props.points,
+          baseLine = _props.baseLine,
+          layout = _props.layout,
+          connectNulls = _props.connectNulls;
+
+      var curveFactory = getCurveFactory(type, layout);
+      var formatPoints = connectNulls ? points.filter(function (entry) {
+        return defined(entry);
+      }) : points;
+      var lineFunction = void 0;
+
+      if ((0, _isArray3.default)(baseLine)) {
+        var formatBaseLine = connectNulls ? baseLine.filter(function (base) {
+          return defined(base);
+        }) : baseLine;
+        var areaPoints = formatPoints.map(function (entry, index) {
+          return _extends({}, entry, { base: formatBaseLine[index] });
+        });
+        if (layout === 'vertical') {
+          lineFunction = (0, _d3Shape.area)().y(getY).x1(getX).x0(function (d) {
+            return d.base.x;
+          });
+        } else {
+          lineFunction = (0, _d3Shape.area)().x(getX).y1(getY).y0(function (d) {
+            return d.base.y;
+          });
+        }
+        lineFunction.defined(defined).curve(curveFactory);
+
+        return lineFunction(areaPoints);
+      } else if (layout === 'vertical' && (0, _DataUtils.isNumber)(baseLine)) {
+        lineFunction = (0, _d3Shape.area)().y(getY).x1(getX).x0(baseLine);
+      } else if ((0, _DataUtils.isNumber)(baseLine)) {
+        lineFunction = (0, _d3Shape.area)().x(getX).y1(getY).y0(baseLine);
+      } else {
+        lineFunction = (0, _d3Shape.line)().x(getX).y(getY);
+      }
+
+      lineFunction.defined(defined).curve(curveFactory);
+
+      return lineFunction(formatPoints);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          className = _props2.className,
+          points = _props2.points,
+          path = _props2.path,
+          pathRef = _props2.pathRef;
+
+      if ((!points || !points.length) && !path) {
+        return null;
+      }
+
+      var realPath = points && points.length ? this.getPath() : path;
+
+      return _react2.default.createElement('path', _extends({}, (0, _ReactUtils.getPresentationAttributes)(this.props), (0, _ReactUtils.filterEventAttributes)(this.props, null, true), {
+        className: (0, _classnames2.default)('recharts-curve', className),
+        d: realPath,
+        ref: pathRef
+      }));
+    }
+  }]);
+
+  return Curve;
+}(_react.Component), _class2.displayName = 'Curve', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, {
+  className: _propTypes2.default.string,
+  type: _propTypes2.default.oneOfType([_propTypes2.default.oneOf(['basis', 'basisClosed', 'basisOpen', 'linear', 'linearClosed', 'natural', 'monotoneX', 'monotoneY', 'monotone', 'step', 'stepBefore', 'stepAfter']), _propTypes2.default.func]),
+  layout: _propTypes2.default.oneOf(['horizontal', 'vertical']),
+  baseLine: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.array]),
+  points: _propTypes2.default.arrayOf(_propTypes2.default.object),
+  connectNulls: _propTypes2.default.bool,
+  path: _propTypes2.default.string,
+  pathRef: _propTypes2.default.func
+}), _class2.defaultProps = {
+  type: 'linear',
+  points: [],
+  connectNulls: false
+}, _temp)) || _class;
+
+exports.default = Curve;
+},{"lodash-es/isArray":"../node_modules/lodash-es/isArray.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","d3-shape":"../node_modules/d3-shape/index.js","classnames":"../node_modules/classnames/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js"}],"../node_modules/recharts/es6/shape/Polygon.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require("classnames");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _ReactUtils = require("../util/ReactUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Polygon
+ */
+
+
+var getPolygonPoints = function getPolygonPoints(points) {
+  return points.reduce(function (result, entry) {
+    if (entry.x === +entry.x && entry.y === +entry.y) {
+      result.push([entry.x, entry.y]);
+    }
+
+    return result;
+  }, []).join(' ');
+};
+
+var Polygon = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(Polygon, _Component);
+
+  function Polygon() {
+    _classCallCheck(this, Polygon);
+
+    return _possibleConstructorReturn(this, (Polygon.__proto__ || Object.getPrototypeOf(Polygon)).apply(this, arguments));
+  }
+
+  _createClass(Polygon, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          points = _props.points,
+          className = _props.className;
+
+      if (!points || !points.length) {
+        return null;
+      }
+
+      var layerClass = (0, _classnames2.default)('recharts-polygon', className);
+
+      return _react2.default.createElement('polygon', _extends({}, (0, _ReactUtils.getPresentationAttributes)(this.props), (0, _ReactUtils.filterEventAttributes)(this.props), {
+        className: layerClass,
+        points: getPolygonPoints(points)
+      }));
+    }
+  }]);
+
+  return Polygon;
+}(_react.Component), _class2.displayName = 'Polygon', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, {
+  className: _propTypes2.default.string,
+  points: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    x: _propTypes2.default.number,
+    y: _propTypes2.default.number
+  }))
+}), _temp)) || _class;
+
+exports.default = Polygon;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js"}],"../node_modules/recharts/es6/shape/Cross.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require("classnames");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _DataUtils = require("../util/DataUtils");
+
+var _ReactUtils = require("../util/ReactUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Cross
+ */
+
+
+var Cross = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(Cross, _Component);
+
+  function Cross() {
+    _classCallCheck(this, Cross);
+
+    return _possibleConstructorReturn(this, (Cross.__proto__ || Object.getPrototypeOf(Cross)).apply(this, arguments));
+  }
+
+  _createClass(Cross, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          x = _props.x,
+          y = _props.y,
+          width = _props.width,
+          height = _props.height,
+          top = _props.top,
+          left = _props.left,
+          className = _props.className;
+
+      if (!(0, _DataUtils.isNumber)(x) || !(0, _DataUtils.isNumber)(y) || !(0, _DataUtils.isNumber)(width) || !(0, _DataUtils.isNumber)(height) || !(0, _DataUtils.isNumber)(top) || !(0, _DataUtils.isNumber)(left)) {
+        return null;
+      }
+
+      return _react2.default.createElement('path', _extends({}, (0, _ReactUtils.getPresentationAttributes)(this.props), {
+        className: (0, _classnames2.default)('recharts-cross', className),
+        d: this.constructor.getPath(x, y, width, height, top, left)
+      }));
+    }
+  }], [{
+    key: 'getPath',
+    value: function getPath(x, y, width, height, top, left) {
+      return 'M' + x + ',' + top + 'v' + height + 'M' + left + ',' + y + 'h' + width;
+    }
+  }]);
+
+  return Cross;
+}(_react.Component), _class2.displayName = 'Cross', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, {
+  x: _propTypes2.default.number,
+  y: _propTypes2.default.number,
+  width: _propTypes2.default.number,
+  height: _propTypes2.default.number,
+  top: _propTypes2.default.number,
+  left: _propTypes2.default.number,
+  className: _propTypes2.default.string
+}), _class2.defaultProps = {
+  x: 0,
+  y: 0,
+  top: 0,
+  left: 0,
+  width: 0,
+  height: 0
+}, _temp)) || _class;
+
+exports.default = Cross;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js"}],"../node_modules/recharts/es6/polar/PolarGrid.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _PolarUtils = require("../util/PolarUtils");
+
+var _ReactUtils = require("../util/ReactUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Polar Grid
+ */
+
+
+var PolarGrid = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(PolarGrid, _Component);
+
+  function PolarGrid() {
+    _classCallCheck(this, PolarGrid);
+
+    return _possibleConstructorReturn(this, (PolarGrid.__proto__ || Object.getPrototypeOf(PolarGrid)).apply(this, arguments));
+  }
+
+  _createClass(PolarGrid, [{
+    key: 'getPolygonPath',
+    value: function getPolygonPath(radius) {
+      var _props = this.props,
+          cx = _props.cx,
+          cy = _props.cy,
+          polarAngles = _props.polarAngles;
+
+      var path = '';
+
+      polarAngles.forEach(function (angle, i) {
+        var point = (0, _PolarUtils.polarToCartesian)(cx, cy, radius, angle);
+
+        if (i) {
+          path += 'L ' + point.x + ',' + point.y;
+        } else {
+          path += 'M ' + point.x + ',' + point.y;
+        }
+      });
+      path += 'Z';
+
+      return path;
+    }
+    /**
+     * Draw axis of radial line
+     * @return {[type]} The lines
+     */
+
+  }, {
+    key: 'renderPolarAngles',
+    value: function renderPolarAngles() {
+      var _props2 = this.props,
+          cx = _props2.cx,
+          cy = _props2.cy,
+          innerRadius = _props2.innerRadius,
+          outerRadius = _props2.outerRadius,
+          polarAngles = _props2.polarAngles;
+
+      if (!polarAngles || !polarAngles.length) {
+        return null;
+      }
+      var props = _extends({
+        stroke: '#ccc'
+      }, (0, _ReactUtils.getPresentationAttributes)(this.props));
+
+      return _react2.default.createElement('g', { className: 'recharts-polar-grid-angle' }, polarAngles.map(function (entry, i) {
+        var start = (0, _PolarUtils.polarToCartesian)(cx, cy, innerRadius, entry);
+        var end = (0, _PolarUtils.polarToCartesian)(cx, cy, outerRadius, entry);
+
+        return _react2.default.createElement('line', _extends({}, props, {
+          key: 'line-' + i,
+          x1: start.x,
+          y1: start.y,
+          x2: end.x,
+          y2: end.y
+        }));
+      }));
+    }
+    /**
+     * Draw concentric circles
+     * @param {Number} radius The radius of circle
+     * @param {Number} index  The index of circle
+     * @param {Object} extraProps Extra props
+     * @return {ReactElement} circle
+     */
+
+  }, {
+    key: 'renderConcentricCircle',
+    value: function renderConcentricCircle(radius, index, extraProps) {
+      var _props3 = this.props,
+          cx = _props3.cx,
+          cy = _props3.cy;
+
+      var props = _extends({
+        stroke: '#ccc'
+      }, (0, _ReactUtils.getPresentationAttributes)(this.props), {
+        fill: 'none'
+      }, extraProps);
+
+      return _react2.default.createElement('circle', _extends({}, props, {
+        className: 'recharts-polar-grid-concentric-circle',
+        key: 'circle-' + index,
+        cx: cx,
+        cy: cy,
+        r: radius
+      }));
+    }
+    /**
+     * Draw concentric polygons
+     * @param {Number} radius     The radius of polygon
+     * @param {Number} index      The index of polygon
+     * @param {Object} extraProps Extra props
+     * @return {ReactElement} polygon
+     */
+
+  }, {
+    key: 'renderConcentricPolygon',
+    value: function renderConcentricPolygon(radius, index, extraProps) {
+      var props = _extends({
+        stroke: '#ccc'
+      }, (0, _ReactUtils.getPresentationAttributes)(this.props), {
+        fill: 'none'
+      }, extraProps);
+
+      return _react2.default.createElement('path', _extends({}, props, {
+        className: 'recharts-polar-grid-concentric-polygon',
+        key: 'path-' + index,
+        d: this.getPolygonPath(radius)
+      }));
+    }
+
+    /**
+     * Draw concentric axis
+     * @return {ReactElement} Concentric axis
+     * @todo Optimize the name
+     */
+
+  }, {
+    key: 'renderConcentricPath',
+    value: function renderConcentricPath() {
+      var _this2 = this;
+
+      var _props4 = this.props,
+          polarRadius = _props4.polarRadius,
+          gridType = _props4.gridType;
+
+      if (!polarRadius || !polarRadius.length) {
+        return null;
+      }
+
+      return _react2.default.createElement('g', { className: 'recharts-polar-grid-concentric' }, polarRadius.map(function (entry, i) {
+        return gridType === 'circle' ? _this2.renderConcentricCircle(entry, i) : _this2.renderConcentricPolygon(entry, i);
+      }));
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var outerRadius = this.props.outerRadius;
+
+      if (outerRadius <= 0) {
+        return null;
+      }
+
+      return _react2.default.createElement('g', { className: 'recharts-polar-grid' }, this.renderPolarAngles(), this.renderConcentricPath());
+    }
+  }]);
+
+  return PolarGrid;
+}(_react.Component), _class2.displayName = 'PolarGrid', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, {
+  cx: _propTypes2.default.number,
+  cy: _propTypes2.default.number,
+  innerRadius: _propTypes2.default.number,
+  outerRadius: _propTypes2.default.number,
+
+  polarAngles: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  polarRadius: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  gridType: _propTypes2.default.oneOf(['polygon', 'circle'])
+}), _class2.defaultProps = {
+  cx: 0,
+  cy: 0,
+  innerRadius: 0,
+  outerRadius: 0,
+  gridType: 'polygon'
+}, _temp)) || _class;
+
+exports.default = PolarGrid;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/PolarUtils":"../node_modules/recharts/es6/util/PolarUtils.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js"}],"../node_modules/lodash-es/minBy.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseExtremum = require('./_baseExtremum.js');
+
+var _baseExtremum2 = _interopRequireDefault(_baseExtremum);
+
+var _baseIteratee = require('./_baseIteratee.js');
+
+var _baseIteratee2 = _interopRequireDefault(_baseIteratee);
+
+var _baseLt = require('./_baseLt.js');
+
+var _baseLt2 = _interopRequireDefault(_baseLt);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * This method is like `_.min` except that it accepts `iteratee` which is
+ * invoked for each element in `array` to generate the criterion by which
+ * the value is ranked. The iteratee is invoked with one argument: (value).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Math
+ * @param {Array} array The array to iterate over.
+ * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
+ * @returns {*} Returns the minimum value.
+ * @example
+ *
+ * var objects = [{ 'n': 1 }, { 'n': 2 }];
+ *
+ * _.minBy(objects, function(o) { return o.n; });
+ * // => { 'n': 1 }
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.minBy(objects, 'n');
+ * // => { 'n': 1 }
+ */
+function minBy(array, iteratee) {
+  return array && array.length ? (0, _baseExtremum2.default)(array, (0, _baseIteratee2.default)(iteratee, 2), _baseLt2.default) : undefined;
+}
+
+exports.default = minBy;
+},{"./_baseExtremum.js":"../node_modules/lodash-es/_baseExtremum.js","./_baseIteratee.js":"../node_modules/lodash-es/_baseIteratee.js","./_baseLt.js":"../node_modules/lodash-es/_baseLt.js"}],"../node_modules/lodash-es/maxBy.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseExtremum = require('./_baseExtremum.js');
+
+var _baseExtremum2 = _interopRequireDefault(_baseExtremum);
+
+var _baseGt = require('./_baseGt.js');
+
+var _baseGt2 = _interopRequireDefault(_baseGt);
+
+var _baseIteratee = require('./_baseIteratee.js');
+
+var _baseIteratee2 = _interopRequireDefault(_baseIteratee);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * This method is like `_.max` except that it accepts `iteratee` which is
+ * invoked for each element in `array` to generate the criterion by which
+ * the value is ranked. The iteratee is invoked with one argument: (value).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Math
+ * @param {Array} array The array to iterate over.
+ * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
+ * @returns {*} Returns the maximum value.
+ * @example
+ *
+ * var objects = [{ 'n': 1 }, { 'n': 2 }];
+ *
+ * _.maxBy(objects, function(o) { return o.n; });
+ * // => { 'n': 2 }
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.maxBy(objects, 'n');
+ * // => { 'n': 2 }
+ */
+function maxBy(array, iteratee) {
+  return array && array.length ? (0, _baseExtremum2.default)(array, (0, _baseIteratee2.default)(iteratee, 2), _baseGt2.default) : undefined;
+}
+
+exports.default = maxBy;
+},{"./_baseExtremum.js":"../node_modules/lodash-es/_baseExtremum.js","./_baseGt.js":"../node_modules/lodash-es/_baseGt.js","./_baseIteratee.js":"../node_modules/lodash-es/_baseIteratee.js"}],"../node_modules/recharts/es6/polar/PolarRadiusAxis.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _minBy2 = require('lodash-es/minBy');
+
+var _minBy3 = _interopRequireDefault(_minBy2);
+
+var _maxBy2 = require('lodash-es/maxBy');
+
+var _maxBy3 = _interopRequireDefault(_maxBy2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _Text = require('../component/Text');
+
+var _Text2 = _interopRequireDefault(_Text);
+
+var _Label = require('../component/Label');
+
+var _Label2 = _interopRequireDefault(_Label);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _PolarUtils = require('../util/PolarUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview The axis of polar coordinate system
+ */
+
+
+var PolarRadiusAxis = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(PolarRadiusAxis, _Component);
+
+  function PolarRadiusAxis() {
+    _classCallCheck(this, PolarRadiusAxis);
+
+    return _possibleConstructorReturn(this, (PolarRadiusAxis.__proto__ || Object.getPrototypeOf(PolarRadiusAxis)).apply(this, arguments));
+  }
+
+  _createClass(PolarRadiusAxis, [{
+    key: 'getTickValueCoord',
+
+    /**
+     * Calculate the coordinate of tick
+     * @param  {Number} coordinate The radius of tick
+     * @return {Object} (x, y)
+     */
+    value: function getTickValueCoord(_ref) {
+      var coordinate = _ref.coordinate;
+      var _props = this.props,
+          angle = _props.angle,
+          cx = _props.cx,
+          cy = _props.cy;
+
+      return (0, _PolarUtils.polarToCartesian)(cx, cy, coordinate, angle);
+    }
+  }, {
+    key: 'getTickTextAnchor',
+    value: function getTickTextAnchor() {
+      var orientation = this.props.orientation;
+
+      var textAnchor = void 0;
+
+      switch (orientation) {
+        case 'left':
+          textAnchor = 'end';
+          break;
+        case 'right':
+          textAnchor = 'start';
+          break;
+        default:
+          textAnchor = 'middle';
+          break;
+      }
+
+      return textAnchor;
+    }
+  }, {
+    key: 'getViewBox',
+    value: function getViewBox() {
+      var _props2 = this.props,
+          cx = _props2.cx,
+          cy = _props2.cy,
+          angle = _props2.angle,
+          ticks = _props2.ticks;
+
+      var maxRadiusTick = (0, _maxBy3.default)(ticks, function (entry) {
+        return entry.coordinate || 0;
+      });
+      var minRadiusTick = (0, _minBy3.default)(ticks, function (entry) {
+        return entry.coordinate || 0;
+      });
+
+      return {
+        cx: cx, cy: cy,
+        startAngle: angle,
+        endAngle: angle,
+        innerRadius: minRadiusTick.coordinate || 0,
+        outerRadius: maxRadiusTick.coordinate || 0
+      };
+    }
+  }, {
+    key: 'renderAxisLine',
+    value: function renderAxisLine() {
+      var _props3 = this.props,
+          cx = _props3.cx,
+          cy = _props3.cy,
+          angle = _props3.angle,
+          ticks = _props3.ticks,
+          axisLine = _props3.axisLine,
+          others = _objectWithoutProperties(_props3, ['cx', 'cy', 'angle', 'ticks', 'axisLine']);
+
+      var extent = ticks.reduce(function (result, entry) {
+        return [Math.min(result[0], entry.coordinate), Math.max(result[1], entry.coordinate)];
+      }, [Infinity, -Infinity]);
+      var point0 = (0, _PolarUtils.polarToCartesian)(cx, cy, extent[0], angle);
+      var point1 = (0, _PolarUtils.polarToCartesian)(cx, cy, extent[1], angle);
+
+      var props = _extends({}, (0, _ReactUtils.getPresentationAttributes)(others), {
+        fill: 'none'
+      }, (0, _ReactUtils.getPresentationAttributes)(axisLine), {
+        x1: point0.x,
+        y1: point0.y,
+        x2: point1.x,
+        y2: point1.y
+      });
+
+      return _react2.default.createElement('line', _extends({ className: 'recharts-polar-radius-axis-line' }, props));
+    }
+  }, {
+    key: 'renderTicks',
+    value: function renderTicks() {
+      var _this2 = this;
+
+      var _props4 = this.props,
+          ticks = _props4.ticks,
+          tick = _props4.tick,
+          angle = _props4.angle,
+          tickFormatter = _props4.tickFormatter,
+          stroke = _props4.stroke,
+          others = _objectWithoutProperties(_props4, ['ticks', 'tick', 'angle', 'tickFormatter', 'stroke']);
+
+      var textAnchor = this.getTickTextAnchor();
+      var axisProps = (0, _ReactUtils.getPresentationAttributes)(others);
+      var customTickProps = (0, _ReactUtils.getPresentationAttributes)(tick);
+
+      var items = ticks.map(function (entry, i) {
+        var coord = _this2.getTickValueCoord(entry);
+        var tickProps = _extends({
+          textAnchor: textAnchor,
+          transform: 'rotate(' + (90 - angle) + ', ' + coord.x + ', ' + coord.y + ')'
+        }, axisProps, {
+          stroke: 'none', fill: stroke
+        }, customTickProps, {
+          index: i
+        }, coord, {
+          payload: entry
+        });
+
+        return _react2.default.createElement(_Layer2.default, _extends({
+          className: 'recharts-polar-radius-axis-tick',
+          key: 'tick-' + i
+        }, (0, _ReactUtils.filterEventsOfChild)(_this2.props, entry, i)), _this2.constructor.renderTickItem(tick, tickProps, tickFormatter ? tickFormatter(entry.value) : entry.value));
+      });
+
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-polar-radius-axis-ticks' }, items);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props5 = this.props,
+          ticks = _props5.ticks,
+          axisLine = _props5.axisLine,
+          tick = _props5.tick;
+
+      if (!ticks || !ticks.length) {
+        return null;
+      }
+
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-polar-radius-axis' }, axisLine && this.renderAxisLine(), tick && this.renderTicks(), _Label2.default.renderCallByParent(this.props, this.getViewBox()));
+    }
+  }], [{
+    key: 'renderTickItem',
+    value: function renderTickItem(option, props, value) {
+      var tickItem = void 0;
+
+      if (_react2.default.isValidElement(option)) {
+        tickItem = _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        tickItem = option(props);
+      } else {
+        tickItem = _react2.default.createElement(_Text2.default, _extends({}, props, {
+          className: 'recharts-polar-radius-axis-tick-value'
+        }), value);
+      }
+
+      return tickItem;
+    }
+  }]);
+
+  return PolarRadiusAxis;
+}(_react.Component), _class2.displayName = 'PolarRadiusAxis', _class2.axisType = 'radiusAxis', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, _ReactUtils.EVENT_ATTRIBUTES, {
+  type: _propTypes2.default.oneOf(['number', 'category']),
+  cx: _propTypes2.default.number,
+  cy: _propTypes2.default.number,
+  hide: _propTypes2.default.bool,
+  radiusAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+
+  angle: _propTypes2.default.number,
+  tickCount: _propTypes2.default.number,
+  ticks: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    value: _propTypes2.default.any,
+    coordinate: _propTypes2.default.number
+  })),
+  orientation: _propTypes2.default.oneOf(['left', 'right', 'middle']),
+  axisLine: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.object]),
+  tick: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.object, _propTypes2.default.element, _propTypes2.default.func]),
+  stroke: _propTypes2.default.string,
+  tickFormatter: _propTypes2.default.func,
+  domain: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.oneOf(['auto', 'dataMin', 'dataMax'])])),
+  scale: _propTypes2.default.oneOfType([_propTypes2.default.oneOf(['auto', 'linear', 'pow', 'sqrt', 'log', 'identity', 'time', 'band', 'point', 'ordinal', 'quantile', 'quantize', 'utc', 'sequential', 'threshold']), _propTypes2.default.func]),
+  allowDataOverflow: _propTypes2.default.bool,
+  allowDuplicatedCategory: _propTypes2.default.bool
+}), _class2.defaultProps = {
+  type: 'number',
+  radiusAxisId: 0,
+  cx: 0,
+  cy: 0,
+  angle: 0,
+  orientation: 'right',
+  stroke: '#ccc',
+  axisLine: true,
+  tick: true,
+  tickCount: 5,
+  domain: [0, 'auto'],
+  allowDataOverflow: false,
+  scale: 'auto',
+  allowDuplicatedCategory: true
+}, _temp)) || _class;
+
+exports.default = PolarRadiusAxis;
+},{"lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/minBy":"../node_modules/lodash-es/minBy.js","lodash-es/maxBy":"../node_modules/lodash-es/maxBy.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../component/Text":"../node_modules/recharts/es6/component/Text.js","../component/Label":"../node_modules/recharts/es6/component/Label.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/PolarUtils":"../node_modules/recharts/es6/util/PolarUtils.js"}],"../node_modules/recharts/es6/polar/PolarAngleAxis.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isFunction2 = require("lodash-es/isFunction");
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _Layer = require("../container/Layer");
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _ReactUtils = require("../util/ReactUtils");
+
+var _Dot = require("../shape/Dot");
+
+var _Dot2 = _interopRequireDefault(_Dot);
+
+var _Polygon = require("../shape/Polygon");
+
+var _Polygon2 = _interopRequireDefault(_Polygon);
+
+var _Text = require("../component/Text");
+
+var _Text2 = _interopRequireDefault(_Text);
+
+var _PolarUtils = require("../util/PolarUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Axis of radial direction
+ */
+
+
+var RADIAN = Math.PI / 180;
+var eps = 1e-5;
+
+var PolarAngleAxis = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(PolarAngleAxis, _Component);
+
+  function PolarAngleAxis() {
+    _classCallCheck(this, PolarAngleAxis);
+
+    return _possibleConstructorReturn(this, (PolarAngleAxis.__proto__ || Object.getPrototypeOf(PolarAngleAxis)).apply(this, arguments));
+  }
+
+  _createClass(PolarAngleAxis, [{
+    key: 'getTickLineCoord',
+
+    /**
+     * Calculate the coordinate of line endpoint
+     * @param  {Object} data The Data if ticks
+     * @return {Object} (x0, y0): The start point of text,
+     *                  (x1, y1): The end point close to text,
+     *                  (x2, y2): The end point close to axis
+     */
+    value: function getTickLineCoord(data) {
+      var _props = this.props,
+          cx = _props.cx,
+          cy = _props.cy,
+          radius = _props.radius,
+          orientation = _props.orientation,
+          tickLine = _props.tickLine;
+
+      var tickLineSize = tickLine && tickLine.size || 8;
+      var p1 = (0, _PolarUtils.polarToCartesian)(cx, cy, radius, data.coordinate);
+      var p2 = (0, _PolarUtils.polarToCartesian)(cx, cy, radius + (orientation === 'inner' ? -1 : 1) * tickLineSize, data.coordinate);
+
+      return { x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y };
+    }
+    /**
+     * Get the text-anchor of each tick
+     * @param  {Object} data Data of ticks
+     * @return {String} text-anchor
+     */
+
+  }, {
+    key: 'getTickTextAnchor',
+    value: function getTickTextAnchor(data) {
+      var orientation = this.props.orientation;
+
+      var cos = Math.cos(-data.coordinate * RADIAN);
+      var textAnchor = void 0;
+
+      if (cos > eps) {
+        textAnchor = orientation === 'outer' ? 'start' : 'end';
+      } else if (cos < -eps) {
+        textAnchor = orientation === 'outer' ? 'end' : 'start';
+      } else {
+        textAnchor = 'middle';
+      }
+
+      return textAnchor;
+    }
+  }, {
+    key: 'renderAxisLine',
+    value: function renderAxisLine() {
+      var _props2 = this.props,
+          cx = _props2.cx,
+          cy = _props2.cy,
+          radius = _props2.radius,
+          axisLine = _props2.axisLine,
+          axisLineType = _props2.axisLineType;
+
+      var props = _extends({}, (0, _ReactUtils.getPresentationAttributes)(this.props), {
+        fill: 'none'
+      }, (0, _ReactUtils.getPresentationAttributes)(axisLine));
+
+      if (axisLineType === 'circle') {
+        return _react2.default.createElement(_Dot2.default, _extends({
+          className: 'recharts-polar-angle-axis-line'
+        }, props, {
+          cx: cx,
+          cy: cy,
+          r: radius
+        }));
+      }
+      var ticks = this.props.ticks;
+
+      var points = ticks.map(function (entry) {
+        return (0, _PolarUtils.polarToCartesian)(cx, cy, radius, entry.coordinate);
+      });
+
+      return _react2.default.createElement(_Polygon2.default, _extends({ className: 'recharts-polar-angle-axis-line' }, props, { points: points }));
+    }
+  }, {
+    key: 'renderTicks',
+    value: function renderTicks() {
+      var _this2 = this;
+
+      var _props3 = this.props,
+          ticks = _props3.ticks,
+          tick = _props3.tick,
+          tickLine = _props3.tickLine,
+          tickFormatter = _props3.tickFormatter,
+          stroke = _props3.stroke;
+
+      var axisProps = (0, _ReactUtils.getPresentationAttributes)(this.props);
+      var customTickProps = (0, _ReactUtils.getPresentationAttributes)(tick);
+      var tickLineProps = _extends({}, axisProps, { fill: 'none' }, (0, _ReactUtils.getPresentationAttributes)(tickLine));
+
+      var items = ticks.map(function (entry, i) {
+        var lineCoord = _this2.getTickLineCoord(entry);
+        var textAnchor = _this2.getTickTextAnchor(entry);
+        var tickProps = _extends({
+          textAnchor: textAnchor
+        }, axisProps, {
+          stroke: 'none', fill: stroke
+        }, customTickProps, {
+          index: i, payload: entry,
+          x: lineCoord.x2, y: lineCoord.y2
+        });
+
+        return _react2.default.createElement(_Layer2.default, _extends({
+          className: 'recharts-polar-angle-axis-tick',
+          key: 'tick-' + i
+        }, (0, _ReactUtils.filterEventsOfChild)(_this2.props, entry, i)), tickLine && _react2.default.createElement('line', _extends({
+          className: 'recharts-polar-angle-axis-tick-line'
+        }, tickLineProps, lineCoord)), tick && _this2.constructor.renderTickItem(tick, tickProps, tickFormatter ? tickFormatter(entry.value) : entry.value));
+      });
+
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-polar-angle-axis-ticks' }, items);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props4 = this.props,
+          ticks = _props4.ticks,
+          radius = _props4.radius,
+          axisLine = _props4.axisLine;
+
+      if (radius <= 0 || !ticks || !ticks.length) {
+        return null;
+      }
+
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-polar-angle-axis' }, axisLine && this.renderAxisLine(), this.renderTicks());
+    }
+  }], [{
+    key: 'renderTickItem',
+    value: function renderTickItem(option, props, value) {
+      var tickItem = void 0;
+
+      if (_react2.default.isValidElement(option)) {
+        tickItem = _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        tickItem = option(props);
+      } else {
+        tickItem = _react2.default.createElement(_Text2.default, _extends({}, props, {
+          className: 'recharts-polar-angle-axis-tick-value'
+        }), value);
+      }
+
+      return tickItem;
+    }
+  }]);
+
+  return PolarAngleAxis;
+}(_react.Component), _class2.displayName = 'PolarAngleAxis', _class2.axisType = 'angleAxis', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, _ReactUtils.EVENT_ATTRIBUTES, {
+  type: _propTypes2.default.oneOf(['number', 'category']),
+  angleAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string, _propTypes2.default.func]),
+  cx: _propTypes2.default.number,
+  cy: _propTypes2.default.number,
+  radius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  hide: _propTypes2.default.bool,
+  scale: _propTypes2.default.oneOfType([_propTypes2.default.oneOf(_ReactUtils.SCALE_TYPES), _propTypes2.default.func]),
+
+  axisLine: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.object]),
+  axisLineType: _propTypes2.default.oneOf(['polygon', 'circle']),
+  tickLine: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.object]),
+  tick: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.func, _propTypes2.default.object, _propTypes2.default.element]),
+
+  ticks: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    value: _propTypes2.default.any,
+    coordinate: _propTypes2.default.number
+  })),
+  stroke: _propTypes2.default.string,
+  orientation: _propTypes2.default.oneOf(['inner', 'outer']),
+  tickFormatter: _propTypes2.default.func,
+  allowDuplicatedCategory: _propTypes2.default.bool
+}), _class2.defaultProps = {
+  type: 'category',
+  angleAxisId: 0,
+  scale: 'auto',
+  cx: 0,
+  cy: 0,
+  domain: [0, 'auto'],
+  orientation: 'outer',
+  axisLine: true,
+  tickLine: true,
+  tick: true,
+  hide: false,
+  allowDuplicatedCategory: true
+}, _temp)) || _class;
+
+exports.default = PolarAngleAxis;
+},{"lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../shape/Dot":"../node_modules/recharts/es6/shape/Dot.js","../shape/Polygon":"../node_modules/recharts/es6/shape/Polygon.js","../component/Text":"../node_modules/recharts/es6/component/Text.js","../util/PolarUtils":"../node_modules/recharts/es6/util/PolarUtils.js"}],"../node_modules/lodash-es/_getPrototype.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _overArg = require('./_overArg.js');
+
+var _overArg2 = _interopRequireDefault(_overArg);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** Built-in value references. */
+var getPrototype = (0, _overArg2.default)(Object.getPrototypeOf, Object);
+
+exports.default = getPrototype;
+},{"./_overArg.js":"../node_modules/lodash-es/_overArg.js"}],"../node_modules/lodash-es/isPlainObject.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseGetTag = require('./_baseGetTag.js');
+
+var _baseGetTag2 = _interopRequireDefault(_baseGetTag);
+
+var _getPrototype = require('./_getPrototype.js');
+
+var _getPrototype2 = _interopRequireDefault(_getPrototype);
+
+var _isObjectLike = require('./isObjectLike.js');
+
+var _isObjectLike2 = _interopRequireDefault(_isObjectLike);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** `Object#toString` result references. */
+var objectTag = '[object Object]';
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to infer the `Object` constructor. */
+var objectCtorString = funcToString.call(Object);
+
+/**
+ * Checks if `value` is a plain object, that is, an object created by the
+ * `Object` constructor or one with a `[[Prototype]]` of `null`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.8.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ * }
+ *
+ * _.isPlainObject(new Foo);
+ * // => false
+ *
+ * _.isPlainObject([1, 2, 3]);
+ * // => false
+ *
+ * _.isPlainObject({ 'x': 0, 'y': 0 });
+ * // => true
+ *
+ * _.isPlainObject(Object.create(null));
+ * // => true
+ */
+function isPlainObject(value) {
+  if (!(0, _isObjectLike2.default)(value) || (0, _baseGetTag2.default)(value) != objectTag) {
+    return false;
+  }
+  var proto = (0, _getPrototype2.default)(value);
+  if (proto === null) {
+    return true;
+  }
+  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+  return typeof Ctor == 'function' && Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString;
+}
+
+exports.default = isPlainObject;
+},{"./_baseGetTag.js":"../node_modules/lodash-es/_baseGetTag.js","./_getPrototype.js":"../node_modules/lodash-es/_getPrototype.js","./isObjectLike.js":"../node_modules/lodash-es/isObjectLike.js"}],"../node_modules/recharts/es6/polar/Pie.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isEqual2 = require('lodash-es/isEqual');
+
+var _isEqual3 = _interopRequireDefault(_isEqual2);
+
+var _isPlainObject2 = require('lodash-es/isPlainObject');
+
+var _isPlainObject3 = _interopRequireDefault(_isPlainObject2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _isNil2 = require('lodash-es/isNil');
+
+var _isNil3 = _interopRequireDefault(_isNil2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactSmooth = require('react-smooth');
+
+var _reactSmooth2 = _interopRequireDefault(_reactSmooth);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _Sector = require('../shape/Sector');
+
+var _Sector2 = _interopRequireDefault(_Sector);
+
+var _Curve = require('../shape/Curve');
+
+var _Curve2 = _interopRequireDefault(_Curve);
+
+var _Text = require('../component/Text');
+
+var _Text2 = _interopRequireDefault(_Text);
+
+var _Label = require('../component/Label');
+
+var _Label2 = _interopRequireDefault(_Label);
+
+var _LabelList = require('../component/LabelList');
+
+var _LabelList2 = _interopRequireDefault(_LabelList);
+
+var _Cell = require('../component/Cell');
+
+var _Cell2 = _interopRequireDefault(_Cell);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _PolarUtils = require('../util/PolarUtils');
+
+var _DataUtils = require('../util/DataUtils');
+
+var _ChartUtils = require('../util/ChartUtils');
+
+var _LogUtils = require('../util/LogUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp2;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Render sectors of a pie
+ */
+
+
+var Pie = (0, _PureRender2.default)(_class = (_temp2 = _class2 = function (_Component) {
+  _inherits(Pie, _Component);
+
+  function Pie() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Pie);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Pie.__proto__ || Object.getPrototypeOf(Pie)).call.apply(_ref, [this].concat(args))), _this), _this.state = { isAnimationFinished: false }, _this.id = (0, _DataUtils.uniqueId)('recharts-pie-'), _this.cachePrevData = function (sectors) {
+      _this.setState({ prevSectors: sectors });
+    }, _this.handleAnimationEnd = function () {
+      var onAnimationEnd = _this.props.onAnimationEnd;
+
+      _this.setState({
+        isAnimationFinished: true
+      });
+
+      if ((0, _isFunction3.default)(onAnimationEnd)) {
+        onAnimationEnd();
+      }
+    }, _this.handleAnimationStart = function () {
+      var onAnimationStart = _this.props.onAnimationStart;
+
+      _this.setState({
+        isAnimationFinished: false
+      });
+
+      if ((0, _isFunction3.default)(onAnimationStart)) {
+        onAnimationStart();
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Pie, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _props = this.props,
+          animationId = _props.animationId,
+          sectors = _props.sectors;
+
+      if (nextProps.isAnimationActive !== this.props.isAnimationActive) {
+        this.cachePrevData([]);
+      } else if (nextProps.animationId !== animationId) {
+        this.cachePrevData(sectors);
+      }
+    }
+  }, {
+    key: 'isActiveIndex',
+    value: function isActiveIndex(i) {
+      var activeIndex = this.props.activeIndex;
+
+      if (Array.isArray(activeIndex)) {
+        return activeIndex.indexOf(i) !== -1;
+      }
+
+      return i === activeIndex;
+    }
+  }, {
+    key: 'renderLabels',
+    value: function renderLabels(sectors) {
+      var _this2 = this;
+
+      var isAnimationActive = this.props.isAnimationActive;
+
+      if (isAnimationActive && !this.state.isAnimationFinished) {
+        return null;
+      }
+      var _props2 = this.props,
+          label = _props2.label,
+          labelLine = _props2.labelLine,
+          dataKey = _props2.dataKey,
+          valueKey = _props2.valueKey;
+
+      var pieProps = (0, _ReactUtils.getPresentationAttributes)(this.props);
+      var customLabelProps = (0, _ReactUtils.getPresentationAttributes)(label);
+      var customLabelLineProps = (0, _ReactUtils.getPresentationAttributes)(labelLine);
+      var offsetRadius = label && label.offsetRadius || 20;
+
+      var labels = sectors.map(function (entry, i) {
+        var midAngle = (entry.startAngle + entry.endAngle) / 2;
+        var endPoint = (0, _PolarUtils.polarToCartesian)(entry.cx, entry.cy, entry.outerRadius + offsetRadius, midAngle);
+        var labelProps = _extends({}, pieProps, entry, {
+          stroke: 'none'
+        }, customLabelProps, {
+          index: i,
+          textAnchor: _this2.constructor.getTextAnchor(endPoint.x, entry.cx)
+        }, endPoint);
+        var lineProps = _extends({}, pieProps, entry, {
+          fill: 'none',
+          stroke: entry.fill
+        }, customLabelLineProps, {
+          index: i,
+          points: [(0, _PolarUtils.polarToCartesian)(entry.cx, entry.cy, entry.outerRadius, midAngle), endPoint]
+        });
+        var realDataKey = dataKey;
+        // TODO: compatible to lower versions
+        if ((0, _isNil3.default)(dataKey) && (0, _isNil3.default)(valueKey)) {
+          realDataKey = 'value';
+        } else if ((0, _isNil3.default)(dataKey)) {
+          realDataKey = valueKey;
+        }
+
+        return _react2.default.createElement(_Layer2.default, { key: 'label-' + i }, labelLine && _this2.constructor.renderLabelLineItem(labelLine, lineProps), _this2.constructor.renderLabelItem(label, labelProps, (0, _ChartUtils.getValueByDataKey)(entry, realDataKey)));
+      });
+
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-pie-labels' }, labels);
+    }
+  }, {
+    key: 'renderSectorsStatically',
+    value: function renderSectorsStatically(sectors) {
+      var _this3 = this;
+
+      var _props3 = this.props,
+          activeShape = _props3.activeShape,
+          blendStroke = _props3.blendStroke;
+
+      return sectors.map(function (entry, i) {
+        var sectorOptions = _this3.isActiveIndex(i) ? activeShape : null;
+        var sectorProps = _extends({}, entry, {
+          stroke: blendStroke ? entry.fill : entry.stroke
+        });
+
+        return _react2.default.createElement(_Layer2.default, _extends({
+          className: 'recharts-pie-sector'
+        }, (0, _ReactUtils.filterEventsOfChild)(_this3.props, entry, i), {
+          key: 'sector-' + i
+        }), _this3.constructor.renderSectorItem(sectorOptions, sectorProps));
+      });
+    }
+  }, {
+    key: 'renderSectorsWithAnimation',
+    value: function renderSectorsWithAnimation() {
+      var _this4 = this;
+
+      var _props4 = this.props,
+          sectors = _props4.sectors,
+          isAnimationActive = _props4.isAnimationActive,
+          animationBegin = _props4.animationBegin,
+          animationDuration = _props4.animationDuration,
+          animationEasing = _props4.animationEasing,
+          animationId = _props4.animationId;
+      var prevSectors = this.state.prevSectors;
+
+      return _react2.default.createElement(_reactSmooth2.default, {
+        begin: animationBegin,
+        duration: animationDuration,
+        isActive: isAnimationActive,
+        easing: animationEasing,
+        from: { t: 0 },
+        to: { t: 1 },
+        key: 'pie-' + animationId,
+        onAnimationStart: this.handleAnimationStart,
+        onAnimationEnd: this.handleAnimationEnd
+      }, function (_ref2) {
+        var t = _ref2.t;
+
+        var stepData = [];
+        var first = sectors && sectors[0];
+        var curAngle = first.startAngle;
+
+        sectors.forEach(function (entry, index) {
+          var prev = prevSectors && prevSectors[index];
+          var paddingAngle = index > 0 ? entry.paddingAngle : 0;
+
+          if (prev) {
+            var angleIp = (0, _DataUtils.interpolateNumber)(prev.endAngle - prev.startAngle, entry.endAngle - entry.startAngle);
+            var latest = _extends({}, entry, {
+              startAngle: curAngle + paddingAngle,
+              endAngle: curAngle + angleIp(t) + paddingAngle
+            });
+
+            stepData.push(latest);
+            curAngle = latest.endAngle;
+          } else {
+            var endAngle = entry.endAngle,
+                startAngle = entry.startAngle;
+
+            var interpolatorAngle = (0, _DataUtils.interpolateNumber)(0, endAngle - startAngle);
+            var deltaAngle = interpolatorAngle(t);
+            var _latest = _extends({}, entry, {
+              startAngle: curAngle + paddingAngle,
+              endAngle: curAngle + deltaAngle + paddingAngle
+            });
+
+            stepData.push(_latest);
+            curAngle = _latest.endAngle;
+          }
+        });
+
+        return _react2.default.createElement(_Layer2.default, null, _this4.renderSectorsStatically(stepData));
+      });
+    }
+  }, {
+    key: 'renderSectors',
+    value: function renderSectors() {
+      var _props5 = this.props,
+          sectors = _props5.sectors,
+          isAnimationActive = _props5.isAnimationActive;
+      var prevSectors = this.state.prevSectors;
+
+      if (isAnimationActive && sectors && sectors.length && (!prevSectors || !(0, _isEqual3.default)(prevSectors, sectors))) {
+        return this.renderSectorsWithAnimation();
+      }
+      return this.renderSectorsStatically(sectors);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props6 = this.props,
+          hide = _props6.hide,
+          sectors = _props6.sectors,
+          className = _props6.className,
+          label = _props6.label,
+          cx = _props6.cx,
+          cy = _props6.cy,
+          innerRadius = _props6.innerRadius,
+          outerRadius = _props6.outerRadius,
+          isAnimationActive = _props6.isAnimationActive,
+          prevSectors = _props6.prevSectors,
+          id = _props6.id;
+
+      if (hide || !sectors || !sectors.length || !(0, _DataUtils.isNumber)(cx) || !(0, _DataUtils.isNumber)(cy) || !(0, _DataUtils.isNumber)(innerRadius) || !(0, _DataUtils.isNumber)(outerRadius)) {
+        return null;
+      }
+
+      var layerClass = (0, _classnames2.default)('recharts-pie', className);
+
+      return _react2.default.createElement(_Layer2.default, { className: layerClass }, _react2.default.createElement('g', { clipPath: 'url(#' + ((0, _isNil3.default)(id) ? this.id : id) + ')' }, this.renderSectors()), label && this.renderLabels(sectors), _Label2.default.renderCallByParent(this.props, null, false), (!isAnimationActive || prevSectors && (0, _isEqual3.default)(prevSectors, sectors)) && _LabelList2.default.renderCallByParent(this.props, sectors, false));
+    }
+  }], [{
+    key: 'getTextAnchor',
+    value: function getTextAnchor(x, cx) {
+      if (x > cx) {
+        return 'start';
+      } else if (x < cx) {
+        return 'end';
+      }
+
+      return 'middle';
+    }
+  }, {
+    key: 'renderLabelLineItem',
+    value: function renderLabelLineItem(option, props) {
+      if (_react2.default.isValidElement(option)) {
+        return _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        return option(props);
+      }
+
+      return _react2.default.createElement(_Curve2.default, _extends({}, props, { type: 'linear', className: 'recharts-pie-label-line' }));
+    }
+  }, {
+    key: 'renderLabelItem',
+    value: function renderLabelItem(option, props, value) {
+      if (_react2.default.isValidElement(option)) {
+        return _react2.default.cloneElement(option, props);
+      }
+      var label = value;
+      if ((0, _isFunction3.default)(option)) {
+        label = option(props);
+        if (_react2.default.isValidElement(label)) {
+          return label;
+        }
+      }
+
+      return _react2.default.createElement(_Text2.default, _extends({}, props, {
+        alignmentBaseline: 'middle',
+        className: 'recharts-pie-label-text'
+      }), label);
+    }
+  }, {
+    key: 'renderSectorItem',
+    value: function renderSectorItem(option, props) {
+      if (_react2.default.isValidElement(option)) {
+        return _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        return option(props);
+      } else if ((0, _isPlainObject3.default)(option)) {
+        return _react2.default.createElement(_Sector2.default, _extends({}, props, option));
+      }
+
+      return _react2.default.createElement(_Sector2.default, props);
+    }
+  }]);
+
+  return Pie;
+}(_react.Component), _class2.displayName = 'Pie', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, _ReactUtils.EVENT_ATTRIBUTES, {
+  className: _propTypes2.default.string,
+  animationId: _propTypes2.default.number,
+  cx: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  cy: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  startAngle: _propTypes2.default.number,
+  endAngle: _propTypes2.default.number,
+  paddingAngle: _propTypes2.default.number,
+  innerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  outerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  cornerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]).isRequired,
+  nameKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]),
+  valueKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]),
+  data: _propTypes2.default.arrayOf(_propTypes2.default.object),
+  blendStroke: _propTypes2.default.bool,
+  minAngle: _propTypes2.default.number,
+  legendType: _propTypes2.default.oneOf(_ReactUtils.LEGEND_TYPES),
+  maxRadius: _propTypes2.default.number,
+
+  sectors: _propTypes2.default.arrayOf(_propTypes2.default.object),
+  hide: _propTypes2.default.bool,
+  labelLine: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func, _propTypes2.default.element, _propTypes2.default.bool]),
+  label: _propTypes2.default.oneOfType([_propTypes2.default.shape({
+    offsetRadius: _propTypes2.default.number
+  }), _propTypes2.default.func, _propTypes2.default.element, _propTypes2.default.bool]),
+  activeShape: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func, _propTypes2.default.element]),
+  activeIndex: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.arrayOf(_propTypes2.default.number)]),
+
+  isAnimationActive: _propTypes2.default.bool,
+  animationBegin: _propTypes2.default.number,
+  animationDuration: _propTypes2.default.number,
+  animationEasing: _propTypes2.default.oneOf(['ease', 'ease-in', 'ease-out', 'ease-in-out', 'spring', 'linear']),
+  id: _propTypes2.default.string
+}), _class2.defaultProps = {
+  stroke: '#fff',
+  fill: '#808080',
+  legendType: 'rect',
+  // The abscissa of pole
+  cx: '50%',
+  // The ordinate of pole
+  cy: '50%',
+  // The start angle of first sector
+  startAngle: 0,
+  // The direction of drawing sectors
+  endAngle: 360,
+  // The inner radius of sectors
+  innerRadius: 0,
+  // The outer radius of sectors
+  outerRadius: '80%',
+  paddingAngle: 0,
+  labelLine: true,
+  hide: false,
+  minAngle: 0,
+  isAnimationActive: !(0, _ReactUtils.isSsr)(),
+  animationBegin: 400,
+  animationDuration: 1500,
+  animationEasing: 'ease',
+  nameKey: 'name',
+  // Match each sector's stroke color to it's fill color
+  blendStroke: false
+}, _class2.parseDeltaAngle = function (_ref3) {
+  var startAngle = _ref3.startAngle,
+      endAngle = _ref3.endAngle;
+
+  var sign = (0, _DataUtils.mathSign)(endAngle - startAngle);
+  var deltaAngle = Math.min(Math.abs(endAngle - startAngle), 360);
+
+  return sign * deltaAngle;
+}, _class2.getRealPieData = function (item) {
+  var _item$props = item.props,
+      data = _item$props.data,
+      children = _item$props.children;
+
+  var presentationProps = (0, _ReactUtils.getPresentationAttributes)(item.props);
+  var cells = (0, _ReactUtils.findAllByType)(children, _Cell2.default);
+
+  if (data && data.length) {
+    return data.map(function (entry, index) {
+      return _extends({
+        payload: entry
+      }, presentationProps, entry, cells && cells[index] && cells[index].props);
+    });
+  }
+
+  if (cells && cells.length) {
+    return cells.map(function (cell) {
+      return _extends({}, presentationProps, cell.props);
+    });
+  }
+
+  return [];
+}, _class2.parseCoordinateOfPie = function (item, offset) {
+  var top = offset.top,
+      left = offset.left,
+      width = offset.width,
+      height = offset.height;
+
+  var maxPieRadius = (0, _PolarUtils.getMaxRadius)(width, height);
+  var cx = left + (0, _DataUtils.getPercentValue)(item.props.cx, width, width / 2);
+  var cy = top + (0, _DataUtils.getPercentValue)(item.props.cy, height, height / 2);
+  var innerRadius = (0, _DataUtils.getPercentValue)(item.props.innerRadius, maxPieRadius, 0);
+  var outerRadius = (0, _DataUtils.getPercentValue)(item.props.outerRadius, maxPieRadius, maxPieRadius * 0.8);
+  var maxRadius = item.props.maxRadius || Math.sqrt(width * width + height * height) / 2;
+
+  return { cx: cx, cy: cy, innerRadius: innerRadius, outerRadius: outerRadius, maxRadius: maxRadius };
+}, _class2.getComposedData = function (_ref4) {
+  var item = _ref4.item,
+      offset = _ref4.offset,
+      onItemMouseLeave = _ref4.onItemMouseLeave,
+      onItemMouseEnter = _ref4.onItemMouseEnter;
+
+  var pieData = Pie.getRealPieData(item);
+  if (!pieData || !pieData.length) {
+    return [];
+  }
+
+  var _item$props2 = item.props,
+      cornerRadius = _item$props2.cornerRadius,
+      startAngle = _item$props2.startAngle,
+      endAngle = _item$props2.endAngle,
+      paddingAngle = _item$props2.paddingAngle,
+      dataKey = _item$props2.dataKey,
+      nameKey = _item$props2.nameKey,
+      valueKey = _item$props2.valueKey;
+
+  var minAngle = Math.abs(item.props.minAngle);
+  var coordinate = Pie.parseCoordinateOfPie(item, offset);
+  var len = pieData.length;
+  var deltaAngle = Pie.parseDeltaAngle({ startAngle: startAngle, endAngle: endAngle });
+  var absDeltaAngle = Math.abs(deltaAngle);
+  var totalPadingAngle = (absDeltaAngle >= 360 ? len : len - 1) * paddingAngle;
+  var realTotalAngle = absDeltaAngle - len * minAngle - totalPadingAngle;
+  var realDataKey = dataKey;
+
+  if ((0, _isNil3.default)(dataKey) && (0, _isNil3.default)(valueKey)) {
+    (0, _LogUtils.warn)(false, 'Use "dataKey" to specify the value of pie,\n      the props "valueKey" will be deprecated in 1.1.0');
+    realDataKey = 'value';
+  } else if ((0, _isNil3.default)(dataKey)) {
+    (0, _LogUtils.warn)(false, 'Use "dataKey" to specify the value of pie,\n      the props "valueKey" will be deprecated in 1.1.0');
+    realDataKey = valueKey;
+  }
+
+  var sum = pieData.reduce(function (result, entry) {
+    var val = (0, _ChartUtils.getValueByDataKey)(entry, realDataKey, 0);
+    return result + ((0, _DataUtils.isNumber)(val) ? val : 0);
+  }, 0);
+  var sectors = void 0;
+
+  if (sum > 0) {
+    var prev = void 0;
+    sectors = pieData.map(function (entry, i) {
+      var val = (0, _ChartUtils.getValueByDataKey)(entry, realDataKey, 0);
+      var name = (0, _ChartUtils.getValueByDataKey)(entry, nameKey, i);
+      var percent = ((0, _DataUtils.isNumber)(val) ? val : 0) / sum;
+      var tempStartAngle = void 0;
+
+      if (i) {
+        tempStartAngle = prev.endAngle + (0, _DataUtils.mathSign)(deltaAngle) * paddingAngle;
+      } else {
+        tempStartAngle = startAngle;
+      }
+
+      var tempEndAngle = tempStartAngle + (0, _DataUtils.mathSign)(deltaAngle) * (minAngle + percent * realTotalAngle);
+      var midAngle = (tempStartAngle + tempEndAngle) / 2;
+      var middleRadius = (coordinate.innerRadius + coordinate.outerRadius) / 2;
+      var tooltipPayload = [{ name: name, value: val, payload: entry }];
+      var tooltipPosition = (0, _PolarUtils.polarToCartesian)(coordinate.cx, coordinate.cy, middleRadius, midAngle);
+
+      prev = _extends({
+        percent: percent, cornerRadius: cornerRadius, name: name, tooltipPayload: tooltipPayload, midAngle: midAngle, middleRadius: middleRadius, tooltipPosition: tooltipPosition
+      }, entry, coordinate, {
+        value: (0, _ChartUtils.getValueByDataKey)(entry, realDataKey),
+        startAngle: tempStartAngle,
+        endAngle: tempEndAngle,
+        payload: entry,
+        paddingAngle: (0, _DataUtils.mathSign)(deltaAngle) * paddingAngle
+      });
+
+      return prev;
+    });
+  }
+
+  return _extends({}, coordinate, {
+    sectors: sectors,
+    data: pieData,
+    onMouseLeave: onItemMouseLeave,
+    onMouseEnter: onItemMouseEnter
+  });
+}, _temp2)) || _class;
+
+exports.default = Pie;
+},{"lodash-es/isEqual":"../node_modules/lodash-es/isEqual.js","lodash-es/isPlainObject":"../node_modules/lodash-es/isPlainObject.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/isNil":"../node_modules/lodash-es/isNil.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-smooth":"../node_modules/react-smooth/lib/index.js","classnames":"../node_modules/classnames/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../shape/Sector":"../node_modules/recharts/es6/shape/Sector.js","../shape/Curve":"../node_modules/recharts/es6/shape/Curve.js","../component/Text":"../node_modules/recharts/es6/component/Text.js","../component/Label":"../node_modules/recharts/es6/component/Label.js","../component/LabelList":"../node_modules/recharts/es6/component/LabelList.js","../component/Cell":"../node_modules/recharts/es6/component/Cell.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/PolarUtils":"../node_modules/recharts/es6/util/PolarUtils.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js","../util/LogUtils":"../node_modules/recharts/es6/util/LogUtils.js"}],"../node_modules/recharts/es6/polar/Radar.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isEqual2 = require('lodash-es/isEqual');
+
+var _isEqual3 = _interopRequireDefault(_isEqual2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactSmooth = require('react-smooth');
+
+var _reactSmooth2 = _interopRequireDefault(_reactSmooth);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _DataUtils = require('../util/DataUtils');
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _PolarUtils = require('../util/PolarUtils');
+
+var _ChartUtils = require('../util/ChartUtils');
+
+var _Polygon = require('../shape/Polygon');
+
+var _Polygon2 = _interopRequireDefault(_Polygon);
+
+var _Dot = require('../shape/Dot');
+
+var _Dot2 = _interopRequireDefault(_Dot);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _LabelList = require('../component/LabelList');
+
+var _LabelList2 = _interopRequireDefault(_LabelList);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp2;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Radar
+ */
+
+
+var Radar = (0, _PureRender2.default)(_class = (_temp2 = _class2 = function (_Component) {
+  _inherits(Radar, _Component);
+
+  function Radar() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Radar);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Radar.__proto__ || Object.getPrototypeOf(Radar)).call.apply(_ref, [this].concat(args))), _this), _this.state = { isAnimationFinished: false }, _this.cachePrevData = function (points) {
+      _this.setState({ prevPoints: points });
+    }, _this.handleAnimationEnd = function () {
+      _this.setState({ isAnimationFinished: true });
+    }, _this.handleAnimationStart = function () {
+      _this.setState({ isAnimationFinished: false });
+    }, _this.handleMouseEnter = function (e) {
+      var onMouseEnter = _this.props.onMouseEnter;
+
+      if (onMouseEnter) {
+        onMouseEnter(_this.props, e);
+      }
+    }, _this.handleMouseLeave = function (e) {
+      var onMouseLeave = _this.props.onMouseLeave;
+
+      if (onMouseLeave) {
+        onMouseLeave(_this.props, e);
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Radar, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _props = this.props,
+          animationId = _props.animationId,
+          points = _props.points;
+
+      if (nextProps.animationId !== animationId) {
+        this.cachePrevData(points);
+      }
+    }
+  }, {
+    key: 'renderDots',
+    value: function renderDots(points) {
+      var _this2 = this;
+
+      var _props2 = this.props,
+          dot = _props2.dot,
+          dataKey = _props2.dataKey;
+
+      var baseProps = (0, _ReactUtils.getPresentationAttributes)(this.props);
+      var customDotProps = (0, _ReactUtils.getPresentationAttributes)(dot);
+
+      var dots = points.map(function (entry, i) {
+        var dotProps = _extends({
+          key: 'dot-' + i,
+          r: 3
+        }, baseProps, customDotProps, {
+          dataKey: dataKey,
+          cx: entry.x,
+          cy: entry.y,
+          index: i,
+          payload: entry
+        });
+
+        return _this2.constructor.renderDotItem(dot, dotProps);
+      });
+
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-radar-dots' }, dots);
+    }
+  }, {
+    key: 'renderPolygonStatically',
+    value: function renderPolygonStatically(points) {
+      var _props3 = this.props,
+          shape = _props3.shape,
+          dot = _props3.dot;
+
+      var radar = void 0;
+      if (_react2.default.isValidElement(shape)) {
+        radar = _react2.default.cloneElement(shape, _extends({}, this.props, { points: points }));
+      } else if ((0, _isFunction3.default)(shape)) {
+        radar = shape(_extends({}, this.props, { points: points }));
+      } else {
+        radar = _react2.default.createElement(_Polygon2.default, _extends({}, (0, _ReactUtils.filterEventAttributes)(this.props), {
+          onMouseEnter: this.handleMouseEnter,
+          onMouseLeave: this.handleMouseLeave
+        }, (0, _ReactUtils.getPresentationAttributes)(this.props), {
+          points: points
+        }));
+      }
+
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-radar-polygon' }, radar, dot ? this.renderDots(points) : null);
+    }
+  }, {
+    key: 'renderPolygonWithAnimation',
+    value: function renderPolygonWithAnimation() {
+      var _this3 = this;
+
+      var _props4 = this.props,
+          points = _props4.points,
+          isAnimationActive = _props4.isAnimationActive,
+          animationBegin = _props4.animationBegin,
+          animationDuration = _props4.animationDuration,
+          animationEasing = _props4.animationEasing,
+          animationId = _props4.animationId;
+      var prevPoints = this.state.prevPoints;
+
+      return _react2.default.createElement(_reactSmooth2.default, {
+        begin: animationBegin,
+        duration: animationDuration,
+        isActive: isAnimationActive,
+        easing: animationEasing,
+        from: { t: 0 },
+        to: { t: 1 },
+        key: 'radar-' + animationId,
+        onAnimationEnd: this.handleAnimationEnd,
+        onAnimationStart: this.handleAnimationStart
+      }, function (_ref2) {
+        var t = _ref2.t;
+
+        var stepData = points.map(function (entry, index) {
+          var prev = prevPoints && prevPoints[index];
+
+          if (prev) {
+            var _interpolatorX = (0, _DataUtils.interpolateNumber)(prev.x, entry.x);
+            var _interpolatorY = (0, _DataUtils.interpolateNumber)(prev.y, entry.y);
+
+            return _extends({}, entry, {
+              x: _interpolatorX(t),
+              y: _interpolatorY(t)
+            });
+          }
+
+          var interpolatorX = (0, _DataUtils.interpolateNumber)(entry.cx, entry.x);
+          var interpolatorY = (0, _DataUtils.interpolateNumber)(entry.cy, entry.y);
+
+          return _extends({}, entry, {
+            x: interpolatorX(t),
+            y: interpolatorY(t)
+          });
+        });
+
+        return _this3.renderPolygonStatically(stepData);
+      });
+    }
+  }, {
+    key: 'renderPolygon',
+    value: function renderPolygon() {
+      var _props5 = this.props,
+          points = _props5.points,
+          isAnimationActive = _props5.isAnimationActive;
+      var prevPoints = this.state.prevPoints;
+
+      if (isAnimationActive && points && points.length && (!prevPoints || !(0, _isEqual3.default)(prevPoints, points))) {
+        return this.renderPolygonWithAnimation();
+      }
+
+      return this.renderPolygonStatically(points);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props6 = this.props,
+          hide = _props6.hide,
+          className = _props6.className,
+          points = _props6.points,
+          isAnimationActive = _props6.isAnimationActive;
+
+      if (hide || !points || !points.length) {
+        return null;
+      }
+
+      var isAnimationFinished = this.state.isAnimationFinished;
+
+      var layerClass = (0, _classnames2.default)('recharts-radar', className);
+
+      return _react2.default.createElement(_Layer2.default, { className: layerClass }, this.renderPolygon(), (!isAnimationActive || isAnimationFinished) && _LabelList2.default.renderCallByParent(this.props, points));
+    }
+  }], [{
+    key: 'renderDotItem',
+    value: function renderDotItem(option, props) {
+      var dotItem = void 0;
+
+      if (_react2.default.isValidElement(option)) {
+        dotItem = _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        dotItem = option(props);
+      } else {
+        dotItem = _react2.default.createElement(_Dot2.default, _extends({}, props, { className: 'recharts-radar-dot' }));
+      }
+
+      return dotItem;
+    }
+  }]);
+
+  return Radar;
+}(_react.Component), _class2.displayName = 'Radar', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, {
+  className: _propTypes2.default.string,
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string, _propTypes2.default.func]).isRequired,
+  angleAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  radiusAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+
+  points: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    x: _propTypes2.default.number,
+    y: _propTypes2.default.number,
+    cx: _propTypes2.default.number,
+    cy: _propTypes2.default.number,
+    angle: _propTypes2.default.number,
+    radius: _propTypes2.default.number,
+    value: _propTypes2.default.number,
+    payload: _propTypes2.default.object
+  })),
+  shape: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.func]),
+  activeDot: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.element, _propTypes2.default.func, _propTypes2.default.bool]),
+  // whether have dot in poly line
+  dot: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.element, _propTypes2.default.func, _propTypes2.default.bool]),
+  label: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.func, _propTypes2.default.object, _propTypes2.default.bool]),
+  legendType: _propTypes2.default.oneOf(_ReactUtils.LEGEND_TYPES),
+  hide: _propTypes2.default.bool,
+
+  onMouseEnter: _propTypes2.default.func,
+  onMouseLeave: _propTypes2.default.func,
+  onClick: _propTypes2.default.func,
+  isAnimationActive: _propTypes2.default.bool,
+  animationId: _propTypes2.default.number,
+  animationBegin: _propTypes2.default.number,
+  animationDuration: _propTypes2.default.number,
+  animationEasing: _propTypes2.default.oneOf(['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear'])
+}), _class2.defaultProps = {
+  angleAxisId: 0,
+  radiusAxisId: 0,
+  hide: false,
+  activeDot: true,
+  dot: false,
+  legendType: 'rect',
+  isAnimationActive: !(0, _ReactUtils.isSsr)(),
+  animationBegin: 0,
+  animationDuration: 1500,
+  animationEasing: 'ease'
+}, _class2.getComposedData = function (_ref3) {
+  var radiusAxis = _ref3.radiusAxis,
+      angleAxis = _ref3.angleAxis,
+      displayedData = _ref3.displayedData,
+      dataKey = _ref3.dataKey,
+      bandSize = _ref3.bandSize;
+  var cx = angleAxis.cx,
+      cy = angleAxis.cy;
+
+  var points = displayedData.map(function (entry, i) {
+    var name = (0, _ChartUtils.getValueByDataKey)(entry, angleAxis.dataKey, i);
+    var value = (0, _ChartUtils.getValueByDataKey)(entry, dataKey, 0);
+    var angle = angleAxis.scale(name) + (bandSize || 0);
+    var radius = radiusAxis.scale(value);
+    return _extends({}, (0, _PolarUtils.polarToCartesian)(cx, cy, radius, angle), {
+      name: name, value: value, cx: cx, cy: cy, radius: radius, angle: angle,
+      payload: entry
+    });
+  });
+
+  return { points: points };
+}, _temp2)) || _class;
+
+exports.default = Radar;
+},{"lodash-es/isEqual":"../node_modules/lodash-es/isEqual.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-smooth":"../node_modules/react-smooth/lib/index.js","classnames":"../node_modules/classnames/index.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/PolarUtils":"../node_modules/recharts/es6/util/PolarUtils.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js","../shape/Polygon":"../node_modules/recharts/es6/shape/Polygon.js","../shape/Dot":"../node_modules/recharts/es6/shape/Dot.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../component/LabelList":"../node_modules/recharts/es6/component/LabelList.js"}],"../node_modules/recharts/es6/polar/RadialBar.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isEqual2 = require('lodash-es/isEqual');
+
+var _isEqual3 = _interopRequireDefault(_isEqual2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _isArray2 = require('lodash-es/isArray');
+
+var _isArray3 = _interopRequireDefault(_isArray2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _reactSmooth = require('react-smooth');
+
+var _reactSmooth2 = _interopRequireDefault(_reactSmooth);
+
+var _Sector = require('../shape/Sector');
+
+var _Sector2 = _interopRequireDefault(_Sector);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _LabelList = require('../component/LabelList');
+
+var _LabelList2 = _interopRequireDefault(_LabelList);
+
+var _Cell = require('../component/Cell');
+
+var _Cell2 = _interopRequireDefault(_Cell);
+
+var _DataUtils = require('../util/DataUtils');
+
+var _ChartUtils = require('../util/ChartUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp2;
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Render a group of radial bar
+ */
+
+
+var RadialBar = (0, _PureRender2.default)(_class = (_temp2 = _class2 = function (_Component) {
+  _inherits(RadialBar, _Component);
+
+  function RadialBar() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, RadialBar);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = RadialBar.__proto__ || Object.getPrototypeOf(RadialBar)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      isAnimationFinished: false
+    }, _this.cachePrevData = function (data) {
+      _this.setState({ prevData: data });
+    }, _this.handleAnimationEnd = function () {
+      _this.setState({ isAnimationFinished: true });
+    }, _this.handleAnimationStart = function () {
+      _this.setState({ isAnimationFinished: false });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(RadialBar, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _props = this.props,
+          animationId = _props.animationId,
+          data = _props.data;
+
+      if (nextProps.animationId !== animationId) {
+        this.cachePrevData(data);
+      }
+    }
+  }, {
+    key: 'getDeltaAngle',
+    value: function getDeltaAngle() {
+      var _props2 = this.props,
+          startAngle = _props2.startAngle,
+          endAngle = _props2.endAngle;
+
+      var sign = (0, _DataUtils.mathSign)(endAngle - startAngle);
+      var deltaAngle = Math.min(Math.abs(endAngle - startAngle), 360);
+
+      return sign * deltaAngle;
+    }
+  }, {
+    key: 'renderSectorsStatically',
+    value: function renderSectorsStatically(sectors) {
+      var _this2 = this;
+
+      var _props3 = this.props,
+          shape = _props3.shape,
+          activeShape = _props3.activeShape,
+          activeIndex = _props3.activeIndex,
+          cornerRadius = _props3.cornerRadius,
+          others = _objectWithoutProperties(_props3, ['shape', 'activeShape', 'activeIndex', 'cornerRadius']);
+
+      var baseProps = (0, _ReactUtils.getPresentationAttributes)(others);
+
+      return sectors.map(function (entry, i) {
+        var props = _extends({}, baseProps, {
+          cornerRadius: cornerRadius
+        }, entry, (0, _ReactUtils.filterEventsOfChild)(_this2.props, entry, i), {
+          key: 'sector-' + i,
+          className: 'recharts-radial-bar-sector'
+        });
+
+        return _this2.constructor.renderSectorShape(i === activeIndex ? activeShape : shape, props);
+      });
+    }
+  }, {
+    key: 'renderSectorsWithAnimation',
+    value: function renderSectorsWithAnimation() {
+      var _this3 = this;
+
+      var _props4 = this.props,
+          data = _props4.data,
+          isAnimationActive = _props4.isAnimationActive,
+          animationBegin = _props4.animationBegin,
+          animationDuration = _props4.animationDuration,
+          animationEasing = _props4.animationEasing,
+          animationId = _props4.animationId;
+      var prevData = this.state.prevData;
+
+      return _react2.default.createElement(_reactSmooth2.default, {
+        begin: animationBegin,
+        duration: animationDuration,
+        isActive: isAnimationActive,
+        easing: animationEasing,
+        from: { t: 0 },
+        to: { t: 1 },
+        key: 'radialBar-' + animationId,
+        onAnimationStart: this.handleAnimationStart,
+        onAnimationEnd: this.handleAnimationEnd
+      }, function (_ref2) {
+        var t = _ref2.t;
+
+        var stepData = data.map(function (entry, index) {
+          var prev = prevData && prevData[index];
+
+          if (prev) {
+            var interpolatorStartAngle = (0, _DataUtils.interpolateNumber)(prev.startAngle, entry.startAngle);
+            var interpolatorEndAngle = (0, _DataUtils.interpolateNumber)(prev.endAngle, entry.endAngle);
+
+            return _extends({}, entry, {
+              startAngle: interpolatorStartAngle(t),
+              endAngle: interpolatorEndAngle(t)
+            });
+          }
+          var endAngle = entry.endAngle,
+              startAngle = entry.startAngle;
+
+          var interpolator = (0, _DataUtils.interpolateNumber)(startAngle, endAngle);
+
+          return _extends({}, entry, { endAngle: interpolator(t) });
+        });
+
+        return _react2.default.createElement(_Layer2.default, null, _this3.renderSectorsStatically(stepData));
+      });
+    }
+  }, {
+    key: 'renderSectors',
+    value: function renderSectors() {
+      var _props5 = this.props,
+          data = _props5.data,
+          isAnimationActive = _props5.isAnimationActive;
+      var prevData = this.state.prevData;
+
+      if (isAnimationActive && data && data.length && (!prevData || !(0, _isEqual3.default)(prevData, data))) {
+        return this.renderSectorsWithAnimation();
+      }
+
+      return this.renderSectorsStatically(data);
+    }
+  }, {
+    key: 'renderBackground',
+    value: function renderBackground(sectors) {
+      var _this4 = this;
+
+      var cornerRadius = this.props.cornerRadius;
+
+      var backgroundProps = (0, _ReactUtils.getPresentationAttributes)(this.props.background);
+
+      return sectors.map(function (entry, i) {
+        // eslint-disable-next-line no-unused-vars
+        var value = entry.value,
+            background = entry.background,
+            rest = _objectWithoutProperties(entry, ['value', 'background']);
+
+        if (!background) {
+          return null;
+        }
+
+        var props = _extends({
+          cornerRadius: cornerRadius
+        }, rest, {
+          fill: '#eee'
+        }, background, backgroundProps, (0, _ReactUtils.filterEventsOfChild)(_this4.props, entry, i), {
+          index: i,
+          key: 'sector-' + i,
+          className: 'recharts-radial-bar-background-sector'
+        });
+
+        return _this4.constructor.renderSectorShape(background, props);
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props6 = this.props,
+          hide = _props6.hide,
+          data = _props6.data,
+          className = _props6.className,
+          background = _props6.background,
+          isAnimationActive = _props6.isAnimationActive;
+
+      if (hide || !data || !data.length) {
+        return null;
+      }
+
+      var isAnimationFinished = this.state.isAnimationFinished;
+
+      var layerClass = (0, _classnames2.default)('recharts-area', className);
+
+      return _react2.default.createElement(_Layer2.default, { className: layerClass }, background && _react2.default.createElement(_Layer2.default, { className: 'recharts-radial-bar-background' }, this.renderBackground(data)), _react2.default.createElement(_Layer2.default, { className: 'recharts-radial-bar-sectors' }, this.renderSectors(data)), (!isAnimationActive || isAnimationFinished) && _LabelList2.default.renderCallByParent(_extends({}, this.props, {
+        clockWise: this.getDeltaAngle() < 0
+      }), data));
+    }
+  }], [{
+    key: 'renderSectorShape',
+    value: function renderSectorShape(shape, props) {
+      var sectorShape = void 0;
+
+      if (_react2.default.isValidElement(shape)) {
+        sectorShape = _react2.default.cloneElement(shape, props);
+      } else if ((0, _isFunction3.default)(shape)) {
+        sectorShape = shape(props);
+      } else {
+        sectorShape = _react2.default.createElement(_Sector2.default, props);
+      }
+
+      return sectorShape;
+    }
+  }]);
+
+  return RadialBar;
+}(_react.Component), _class2.displayName = 'RadialBar', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, {
+  className: _propTypes2.default.string,
+  angleAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  radiusAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  shape: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.element]),
+  activeShape: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func, _propTypes2.default.element]),
+  activeIndex: _propTypes2.default.number,
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]).isRequired,
+
+  cornerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  minPointSize: _propTypes2.default.number,
+  maxBarSize: _propTypes2.default.number,
+  data: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    cx: _propTypes2.default.number,
+    cy: _propTypes2.default.number,
+    innerRadius: _propTypes2.default.number,
+    outerRadius: _propTypes2.default.number,
+    value: _propTypes2.default.value
+  })),
+  legendType: _propTypes2.default.oneOf(_ReactUtils.LEGEND_TYPES),
+  label: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.func, _propTypes2.default.element, _propTypes2.default.object]),
+  background: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.func, _propTypes2.default.object, _propTypes2.default.element]),
+  hide: _propTypes2.default.bool,
+
+  onMouseEnter: _propTypes2.default.func,
+  onMouseLeave: _propTypes2.default.func,
+  onClick: _propTypes2.default.func,
+
+  isAnimationActive: _propTypes2.default.bool,
+  animationBegin: _propTypes2.default.number,
+  animationDuration: _propTypes2.default.number,
+  animationEasing: _propTypes2.default.oneOf(['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear', 'spring'])
+}), _class2.defaultProps = {
+  angleAxisId: 0,
+  radiusAxisId: 0,
+  minPointSize: 0,
+  hide: false,
+  legendType: 'rect',
+  data: [],
+  isAnimationActive: !(0, _ReactUtils.isSsr)(),
+  animationBegin: 0,
+  animationDuration: 1500,
+  animationEasing: 'ease'
+}, _class2.getComposedData = function (_ref3) {
+  var item = _ref3.item,
+      props = _ref3.props,
+      radiusAxis = _ref3.radiusAxis,
+      radiusAxisTicks = _ref3.radiusAxisTicks,
+      angleAxis = _ref3.angleAxis,
+      angleAxisTicks = _ref3.angleAxisTicks,
+      displayedData = _ref3.displayedData,
+      dataKey = _ref3.dataKey,
+      stackedData = _ref3.stackedData,
+      barPosition = _ref3.barPosition,
+      bandSize = _ref3.bandSize,
+      dataStartIndex = _ref3.dataStartIndex;
+
+  var pos = (0, _ChartUtils.findPositionOfBar)(barPosition, item);
+  if (!pos) {
+    return [];
+  }
+
+  var cx = angleAxis.cx,
+      cy = angleAxis.cy;
+  var layout = props.layout;
+  var _item$props = item.props,
+      children = _item$props.children,
+      minPointSize = _item$props.minPointSize;
+
+  var numericAxis = layout === 'radial' ? angleAxis : radiusAxis;
+  var stackedDomain = stackedData ? numericAxis.scale.domain() : null;
+  var baseValue = (0, _ChartUtils.getBaseValueOfBar)({ props: props, numericAxis: numericAxis });
+  var cells = (0, _ReactUtils.findAllByType)(children, _Cell2.default);
+  var sectors = displayedData.map(function (entry, index) {
+    var value = void 0,
+        innerRadius = void 0,
+        outerRadius = void 0,
+        startAngle = void 0,
+        endAngle = void 0,
+        backgroundSector = void 0;
+
+    if (stackedData) {
+      value = (0, _ChartUtils.truncateByDomain)(stackedData[dataStartIndex + index], stackedDomain);
+    } else {
+      value = (0, _ChartUtils.getValueByDataKey)(entry, dataKey);
+      if (!(0, _isArray3.default)(value)) {
+        value = [baseValue, value];
+      }
+    }
+
+    if (layout === 'radial') {
+      innerRadius = (0, _ChartUtils.getCateCoordinateOfBar)({
+        axis: radiusAxis,
+        ticks: radiusAxisTicks,
+        bandSize: bandSize,
+        offset: pos.offset,
+        entry: entry,
+        index: index
+      });
+      endAngle = angleAxis.scale(value[1]);
+      startAngle = angleAxis.scale(value[0]);
+      outerRadius = innerRadius + pos.size;
+      var deltaAngle = endAngle - startAngle;
+
+      if (Math.abs(minPointSize) > 0 && Math.abs(deltaAngle) < Math.abs(minPointSize)) {
+        var delta = (0, _DataUtils.mathSign)(deltaAngle || minPointSize) * (Math.abs(minPointSize) - Math.abs(deltaAngle));
+
+        endAngle += delta;
+      }
+      backgroundSector = {
+        background: {
+          cx: cx, cy: cy, innerRadius: innerRadius, outerRadius: outerRadius, startAngle: props.startAngle,
+          endAngle: props.endAngle
+        }
+      };
+    } else {
+      innerRadius = radiusAxis.scale(value[0]);
+      outerRadius = radiusAxis.scale(value[1]);
+      startAngle = (0, _ChartUtils.getCateCoordinateOfBar)({
+        axis: angleAxis,
+        ticks: angleAxisTicks,
+        bandSize: bandSize,
+        offset: pos.offset,
+        entry: entry,
+        index: index
+      });
+      endAngle = startAngle + pos.size;
+      var deltaRadius = outerRadius - innerRadius;
+
+      if (Math.abs(minPointSize) > 0 && Math.abs(deltaRadius) < Math.abs(minPointSize)) {
+        var _delta = (0, _DataUtils.mathSign)(deltaRadius || minPointSize) * (Math.abs(minPointSize) - Math.abs(deltaRadius));
+        outerRadius += _delta;
+      }
+    }
+
+    return _extends({}, entry, backgroundSector, {
+      payload: entry,
+      value: stackedData ? value : value[1],
+      cx: cx, cy: cy, innerRadius: innerRadius, outerRadius: outerRadius, startAngle: startAngle, endAngle: endAngle
+    }, cells && cells[index] && cells[index].props);
+  });
+
+  return { data: sectors, layout: layout };
+}, _temp2)) || _class;
+
+exports.default = RadialBar;
+},{"lodash-es/isEqual":"../node_modules/lodash-es/isEqual.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/isArray":"../node_modules/lodash-es/isArray.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","react-smooth":"../node_modules/react-smooth/lib/index.js","../shape/Sector":"../node_modules/recharts/es6/shape/Sector.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../component/LabelList":"../node_modules/recharts/es6/component/LabelList.js","../component/Cell":"../node_modules/recharts/es6/component/Cell.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js"}],"../node_modules/lodash-es/_baseRange.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeCeil = Math.ceil,
+    nativeMax = Math.max;
+
+/**
+ * The base implementation of `_.range` and `_.rangeRight` which doesn't
+ * coerce arguments.
+ *
+ * @private
+ * @param {number} start The start of the range.
+ * @param {number} end The end of the range.
+ * @param {number} step The value to increment or decrement by.
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Array} Returns the range of numbers.
+ */
+function baseRange(start, end, step, fromRight) {
+  var index = -1,
+      length = nativeMax(nativeCeil((end - start) / (step || 1)), 0),
+      result = Array(length);
+
+  while (length--) {
+    result[fromRight ? length : ++index] = start;
+    start += step;
+  }
+  return result;
+}
+
+exports.default = baseRange;
+},{}],"../node_modules/lodash-es/toFinite.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _toNumber = require('./toNumber.js');
+
+var _toNumber2 = _interopRequireDefault(_toNumber);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** Used as references for various `Number` constants. */
+var INFINITY = 1 / 0,
+    MAX_INTEGER = 1.7976931348623157e+308;
+
+/**
+ * Converts `value` to a finite number.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.12.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {number} Returns the converted number.
+ * @example
+ *
+ * _.toFinite(3.2);
+ * // => 3.2
+ *
+ * _.toFinite(Number.MIN_VALUE);
+ * // => 5e-324
+ *
+ * _.toFinite(Infinity);
+ * // => 1.7976931348623157e+308
+ *
+ * _.toFinite('3.2');
+ * // => 3.2
+ */
+function toFinite(value) {
+  if (!value) {
+    return value === 0 ? value : 0;
+  }
+  value = (0, _toNumber2.default)(value);
+  if (value === INFINITY || value === -INFINITY) {
+    var sign = value < 0 ? -1 : 1;
+    return sign * MAX_INTEGER;
+  }
+  return value === value ? value : 0;
+}
+
+exports.default = toFinite;
+},{"./toNumber.js":"../node_modules/lodash-es/toNumber.js"}],"../node_modules/lodash-es/_createRange.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseRange = require('./_baseRange.js');
+
+var _baseRange2 = _interopRequireDefault(_baseRange);
+
+var _isIterateeCall = require('./_isIterateeCall.js');
+
+var _isIterateeCall2 = _interopRequireDefault(_isIterateeCall);
+
+var _toFinite = require('./toFinite.js');
+
+var _toFinite2 = _interopRequireDefault(_toFinite);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Creates a `_.range` or `_.rangeRight` function.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new range function.
+ */
+function createRange(fromRight) {
+  return function (start, end, step) {
+    if (step && typeof step != 'number' && (0, _isIterateeCall2.default)(start, end, step)) {
+      end = step = undefined;
+    }
+    // Ensure the sign of `-0` is preserved.
+    start = (0, _toFinite2.default)(start);
+    if (end === undefined) {
+      end = start;
+      start = 0;
+    } else {
+      end = (0, _toFinite2.default)(end);
+    }
+    step = step === undefined ? start < end ? 1 : -1 : (0, _toFinite2.default)(step);
+    return (0, _baseRange2.default)(start, end, step, fromRight);
+  };
+}
+
+exports.default = createRange;
+},{"./_baseRange.js":"../node_modules/lodash-es/_baseRange.js","./_isIterateeCall.js":"../node_modules/lodash-es/_isIterateeCall.js","./toFinite.js":"../node_modules/lodash-es/toFinite.js"}],"../node_modules/lodash-es/range.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createRange = require('./_createRange.js');
+
+var _createRange2 = _interopRequireDefault(_createRange);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Creates an array of numbers (positive and/or negative) progressing from
+ * `start` up to, but not including, `end`. A step of `-1` is used if a negative
+ * `start` is specified without an `end` or `step`. If `end` is not specified,
+ * it's set to `start` with `start` then set to `0`.
+ *
+ * **Note:** JavaScript follows the IEEE-754 standard for resolving
+ * floating-point values which can produce unexpected results.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {number} [start=0] The start of the range.
+ * @param {number} end The end of the range.
+ * @param {number} [step=1] The value to increment or decrement by.
+ * @returns {Array} Returns the range of numbers.
+ * @see _.inRange, _.rangeRight
+ * @example
+ *
+ * _.range(4);
+ * // => [0, 1, 2, 3]
+ *
+ * _.range(-4);
+ * // => [0, -1, -2, -3]
+ *
+ * _.range(1, 5);
+ * // => [1, 2, 3, 4]
+ *
+ * _.range(0, 20, 5);
+ * // => [0, 5, 10, 15]
+ *
+ * _.range(0, -4, -1);
+ * // => [0, -1, -2, -3]
+ *
+ * _.range(1, 4, 0);
+ * // => [1, 1, 1]
+ *
+ * _.range(0);
+ * // => []
+ */
+var range = (0, _createRange2.default)();
+
+exports.default = range;
+},{"./_createRange.js":"../node_modules/lodash-es/_createRange.js"}],"../node_modules/recharts/es6/util/CssPrefixUtils.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }return obj;
+}
+
+var PREFIX_LIST = ['Webkit', 'Moz', 'O', 'ms'];
+
+var generatePrefixStyle = exports.generatePrefixStyle = function generatePrefixStyle(name, value) {
+  if (!name) {
+    return null;
+  }
+
+  var camelName = name.replace(/(\w)/, function (v) {
+    return v.toUpperCase();
+  });
+  var result = PREFIX_LIST.reduce(function (res, entry) {
+    return _extends({}, res, _defineProperty({}, entry + camelName, value));
+  }, {});
+
+  result[name] = value;
+
+  return result;
+};
+},{}],"../node_modules/recharts/es6/cartesian/Brush.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _range2 = require('lodash-es/range');
+
+var _range3 = _interopRequireDefault(_range2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _d3Scale = require('d3-scale');
+
+var _ChartUtils = require('../util/ChartUtils');
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _Text = require('../component/Text');
+
+var _Text2 = _interopRequireDefault(_Text);
+
+var _DataUtils = require('../util/DataUtils');
+
+var _CssPrefixUtils = require('../util/CssPrefixUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }return obj;
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Brush
+ */
+
+
+var Brush = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(Brush, _Component);
+
+  function Brush(props) {
+    _classCallCheck(this, Brush);
+
+    var _this = _possibleConstructorReturn(this, (Brush.__proto__ || Object.getPrototypeOf(Brush)).call(this, props));
+
+    _this.handleDrag = function (e) {
+      if (_this.leaveTimer) {
+        clearTimeout(_this.leaveTimer);
+        _this.leaveTimer = null;
+      }
+
+      if (_this.state.isTravellerMoving) {
+        _this.handleTravellerMove(e);
+      } else if (_this.state.isSlideMoving) {
+        _this.handleSlideDrag(e);
+      }
+    };
+
+    _this.handleTouchMove = function (e) {
+      if (e.changedTouches != null && e.changedTouches.length > 0) {
+        _this.handleDrag(e.changedTouches[0]);
+      }
+    };
+
+    _this.handleDragEnd = function () {
+      _this.setState({
+        isTravellerMoving: false,
+        isSlideMoving: false
+      });
+    };
+
+    _this.handleLeaveWrapper = function () {
+      if (_this.state.isTravellerMoving || _this.state.isSlideMoving) {
+        _this.leaveTimer = setTimeout(_this.handleDragEnd, 1000);
+      }
+    };
+
+    _this.handleEnterSlideOrTraveller = function () {
+      _this.setState({
+        isTextActive: true
+      });
+    };
+
+    _this.handleLeaveSlideOrTraveller = function () {
+      _this.setState({
+        isTextActive: false
+      });
+    };
+
+    _this.handleSlideDragStart = function (e) {
+      var event = e.changedTouches && e.changedTouches.length ? e.changedTouches[0] : e;
+
+      _this.setState({
+        isTravellerMoving: false,
+        isSlideMoving: true,
+        slideMoveStartX: event.pageX
+      });
+    };
+
+    _this.travellerDragStartHandlers = {
+      startX: _this.handleTravellerDragStart.bind(_this, 'startX'),
+      endX: _this.handleTravellerDragStart.bind(_this, 'endX')
+    };
+
+    _this.state = props.data && props.data.length ? _this.updateScale(props) : {};
+    return _this;
+  }
+
+  _createClass(Brush, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _this2 = this;
+
+      var _props = this.props,
+          data = _props.data,
+          width = _props.width,
+          x = _props.x,
+          travellerWidth = _props.travellerWidth,
+          updateId = _props.updateId;
+
+      if ((nextProps.data !== data || nextProps.updateId !== updateId) && nextProps.data && nextProps.data.length) {
+        this.setState(this.updateScale(nextProps));
+      } else if (nextProps.width !== width || nextProps.x !== x || nextProps.travellerWidth !== travellerWidth) {
+        this.scale.range([nextProps.x, nextProps.x + nextProps.width - nextProps.travellerWidth]);
+        this.scaleValues = this.scale.domain().map(function (entry) {
+          return _this2.scale(entry);
+        });
+
+        this.setState({
+          startX: this.scale(nextProps.startIndex),
+          endX: this.scale(nextProps.endIndex)
+        });
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.scale = null;
+      this.scaleValues = null;
+
+      if (this.leaveTimer) {
+        clearTimeout(this.leaveTimer);
+        this.leaveTimer = null;
+      }
+    }
+  }, {
+    key: 'getIndex',
+    value: function getIndex(_ref) {
+      var startX = _ref.startX,
+          endX = _ref.endX;
+      var _props2 = this.props,
+          gap = _props2.gap,
+          data = _props2.data;
+
+      var lastIndex = data.length - 1;
+      var min = Math.min(startX, endX);
+      var max = Math.max(startX, endX);
+      var minIndex = this.constructor.getIndexInRange(this.scaleValues, min);
+      var maxIndex = this.constructor.getIndexInRange(this.scaleValues, max);
+      return {
+        startIndex: minIndex - minIndex % gap,
+        endIndex: maxIndex === lastIndex ? lastIndex : maxIndex - maxIndex % gap
+      };
+    }
+  }, {
+    key: 'getTextOfTick',
+    value: function getTextOfTick(index) {
+      var _props3 = this.props,
+          data = _props3.data,
+          tickFormatter = _props3.tickFormatter,
+          dataKey = _props3.dataKey;
+
+      var text = (0, _ChartUtils.getValueByDataKey)(data[index], dataKey, index);
+
+      return (0, _isFunction3.default)(tickFormatter) ? tickFormatter(text) : text;
+    }
+  }, {
+    key: 'handleSlideDrag',
+    value: function handleSlideDrag(e) {
+      var _state = this.state,
+          slideMoveStartX = _state.slideMoveStartX,
+          startX = _state.startX,
+          endX = _state.endX;
+      var _props4 = this.props,
+          x = _props4.x,
+          width = _props4.width,
+          travellerWidth = _props4.travellerWidth,
+          startIndex = _props4.startIndex,
+          endIndex = _props4.endIndex,
+          onChange = _props4.onChange;
+
+      var delta = e.pageX - slideMoveStartX;
+
+      if (delta > 0) {
+        delta = Math.min(delta, x + width - travellerWidth - endX, x + width - travellerWidth - startX);
+      } else if (delta < 0) {
+        delta = Math.max(delta, x - startX, x - endX);
+      }
+      var newIndex = this.getIndex({
+        startX: startX + delta,
+        endX: endX + delta
+      });
+
+      if ((newIndex.startIndex !== startIndex || newIndex.endIndex !== endIndex) && onChange) {
+        onChange(newIndex);
+      }
+
+      this.setState({
+        startX: startX + delta,
+        endX: endX + delta,
+        slideMoveStartX: e.pageX
+      });
+    }
+  }, {
+    key: 'handleTravellerDragStart',
+    value: function handleTravellerDragStart(id, e) {
+      var event = e.changedTouches && e.changedTouches.length ? e.changedTouches[0] : e;
+
+      this.setState({
+        isSlideMoving: false,
+        isTravellerMoving: true,
+        movingTravellerId: id,
+        brushMoveStartX: event.pageX
+      });
+    }
+  }, {
+    key: 'handleTravellerMove',
+    value: function handleTravellerMove(e) {
+      var _setState;
+
+      var _state2 = this.state,
+          brushMoveStartX = _state2.brushMoveStartX,
+          movingTravellerId = _state2.movingTravellerId,
+          endX = _state2.endX,
+          startX = _state2.startX;
+
+      var prevValue = this.state[movingTravellerId];
+
+      var _props5 = this.props,
+          x = _props5.x,
+          width = _props5.width,
+          travellerWidth = _props5.travellerWidth,
+          onChange = _props5.onChange,
+          gap = _props5.gap,
+          data = _props5.data;
+
+      var params = { startX: this.state.startX, endX: this.state.endX };
+
+      var delta = e.pageX - brushMoveStartX;
+      if (delta > 0) {
+        delta = Math.min(delta, x + width - travellerWidth - prevValue);
+      } else if (delta < 0) {
+        delta = Math.max(delta, x - prevValue);
+      }
+
+      params[movingTravellerId] = prevValue + delta;
+
+      var newIndex = this.getIndex(params);
+      var startIndex = newIndex.startIndex,
+          endIndex = newIndex.endIndex;
+
+      var isFullGap = function isFullGap() {
+        var lastIndex = data.length - 1;
+        if (movingTravellerId === 'startX' && (endX > startX ? startIndex % gap === 0 : endIndex % gap === 0) || endX < startX && endIndex === lastIndex || movingTravellerId === 'endX' && (endX > startX ? endIndex % gap === 0 : startIndex % gap === 0) || endX > startX && endIndex === lastIndex) {
+          return true;
+        }
+        return false;
+      };
+
+      this.setState((_setState = {}, _defineProperty(_setState, movingTravellerId, prevValue + delta), _defineProperty(_setState, 'brushMoveStartX', e.pageX), _setState), function () {
+        if (onChange) {
+          if (isFullGap()) {
+            onChange(newIndex);
+          }
+        }
+      });
+    }
+  }, {
+    key: 'updateScale',
+    value: function updateScale(props) {
+      var _this3 = this;
+
+      var data = props.data,
+          startIndex = props.startIndex,
+          endIndex = props.endIndex,
+          x = props.x,
+          width = props.width,
+          travellerWidth = props.travellerWidth;
+
+      var len = data.length;
+      this.scale = (0, _d3Scale.scalePoint)().domain((0, _range3.default)(0, len)).range([x, x + width - travellerWidth]);
+      this.scaleValues = this.scale.domain().map(function (entry) {
+        return _this3.scale(entry);
+      });
+      return {
+        isTextActive: false,
+        isSlideMoving: false,
+        isTravellerMoving: false,
+        startX: this.scale(startIndex),
+        endX: this.scale(endIndex)
+      };
+    }
+  }, {
+    key: 'renderBackground',
+    value: function renderBackground() {
+      var _props6 = this.props,
+          x = _props6.x,
+          y = _props6.y,
+          width = _props6.width,
+          height = _props6.height,
+          fill = _props6.fill,
+          stroke = _props6.stroke;
+
+      return _react2.default.createElement('rect', {
+        stroke: stroke,
+        fill: fill,
+        x: x,
+        y: y,
+        width: width,
+        height: height
+      });
+    }
+  }, {
+    key: 'renderPanorama',
+    value: function renderPanorama() {
+      var _props7 = this.props,
+          x = _props7.x,
+          y = _props7.y,
+          width = _props7.width,
+          height = _props7.height,
+          data = _props7.data,
+          children = _props7.children,
+          padding = _props7.padding;
+
+      var chartElement = _react.Children.only(children);
+
+      if (!chartElement) {
+        return null;
+      }
+
+      return _react2.default.cloneElement(chartElement, {
+        x: x,
+        y: y,
+        width: width,
+        height: height,
+        margin: padding,
+        compact: true,
+        data: data
+      });
+    }
+  }, {
+    key: 'renderTraveller',
+    value: function renderTraveller(travellerX, id) {
+      var _props8 = this.props,
+          y = _props8.y,
+          travellerWidth = _props8.travellerWidth,
+          height = _props8.height,
+          stroke = _props8.stroke;
+
+      var lineY = Math.floor(y + height / 2) - 1;
+      var x = Math.max(travellerX, this.props.x);
+
+      return _react2.default.createElement(_Layer2.default, {
+        className: 'recharts-brush-traveller',
+        onMouseEnter: this.handleEnterSlideOrTraveller,
+        onMouseLeave: this.handleLeaveSlideOrTraveller,
+        onMouseDown: this.travellerDragStartHandlers[id],
+        onTouchStart: this.travellerDragStartHandlers[id],
+        style: { cursor: 'col-resize' }
+      }, _react2.default.createElement('rect', {
+        x: x,
+        y: y,
+        width: travellerWidth,
+        height: height,
+        fill: stroke,
+        stroke: 'none'
+      }), _react2.default.createElement('line', {
+        x1: x + 1,
+        y1: lineY,
+        x2: x + travellerWidth - 1,
+        y2: lineY,
+        fill: 'none',
+        stroke: '#fff'
+      }), _react2.default.createElement('line', {
+        x1: x + 1,
+        y1: lineY + 2,
+        x2: x + travellerWidth - 1,
+        y2: lineY + 2,
+        fill: 'none',
+        stroke: '#fff'
+      }));
+    }
+  }, {
+    key: 'renderSlide',
+    value: function renderSlide(startX, endX) {
+      var _props9 = this.props,
+          y = _props9.y,
+          height = _props9.height,
+          stroke = _props9.stroke;
+
+      return _react2.default.createElement('rect', {
+        className: 'recharts-brush-slide',
+        onMouseEnter: this.handleEnterSlideOrTraveller,
+        onMouseLeave: this.handleLeaveSlideOrTraveller,
+        onMouseDown: this.handleSlideDragStart,
+        onTouchStart: this.handleSlideDragStart,
+        style: { cursor: 'move' },
+        stroke: 'none',
+        fill: stroke,
+        fillOpacity: 0.2,
+        x: Math.min(startX, endX),
+        y: y,
+        width: Math.abs(endX - startX),
+        height: height
+      });
+    }
+  }, {
+    key: 'renderText',
+    value: function renderText() {
+      var _props10 = this.props,
+          startIndex = _props10.startIndex,
+          endIndex = _props10.endIndex,
+          y = _props10.y,
+          height = _props10.height,
+          travellerWidth = _props10.travellerWidth,
+          stroke = _props10.stroke;
+      var _state3 = this.state,
+          startX = _state3.startX,
+          endX = _state3.endX;
+
+      var offset = 5;
+      var attrs = {
+        pointerEvents: 'none',
+        fill: stroke
+      };
+
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-brush-texts' }, _react2.default.createElement(_Text2.default, _extends({
+        textAnchor: 'end',
+        verticalAnchor: 'middle',
+        x: Math.min(startX, endX) - offset,
+        y: y + height / 2
+      }, attrs), this.getTextOfTick(startIndex)), _react2.default.createElement(_Text2.default, _extends({
+        textAnchor: 'start',
+        verticalAnchor: 'middle',
+        x: Math.max(startX, endX) + travellerWidth + offset,
+        y: y + height / 2
+      }, attrs), this.getTextOfTick(endIndex)));
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props11 = this.props,
+          data = _props11.data,
+          className = _props11.className,
+          children = _props11.children,
+          x = _props11.x,
+          y = _props11.y,
+          width = _props11.width,
+          height = _props11.height;
+      var _state4 = this.state,
+          startX = _state4.startX,
+          endX = _state4.endX,
+          isTextActive = _state4.isTextActive,
+          isSlideMoving = _state4.isSlideMoving,
+          isTravellerMoving = _state4.isTravellerMoving;
+
+      if (!data || !data.length || !(0, _DataUtils.isNumber)(x) || !(0, _DataUtils.isNumber)(y) || !(0, _DataUtils.isNumber)(width) || !(0, _DataUtils.isNumber)(height) || width <= 0 || height <= 0) {
+        return null;
+      }
+
+      var layerClass = (0, _classnames2.default)('recharts-brush', className);
+      var isPanoramic = _react2.default.Children.count(children) === 1;
+      var style = (0, _CssPrefixUtils.generatePrefixStyle)('userSelect', 'none');
+
+      return _react2.default.createElement(_Layer2.default, {
+        className: layerClass,
+        onMouseMove: this.handleDrag,
+        onMouseLeave: this.handleLeaveWrapper,
+        onMouseUp: this.handleDragEnd,
+        onTouchEnd: this.handleDragEnd,
+        onTouchMove: this.handleTouchMove,
+        style: style
+      }, this.renderBackground(), isPanoramic && this.renderPanorama(), this.renderSlide(startX, endX), this.renderTraveller(startX, 'startX'), this.renderTraveller(endX, 'endX'), (isTextActive || isSlideMoving || isTravellerMoving) && this.renderText());
+    }
+  }], [{
+    key: 'getIndexInRange',
+    value: function getIndexInRange(range, x) {
+      var len = range.length;
+      var start = 0;
+      var end = len - 1;
+
+      while (end - start > 1) {
+        var middle = Math.floor((start + end) / 2);
+
+        if (range[middle] > x) {
+          end = middle;
+        } else {
+          start = middle;
+        }
+      }
+
+      return x >= range[end] ? end : start;
+    }
+  }]);
+
+  return Brush;
+}(_react.Component), _class2.displayName = 'Brush', _class2.propTypes = {
+  className: _propTypes2.default.string,
+
+  fill: _propTypes2.default.string,
+  stroke: _propTypes2.default.string,
+  x: _propTypes2.default.number,
+  y: _propTypes2.default.number,
+  width: _propTypes2.default.number,
+  height: _propTypes2.default.number.isRequired,
+  travellerWidth: _propTypes2.default.number,
+  gap: _propTypes2.default.number,
+  padding: _propTypes2.default.shape({
+    top: _propTypes2.default.number,
+    right: _propTypes2.default.number,
+    bottom: _propTypes2.default.number,
+    left: _propTypes2.default.number
+  }),
+
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]),
+  data: _propTypes2.default.array,
+  startIndex: _propTypes2.default.number,
+  endIndex: _propTypes2.default.number,
+  tickFormatter: _propTypes2.default.func,
+
+  children: _propTypes2.default.node,
+
+  onChange: _propTypes2.default.func,
+  updateId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number])
+}, _class2.defaultProps = {
+  height: 40,
+  travellerWidth: 5,
+  gap: 1,
+  fill: '#fff',
+  stroke: '#666',
+  padding: { top: 1, right: 1, bottom: 1, left: 1 }
+}, _temp)) || _class;
+
+exports.default = Brush;
+},{"lodash-es/range":"../node_modules/lodash-es/range.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","d3-scale":"../node_modules/d3-scale/index.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../component/Text":"../node_modules/recharts/es6/component/Text.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/CssPrefixUtils":"../node_modules/recharts/es6/util/CssPrefixUtils.js"}],"../node_modules/recharts/es6/cartesian/CartesianAxis.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isFunction2 = require("lodash-es/isFunction");
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require("classnames");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _PureRender = require("../util/PureRender");
+
+var _DOMUtils = require("../util/DOMUtils");
+
+var _Layer = require("../container/Layer");
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _Text = require("../component/Text");
+
+var _Text2 = _interopRequireDefault(_Text);
+
+var _Label = require("../component/Label");
+
+var _Label2 = _interopRequireDefault(_Label);
+
+var _ReactUtils = require("../util/ReactUtils");
+
+var _DataUtils = require("../util/DataUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _temp;
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Cartesian Axis
+ */
+
+
+var CartesianAxis = (_temp = _class = function (_Component) {
+  _inherits(CartesianAxis, _Component);
+
+  function CartesianAxis() {
+    _classCallCheck(this, CartesianAxis);
+
+    return _possibleConstructorReturn(this, (CartesianAxis.__proto__ || Object.getPrototypeOf(CartesianAxis)).apply(this, arguments));
+  }
+
+  _createClass(CartesianAxis, [{
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(_ref, state) {
+      var viewBox = _ref.viewBox,
+          restProps = _objectWithoutProperties(_ref, ['viewBox']);
+
+      // props.viewBox is sometimes generated every time -
+      // check that specially as object equality is likely to fail
+      var _props = this.props,
+          viewBoxOld = _props.viewBox,
+          restPropsOld = _objectWithoutProperties(_props, ['viewBox']);
+
+      return !(0, _PureRender.shallowEqual)(viewBox, viewBoxOld) || !(0, _PureRender.shallowEqual)(restProps, restPropsOld) || !(0, _PureRender.shallowEqual)(state, this.state);
+    }
+
+    /**
+     * Calculate the coordinates of endpoints in ticks
+     * @param  {Object} data The data of a simple tick
+     * @return {Object} (x1, y1): The coordinate of endpoint close to tick text
+     *  (x2, y2): The coordinate of endpoint close to axis
+     */
+
+  }, {
+    key: 'getTickLineCoord',
+    value: function getTickLineCoord(data) {
+      var _props2 = this.props,
+          x = _props2.x,
+          y = _props2.y,
+          width = _props2.width,
+          height = _props2.height,
+          orientation = _props2.orientation,
+          tickSize = _props2.tickSize,
+          mirror = _props2.mirror,
+          tickMargin = _props2.tickMargin;
+
+      var x1 = void 0,
+          x2 = void 0,
+          y1 = void 0,
+          y2 = void 0,
+          tx = void 0,
+          ty = void 0;
+
+      var sign = mirror ? -1 : 1;
+      var finalTickSize = data.tickSize || tickSize;
+      var tickCoord = (0, _DataUtils.isNumber)(data.tickCoord) ? data.tickCoord : data.coordinate;
+
+      switch (orientation) {
+        case 'top':
+          x1 = x2 = data.coordinate;
+          y2 = y + !mirror * height;
+          y1 = y2 - sign * finalTickSize;
+          ty = y1 - sign * tickMargin;
+          tx = tickCoord;
+          break;
+        case 'left':
+          y1 = y2 = data.coordinate;
+          x2 = x + !mirror * width;
+          x1 = x2 - sign * finalTickSize;
+          tx = x1 - sign * tickMargin;
+          ty = tickCoord;
+          break;
+        case 'right':
+          y1 = y2 = data.coordinate;
+          x2 = x + mirror * width;
+          x1 = x2 + sign * finalTickSize;
+          tx = x1 + sign * tickMargin;
+          ty = tickCoord;
+          break;
+        default:
+          x1 = x2 = data.coordinate;
+          y2 = y + mirror * height;
+          y1 = y2 + sign * finalTickSize;
+          ty = y1 + sign * tickMargin;
+          tx = tickCoord;
+          break;
+      }
+
+      return { line: { x1: x1, y1: y1, x2: x2, y2: y2 }, tick: { x: tx, y: ty } };
+    }
+  }, {
+    key: 'getTickTextAnchor',
+    value: function getTickTextAnchor() {
+      var _props3 = this.props,
+          orientation = _props3.orientation,
+          mirror = _props3.mirror;
+
+      var textAnchor = void 0;
+
+      switch (orientation) {
+        case 'left':
+          textAnchor = mirror ? 'start' : 'end';
+          break;
+        case 'right':
+          textAnchor = mirror ? 'end' : 'start';
+          break;
+        default:
+          textAnchor = 'middle';
+          break;
+      }
+
+      return textAnchor;
+    }
+  }, {
+    key: 'getTickVerticalAnchor',
+    value: function getTickVerticalAnchor() {
+      var _props4 = this.props,
+          orientation = _props4.orientation,
+          mirror = _props4.mirror;
+
+      var verticalAnchor = 'end';
+
+      switch (orientation) {
+        case 'left':
+        case 'right':
+          verticalAnchor = 'middle';
+          break;
+        case 'top':
+          verticalAnchor = mirror ? 'start' : 'end';
+          break;
+        default:
+          verticalAnchor = mirror ? 'end' : 'start';
+          break;
+      }
+
+      return verticalAnchor;
+    }
+  }, {
+    key: 'renderAxisLine',
+    value: function renderAxisLine() {
+      var _props5 = this.props,
+          x = _props5.x,
+          y = _props5.y,
+          width = _props5.width,
+          height = _props5.height,
+          orientation = _props5.orientation,
+          axisLine = _props5.axisLine,
+          mirror = _props5.mirror;
+
+      var props = _extends({}, (0, _ReactUtils.getPresentationAttributes)(this.props), {
+        fill: 'none'
+      }, (0, _ReactUtils.getPresentationAttributes)(axisLine));
+
+      if (orientation === 'top' || orientation === 'bottom') {
+        var needHeight = orientation === 'top' && !mirror || orientation === 'bottom' && mirror;
+        props = _extends({}, props, {
+          x1: x,
+          y1: y + needHeight * height,
+          x2: x + width,
+          y2: y + needHeight * height
+        });
+      } else {
+        var needWidth = orientation === 'left' && !mirror || orientation === 'right' && mirror;
+        props = _extends({}, props, {
+          x1: x + needWidth * width,
+          y1: y,
+          x2: x + needWidth * width,
+          y2: y + height
+        });
+      }
+
+      return _react2.default.createElement('line', _extends({ className: 'recharts-cartesian-axis-line' }, props));
+    }
+  }, {
+    key: 'renderTicks',
+
+    /**
+     * render the ticks
+     * @param {Array} ticks The ticks to actually render (overrides what was passed in props)
+     * @return {ReactComponent} renderedTicks
+     */
+    value: function renderTicks(ticks) {
+      var _this2 = this;
+
+      var _props6 = this.props,
+          tickLine = _props6.tickLine,
+          stroke = _props6.stroke,
+          tick = _props6.tick,
+          tickFormatter = _props6.tickFormatter,
+          unit = _props6.unit;
+
+      var finalTicks = CartesianAxis.getTicks(_extends({}, this.props, { ticks: ticks }));
+      var textAnchor = this.getTickTextAnchor();
+      var verticalAnchor = this.getTickVerticalAnchor();
+      var axisProps = (0, _ReactUtils.getPresentationAttributes)(this.props);
+      var customTickProps = (0, _ReactUtils.getPresentationAttributes)(tick);
+      var tickLineProps = _extends({}, axisProps, { fill: 'none' }, (0, _ReactUtils.getPresentationAttributes)(tickLine));
+      var items = finalTicks.map(function (entry, i) {
+        var _getTickLineCoord = _this2.getTickLineCoord(entry),
+            lineCoord = _getTickLineCoord.line,
+            tickCoord = _getTickLineCoord.tick;
+
+        var tickProps = _extends({
+          textAnchor: textAnchor,
+          verticalAnchor: verticalAnchor
+        }, axisProps, {
+          stroke: 'none', fill: stroke
+        }, customTickProps, tickCoord, {
+          index: i, payload: entry,
+          visibleTicksCount: finalTicks.length
+        });
+
+        return _react2.default.createElement(_Layer2.default, _extends({
+          className: 'recharts-cartesian-axis-tick',
+          key: 'tick-' + i
+        }, (0, _ReactUtils.filterEventsOfChild)(_this2.props, entry, i)), tickLine && _react2.default.createElement('line', _extends({
+          className: 'recharts-cartesian-axis-tick-line'
+        }, tickLineProps, lineCoord)), tick && _this2.constructor.renderTickItem(tick, tickProps, '' + ((0, _isFunction3.default)(tickFormatter) ? tickFormatter(entry.value) : entry.value) + (unit || '')));
+      });
+
+      return _react2.default.createElement('g', { className: 'recharts-cartesian-axis-ticks' }, items);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props7 = this.props,
+          axisLine = _props7.axisLine,
+          width = _props7.width,
+          height = _props7.height,
+          ticksGenerator = _props7.ticksGenerator,
+          className = _props7.className,
+          hide = _props7.hide;
+
+      if (hide) {
+        return null;
+      }
+
+      var _props8 = this.props,
+          ticks = _props8.ticks,
+          noTicksProps = _objectWithoutProperties(_props8, ['ticks']);
+
+      var finalTicks = ticks;
+
+      if ((0, _isFunction3.default)(ticksGenerator)) {
+        finalTicks = ticks && ticks.length > 0 ? ticksGenerator(this.props) : ticksGenerator(noTicksProps);
+      }
+
+      if (width <= 0 || height <= 0 || !finalTicks || !finalTicks.length) {
+        return null;
+      }
+
+      return _react2.default.createElement(_Layer2.default, { className: (0, _classnames2.default)('recharts-cartesian-axis', className) }, axisLine && this.renderAxisLine(), this.renderTicks(finalTicks), _Label2.default.renderCallByParent(this.props));
+    }
+  }], [{
+    key: 'getTicks',
+    value: function getTicks(props) {
+      var tick = props.tick,
+          ticks = props.ticks,
+          viewBox = props.viewBox,
+          minTickGap = props.minTickGap,
+          orientation = props.orientation,
+          interval = props.interval,
+          tickFormatter = props.tickFormatter,
+          unit = props.unit;
+
+      if (!ticks || !ticks.length || !tick) {
+        return [];
+      }
+
+      if ((0, _DataUtils.isNumber)(interval) || (0, _ReactUtils.isSsr)()) {
+        return CartesianAxis.getNumberIntervalTicks(ticks, (0, _DataUtils.isNumber)(interval) ? interval : 0);
+      }
+
+      if (interval === 'preserveStartEnd') {
+        return CartesianAxis.getTicksStart({
+          ticks: ticks, tickFormatter: tickFormatter, viewBox: viewBox, orientation: orientation, minTickGap: minTickGap, unit: unit
+        }, true);
+      } else if (interval === 'preserveStart') {
+        return CartesianAxis.getTicksStart({
+          ticks: ticks, tickFormatter: tickFormatter, viewBox: viewBox, orientation: orientation, minTickGap: minTickGap, unit: unit
+        });
+      }
+
+      return CartesianAxis.getTicksEnd({
+        ticks: ticks, tickFormatter: tickFormatter, viewBox: viewBox, orientation: orientation, minTickGap: minTickGap, unit: unit
+      });
+    }
+  }, {
+    key: 'getNumberIntervalTicks',
+    value: function getNumberIntervalTicks(ticks, interval) {
+      return ticks.filter(function (entry, i) {
+        return i % (interval + 1) === 0;
+      });
+    }
+  }, {
+    key: 'getTicksStart',
+    value: function getTicksStart(_ref2, preserveEnd) {
+      var ticks = _ref2.ticks,
+          tickFormatter = _ref2.tickFormatter,
+          viewBox = _ref2.viewBox,
+          orientation = _ref2.orientation,
+          minTickGap = _ref2.minTickGap,
+          unit = _ref2.unit;
+      var x = viewBox.x,
+          y = viewBox.y,
+          width = viewBox.width,
+          height = viewBox.height;
+
+      var sizeKey = orientation === 'top' || orientation === 'bottom' ? 'width' : 'height';
+      var result = (ticks || []).slice();
+      var unitSize = unit ? (0, _DOMUtils.getStringSize)(unit)[sizeKey] : 0;
+      var len = result.length;
+      var sign = len >= 2 ? (0, _DataUtils.mathSign)(result[1].coordinate - result[0].coordinate) : 1;
+
+      var start = void 0,
+          end = void 0;
+
+      if (sign === 1) {
+        start = sizeKey === 'width' ? x : y;
+        end = sizeKey === 'width' ? x + width : y + height;
+      } else {
+        start = sizeKey === 'width' ? x + width : y + height;
+        end = sizeKey === 'width' ? x : y;
+      }
+
+      if (preserveEnd) {
+        // Try to guarantee the tail to be displayed
+        var tail = ticks[len - 1];
+        var tailContent = (0, _isFunction3.default)(tickFormatter) ? tickFormatter(tail.value) : tail.value;
+        var tailSize = (0, _DOMUtils.getStringSize)(tailContent)[sizeKey] + unitSize;
+        var tailGap = sign * (tail.coordinate + sign * tailSize / 2 - end);
+        result[len - 1] = tail = _extends({}, tail, {
+          tickCoord: tailGap > 0 ? tail.coordinate - tailGap * sign : tail.coordinate
+        });
+
+        var isTailShow = sign * (tail.tickCoord - sign * tailSize / 2 - start) >= 0 && sign * (tail.tickCoord + sign * tailSize / 2 - end) <= 0;
+
+        if (isTailShow) {
+          end = tail.tickCoord - sign * (tailSize / 2 + minTickGap);
+          result[len - 1] = _extends({}, tail, { isShow: true });
+        }
+      }
+
+      var count = preserveEnd ? len - 1 : len;
+      for (var i = 0; i < count; i++) {
+        var entry = result[i];
+        var content = (0, _isFunction3.default)(tickFormatter) ? tickFormatter(entry.value) : entry.value;
+        var size = (0, _DOMUtils.getStringSize)(content)[sizeKey] + unitSize;
+
+        if (i === 0) {
+          var gap = sign * (entry.coordinate - sign * size / 2 - start);
+          result[i] = entry = _extends({}, entry, {
+            tickCoord: gap < 0 ? entry.coordinate - gap * sign : entry.coordinate
+          });
+        } else {
+          result[i] = entry = _extends({}, entry, { tickCoord: entry.coordinate });
+        }
+
+        var isShow = sign * (entry.tickCoord - sign * size / 2 - start) >= 0 && sign * (entry.tickCoord + sign * size / 2 - end) <= 0;
+
+        if (isShow) {
+          start = entry.tickCoord + sign * (size / 2 + minTickGap);
+          result[i] = _extends({}, entry, { isShow: true });
+        }
+      }
+
+      return result.filter(function (entry) {
+        return entry.isShow;
+      });
+    }
+  }, {
+    key: 'getTicksEnd',
+    value: function getTicksEnd(_ref3) {
+      var ticks = _ref3.ticks,
+          tickFormatter = _ref3.tickFormatter,
+          viewBox = _ref3.viewBox,
+          orientation = _ref3.orientation,
+          minTickGap = _ref3.minTickGap,
+          unit = _ref3.unit;
+      var x = viewBox.x,
+          y = viewBox.y,
+          width = viewBox.width,
+          height = viewBox.height;
+
+      var sizeKey = orientation === 'top' || orientation === 'bottom' ? 'width' : 'height';
+      var unitSize = unit ? (0, _DOMUtils.getStringSize)(unit)[sizeKey] : 0;
+      var result = (ticks || []).slice();
+      var len = result.length;
+      var sign = len >= 2 ? (0, _DataUtils.mathSign)(result[1].coordinate - result[0].coordinate) : 1;
+
+      var start = void 0,
+          end = void 0;
+
+      if (sign === 1) {
+        start = sizeKey === 'width' ? x : y;
+        end = sizeKey === 'width' ? x + width : y + height;
+      } else {
+        start = sizeKey === 'width' ? x + width : y + height;
+        end = sizeKey === 'width' ? x : y;
+      }
+
+      for (var i = len - 1; i >= 0; i--) {
+        var entry = result[i];
+        var content = (0, _isFunction3.default)(tickFormatter) ? tickFormatter(entry.value) : entry.value;
+        var size = (0, _DOMUtils.getStringSize)(content)[sizeKey] + unitSize;
+
+        if (i === len - 1) {
+          var gap = sign * (entry.coordinate + sign * size / 2 - end);
+          result[i] = entry = _extends({}, entry, {
+            tickCoord: gap > 0 ? entry.coordinate - gap * sign : entry.coordinate
+          });
+        } else {
+          result[i] = entry = _extends({}, entry, { tickCoord: entry.coordinate });
+        }
+
+        var isShow = sign * (entry.tickCoord - sign * size / 2 - start) >= 0 && sign * (entry.tickCoord + sign * size / 2 - end) <= 0;
+
+        if (isShow) {
+          end = entry.tickCoord - sign * (size / 2 + minTickGap);
+          result[i] = _extends({}, entry, { isShow: true });
+        }
+      }
+
+      return result.filter(function (entry) {
+        return entry.isShow;
+      });
+    }
+  }, {
+    key: 'renderTickItem',
+    value: function renderTickItem(option, props, value) {
+      var tickItem = void 0;
+
+      if (_react2.default.isValidElement(option)) {
+        tickItem = _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        tickItem = option(props);
+      } else {
+        tickItem = _react2.default.createElement(_Text2.default, _extends({}, props, {
+          className: 'recharts-cartesian-axis-tick-value'
+        }), value);
+      }
+
+      return tickItem;
+    }
+  }]);
+
+  return CartesianAxis;
+}(_react.Component), _class.displayName = 'CartesianAxis', _class.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, _ReactUtils.EVENT_ATTRIBUTES, {
+  className: _propTypes2.default.string,
+  x: _propTypes2.default.number,
+  y: _propTypes2.default.number,
+  width: _propTypes2.default.number,
+  height: _propTypes2.default.number,
+  orientation: _propTypes2.default.oneOf(['top', 'bottom', 'left', 'right']),
+  // The viewBox of svg
+  viewBox: _propTypes2.default.shape({
+    x: _propTypes2.default.number,
+    y: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    height: _propTypes2.default.number
+  }),
+  tick: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.func, _propTypes2.default.object, _propTypes2.default.element]),
+  axisLine: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.object]),
+  tickLine: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.object]),
+  mirror: _propTypes2.default.bool,
+  tickMargin: _propTypes2.default.number.isRequired,
+
+  minTickGap: _propTypes2.default.number,
+  ticks: _propTypes2.default.array,
+  tickSize: _propTypes2.default.number,
+  stroke: _propTypes2.default.string,
+  tickFormatter: _propTypes2.default.func,
+  ticksGenerator: _propTypes2.default.func,
+  interval: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.oneOf(['preserveStart', 'preserveEnd', 'preserveStartEnd'])])
+}), _class.defaultProps = {
+  x: 0,
+  y: 0,
+  width: 0,
+  height: 0,
+  viewBox: { x: 0, y: 0, width: 0, height: 0 },
+  // The orientation of axis
+  orientation: 'bottom',
+  // The ticks
+  ticks: [],
+
+  stroke: '#666',
+  tickLine: true,
+  axisLine: true,
+  tick: true,
+  mirror: false,
+
+  minTickGap: 5,
+  // The width or height of tick
+  tickSize: 6,
+  tickMargin: 2,
+  interval: 'preserveEnd'
+}, _temp);
+
+exports.default = CartesianAxis;
+},{"lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/DOMUtils":"../node_modules/recharts/es6/util/DOMUtils.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../component/Text":"../node_modules/recharts/es6/component/Text.js","../component/Label":"../node_modules/recharts/es6/component/Label.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js"}],"../node_modules/recharts/es6/cartesian/CartesianGrid.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isFunction2 = require("lodash-es/isFunction");
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _ReactUtils = require("../util/ReactUtils");
+
+var _DataUtils = require("../util/DataUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Cartesian Grid
+ */
+
+
+var CartesianGrid = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(CartesianGrid, _Component);
+
+  function CartesianGrid() {
+    _classCallCheck(this, CartesianGrid);
+
+    return _possibleConstructorReturn(this, (CartesianGrid.__proto__ || Object.getPrototypeOf(CartesianGrid)).apply(this, arguments));
+  }
+
+  _createClass(CartesianGrid, [{
+    key: 'renderHorizontal',
+
+    /**
+     * Draw the horizontal grid lines
+     * @param {Array} horizontalPoints either passed in as props or generated from function
+     * @return {Group} Horizontal lines
+     */
+    value: function renderHorizontal(horizontalPoints) {
+      var _this2 = this;
+
+      var _props = this.props,
+          x = _props.x,
+          width = _props.width,
+          horizontal = _props.horizontal;
+
+      if (!horizontalPoints || !horizontalPoints.length) {
+        return null;
+      }
+
+      var items = horizontalPoints.map(function (entry, i) {
+        var props = _extends({}, _this2.props, {
+          x1: x,
+          y1: entry,
+          x2: x + width,
+          y2: entry,
+          key: 'line-' + i,
+          index: i
+        });
+
+        return _this2.constructor.renderLineItem(horizontal, props);
+      });
+
+      return _react2.default.createElement('g', { className: 'recharts-cartesian-grid-horizontal' }, items);
+    }
+
+    /**
+     * Draw vertical grid lines
+     * @param {Array} verticalPoints either passed in as props or generated from function
+     * @return {Group} Vertical lines
+     */
+
+  }, {
+    key: 'renderVertical',
+    value: function renderVertical(verticalPoints) {
+      var _this3 = this;
+
+      var _props2 = this.props,
+          y = _props2.y,
+          height = _props2.height,
+          vertical = _props2.vertical;
+
+      if (!verticalPoints || !verticalPoints.length) {
+        return null;
+      }
+
+      var items = verticalPoints.map(function (entry, i) {
+        var props = _extends({}, _this3.props, {
+          x1: entry,
+          y1: y,
+          x2: entry,
+          y2: y + height,
+          key: 'line-' + i,
+          index: i
+        });
+
+        return _this3.constructor.renderLineItem(vertical, props);
+      });
+
+      return _react2.default.createElement('g', { className: 'recharts-cartesian-grid-vertical' }, items);
+    }
+
+    /**
+     * Draw vertical grid stripes filled by colors
+     * @param {Array} verticalPoints either passed in as props or generated from function
+     * @return {Group} Vertical stripes
+     */
+
+  }, {
+    key: 'renderVerticalStripes',
+    value: function renderVerticalStripes(verticalPoints) {
+      var verticalFill = this.props.verticalFill;
+
+      if (!verticalFill || !verticalFill.length) {
+        return null;
+      }
+
+      var _props3 = this.props,
+          fillOpacity = _props3.fillOpacity,
+          x = _props3.x,
+          y = _props3.y,
+          width = _props3.width,
+          height = _props3.height;
+
+      var verticalPointsUpdated = verticalPoints.slice().sort(function (a, b) {
+        return a - b > 0;
+      });
+
+      if (x !== verticalPointsUpdated[0]) {
+        verticalPointsUpdated.unshift(0);
+      }
+
+      var items = verticalPointsUpdated.map(function (entry, i) {
+        var lineWidth = verticalPointsUpdated[i + 1] ? verticalPointsUpdated[i + 1] - entry : x + width - entry;
+        if (lineWidth <= 0) {
+          return null;
+        }
+        var colorIndex = i % verticalFill.length;
+        return _react2.default.createElement('rect', {
+          key: 'react-' + i,
+          x: Math.round(entry + x - x),
+          y: y,
+          width: lineWidth,
+          height: height,
+          stroke: 'none',
+          fill: verticalFill[colorIndex],
+          fillOpacity: fillOpacity,
+          className: 'recharts-cartesian-grid-bg'
+        });
+      });
+
+      return _react2.default.createElement('g', { className: 'recharts-cartesian-gridstripes-vertical' }, items);
+    }
+
+    /**
+     * Draw horizontal grid stripes filled by colors
+     * @param {Array} horizontalPoints either passed in as props or generated from function
+     * @return {Group} Horizontal stripes
+     */
+
+  }, {
+    key: 'renderHorizontalStripes',
+    value: function renderHorizontalStripes(horizontalPoints) {
+      var horizontalFill = this.props.horizontalFill;
+
+      if (!horizontalFill || !horizontalFill.length) {
+        return null;
+      }
+
+      var _props4 = this.props,
+          fillOpacity = _props4.fillOpacity,
+          x = _props4.x,
+          y = _props4.y,
+          width = _props4.width,
+          height = _props4.height;
+
+      var horizontalPointsUpdated = horizontalPoints.slice().sort(function (a, b) {
+        return a - b > 0;
+      });
+      if (y !== horizontalPointsUpdated[0]) {
+        horizontalPointsUpdated.unshift(0);
+      }
+
+      var items = horizontalPointsUpdated.map(function (entry, i) {
+        var lineHeight = horizontalPointsUpdated[i + 1] ? horizontalPointsUpdated[i + 1] - entry : y + height - entry;
+        if (lineHeight <= 0) {
+          return null;
+        }
+        var colorIndex = i % horizontalFill.length;
+        return _react2.default.createElement('rect', {
+          key: 'react-' + i,
+          y: Math.round(entry + y - y),
+          x: x,
+          height: lineHeight,
+          width: width,
+          stroke: 'none',
+          fill: horizontalFill[colorIndex],
+          fillOpacity: fillOpacity,
+          className: 'recharts-cartesian-grid-bg'
+        });
+      });
+
+      return _react2.default.createElement('g', { className: 'recharts-cartesian-gridstripes-horizontal' }, items);
+    }
+  }, {
+    key: 'renderBackground',
+    value: function renderBackground() {
+      var fill = this.props.fill;
+
+      if (!fill || fill === 'none') {
+        return null;
+      }
+
+      var _props5 = this.props,
+          fillOpacity = _props5.fillOpacity,
+          x = _props5.x,
+          y = _props5.y,
+          width = _props5.width,
+          height = _props5.height;
+
+      return _react2.default.createElement('rect', {
+        x: x,
+        y: y,
+        width: width,
+        height: height,
+        stroke: 'none',
+        fill: fill,
+        fillOpacity: fillOpacity,
+        className: 'recharts-cartesian-grid-bg'
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props6 = this.props,
+          x = _props6.x,
+          y = _props6.y,
+          width = _props6.width,
+          height = _props6.height,
+          horizontal = _props6.horizontal,
+          vertical = _props6.vertical,
+          horizontalCoordinatesGenerator = _props6.horizontalCoordinatesGenerator,
+          verticalCoordinatesGenerator = _props6.verticalCoordinatesGenerator,
+          xAxis = _props6.xAxis,
+          yAxis = _props6.yAxis,
+          offset = _props6.offset,
+          chartWidth = _props6.chartWidth,
+          chartHeight = _props6.chartHeight;
+
+      if (!(0, _DataUtils.isNumber)(width) || width <= 0 || !(0, _DataUtils.isNumber)(height) || height <= 0 || !(0, _DataUtils.isNumber)(x) || x !== +x || !(0, _DataUtils.isNumber)(y) || y !== +y) {
+        return null;
+      }
+
+      var _props7 = this.props,
+          horizontalPoints = _props7.horizontalPoints,
+          verticalPoints = _props7.verticalPoints;
+
+      // No horizontal points are specified
+
+      if ((!horizontalPoints || !horizontalPoints.length) && (0, _isFunction3.default)(horizontalCoordinatesGenerator)) {
+        horizontalPoints = horizontalCoordinatesGenerator({ yAxis: yAxis, width: chartWidth,
+          height: chartHeight, offset: offset });
+      }
+
+      // No vertical points are specified
+      if ((!verticalPoints || !verticalPoints.length) && (0, _isFunction3.default)(verticalCoordinatesGenerator)) {
+        verticalPoints = verticalCoordinatesGenerator({ xAxis: xAxis, width: chartWidth,
+          height: chartHeight, offset: offset });
+      }
+
+      return _react2.default.createElement('g', { className: 'recharts-cartesian-grid' }, this.renderBackground(), horizontal && this.renderHorizontal(horizontalPoints), vertical && this.renderVertical(verticalPoints), horizontal && this.renderHorizontalStripes(horizontalPoints), vertical && this.renderVerticalStripes(verticalPoints));
+    }
+  }], [{
+    key: 'renderLineItem',
+    value: function renderLineItem(option, props) {
+      var lineItem = void 0;
+
+      if (_react2.default.isValidElement(option)) {
+        lineItem = _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        lineItem = option(props);
+      } else {
+        var x1 = props.x1,
+            y1 = props.y1,
+            x2 = props.x2,
+            y2 = props.y2,
+            key = props.key,
+            others = _objectWithoutProperties(props, ['x1', 'y1', 'x2', 'y2', 'key']);
+
+        lineItem = _react2.default.createElement('line', _extends({}, (0, _ReactUtils.getPresentationAttributes)(others), {
+          x1: x1,
+          y1: y1,
+          x2: x2,
+          y2: y2,
+          fill: 'none',
+          key: key
+        }));
+      }
+
+      return lineItem;
+    }
+  }]);
+
+  return CartesianGrid;
+}(_react.Component), _class2.displayName = 'CartesianGrid', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, {
+  x: _propTypes2.default.number,
+  y: _propTypes2.default.number,
+  width: _propTypes2.default.number,
+  height: _propTypes2.default.number,
+  horizontal: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.element, _propTypes2.default.func, _propTypes2.default.bool]),
+  vertical: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.element, _propTypes2.default.func, _propTypes2.default.bool]),
+  horizontalPoints: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  verticalPoints: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  horizontalCoordinatesGenerator: _propTypes2.default.func,
+  verticalCoordinatesGenerator: _propTypes2.default.func,
+  xAxis: _propTypes2.default.object,
+  yAxis: _propTypes2.default.object,
+  offset: _propTypes2.default.object,
+  chartWidth: _propTypes2.default.number,
+  chartHeight: _propTypes2.default.number,
+  verticalFill: _propTypes2.default.arrayOf(_propTypes2.default.string),
+  horizontalFill: _propTypes2.default.arrayOf(_propTypes2.default.string)
+}), _class2.defaultProps = {
+  horizontal: true,
+  vertical: true,
+  // The ordinates of horizontal grid lines
+  horizontalPoints: [],
+  // The abscissas of vertical grid lines
+  verticalPoints: [],
+
+  stroke: '#ccc',
+  fill: 'none',
+  // The fill of colors of grid lines
+  verticalFill: [],
+  horizontalFill: []
+}, _temp)) || _class;
+
+exports.default = CartesianGrid;
+},{"lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js"}],"../node_modules/recharts/es6/cartesian/Line.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isEqual2 = require('lodash-es/isEqual');
+
+var _isEqual3 = _interopRequireDefault(_isEqual2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _isNil2 = require('lodash-es/isNil');
+
+var _isNil3 = _interopRequireDefault(_isNil2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactSmooth = require('react-smooth');
+
+var _reactSmooth2 = _interopRequireDefault(_reactSmooth);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _Curve = require('../shape/Curve');
+
+var _Curve2 = _interopRequireDefault(_Curve);
+
+var _Dot = require('../shape/Dot');
+
+var _Dot2 = _interopRequireDefault(_Dot);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _LabelList = require('../component/LabelList');
+
+var _LabelList2 = _interopRequireDefault(_LabelList);
+
+var _ErrorBar = require('./ErrorBar');
+
+var _ErrorBar2 = _interopRequireDefault(_ErrorBar);
+
+var _DataUtils = require('../util/DataUtils');
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _ChartUtils = require('../util/ChartUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp2;
+
+function _toConsumableArray(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }return arr2;
+  } else {
+    return Array.from(arr);
+  }
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Line
+ */
+
+
+var Line = (0, _PureRender2.default)(_class = (_temp2 = _class2 = function (_Component) {
+  _inherits(Line, _Component);
+
+  function Line() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Line);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Line.__proto__ || Object.getPrototypeOf(Line)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      isAnimationFinished: true,
+      totalLength: 0
+    }, _this.id = (0, _DataUtils.uniqueId)('recharts-line-'), _this.cachePrevData = function (points) {
+      _this.setState({ prevPoints: points });
+    }, _this.pathRef = function (node) {
+      _this.mainCurve = node;
+    }, _this.handleAnimationEnd = function () {
+      _this.setState({ isAnimationFinished: true });
+      _this.props.onAnimationEnd();
+    }, _this.handleAnimationStart = function () {
+      _this.setState({ isAnimationFinished: false });
+      _this.props.onAnimationStart();
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  /**
+   * Compose the data of each group
+   * @param {Object} props The props from the component
+   * @param  {Object} xAxis   The configuration of x-axis
+   * @param  {Object} yAxis   The configuration of y-axis
+   * @param  {String} dataKey The unique key of a group
+   * @return {Array}  Composed data
+   */
+
+  _createClass(Line, [{
+    key: 'componentDidMount',
+
+    /* eslint-disable  react/no-did-mount-set-state */
+    value: function componentDidMount() {
+      if (!this.props.isAnimationActive) {
+        return;
+      }
+
+      var totalLength = this.getTotalLength();
+      this.setState({ totalLength: totalLength });
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _props = this.props,
+          animationId = _props.animationId,
+          points = _props.points;
+
+      if (nextProps.animationId !== animationId) {
+        this.cachePrevData(points);
+      }
+    }
+  }, {
+    key: 'getTotalLength',
+    value: function getTotalLength() {
+      var curveDom = this.mainCurve;
+
+      try {
+        return curveDom && curveDom.getTotalLength && curveDom.getTotalLength() || 0;
+      } catch (err) {
+        return 0;
+      }
+    }
+  }, {
+    key: 'getStrokeDasharray',
+    value: function getStrokeDasharray(length, totalLength, lines) {
+      var lineLength = lines.reduce(function (pre, next) {
+        return pre + next;
+      });
+
+      var count = parseInt(length / lineLength, 10);
+      var remainLength = length % lineLength;
+      var restLength = totalLength - length;
+
+      var remainLines = [];
+      for (var i = 0, sum = 0;; sum += lines[i], ++i) {
+        if (sum + lines[i] > remainLength) {
+          remainLines = [].concat(_toConsumableArray(lines.slice(0, i)), [remainLength - sum]);
+          break;
+        }
+      }
+
+      var emptyLines = remainLines.length % 2 === 0 ? [0, restLength] : [restLength];
+
+      return [].concat(_toConsumableArray(this.constructor.repeat(lines, count)), _toConsumableArray(remainLines), emptyLines).map(function (line) {
+        return line + 'px';
+      }).join(', ');
+    }
+  }, {
+    key: 'renderErrorBar',
+    value: function renderErrorBar() {
+      if (this.props.isAnimationActive && !this.state.isAnimationFinished) {
+        return null;
+      }
+
+      var _props2 = this.props,
+          points = _props2.points,
+          xAxis = _props2.xAxis,
+          yAxis = _props2.yAxis,
+          layout = _props2.layout,
+          children = _props2.children;
+
+      var errorBarItems = (0, _ReactUtils.findAllByType)(children, _ErrorBar2.default);
+
+      if (!errorBarItems) {
+        return null;
+      }
+
+      function dataPointFormatter(dataPoint, dataKey) {
+        return {
+          x: dataPoint.x,
+          y: dataPoint.y,
+          value: dataPoint.value,
+          errorVal: (0, _ChartUtils.getValueByDataKey)(dataPoint.payload, dataKey)
+        };
+      }
+
+      return errorBarItems.map(function (item, i) {
+        return _react2.default.cloneElement(item, {
+          key: i,
+          data: points,
+          xAxis: xAxis,
+          yAxis: yAxis,
+          layout: layout,
+          dataPointFormatter: dataPointFormatter
+        });
+      });
+    }
+  }, {
+    key: 'renderDots',
+    value: function renderDots(needClip, clipPathId) {
+      var _this2 = this;
+
+      var isAnimationActive = this.props.isAnimationActive;
+
+      if (isAnimationActive && !this.state.isAnimationFinished) {
+        return null;
+      }
+      var _props3 = this.props,
+          dot = _props3.dot,
+          points = _props3.points,
+          dataKey = _props3.dataKey;
+
+      var lineProps = (0, _ReactUtils.getPresentationAttributes)(this.props);
+      var customDotProps = (0, _ReactUtils.getPresentationAttributes)(dot);
+      var dotEvents = (0, _ReactUtils.filterEventAttributes)(dot);
+      var dots = points.map(function (entry, i) {
+        var dotProps = _extends({
+          key: 'dot-' + i,
+          r: 3
+        }, lineProps, customDotProps, dotEvents, {
+          value: entry.value,
+          dataKey: dataKey,
+          cx: entry.x, cy: entry.y, index: i, payload: entry.payload
+        });
+
+        return _this2.constructor.renderDotItem(dot, dotProps);
+      });
+      var dotsProps = {
+        clipPath: needClip ? 'url(#clipPath-' + clipPathId + ')' : null
+      };
+
+      return _react2.default.createElement(_Layer2.default, _extends({ className: 'recharts-line-dots', key: 'dots' }, dotsProps), dots);
+    }
+  }, {
+    key: 'renderCurveStatically',
+    value: function renderCurveStatically(points, needClip, clipPathId, props) {
+      var _props4 = this.props,
+          type = _props4.type,
+          layout = _props4.layout,
+          connectNulls = _props4.connectNulls;
+
+      var curveProps = _extends({}, (0, _ReactUtils.getPresentationAttributes)(this.props), (0, _ReactUtils.filterEventAttributes)(this.props), {
+        fill: 'none',
+        className: 'recharts-line-curve',
+        clipPath: needClip ? 'url(#clipPath-' + clipPathId + ')' : null,
+        points: points
+      }, props, {
+        type: type, layout: layout, connectNulls: connectNulls
+      });
+
+      return _react2.default.createElement(_Curve2.default, _extends({}, curveProps, { pathRef: this.pathRef }));
+    }
+  }, {
+    key: 'renderCurveWithAnimation',
+    value: function renderCurveWithAnimation(needClip, clipPathId) {
+      var _this3 = this;
+
+      var _props5 = this.props,
+          points = _props5.points,
+          strokeDasharray = _props5.strokeDasharray,
+          isAnimationActive = _props5.isAnimationActive,
+          animationBegin = _props5.animationBegin,
+          animationDuration = _props5.animationDuration,
+          animationEasing = _props5.animationEasing,
+          animationId = _props5.animationId,
+          width = _props5.width,
+          height = _props5.height;
+      var _state = this.state,
+          prevPoints = _state.prevPoints,
+          totalLength = _state.totalLength;
+
+      return _react2.default.createElement(_reactSmooth2.default, {
+        begin: animationBegin,
+        duration: animationDuration,
+        isActive: isAnimationActive,
+        easing: animationEasing,
+        from: { t: 0 },
+        to: { t: 1 },
+        key: 'line-' + animationId,
+        onAnimationEnd: this.handleAnimationEnd,
+        onAnimationStart: this.handleAnimationStart
+      }, function (_ref2) {
+        var t = _ref2.t;
+
+        if (prevPoints) {
+          var stepData = points.map(function (entry, index) {
+            if (prevPoints[index]) {
+              var prev = prevPoints[index];
+              var _interpolatorX = (0, _DataUtils.interpolateNumber)(prev.x, entry.x);
+              var _interpolatorY = (0, _DataUtils.interpolateNumber)(prev.y, entry.y);
+
+              return _extends({}, entry, { x: _interpolatorX(t), y: _interpolatorY(t) });
+            }
+
+            // magic number of faking previous x and y location
+            var interpolatorX = (0, _DataUtils.interpolateNumber)(width * 2, entry.x);
+            var interpolatorY = (0, _DataUtils.interpolateNumber)(height / 2, entry.y);
+            return _extends({}, entry, { x: interpolatorX(t), y: interpolatorY(t) });
+          });
+          return _this3.renderCurveStatically(stepData, needClip, clipPathId);
+        }
+        var interpolator = (0, _DataUtils.interpolateNumber)(0, totalLength);
+        var curLength = interpolator(t);
+        var currentStrokeDasharray = void 0;
+
+        if (strokeDasharray) {
+          var lines = strokeDasharray.split(/[,\s]+/gim).map(function (num) {
+            return parseFloat(num);
+          });
+          currentStrokeDasharray = _this3.getStrokeDasharray(curLength, totalLength, lines);
+        } else {
+          currentStrokeDasharray = curLength + 'px ' + (totalLength - curLength) + 'px';
+        }
+
+        return _this3.renderCurveStatically(points, needClip, clipPathId, {
+          strokeDasharray: currentStrokeDasharray
+        });
+      });
+    }
+  }, {
+    key: 'renderCurve',
+    value: function renderCurve(needClip, clipPathId) {
+      var _props6 = this.props,
+          points = _props6.points,
+          isAnimationActive = _props6.isAnimationActive;
+      var _state2 = this.state,
+          prevPoints = _state2.prevPoints,
+          totalLength = _state2.totalLength;
+
+      if (isAnimationActive && points && points.length && (!prevPoints && totalLength > 0 || !(0, _isEqual3.default)(prevPoints, points))) {
+        return this.renderCurveWithAnimation(needClip, clipPathId);
+      }
+
+      return this.renderCurveStatically(points, needClip, clipPathId);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props7 = this.props,
+          hide = _props7.hide,
+          dot = _props7.dot,
+          points = _props7.points,
+          className = _props7.className,
+          xAxis = _props7.xAxis,
+          yAxis = _props7.yAxis,
+          top = _props7.top,
+          left = _props7.left,
+          width = _props7.width,
+          height = _props7.height,
+          isAnimationActive = _props7.isAnimationActive,
+          id = _props7.id;
+
+      if (hide || !points || !points.length) {
+        return null;
+      }
+
+      var isAnimationFinished = this.state.isAnimationFinished;
+
+      var hasSinglePoint = points.length === 1;
+      var layerClass = (0, _classnames2.default)('recharts-line', className);
+      var needClip = xAxis && xAxis.allowDataOverflow || yAxis && yAxis.allowDataOverflow;
+      var clipPathId = (0, _isNil3.default)(id) ? this.id : id;
+
+      return _react2.default.createElement(_Layer2.default, { className: layerClass }, needClip ? _react2.default.createElement('defs', null, _react2.default.createElement('clipPath', { id: 'clipPath-' + clipPathId }, _react2.default.createElement('rect', { x: left, y: top, width: width, height: height }))) : null, !hasSinglePoint && this.renderCurve(needClip, clipPathId), this.renderErrorBar(), (hasSinglePoint || dot) && this.renderDots(needClip, clipPathId), (!isAnimationActive || isAnimationFinished) && _LabelList2.default.renderCallByParent(this.props, points));
+    }
+  }], [{
+    key: 'repeat',
+    value: function repeat(lines, count) {
+      var linesUnit = lines.length % 2 !== 0 ? [].concat(_toConsumableArray(lines), [0]) : lines;
+      var result = [];
+
+      for (var i = 0; i < count; ++i) {
+        result = [].concat(_toConsumableArray(result), _toConsumableArray(linesUnit));
+      }
+
+      return result;
+    }
+  }, {
+    key: 'renderDotItem',
+    value: function renderDotItem(option, props) {
+      var dotItem = void 0;
+
+      if (_react2.default.isValidElement(option)) {
+        dotItem = _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        dotItem = option(props);
+      } else {
+        var className = (0, _classnames2.default)('recharts-line-dot', option ? option.className : '');
+        dotItem = _react2.default.createElement(_Dot2.default, _extends({}, props, { className: className }));
+      }
+
+      return dotItem;
+    }
+  }]);
+
+  return Line;
+}(_react.Component), _class2.displayName = 'Line', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, _ReactUtils.EVENT_ATTRIBUTES, {
+  className: _propTypes2.default.string,
+  type: _propTypes2.default.oneOfType([_propTypes2.default.oneOf(['basis', 'basisClosed', 'basisOpen', 'linear', 'linearClosed', 'natural', 'monotoneX', 'monotoneY', 'monotone', 'step', 'stepBefore', 'stepAfter']), _propTypes2.default.func]),
+  unit: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  name: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  yAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  xAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  yAxis: _propTypes2.default.object,
+  xAxis: _propTypes2.default.object,
+  legendType: _propTypes2.default.oneOf(_ReactUtils.LEGEND_TYPES),
+  layout: _propTypes2.default.oneOf(['horizontal', 'vertical']),
+  connectNulls: _propTypes2.default.bool,
+  hide: _propTypes2.default.bool,
+
+  // whether have dot in line
+  activeDot: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.element, _propTypes2.default.func, _propTypes2.default.bool]),
+  dot: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.element, _propTypes2.default.func, _propTypes2.default.bool]),
+
+  top: _propTypes2.default.number,
+  left: _propTypes2.default.number,
+  width: _propTypes2.default.number,
+  height: _propTypes2.default.number,
+  points: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    x: _propTypes2.default.number,
+    y: _propTypes2.default.number,
+    value: _propTypes2.default.value
+  })),
+  onAnimationStart: _propTypes2.default.func,
+  onAnimationEnd: _propTypes2.default.func,
+
+  isAnimationActive: _propTypes2.default.bool,
+  animationBegin: _propTypes2.default.number,
+  animationDuration: _propTypes2.default.number,
+  animationEasing: _propTypes2.default.oneOf(['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear']),
+  animationId: _propTypes2.default.number,
+  id: _propTypes2.default.string
+}), _class2.defaultProps = {
+  xAxisId: 0,
+  yAxisId: 0,
+  connectNulls: false,
+  activeDot: true,
+  dot: true,
+  legendType: 'line',
+  stroke: '#3182bd',
+  strokeWidth: 1,
+  fill: '#fff',
+  points: [],
+  isAnimationActive: !(0, _ReactUtils.isSsr)(),
+  animationBegin: 0,
+  animationDuration: 1500,
+  animationEasing: 'ease',
+  hide: false,
+
+  onAnimationStart: function onAnimationStart() {},
+  onAnimationEnd: function onAnimationEnd() {}
+}, _class2.getComposedData = function (_ref3) {
+  var props = _ref3.props,
+      xAxis = _ref3.xAxis,
+      yAxis = _ref3.yAxis,
+      xAxisTicks = _ref3.xAxisTicks,
+      yAxisTicks = _ref3.yAxisTicks,
+      dataKey = _ref3.dataKey,
+      bandSize = _ref3.bandSize,
+      displayedData = _ref3.displayedData,
+      offset = _ref3.offset;
+  var layout = props.layout;
+
+  var points = displayedData.map(function (entry, index) {
+    var value = (0, _ChartUtils.getValueByDataKey)(entry, dataKey);
+
+    if (layout === 'horizontal') {
+      return {
+        x: (0, _ChartUtils.getCateCoordinateOfLine)({ axis: xAxis, ticks: xAxisTicks, bandSize: bandSize, entry: entry, index: index }),
+        y: (0, _isNil3.default)(value) ? null : yAxis.scale(value),
+        value: value,
+        payload: entry
+      };
+    }
+
+    return {
+      x: (0, _isNil3.default)(value) ? null : xAxis.scale(value),
+      y: (0, _ChartUtils.getCateCoordinateOfLine)({ axis: yAxis, ticks: yAxisTicks, bandSize: bandSize, entry: entry, index: index }),
+      value: value,
+      payload: entry
+    };
+  });
+
+  return _extends({ points: points, layout: layout }, offset);
+}, _temp2)) || _class;
+
+exports.default = Line;
+},{"lodash-es/isEqual":"../node_modules/lodash-es/isEqual.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/isNil":"../node_modules/lodash-es/isNil.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-smooth":"../node_modules/react-smooth/lib/index.js","classnames":"../node_modules/classnames/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../shape/Curve":"../node_modules/recharts/es6/shape/Curve.js","../shape/Dot":"../node_modules/recharts/es6/shape/Dot.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../component/LabelList":"../node_modules/recharts/es6/component/LabelList.js","./ErrorBar":"../node_modules/recharts/es6/cartesian/ErrorBar.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js"}],"../node_modules/recharts/es6/cartesian/Area.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isEqual2 = require('lodash-es/isEqual');
+
+var _isEqual3 = _interopRequireDefault(_isEqual2);
+
+var _isNaN2 = require('lodash-es/isNaN');
+
+var _isNaN3 = _interopRequireDefault(_isNaN2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _get2 = require('lodash-es/get');
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _isNil2 = require('lodash-es/isNil');
+
+var _isNil3 = _interopRequireDefault(_isNil2);
+
+var _isArray2 = require('lodash-es/isArray');
+
+var _isArray3 = _interopRequireDefault(_isArray2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _reactSmooth = require('react-smooth');
+
+var _reactSmooth2 = _interopRequireDefault(_reactSmooth);
+
+var _Curve = require('../shape/Curve');
+
+var _Curve2 = _interopRequireDefault(_Curve);
+
+var _Dot = require('../shape/Dot');
+
+var _Dot2 = _interopRequireDefault(_Dot);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _LabelList = require('../component/LabelList');
+
+var _LabelList2 = _interopRequireDefault(_LabelList);
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _DataUtils = require('../util/DataUtils');
+
+var _ChartUtils = require('../util/ChartUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp2;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Area
+ */
+
+
+var Area = (0, _PureRender2.default)(_class = (_temp2 = _class2 = function (_Component) {
+  _inherits(Area, _Component);
+
+  function Area() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Area);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Area.__proto__ || Object.getPrototypeOf(Area)).call.apply(_ref, [this].concat(args))), _this), _this.state = { isAnimationFinished: true }, _this.id = (0, _DataUtils.uniqueId)('recharts-area-'), _this.cachePrevData = function (points, baseLine) {
+      _this.setState({
+        prevPoints: points,
+        prevBaseLine: baseLine
+      });
+    }, _this.handleAnimationEnd = function () {
+      var onAnimationEnd = _this.props.onAnimationEnd;
+
+      _this.setState({ isAnimationFinished: true });
+
+      if ((0, _isFunction3.default)(onAnimationEnd)) {
+        onAnimationEnd();
+      }
+    }, _this.handleAnimationStart = function () {
+      var onAnimationStart = _this.props.onAnimationStart;
+
+      _this.setState({ isAnimationFinished: false });
+
+      if ((0, _isFunction3.default)(onAnimationStart)) {
+        onAnimationStart();
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Area, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _props = this.props,
+          animationId = _props.animationId,
+          points = _props.points,
+          baseLine = _props.baseLine;
+
+      if (nextProps.animationId !== animationId) {
+        this.cachePrevData(points, baseLine);
+      }
+    }
+  }, {
+    key: 'renderDots',
+    value: function renderDots() {
+      var _this2 = this;
+
+      var isAnimationActive = this.props.isAnimationActive;
+
+      if (isAnimationActive && !this.state.isAnimationFinished) {
+        return null;
+      }
+
+      var _props2 = this.props,
+          dot = _props2.dot,
+          points = _props2.points,
+          dataKey = _props2.dataKey;
+
+      var areaProps = (0, _ReactUtils.getPresentationAttributes)(this.props);
+      var customDotProps = (0, _ReactUtils.getPresentationAttributes)(dot);
+      var dotEvents = (0, _ReactUtils.filterEventAttributes)(dot);
+
+      var dots = points.map(function (entry, i) {
+        var dotProps = _extends({
+          key: 'dot-' + i,
+          r: 3
+        }, areaProps, customDotProps, dotEvents, {
+          dataKey: dataKey,
+          cx: entry.x,
+          cy: entry.y,
+          index: i,
+          value: entry.value,
+          payload: entry.payload
+        });
+
+        return _this2.constructor.renderDotItem(dot, dotProps);
+      });
+
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-area-dots' }, dots);
+    }
+  }, {
+    key: 'renderHorizontalRect',
+    value: function renderHorizontalRect(alpha) {
+      var _props3 = this.props,
+          baseLine = _props3.baseLine,
+          points = _props3.points,
+          strokeWidth = _props3.strokeWidth;
+
+      var startX = points[0].x;
+      var endX = points[points.length - 1].x;
+      var width = alpha * Math.abs(startX - endX);
+      var maxY = Math.max.apply(null, points.map(function (entry) {
+        return entry.y || 0;
+      }));
+
+      if ((0, _DataUtils.isNumber)(baseLine)) {
+        maxY = Math.max(baseLine, maxY);
+      } else if (baseLine && (0, _isArray3.default)(baseLine) && baseLine.length) {
+        maxY = Math.max(Math.max.apply(null, baseLine.map(function (entry) {
+          return entry.y || 0;
+        })), maxY);
+      }
+
+      if ((0, _DataUtils.isNumber)(maxY)) {
+        return _react2.default.createElement('rect', {
+          x: startX < endX ? startX : startX - width,
+          y: 0,
+          width: width,
+          height: maxY + (strokeWidth || 1)
+        });
+      }
+
+      return null;
+    }
+  }, {
+    key: 'renderVerticalRect',
+    value: function renderVerticalRect(alpha) {
+      var _props4 = this.props,
+          baseLine = _props4.baseLine,
+          points = _props4.points,
+          strokeWidth = _props4.strokeWidth;
+
+      var startY = points[0].y;
+      var endY = points[points.length - 1].y;
+      var height = alpha * Math.abs(startY - endY);
+      var maxX = Math.max.apply(null, points.map(function (entry) {
+        return entry.x || 0;
+      }));
+
+      if ((0, _DataUtils.isNumber)(baseLine)) {
+        maxX = Math.max(baseLine, maxX);
+      } else if (baseLine && (0, _isArray3.default)(baseLine) && baseLine.length) {
+        maxX = Math.max(Math.max.apply(null, baseLine.map(function (entry) {
+          return entry.x || 0;
+        })), maxX);
+      }
+
+      if ((0, _DataUtils.isNumber)(maxX)) {
+        return _react2.default.createElement('rect', {
+          x: 0,
+          y: startY < endY ? startY : startY - height,
+          width: maxX + (strokeWidth || 1),
+          height: height
+        });
+      }
+
+      return null;
+    }
+  }, {
+    key: 'renderClipRect',
+    value: function renderClipRect(alpha) {
+      var layout = this.props.layout;
+
+      if (layout === 'vertical') {
+        return this.renderVerticalRect(alpha);
+      }
+
+      return this.renderHorizontalRect(alpha);
+    }
+  }, {
+    key: 'renderAreaStatically',
+    value: function renderAreaStatically(points, baseLine, needClip) {
+      var _props5 = this.props,
+          layout = _props5.layout,
+          type = _props5.type,
+          stroke = _props5.stroke,
+          connectNulls = _props5.connectNulls,
+          isRange = _props5.isRange;
+
+      return _react2.default.createElement(_Layer2.default, { clipPath: needClip ? 'url(#clipPath-' + this.id + ')' : null }, _react2.default.createElement(_Curve2.default, _extends({}, this.props, {
+        points: points,
+        baseLine: baseLine,
+        stroke: 'none',
+        className: 'recharts-area-area'
+      })), stroke !== 'none' && _react2.default.createElement(_Curve2.default, _extends({}, (0, _ReactUtils.getPresentationAttributes)(this.props), {
+        className: 'recharts-area-curve',
+        layout: layout,
+        type: type,
+        connectNulls: connectNulls,
+        fill: 'none',
+        points: points
+      })), stroke !== 'none' && isRange && _react2.default.createElement(_Curve2.default, _extends({}, (0, _ReactUtils.getPresentationAttributes)(this.props), {
+        className: 'recharts-area-curve',
+        layout: layout,
+        type: type,
+        connectNulls: connectNulls,
+        fill: 'none',
+        points: baseLine
+      })));
+    }
+  }, {
+    key: 'renderAreaWithAnimation',
+    value: function renderAreaWithAnimation(needClip) {
+      var _this3 = this;
+
+      var _props6 = this.props,
+          points = _props6.points,
+          baseLine = _props6.baseLine,
+          isAnimationActive = _props6.isAnimationActive,
+          animationBegin = _props6.animationBegin,
+          animationDuration = _props6.animationDuration,
+          animationEasing = _props6.animationEasing,
+          animationId = _props6.animationId,
+          id = _props6.id;
+      var _state = this.state,
+          prevPoints = _state.prevPoints,
+          prevBaseLine = _state.prevBaseLine;
+
+      var clipPathId = (0, _isNil3.default)(id) ? this.id : id;
+
+      return _react2.default.createElement(_reactSmooth2.default, {
+        begin: animationBegin,
+        duration: animationDuration,
+        isActive: isAnimationActive,
+        easing: animationEasing,
+        from: { t: 0 },
+        to: { t: 1 },
+        key: 'area-' + animationId,
+        onAnimationEnd: this.handleAnimationEnd,
+        onAnimationStart: this.handleAnimationStart
+      }, function (_ref2) {
+        var t = _ref2.t;
+
+        if (prevPoints) {
+          // update animtaion
+          var stepPoints = points.map(function (entry, index) {
+            if (prevPoints[index]) {
+              var prev = prevPoints[index];
+              var interpolatorX = (0, _DataUtils.interpolateNumber)(prev.x, entry.x);
+              var interpolatorY = (0, _DataUtils.interpolateNumber)(prev.y, entry.y);
+
+              return _extends({}, entry, { x: interpolatorX(t), y: interpolatorY(t) });
+            }
+
+            return entry;
+          });
+          var stepBaseLine = void 0;
+
+          if ((0, _DataUtils.isNumber)(baseLine)) {
+            var interpolator = (0, _DataUtils.interpolateNumber)(prevBaseLine, baseLine);
+            stepBaseLine = interpolator(t);
+          } else if ((0, _isNil3.default)(baseLine) || (0, _isNaN3.default)(baseLine)) {
+            var _interpolator = (0, _DataUtils.interpolateNumber)(prevBaseLine, 0);
+            stepBaseLine = _interpolator(t);
+          } else {
+            stepBaseLine = baseLine.map(function (entry, index) {
+              if (prevBaseLine[index]) {
+                var prev = prevBaseLine[index];
+                var interpolatorX = (0, _DataUtils.interpolateNumber)(prev.x, entry.x);
+                var interpolatorY = (0, _DataUtils.interpolateNumber)(prev.y, entry.y);
+
+                return _extends({}, entry, { x: interpolatorX(t), y: interpolatorY(t) });
+              }
+
+              return entry;
+            });
+          }
+
+          return _this3.renderAreaStatically(stepPoints, stepBaseLine, needClip);
+        }
+
+        return _react2.default.createElement(_Layer2.default, null, _react2.default.createElement('defs', null, _react2.default.createElement('clipPath', { id: 'animationClipPath-' + clipPathId }, _this3.renderClipRect(t))), _react2.default.createElement(_Layer2.default, { clipPath: 'url(#animationClipPath-' + clipPathId + ')' }, _this3.renderAreaStatically(points, baseLine, needClip)));
+      });
+    }
+  }, {
+    key: 'renderArea',
+    value: function renderArea(needClip) {
+      var _props7 = this.props,
+          points = _props7.points,
+          baseLine = _props7.baseLine,
+          isAnimationActive = _props7.isAnimationActive;
+      var _state2 = this.state,
+          prevPoints = _state2.prevPoints,
+          prevBaseLine = _state2.prevBaseLine,
+          totalLength = _state2.totalLength;
+
+      if (isAnimationActive && points && points.length && (!prevPoints && totalLength > 0 || !(0, _isEqual3.default)(prevPoints, points) || !(0, _isEqual3.default)(prevBaseLine, baseLine))) {
+        return this.renderAreaWithAnimation(needClip);
+      }
+
+      return this.renderAreaStatically(points, baseLine, needClip);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props8 = this.props,
+          hide = _props8.hide,
+          dot = _props8.dot,
+          points = _props8.points,
+          className = _props8.className,
+          top = _props8.top,
+          left = _props8.left,
+          xAxis = _props8.xAxis,
+          yAxis = _props8.yAxis,
+          width = _props8.width,
+          height = _props8.height,
+          isAnimationActive = _props8.isAnimationActive,
+          id = _props8.id;
+
+      if (hide || !points || !points.length) {
+        return null;
+      }
+
+      var isAnimationFinished = this.state.isAnimationFinished;
+
+      var hasSinglePoint = points.length === 1;
+      var layerClass = (0, _classnames2.default)('recharts-area', className);
+      var needClip = xAxis && xAxis.allowDataOverflow || yAxis && yAxis.allowDataOverflow;
+      var clipPathId = (0, _isNil3.default)(id) ? this.id : id;
+
+      return _react2.default.createElement(_Layer2.default, { className: layerClass }, needClip ? _react2.default.createElement('defs', null, _react2.default.createElement('clipPath', { id: 'clipPath-' + clipPathId }, _react2.default.createElement('rect', { x: left, y: top, width: width, height: height }))) : null, !hasSinglePoint ? this.renderArea(needClip) : null, (dot || hasSinglePoint) && this.renderDots(), (!isAnimationActive || isAnimationFinished) && _LabelList2.default.renderCallByParent(this.props, points));
+    }
+  }]);
+
+  return Area;
+}(_react.Component), _class2.displayName = 'Area', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, _ReactUtils.EVENT_ATTRIBUTES, {
+  className: _propTypes2.default.string,
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]).isRequired,
+  type: _propTypes2.default.oneOfType([_propTypes2.default.oneOf(['basis', 'basisClosed', 'basisOpen', 'linear', 'linearClosed', 'natural', 'monotoneX', 'monotoneY', 'monotone', 'step', 'stepBefore', 'stepAfter']), _propTypes2.default.func]),
+  unit: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  name: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  yAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  xAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  yAxis: _propTypes2.default.object,
+  xAxis: _propTypes2.default.object,
+  stackId: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  legendType: _propTypes2.default.oneOf(_ReactUtils.LEGEND_TYPES),
+  connectNulls: _propTypes2.default.bool,
+
+  activeDot: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.element, _propTypes2.default.func, _propTypes2.default.bool]),
+  // dot configuration
+  dot: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.element, _propTypes2.default.object, _propTypes2.default.bool]),
+  label: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.element, _propTypes2.default.object, _propTypes2.default.bool]),
+  hide: _propTypes2.default.bool,
+  // have curve configuration
+  layout: _propTypes2.default.oneOf(['horizontal', 'vertical']),
+  baseLine: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.array]),
+  isRange: _propTypes2.default.bool,
+  points: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    x: _propTypes2.default.number,
+    y: _propTypes2.default.number,
+    value: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.array])
+  })),
+
+  onAnimationStart: _propTypes2.default.func,
+  onAnimationEnd: _propTypes2.default.func,
+  animationId: _propTypes2.default.number,
+  isAnimationActive: _propTypes2.default.bool,
+  animationBegin: _propTypes2.default.number,
+  animationDuration: _propTypes2.default.number,
+  animationEasing: _propTypes2.default.oneOf(['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear']),
+
+  id: _propTypes2.default.string
+}), _class2.defaultProps = {
+  stroke: '#3182bd',
+  fill: '#3182bd',
+  fillOpacity: 0.6,
+  xAxisId: 0,
+  yAxisId: 0,
+  legendType: 'line',
+  connectNulls: false,
+  // points of area
+  points: [],
+  dot: false,
+  activeDot: true,
+  hide: false,
+
+  isAnimationActive: !(0, _ReactUtils.isSsr)(),
+  animationBegin: 0,
+  animationDuration: 1500,
+  animationEasing: 'ease'
+}, _class2.getBaseValue = function (props, xAxis, yAxis) {
+  var layout = props.layout,
+      baseValue = props.baseValue;
+
+  if ((0, _DataUtils.isNumber)(baseValue)) {
+    return baseValue;
+  }
+
+  var numericAxis = layout === 'horizontal' ? yAxis : xAxis;
+  var domain = numericAxis.scale.domain();
+
+  if (numericAxis.type === 'number') {
+    var max = Math.max(domain[0], domain[1]);
+    var min = Math.min(domain[0], domain[1]);
+
+    if (baseValue === 'dataMin') {
+      return min;
+    }
+    if (baseValue === 'dataMax') {
+      return max;
+    }
+
+    return max < 0 ? max : Math.max(Math.min(domain[0], domain[1]), 0);
+  }
+
+  if (baseValue === 'dataMin') {
+    return domain[0];
+  }
+  if (baseValue === 'dataMax') {
+    return domain[1];
+  }
+
+  return domain[0];
+}, _class2.getComposedData = function (_ref3) {
+  var props = _ref3.props,
+      xAxis = _ref3.xAxis,
+      yAxis = _ref3.yAxis,
+      xAxisTicks = _ref3.xAxisTicks,
+      yAxisTicks = _ref3.yAxisTicks,
+      bandSize = _ref3.bandSize,
+      dataKey = _ref3.dataKey,
+      stackedData = _ref3.stackedData,
+      dataStartIndex = _ref3.dataStartIndex,
+      displayedData = _ref3.displayedData,
+      offset = _ref3.offset;
+  var layout = props.layout;
+
+  var hasStack = stackedData && stackedData.length;
+  var baseValue = Area.getBaseValue(props, xAxis, yAxis);
+  var isRange = false;
+
+  var points = displayedData.map(function (entry, index) {
+    var value = void 0;
+
+    if (hasStack) {
+      value = stackedData[dataStartIndex + index];
+    } else {
+      value = (0, _ChartUtils.getValueByDataKey)(entry, dataKey);
+
+      if (!(0, _isArray3.default)(value)) {
+        value = [baseValue, value];
+      } else {
+        isRange = true;
+      }
+    }
+
+    if (layout === 'horizontal') {
+      return {
+        x: (0, _ChartUtils.getCateCoordinateOfLine)({ axis: xAxis, ticks: xAxisTicks, bandSize: bandSize, entry: entry, index: index }),
+        y: (0, _isNil3.default)(value[1]) ? null : yAxis.scale(value[1]),
+        value: value,
+        payload: entry
+      };
+    }
+
+    return {
+      x: (0, _isNil3.default)(value[1]) ? null : xAxis.scale(value[1]),
+      y: (0, _ChartUtils.getCateCoordinateOfLine)({ axis: yAxis, ticks: yAxisTicks, bandSize: bandSize, entry: entry, index: index }),
+      value: value,
+      payload: entry
+    };
+  });
+
+  var baseLine = void 0;
+  if (hasStack || isRange) {
+    baseLine = points.map(function (entry) {
+      if (layout === 'horizontal') {
+        return {
+          x: entry.x,
+          y: !(0, _isNil3.default)((0, _get3.default)(entry, 'value[0]')) ? yAxis.scale((0, _get3.default)(entry, 'value[0]')) : null
+        };
+      }
+      return {
+        x: !(0, _isNil3.default)((0, _get3.default)(entry, 'value[0]')) ? xAxis.scale((0, _get3.default)(entry, 'value[0]')) : null,
+        y: entry.y
+      };
+    });
+  } else if (layout === 'horizontal') {
+    baseLine = yAxis.scale(baseValue);
+  } else {
+    baseLine = xAxis.scale(baseValue);
+  }
+
+  return _extends({ points: points, baseLine: baseLine, layout: layout, isRange: isRange }, offset);
+}, _class2.renderDotItem = function (option, props) {
+  var dotItem = void 0;
+
+  if (_react2.default.isValidElement(option)) {
+    dotItem = _react2.default.cloneElement(option, props);
+  } else if ((0, _isFunction3.default)(option)) {
+    dotItem = option(props);
+  } else {
+    dotItem = _react2.default.createElement(_Dot2.default, _extends({}, props, { className: 'recharts-area-dot' }));
+  }
+
+  return dotItem;
+}, _temp2)) || _class;
+
+exports.default = Area;
+},{"lodash-es/isEqual":"../node_modules/lodash-es/isEqual.js","lodash-es/isNaN":"../node_modules/lodash-es/isNaN.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/get":"../node_modules/lodash-es/get.js","lodash-es/isNil":"../node_modules/lodash-es/isNil.js","lodash-es/isArray":"../node_modules/lodash-es/isArray.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","react-smooth":"../node_modules/react-smooth/lib/index.js","../shape/Curve":"../node_modules/recharts/es6/shape/Curve.js","../shape/Dot":"../node_modules/recharts/es6/shape/Dot.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../component/LabelList":"../node_modules/recharts/es6/component/LabelList.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js"}],"../node_modules/recharts/es6/cartesian/Bar.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isNil2 = require('lodash-es/isNil');
+
+var _isNil3 = _interopRequireDefault(_isNil2);
+
+var _isEqual2 = require('lodash-es/isEqual');
+
+var _isEqual3 = _interopRequireDefault(_isEqual2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _isArray2 = require('lodash-es/isArray');
+
+var _isArray3 = _interopRequireDefault(_isArray2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _reactSmooth = require('react-smooth');
+
+var _reactSmooth2 = _interopRequireDefault(_reactSmooth);
+
+var _Rectangle = require('../shape/Rectangle');
+
+var _Rectangle2 = _interopRequireDefault(_Rectangle);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _ErrorBar = require('./ErrorBar');
+
+var _ErrorBar2 = _interopRequireDefault(_ErrorBar);
+
+var _Cell = require('../component/Cell');
+
+var _Cell2 = _interopRequireDefault(_Cell);
+
+var _LabelList = require('../component/LabelList');
+
+var _LabelList2 = _interopRequireDefault(_LabelList);
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _DataUtils = require('../util/DataUtils');
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _ChartUtils = require('../util/ChartUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp2;
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Render a group of bar
+ */
+
+
+var Bar = (0, _PureRender2.default)(_class = (_temp2 = _class2 = function (_Component) {
+  _inherits(Bar, _Component);
+
+  function Bar() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Bar);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Bar.__proto__ || Object.getPrototypeOf(Bar)).call.apply(_ref, [this].concat(args))), _this), _this.state = { isAnimationFinished: false }, _this.id = (0, _DataUtils.uniqueId)('recharts-bar-'), _this.cachePrevData = function (data) {
+      _this.setState({ prevData: data });
+    }, _this.handleAnimationEnd = function () {
+      _this.setState({ isAnimationFinished: true });
+      _this.props.onAnimationEnd();
+    }, _this.handleAnimationStart = function () {
+      _this.setState({ isAnimationFinished: false });
+      _this.props.onAnimationStart();
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  /**
+   * Compose the data of each group
+   * @param {Object} props Props for the component
+   * @param {Object} item        An instance of Bar
+   * @param {Array} barPosition  The offset and size of each bar
+   * @param {Object} xAxis       The configuration of x-axis
+   * @param {Object} yAxis       The configuration of y-axis
+   * @param {Array} stackedData  The stacked data of a bar item
+   * @return{Array} Composed data
+   */
+
+  _createClass(Bar, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _props = this.props,
+          animationId = _props.animationId,
+          data = _props.data;
+
+      if (nextProps.animationId !== animationId) {
+        this.cachePrevData(data);
+      }
+    }
+  }, {
+    key: 'renderRectanglesStatically',
+    value: function renderRectanglesStatically(data) {
+      var _this2 = this;
+
+      var shape = this.props.shape;
+
+      var baseProps = (0, _ReactUtils.getPresentationAttributes)(this.props);
+
+      return data && data.map(function (entry, i) {
+        var props = _extends({}, baseProps, entry, { index: i });
+
+        return _react2.default.createElement(_Layer2.default, _extends({
+          className: 'recharts-bar-rectangle'
+        }, (0, _ReactUtils.filterEventsOfChild)(_this2.props, entry, i), {
+          key: 'rectangle-' + i
+        }), _this2.constructor.renderRectangle(shape, props));
+      });
+    }
+  }, {
+    key: 'renderRectanglesWithAnimation',
+    value: function renderRectanglesWithAnimation() {
+      var _this3 = this;
+
+      var _props2 = this.props,
+          data = _props2.data,
+          layout = _props2.layout,
+          isAnimationActive = _props2.isAnimationActive,
+          animationBegin = _props2.animationBegin,
+          animationDuration = _props2.animationDuration,
+          animationEasing = _props2.animationEasing,
+          animationId = _props2.animationId;
+      var prevData = this.state.prevData;
+
+      return _react2.default.createElement(_reactSmooth2.default, {
+        begin: animationBegin,
+        duration: animationDuration,
+        isActive: isAnimationActive,
+        easing: animationEasing,
+        from: { t: 0 },
+        to: { t: 1 },
+        key: 'bar-' + animationId,
+        onAnimationEnd: this.handleAnimationEnd,
+        onAnimationStart: this.handleAnimationStart
+      }, function (_ref2) {
+        var t = _ref2.t;
+
+        var stepData = data.map(function (entry, index) {
+          var prev = prevData && prevData[index];
+
+          if (prev) {
+            var interpolatorX = (0, _DataUtils.interpolateNumber)(prev.x, entry.x);
+            var interpolatorY = (0, _DataUtils.interpolateNumber)(prev.y, entry.y);
+            var interpolatorWidth = (0, _DataUtils.interpolateNumber)(prev.width, entry.width);
+            var interpolatorHeight = (0, _DataUtils.interpolateNumber)(prev.height, entry.height);
+
+            return _extends({}, entry, {
+              x: interpolatorX(t),
+              y: interpolatorY(t),
+              width: interpolatorWidth(t),
+              height: interpolatorHeight(t)
+            });
+          }
+
+          if (layout === 'horizontal') {
+            var _interpolatorHeight = (0, _DataUtils.interpolateNumber)(0, entry.height);
+            var h = _interpolatorHeight(t);
+
+            return _extends({}, entry, {
+              y: entry.y + entry.height - h,
+              height: h
+            });
+          }
+
+          var interpolator = (0, _DataUtils.interpolateNumber)(0, entry.width);
+          var w = interpolator(t);
+
+          return _extends({}, entry, { width: w });
+        });
+
+        return _react2.default.createElement(_Layer2.default, null, _this3.renderRectanglesStatically(stepData));
+      });
+    }
+  }, {
+    key: 'renderRectangles',
+    value: function renderRectangles() {
+      var _props3 = this.props,
+          data = _props3.data,
+          isAnimationActive = _props3.isAnimationActive;
+      var prevData = this.state.prevData;
+
+      if (isAnimationActive && data && data.length && (!prevData || !(0, _isEqual3.default)(prevData, data))) {
+        return this.renderRectanglesWithAnimation();
+      }
+
+      return this.renderRectanglesStatically(data);
+    }
+  }, {
+    key: 'renderBackground',
+    value: function renderBackground() {
+      var _this4 = this;
+
+      var data = this.props.data;
+
+      var backgroundProps = (0, _ReactUtils.getPresentationAttributes)(this.props.background);
+
+      return data.map(function (entry, i) {
+        // eslint-disable-next-line no-unused-vars
+        var value = entry.value,
+            background = entry.background,
+            rest = _objectWithoutProperties(entry, ['value', 'background']);
+
+        if (!background) {
+          return null;
+        }
+
+        var props = _extends({}, rest, {
+          fill: '#eee'
+        }, background, backgroundProps, (0, _ReactUtils.filterEventsOfChild)(_this4.props, entry, i), {
+          index: i,
+          key: 'background-bar-' + i,
+          className: 'recharts-bar-background-rectangle'
+        });
+
+        return _this4.constructor.renderRectangle(background, props);
+      });
+    }
+  }, {
+    key: 'renderErrorBar',
+    value: function renderErrorBar() {
+      if (this.props.isAnimationActive && !this.state.isAnimationFinished) {
+        return null;
+      }
+
+      var _props4 = this.props,
+          data = _props4.data,
+          xAxis = _props4.xAxis,
+          yAxis = _props4.yAxis,
+          layout = _props4.layout,
+          children = _props4.children;
+
+      var errorBarItems = (0, _ReactUtils.findAllByType)(children, _ErrorBar2.default);
+
+      if (!errorBarItems) {
+        return null;
+      }
+
+      var offset = layout === 'vertical' ? data[0].height / 2 : data[0].width / 2;
+
+      function dataPointFormatter(dataPoint, dataKey) {
+        return {
+          x: dataPoint.x,
+          y: dataPoint.y,
+          value: dataPoint.value,
+          errorVal: (0, _ChartUtils.getValueByDataKey)(dataPoint, dataKey)
+        };
+      }
+
+      return errorBarItems.map(function (item, i) {
+        return _react2.default.cloneElement(item, {
+          key: 'error-bar-' + i,
+          data: data,
+          xAxis: xAxis,
+          yAxis: yAxis,
+          layout: layout,
+          offset: offset,
+          dataPointFormatter: dataPointFormatter
+        });
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props5 = this.props,
+          hide = _props5.hide,
+          data = _props5.data,
+          className = _props5.className,
+          xAxis = _props5.xAxis,
+          yAxis = _props5.yAxis,
+          left = _props5.left,
+          top = _props5.top,
+          width = _props5.width,
+          height = _props5.height,
+          isAnimationActive = _props5.isAnimationActive,
+          background = _props5.background,
+          id = _props5.id;
+
+      if (hide || !data || !data.length) {
+        return null;
+      }
+
+      var isAnimationFinished = this.state.isAnimationFinished;
+
+      var layerClass = (0, _classnames2.default)('recharts-bar', className);
+      var needClip = xAxis && xAxis.allowDataOverflow || yAxis && yAxis.allowDataOverflow;
+      var clipPathId = (0, _isNil3.default)(id) ? this.id : id;
+
+      return _react2.default.createElement(_Layer2.default, { className: layerClass }, needClip ? _react2.default.createElement('defs', null, _react2.default.createElement('clipPath', { id: 'clipPath-' + clipPathId }, _react2.default.createElement('rect', { x: left, y: top, width: width, height: height }))) : null, _react2.default.createElement(_Layer2.default, {
+        className: 'recharts-bar-rectangles',
+        clipPath: needClip ? 'url(#clipPath-' + clipPathId + ')' : null
+      }, background ? this.renderBackground() : null, this.renderRectangles()), this.renderErrorBar(), (!isAnimationActive || isAnimationFinished) && _LabelList2.default.renderCallByParent(this.props, data));
+    }
+  }], [{
+    key: 'renderRectangle',
+    value: function renderRectangle(option, props) {
+      var rectangle = void 0;
+
+      if (_react2.default.isValidElement(option)) {
+        rectangle = _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        rectangle = option(props);
+      } else {
+        rectangle = _react2.default.createElement(_Rectangle2.default, props);
+      }
+
+      return rectangle;
+    }
+  }]);
+
+  return Bar;
+}(_react.Component), _class2.displayName = 'Bar', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, _ReactUtils.EVENT_ATTRIBUTES, {
+  className: _propTypes2.default.string,
+  layout: _propTypes2.default.oneOf(['vertical', 'horizontal']),
+  xAxisId: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  yAxisId: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  yAxis: _propTypes2.default.object,
+  xAxis: _propTypes2.default.object,
+  stackId: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  barSize: _propTypes2.default.number,
+  unit: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  name: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]).isRequired,
+  legendType: _propTypes2.default.oneOf(_ReactUtils.LEGEND_TYPES),
+  minPointSize: _propTypes2.default.number,
+  maxBarSize: _propTypes2.default.number,
+  hide: _propTypes2.default.bool,
+
+  shape: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.element]),
+  data: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    x: _propTypes2.default.number,
+    y: _propTypes2.default.number,
+    width: _propTypes2.default.number,
+    height: _propTypes2.default.number,
+    radius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.array]),
+    value: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string, _propTypes2.default.array])
+  })),
+  onAnimationStart: _propTypes2.default.func,
+  onAnimationEnd: _propTypes2.default.func,
+
+  animationId: _propTypes2.default.number,
+  isAnimationActive: _propTypes2.default.bool,
+  animationBegin: _propTypes2.default.number,
+  animationDuration: _propTypes2.default.number,
+  animationEasing: _propTypes2.default.oneOf(['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear']),
+  id: _propTypes2.default.string
+}), _class2.defaultProps = {
+  xAxisId: 0,
+  yAxisId: 0,
+  legendType: 'rect',
+  minPointSize: 0,
+  hide: false,
+  // data of bar
+  data: [],
+  layout: 'vertical',
+  isAnimationActive: !(0, _ReactUtils.isSsr)(),
+  animationBegin: 0,
+  animationDuration: 400,
+  animationEasing: 'ease',
+
+  onAnimationStart: function onAnimationStart() {},
+  onAnimationEnd: function onAnimationEnd() {}
+}, _class2.getComposedData = function (_ref3) {
+  var props = _ref3.props,
+      item = _ref3.item,
+      barPosition = _ref3.barPosition,
+      bandSize = _ref3.bandSize,
+      xAxis = _ref3.xAxis,
+      yAxis = _ref3.yAxis,
+      xAxisTicks = _ref3.xAxisTicks,
+      yAxisTicks = _ref3.yAxisTicks,
+      stackedData = _ref3.stackedData,
+      dataStartIndex = _ref3.dataStartIndex,
+      displayedData = _ref3.displayedData,
+      offset = _ref3.offset;
+
+  var pos = (0, _ChartUtils.findPositionOfBar)(barPosition, item);
+  if (!pos) {
+    return [];
+  }
+
+  var layout = props.layout;
+  var _item$props = item.props,
+      dataKey = _item$props.dataKey,
+      children = _item$props.children,
+      minPointSize = _item$props.minPointSize;
+
+  var numericAxis = layout === 'horizontal' ? yAxis : xAxis;
+  var stackedDomain = stackedData ? numericAxis.scale.domain() : null;
+  var baseValue = (0, _ChartUtils.getBaseValueOfBar)({ props: props, numericAxis: numericAxis });
+  var cells = (0, _ReactUtils.findAllByType)(children, _Cell2.default);
+
+  var rects = displayedData.map(function (entry, index) {
+    var value = void 0,
+        x = void 0,
+        y = void 0,
+        width = void 0,
+        height = void 0,
+        background = void 0;
+
+    if (stackedData) {
+      value = (0, _ChartUtils.truncateByDomain)(stackedData[dataStartIndex + index], stackedDomain);
+    } else {
+      value = (0, _ChartUtils.getValueByDataKey)(entry, dataKey);
+
+      if (!(0, _isArray3.default)(value)) {
+        value = [baseValue, value];
+      }
+    }
+
+    if (layout === 'horizontal') {
+      x = (0, _ChartUtils.getCateCoordinateOfBar)({
+        axis: xAxis,
+        ticks: xAxisTicks,
+        bandSize: bandSize,
+        offset: pos.offset,
+        entry: entry,
+        index: index
+      });
+      y = yAxis.scale(value[1]);
+      width = pos.size;
+      height = yAxis.scale(value[0]) - yAxis.scale(value[1]);
+      background = { x: x, y: yAxis.y, width: width, height: yAxis.height };
+
+      if (Math.abs(minPointSize) > 0 && Math.abs(height) < Math.abs(minPointSize)) {
+        var delta = (0, _DataUtils.mathSign)(height || minPointSize) * (Math.abs(minPointSize) - Math.abs(height));
+
+        y -= delta;
+        height += delta;
+      }
+    } else {
+      x = xAxis.scale(value[0]);
+      y = (0, _ChartUtils.getCateCoordinateOfBar)({
+        axis: yAxis,
+        ticks: yAxisTicks,
+        bandSize: bandSize,
+        offset: pos.offset,
+        entry: entry,
+        index: index
+      });
+      width = xAxis.scale(value[1]) - xAxis.scale(value[0]);
+      height = pos.size;
+      background = { x: xAxis.x, y: y, width: xAxis.width, height: height };
+
+      if (Math.abs(minPointSize) > 0 && Math.abs(width) < Math.abs(minPointSize)) {
+        var _delta = (0, _DataUtils.mathSign)(width || minPointSize) * (Math.abs(minPointSize) - Math.abs(width));
+        width += _delta;
+      }
+    }
+
+    return _extends({}, entry, {
+      x: x, y: y, width: width, height: height, value: stackedData ? value : value[1],
+      payload: entry,
+      background: background
+    }, cells && cells[index] && cells[index].props);
+  });
+
+  return _extends({ data: rects, layout: layout }, offset);
+}, _temp2)) || _class;
+
+exports.default = Bar;
+},{"lodash-es/isNil":"../node_modules/lodash-es/isNil.js","lodash-es/isEqual":"../node_modules/lodash-es/isEqual.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/isArray":"../node_modules/lodash-es/isArray.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","react-smooth":"../node_modules/react-smooth/lib/index.js","../shape/Rectangle":"../node_modules/recharts/es6/shape/Rectangle.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","./ErrorBar":"../node_modules/recharts/es6/cartesian/ErrorBar.js","../component/Cell":"../node_modules/recharts/es6/component/Cell.js","../component/LabelList":"../node_modules/recharts/es6/component/LabelList.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js"}],"../node_modules/recharts/es6/cartesian/ZAxis.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Z Axis
+ */
+
+
+var ZAxis = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(ZAxis, _Component);
+
+  function ZAxis() {
+    _classCallCheck(this, ZAxis);
+
+    return _possibleConstructorReturn(this, (ZAxis.__proto__ || Object.getPrototypeOf(ZAxis)).apply(this, arguments));
+  }
+
+  _createClass(ZAxis, [{
+    key: 'render',
+    value: function render() {
+      return null;
+    }
+  }]);
+
+  return ZAxis;
+}(_react.Component), _class2.displayName = 'ZAxis', _class2.propTypes = {
+  type: _propTypes2.default.oneOf(['number', 'category']),
+  // The name of data displayed in the axis
+  name: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  // The unit of data displayed in the axis
+  unit: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  // The unique id of z-axis
+  zAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  // The key of data displayed in the axis
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]),
+  // The range of axis
+  range: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  scale: _propTypes2.default.oneOfType([_propTypes2.default.oneOf(['auto', 'linear', 'pow', 'sqrt', 'log', 'identity', 'time', 'band', 'point', 'ordinal', 'quantile', 'quantize', 'utc', 'sequential', 'threshold']), _propTypes2.default.func])
+}, _class2.defaultProps = {
+  zAxisId: 0,
+  range: [64, 64],
+  scale: 'auto',
+  type: 'number'
+}, _temp)) || _class;
+
+exports.default = ZAxis;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js"}],"../node_modules/recharts/es6/cartesian/Scatter.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isEqual2 = require('lodash-es/isEqual');
+
+var _isEqual3 = _interopRequireDefault(_isEqual2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _isNil2 = require('lodash-es/isNil');
+
+var _isNil3 = _interopRequireDefault(_isNil2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactSmooth = require('react-smooth');
+
+var _reactSmooth2 = _interopRequireDefault(_reactSmooth);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _LabelList = require('../component/LabelList');
+
+var _LabelList2 = _interopRequireDefault(_LabelList);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _ZAxis = require('./ZAxis');
+
+var _ZAxis2 = _interopRequireDefault(_ZAxis);
+
+var _Curve = require('../shape/Curve');
+
+var _Curve2 = _interopRequireDefault(_Curve);
+
+var _Symbols = require('../shape/Symbols');
+
+var _Symbols2 = _interopRequireDefault(_Symbols);
+
+var _ErrorBar = require('./ErrorBar');
+
+var _ErrorBar2 = _interopRequireDefault(_ErrorBar);
+
+var _Cell = require('../component/Cell');
+
+var _Cell2 = _interopRequireDefault(_Cell);
+
+var _DataUtils = require('../util/DataUtils');
+
+var _ChartUtils = require('../util/ChartUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp2;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Render a group of scatters
+ */
+
+
+var Scatter = (0, _PureRender2.default)(_class = (_temp2 = _class2 = function (_Component) {
+  _inherits(Scatter, _Component);
+
+  function Scatter() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Scatter);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Scatter.__proto__ || Object.getPrototypeOf(Scatter)).call.apply(_ref, [this].concat(args))), _this), _this.state = { isAnimationFinished: false }, _this.cachePrevPoints = function (points) {
+      _this.setState({ prevPoints: points });
+    }, _this.handleAnimationEnd = function () {
+      _this.setState({ isAnimationFinished: true });
+    }, _this.handleAnimationStart = function () {
+      _this.setState({ isAnimationFinished: false });
+    }, _this.id = (0, _DataUtils.uniqueId)('recharts-scatter-'), _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  /**
+   * Compose the data of each group
+   * @param  {Object} xAxis   The configuration of x-axis
+   * @param  {Object} yAxis   The configuration of y-axis
+   * @param  {String} dataKey The unique key of a group
+   * @return {Array}  Composed data
+   */
+
+  _createClass(Scatter, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _props = this.props,
+          animationId = _props.animationId,
+          points = _props.points;
+
+      if (nextProps.animationId !== animationId) {
+        this.cachePrevPoints(points);
+      }
+    }
+  }, {
+    key: 'renderSymbolsStatically',
+    value: function renderSymbolsStatically(points) {
+      var _this2 = this;
+
+      var _props2 = this.props,
+          shape = _props2.shape,
+          activeShape = _props2.activeShape,
+          activeIndex = _props2.activeIndex;
+
+      var baseProps = (0, _ReactUtils.getPresentationAttributes)(this.props);
+
+      return points.map(function (entry, i) {
+        var props = _extends({ key: 'symbol-' + i }, baseProps, entry);
+
+        return _react2.default.createElement(_Layer2.default, _extends({
+          className: 'recharts-scatter-symbol'
+        }, (0, _ReactUtils.filterEventsOfChild)(_this2.props, entry, i), {
+          key: 'symbol-' + i
+        }), _this2.constructor.renderSymbolItem(activeIndex === i ? activeShape : shape, props));
+      });
+    }
+  }, {
+    key: 'renderSymbolsWithAnimation',
+    value: function renderSymbolsWithAnimation() {
+      var _this3 = this;
+
+      var _props3 = this.props,
+          points = _props3.points,
+          isAnimationActive = _props3.isAnimationActive,
+          animationBegin = _props3.animationBegin,
+          animationDuration = _props3.animationDuration,
+          animationEasing = _props3.animationEasing,
+          animationId = _props3.animationId;
+      var prevPoints = this.state.prevPoints;
+
+      return _react2.default.createElement(_reactSmooth2.default, {
+        begin: animationBegin,
+        duration: animationDuration,
+        isActive: isAnimationActive,
+        easing: animationEasing,
+        from: { t: 0 },
+        to: { t: 1 },
+        key: 'pie-' + animationId,
+        onAnimationEnd: this.handleAnimationEnd,
+        onAnimationStart: this.handleAnimationStart
+      }, function (_ref2) {
+        var t = _ref2.t;
+
+        var stepData = points.map(function (entry, index) {
+          var prev = prevPoints && prevPoints[index];
+
+          if (prev) {
+            var interpolatorCx = (0, _DataUtils.interpolateNumber)(prev.cx, entry.cx);
+            var interpolatorCy = (0, _DataUtils.interpolateNumber)(prev.cy, entry.cy);
+            var interpolatorSize = (0, _DataUtils.interpolateNumber)(prev.size, entry.size);
+
+            return _extends({}, entry, {
+              cx: interpolatorCx(t),
+              cy: interpolatorCy(t),
+              size: interpolatorSize(t)
+            });
+          }
+
+          var interpolator = (0, _DataUtils.interpolateNumber)(0, entry.size);
+
+          return _extends({}, entry, { size: interpolator(t) });
+        });
+
+        return _react2.default.createElement(_Layer2.default, null, _this3.renderSymbolsStatically(stepData));
+      });
+    }
+  }, {
+    key: 'renderSymbols',
+    value: function renderSymbols() {
+      var _props4 = this.props,
+          points = _props4.points,
+          isAnimationActive = _props4.isAnimationActive;
+      var prevPoints = this.state.prevPoints;
+
+      if (isAnimationActive && points && points.length && (!prevPoints || !(0, _isEqual3.default)(prevPoints, points))) {
+        return this.renderSymbolsWithAnimation();
+      }
+
+      return this.renderSymbolsStatically(points);
+    }
+  }, {
+    key: 'renderErrorBar',
+    value: function renderErrorBar() {
+      var isAnimationActive = this.props.isAnimationActive;
+
+      if (isAnimationActive && !this.state.isAnimationFinished) {
+        return null;
+      }
+
+      var _props5 = this.props,
+          points = _props5.points,
+          xAxis = _props5.xAxis,
+          yAxis = _props5.yAxis,
+          children = _props5.children;
+
+      var errorBarItems = (0, _ReactUtils.findAllByType)(children, _ErrorBar2.default);
+
+      if (!errorBarItems) {
+        return null;
+      }
+
+      function dataPointFormatterY(dataPoint, dataKey) {
+        return {
+          x: dataPoint.cx,
+          y: dataPoint.cy,
+          value: dataPoint.y,
+          errorVal: (0, _ChartUtils.getValueByDataKey)(dataPoint, dataKey)
+        };
+      }
+
+      function dataPointFormatterX(dataPoint, dataKey) {
+        return {
+          x: dataPoint.cx,
+          y: dataPoint.cy,
+          value: dataPoint.x,
+          errorVal: (0, _ChartUtils.getValueByDataKey)(dataPoint, dataKey)
+        };
+      }
+
+      return errorBarItems.map(function (item, i) {
+        var direction = item.props.direction;
+
+        return _react2.default.cloneElement(item, {
+          key: i,
+          data: points,
+          xAxis: xAxis,
+          yAxis: yAxis,
+          layout: direction === 'x' ? 'vertical' : 'horizontal',
+          dataPointFormatter: direction === 'x' ? dataPointFormatterX : dataPointFormatterY
+        });
+      });
+    }
+  }, {
+    key: 'renderLine',
+    value: function renderLine() {
+      var _props6 = this.props,
+          points = _props6.points,
+          line = _props6.line,
+          lineType = _props6.lineType,
+          lineJointType = _props6.lineJointType;
+
+      var scatterProps = (0, _ReactUtils.getPresentationAttributes)(this.props);
+      var customLineProps = (0, _ReactUtils.getPresentationAttributes)(line);
+      var linePoints = void 0,
+          lineItem = void 0;
+
+      if (lineType === 'joint') {
+        linePoints = points.map(function (entry) {
+          return { x: entry.cx, y: entry.cy };
+        });
+      } else if (lineType === 'fitting') {
+        var _getLinearRegression = (0, _DataUtils.getLinearRegression)(points),
+            xmin = _getLinearRegression.xmin,
+            xmax = _getLinearRegression.xmax,
+            a = _getLinearRegression.a,
+            b = _getLinearRegression.b;
+
+        var linearExp = function linearExp(x) {
+          return a * x + b;
+        };
+        linePoints = [{ x: xmin, y: linearExp(xmin) }, { x: xmax, y: linearExp(xmax) }];
+      }
+      var lineProps = _extends({}, scatterProps, {
+        fill: 'none',
+        stroke: scatterProps && scatterProps.fill
+      }, customLineProps, {
+        points: linePoints
+      });
+
+      if (_react2.default.isValidElement(line)) {
+        lineItem = _react2.default.cloneElement(line, lineProps);
+      } else if ((0, _isFunction3.default)(line)) {
+        lineItem = line(lineProps);
+      } else {
+        lineItem = _react2.default.createElement(_Curve2.default, _extends({}, lineProps, { type: lineJointType }));
+      }
+
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-scatter-line', key: 'recharts-scatter-line' }, lineItem);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props7 = this.props,
+          hide = _props7.hide,
+          points = _props7.points,
+          line = _props7.line,
+          className = _props7.className,
+          xAxis = _props7.xAxis,
+          yAxis = _props7.yAxis,
+          left = _props7.left,
+          top = _props7.top,
+          width = _props7.width,
+          height = _props7.height,
+          id = _props7.id;
+
+      if (hide || !points || !points.length) {
+        return null;
+      }
+      var _state = this.state,
+          isAnimationActive = _state.isAnimationActive,
+          isAnimationFinished = _state.isAnimationFinished;
+
+      var layerClass = (0, _classnames2.default)('recharts-scatter', className);
+      var needClip = xAxis && xAxis.allowDataOverflow || yAxis && yAxis.allowDataOverflow;
+      var clipPathId = (0, _isNil3.default)(id) ? this.id : id;
+
+      return _react2.default.createElement(_Layer2.default, {
+        className: layerClass,
+        clipPath: needClip ? 'url(#clipPath-' + clipPathId + ')' : null
+      }, needClip ? _react2.default.createElement('defs', null, _react2.default.createElement('clipPath', { id: 'clipPath-' + clipPathId }, _react2.default.createElement('rect', { x: left, y: top, width: width, height: height }))) : null, line && this.renderLine(), this.renderErrorBar(), _react2.default.createElement(_Layer2.default, { key: 'recharts-scatter-symbols' }, this.renderSymbols()), (!isAnimationActive || isAnimationFinished) && _LabelList2.default.renderCallByParent(this.props, points));
+    }
+  }], [{
+    key: 'renderSymbolItem',
+    value: function renderSymbolItem(option, props) {
+      var symbol = void 0;
+
+      if (_react2.default.isValidElement(option)) {
+        symbol = _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        symbol = option(props);
+      } else {
+        symbol = _react2.default.createElement(_Symbols2.default, _extends({}, props, { type: option }));
+      }
+
+      return symbol;
+    }
+  }]);
+
+  return Scatter;
+}(_react.Component), _class2.displayName = 'Scatter', _class2.propTypes = _extends({}, _ReactUtils.EVENT_ATTRIBUTES, _ReactUtils.PRESENTATION_ATTRIBUTES, {
+
+  xAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  yAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  zAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  line: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.object, _propTypes2.default.func, _propTypes2.default.element]),
+  lineType: _propTypes2.default.oneOf(['fitting', 'joint']),
+  lineJointType: _propTypes2.default.oneOfType([_propTypes2.default.oneOf(['basis', 'basisClosed', 'basisOpen', 'linear', 'linearClosed', 'natural', 'monotoneX', 'monotoneY', 'monotone', 'step', 'stepBefore', 'stepAfter']), _propTypes2.default.func]),
+  legendType: _propTypes2.default.oneOf(_ReactUtils.LEGEND_TYPES),
+  className: _propTypes2.default.string,
+  name: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+
+  activeIndex: _propTypes2.default.number,
+  activeShape: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func, _propTypes2.default.element]),
+  shape: _propTypes2.default.oneOfType([_propTypes2.default.oneOf(['circle', 'cross', 'diamond', 'square', 'star', 'triangle', 'wye']), _propTypes2.default.element, _propTypes2.default.func]),
+  points: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+    cx: _propTypes2.default.number,
+    cy: _propTypes2.default.number,
+    size: _propTypes2.default.number,
+    node: _propTypes2.default.shape({
+      x: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+      y: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+      z: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
+    }),
+    payload: _propTypes2.default.any
+  })),
+  hide: _propTypes2.default.bool,
+
+  isAnimationActive: _propTypes2.default.bool,
+  animationId: _propTypes2.default.number,
+  animationBegin: _propTypes2.default.number,
+  animationDuration: _propTypes2.default.number,
+  animationEasing: _propTypes2.default.oneOf(['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear'])
+}), _class2.defaultProps = {
+  xAxisId: 0,
+  yAxisId: 0,
+  zAxisId: 0,
+  legendType: 'circle',
+  lineType: 'joint',
+  lineJointType: 'linear',
+  data: [],
+  shape: 'circle',
+  hide: false,
+
+  isAnimationActive: !(0, _ReactUtils.isSsr)(),
+  animationBegin: 0,
+  animationDuration: 400,
+  animationEasing: 'linear'
+}, _class2.getComposedData = function (_ref3) {
+  var xAxis = _ref3.xAxis,
+      yAxis = _ref3.yAxis,
+      zAxis = _ref3.zAxis,
+      item = _ref3.item,
+      displayedData = _ref3.displayedData,
+      onItemMouseLeave = _ref3.onItemMouseLeave,
+      onItemMouseEnter = _ref3.onItemMouseEnter,
+      offset = _ref3.offset,
+      xAxisTicks = _ref3.xAxisTicks;
+
+  var cells = (0, _ReactUtils.findAllByType)(item.props.children, _Cell2.default);
+  var xAxisDataKey = (0, _isNil3.default)(xAxis.dataKey) ? item.props.dataKey : xAxis.dataKey;
+  var yAxisDataKey = (0, _isNil3.default)(yAxis.dataKey) ? item.props.dataKey : yAxis.dataKey;
+  var zAxisDataKey = zAxis && zAxis.dataKey;
+  var defaultRangeZ = zAxis ? zAxis.range : _ZAxis2.default.defaultProps.range;
+  var defaultZ = defaultRangeZ && defaultRangeZ[0];
+  var xBandSize = xAxis.scale.bandwidth ? xAxis.scale.bandwidth() : 0;
+  var yBandSize = yAxis.scale.bandwidth ? yAxis.scale.bandwidth() : 0;
+  var points = displayedData.map(function (entry, index) {
+    var x = entry[xAxisDataKey];
+    var y = entry[yAxisDataKey];
+    var z = !(0, _isNil3.default)(zAxisDataKey) && entry[zAxisDataKey] || '-';
+    var tooltipPayload = [{ name: xAxis.name || xAxis.dataKey, unit: xAxis.unit || '', value: x, payload: entry }, { name: yAxis.name || yAxis.dataKey, unit: yAxis.unit || '', value: y, payload: entry }];
+
+    if (z !== '-') {
+      tooltipPayload.push({
+        name: zAxis.name || zAxis.dataKey, unit: zAxis.unit || '', value: z, payload: entry
+      });
+    }
+    var cx = (0, _ChartUtils.getCateCoordinateOfLine)({
+      axis: xAxis, ticks: xAxisTicks, bandSize: xBandSize, entry: entry, index: index
+    });
+    var cy = (0, _ChartUtils.getCateCoordinateOfLine)({
+      axis: yAxis, ticks: xAxisTicks, bandSize: yBandSize, entry: entry, index: index
+    });
+    var size = z !== '-' ? zAxis.scale(z) : defaultZ;
+    var radius = Math.sqrt(Math.max(size, 0) / Math.PI);
+
+    return _extends({}, entry, { cx: cx, cy: cy,
+      x: cx - radius,
+      y: cy - radius,
+      xAxis: xAxis, yAxis: yAxis, zAxis: zAxis,
+      width: 2 * radius,
+      height: 2 * radius,
+      size: size,
+      node: { x: x, y: y, z: z },
+      tooltipPayload: tooltipPayload,
+      tooltipPosition: { x: cx, y: cy },
+      payload: entry
+    }, cells && cells[index] && cells[index].props);
+  });
+
+  return _extends({
+    onMouseLeave: onItemMouseLeave,
+    onMouseEnter: onItemMouseEnter,
+    points: points
+  }, offset);
+}, _temp2)) || _class;
+
+exports.default = Scatter;
+},{"lodash-es/isEqual":"../node_modules/lodash-es/isEqual.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/isNil":"../node_modules/lodash-es/isNil.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-smooth":"../node_modules/react-smooth/lib/index.js","classnames":"../node_modules/classnames/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../component/LabelList":"../node_modules/recharts/es6/component/LabelList.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","./ZAxis":"../node_modules/recharts/es6/cartesian/ZAxis.js","../shape/Curve":"../node_modules/recharts/es6/shape/Curve.js","../shape/Symbols":"../node_modules/recharts/es6/shape/Symbols.js","./ErrorBar":"../node_modules/recharts/es6/cartesian/ErrorBar.js","../component/Cell":"../node_modules/recharts/es6/component/Cell.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js"}],"../node_modules/recharts/es6/cartesian/XAxis.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _ReactUtils = require("../util/ReactUtils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview X Axis
+ */
+
+
+var XAxis = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(XAxis, _Component);
+
+  function XAxis() {
+    _classCallCheck(this, XAxis);
+
+    return _possibleConstructorReturn(this, (XAxis.__proto__ || Object.getPrototypeOf(XAxis)).apply(this, arguments));
+  }
+
+  _createClass(XAxis, [{
+    key: 'render',
+    value: function render() {
+      return null;
+    }
+  }]);
+
+  return XAxis;
+}(_react.Component), _class2.displayName = 'XAxis', _class2.propTypes = {
+  allowDecimals: _propTypes2.default.bool,
+  allowDuplicatedCategory: _propTypes2.default.bool,
+  hide: _propTypes2.default.bool,
+  // The name of data displayed in the axis
+  name: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  // The unit of data displayed in the axis
+  unit: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  // The unique id of x-axis
+  xAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  domain: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func, _propTypes2.default.oneOf(['auto', 'dataMin', 'dataMax'])])),
+  // The key of data displayed in the axis
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]),
+  // The width of axis which is usually calculated internally
+  width: _propTypes2.default.number,
+  // The height of axis, which need to be setted by user
+  height: _propTypes2.default.number,
+  mirror: _propTypes2.default.bool,
+  // The orientation of axis
+  orientation: _propTypes2.default.oneOf(['top', 'bottom']),
+  type: _propTypes2.default.oneOf(['number', 'category']),
+  // Ticks can be any type when the axis is the type of category
+  // Ticks must be numbers when the axis is the type of number
+  ticks: _propTypes2.default.array,
+  // The count of ticks
+  tickCount: _propTypes2.default.number,
+  // The formatter function of tick
+  tickFormatter: _propTypes2.default.func,
+  padding: _propTypes2.default.shape({
+    left: _propTypes2.default.number,
+    right: _propTypes2.default.number
+  }),
+  allowDataOverflow: _propTypes2.default.bool,
+  scale: _propTypes2.default.oneOfType([_propTypes2.default.oneOf(_ReactUtils.SCALE_TYPES), _propTypes2.default.func]),
+  tick: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.func, _propTypes2.default.object, _propTypes2.default.element]),
+  axisLine: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.object]),
+  tickLine: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.object]),
+  minTickGap: _propTypes2.default.number,
+  tickSize: _propTypes2.default.number,
+  interval: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.oneOf(['preserveStart', 'preserveEnd', 'preserveStartEnd'])]),
+  reversed: _propTypes2.default.bool
+}, _class2.defaultProps = {
+  allowDecimals: true,
+  hide: false,
+  orientation: 'bottom',
+  width: 0,
+  height: 30,
+  mirror: false,
+  xAxisId: 0,
+  tickCount: 5,
+  type: 'category',
+  domain: [0, 'auto'],
+  padding: { left: 0, right: 0 },
+  allowDataOverflow: false,
+  scale: 'auto',
+  reversed: false,
+  allowDuplicatedCategory: true
+}, _temp)) || _class;
+
+exports.default = XAxis;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js"}],"../node_modules/recharts/es6/cartesian/YAxis.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PureRender = require("../util/PureRender");
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview Y Axis
+ */
+
+
+var YAxis = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(YAxis, _Component);
+
+  function YAxis() {
+    _classCallCheck(this, YAxis);
+
+    return _possibleConstructorReturn(this, (YAxis.__proto__ || Object.getPrototypeOf(YAxis)).apply(this, arguments));
+  }
+
+  _createClass(YAxis, [{
+    key: 'render',
+    value: function render() {
+      return null;
+    }
+  }]);
+
+  return YAxis;
+}(_react.Component), _class2.displayName = 'YAxis', _class2.propTypes = {
+  allowDecimals: _propTypes2.default.bool,
+  allowDuplicatedCategory: _propTypes2.default.bool,
+  hide: _propTypes2.default.bool,
+  // The name of data displayed in the axis
+  name: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  // The unit of data displayed in the axis
+  unit: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  // The unique id of y-axis
+  yAxisId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+  domain: _propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func, _propTypes2.default.oneOf(['auto', 'dataMin', 'dataMax'])])),
+  // The key of data displayed in the axis
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]),
+  // Ticks can be any type when the axis is the type of category
+  // Ticks must be numbers when the axis is the type of number
+  ticks: _propTypes2.default.array,
+  // The count of ticks
+  tickCount: _propTypes2.default.number,
+  // The formatter function of tick
+  tickFormatter: _propTypes2.default.func,
+  // The width of axis, which need to be setted by user
+  width: _propTypes2.default.number,
+  // The height of axis which is usually calculated in Chart
+  height: _propTypes2.default.number,
+  mirror: _propTypes2.default.bool,
+  // The orientation of axis
+  orientation: _propTypes2.default.oneOf(['left', 'right']),
+  type: _propTypes2.default.oneOf(['number', 'category']),
+  padding: _propTypes2.default.shape({
+    top: _propTypes2.default.number,
+    bottom: _propTypes2.default.number
+  }),
+  allowDataOverflow: _propTypes2.default.bool,
+  scale: _propTypes2.default.oneOfType([_propTypes2.default.oneOf(['auto', 'linear', 'pow', 'sqrt', 'log', 'identity', 'time', 'band', 'point', 'ordinal', 'quantile', 'quantize', 'utc', 'sequential', 'threshold']), _propTypes2.default.func]),
+  tick: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.func, _propTypes2.default.object, _propTypes2.default.element]),
+  axisLine: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.object]),
+  tickLine: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.object]),
+  minTickGap: _propTypes2.default.number,
+  tickSize: _propTypes2.default.number,
+  interval: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.oneOf(['preserveStart', 'preserveEnd', 'preserveStartEnd'])]),
+  reversed: _propTypes2.default.bool
+}, _class2.defaultProps = {
+  allowDuplicatedCategory: true,
+  allowDecimals: true,
+  hide: false,
+  orientation: 'left',
+  width: 60,
+  height: 0,
+  mirror: false,
+  yAxisId: 0,
+  tickCount: 5,
+  type: 'number',
+  domain: [0, 'auto'],
+  padding: { top: 0, bottom: 0 },
+  allowDataOverflow: false,
+  scale: 'auto',
+  reversed: false
+}, _temp)) || _class;
+
+exports.default = YAxis;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js"}],"../node_modules/lodash-es/throttle.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _debounce = require('./debounce.js');
+
+var _debounce2 = _interopRequireDefault(_debounce);
+
+var _isObject = require('./isObject.js');
+
+var _isObject2 = _interopRequireDefault(_isObject);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** Error message constants. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/**
+ * Creates a throttled function that only invokes `func` at most once per
+ * every `wait` milliseconds. The throttled function comes with a `cancel`
+ * method to cancel delayed `func` invocations and a `flush` method to
+ * immediately invoke them. Provide `options` to indicate whether `func`
+ * should be invoked on the leading and/or trailing edge of the `wait`
+ * timeout. The `func` is invoked with the last arguments provided to the
+ * throttled function. Subsequent calls to the throttled function return the
+ * result of the last `func` invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the throttled function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+ * for details over the differences between `_.throttle` and `_.debounce`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to throttle.
+ * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
+ * @param {Object} [options={}] The options object.
+ * @param {boolean} [options.leading=true]
+ *  Specify invoking on the leading edge of the timeout.
+ * @param {boolean} [options.trailing=true]
+ *  Specify invoking on the trailing edge of the timeout.
+ * @returns {Function} Returns the new throttled function.
+ * @example
+ *
+ * // Avoid excessively updating the position while scrolling.
+ * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
+ *
+ * // Invoke `renewToken` when the click event is fired, but not more than once every 5 minutes.
+ * var throttled = _.throttle(renewToken, 300000, { 'trailing': false });
+ * jQuery(element).on('click', throttled);
+ *
+ * // Cancel the trailing throttled invocation.
+ * jQuery(window).on('popstate', throttled.cancel);
+ */
+function throttle(func, wait, options) {
+  var leading = true,
+      trailing = true;
+
+  if (typeof func != 'function') {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  if ((0, _isObject2.default)(options)) {
+    leading = 'leading' in options ? !!options.leading : leading;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+  return (0, _debounce2.default)(func, wait, {
+    'leading': leading,
+    'maxWait': wait,
+    'trailing': trailing
+  });
+}
+
+exports.default = throttle;
+},{"./debounce.js":"../node_modules/lodash-es/debounce.js","./isObject.js":"../node_modules/lodash-es/isObject.js"}],"../node_modules/events/events.js":[function(require,module,exports) {
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+function EventEmitter() {
+  this._events = this._events || {};
+  this._maxListeners = this._maxListeners || undefined;
+}
+module.exports = EventEmitter;
+
+// Backwards-compat with node 0.10.x
+EventEmitter.EventEmitter = EventEmitter;
+
+EventEmitter.prototype._events = undefined;
+EventEmitter.prototype._maxListeners = undefined;
+
+// By default EventEmitters will print a warning if more than 10 listeners are
+// added to it. This is a useful default which helps finding memory leaks.
+EventEmitter.defaultMaxListeners = 10;
+
+// Obviously not all Emitters should be limited to 10. This function allows
+// that to be increased. Set to zero for unlimited.
+EventEmitter.prototype.setMaxListeners = function (n) {
+  if (!isNumber(n) || n < 0 || isNaN(n)) throw TypeError('n must be a positive number');
+  this._maxListeners = n;
+  return this;
+};
+
+EventEmitter.prototype.emit = function (type) {
+  var er, handler, len, args, i, listeners;
+
+  if (!this._events) this._events = {};
+
+  // If there is no 'error' event listener then throw.
+  if (type === 'error') {
+    if (!this._events.error || isObject(this._events.error) && !this._events.error.length) {
+      er = arguments[1];
+      if (er instanceof Error) {
+        throw er; // Unhandled 'error' event
+      } else {
+        // At least give some kind of context to the user
+        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+        err.context = er;
+        throw err;
+      }
+    }
+  }
+
+  handler = this._events[type];
+
+  if (isUndefined(handler)) return false;
+
+  if (isFunction(handler)) {
+    switch (arguments.length) {
+      // fast cases
+      case 1:
+        handler.call(this);
+        break;
+      case 2:
+        handler.call(this, arguments[1]);
+        break;
+      case 3:
+        handler.call(this, arguments[1], arguments[2]);
+        break;
+      // slower
+      default:
+        args = Array.prototype.slice.call(arguments, 1);
+        handler.apply(this, args);
+    }
+  } else if (isObject(handler)) {
+    args = Array.prototype.slice.call(arguments, 1);
+    listeners = handler.slice();
+    len = listeners.length;
+    for (i = 0; i < len; i++) listeners[i].apply(this, args);
+  }
+
+  return true;
+};
+
+EventEmitter.prototype.addListener = function (type, listener) {
+  var m;
+
+  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+  if (!this._events) this._events = {};
+
+  // To avoid recursion in the case that type === "newListener"! Before
+  // adding it to the listeners, first emit "newListener".
+  if (this._events.newListener) this.emit('newListener', type, isFunction(listener.listener) ? listener.listener : listener);
+
+  if (!this._events[type])
+    // Optimize the case of one listener. Don't need the extra array object.
+    this._events[type] = listener;else if (isObject(this._events[type]))
+    // If we've already got an array, just append.
+    this._events[type].push(listener);else
+    // Adding the second element, need to change to array.
+    this._events[type] = [this._events[type], listener];
+
+  // Check for listener leak
+  if (isObject(this._events[type]) && !this._events[type].warned) {
+    if (!isUndefined(this._maxListeners)) {
+      m = this._maxListeners;
+    } else {
+      m = EventEmitter.defaultMaxListeners;
+    }
+
+    if (m && m > 0 && this._events[type].length > m) {
+      this._events[type].warned = true;
+      console.error('(node) warning: possible EventEmitter memory ' + 'leak detected. %d listeners added. ' + 'Use emitter.setMaxListeners() to increase limit.', this._events[type].length);
+      if (typeof console.trace === 'function') {
+        // not supported in IE 10
+        console.trace();
+      }
+    }
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+EventEmitter.prototype.once = function (type, listener) {
+  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+  var fired = false;
+
+  function g() {
+    this.removeListener(type, g);
+
+    if (!fired) {
+      fired = true;
+      listener.apply(this, arguments);
+    }
+  }
+
+  g.listener = listener;
+  this.on(type, g);
+
+  return this;
+};
+
+// emits a 'removeListener' event iff the listener was removed
+EventEmitter.prototype.removeListener = function (type, listener) {
+  var list, position, length, i;
+
+  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+  if (!this._events || !this._events[type]) return this;
+
+  list = this._events[type];
+  length = list.length;
+  position = -1;
+
+  if (list === listener || isFunction(list.listener) && list.listener === listener) {
+    delete this._events[type];
+    if (this._events.removeListener) this.emit('removeListener', type, listener);
+  } else if (isObject(list)) {
+    for (i = length; i-- > 0;) {
+      if (list[i] === listener || list[i].listener && list[i].listener === listener) {
+        position = i;
+        break;
+      }
+    }
+
+    if (position < 0) return this;
+
+    if (list.length === 1) {
+      list.length = 0;
+      delete this._events[type];
+    } else {
+      list.splice(position, 1);
+    }
+
+    if (this._events.removeListener) this.emit('removeListener', type, listener);
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.removeAllListeners = function (type) {
+  var key, listeners;
+
+  if (!this._events) return this;
+
+  // not listening for removeListener, no need to emit
+  if (!this._events.removeListener) {
+    if (arguments.length === 0) this._events = {};else if (this._events[type]) delete this._events[type];
+    return this;
+  }
+
+  // emit removeListener for all listeners on all events
+  if (arguments.length === 0) {
+    for (key in this._events) {
+      if (key === 'removeListener') continue;
+      this.removeAllListeners(key);
+    }
+    this.removeAllListeners('removeListener');
+    this._events = {};
+    return this;
+  }
+
+  listeners = this._events[type];
+
+  if (isFunction(listeners)) {
+    this.removeListener(type, listeners);
+  } else if (listeners) {
+    // LIFO order
+    while (listeners.length) this.removeListener(type, listeners[listeners.length - 1]);
+  }
+  delete this._events[type];
+
+  return this;
+};
+
+EventEmitter.prototype.listeners = function (type) {
+  var ret;
+  if (!this._events || !this._events[type]) ret = [];else if (isFunction(this._events[type])) ret = [this._events[type]];else ret = this._events[type].slice();
+  return ret;
+};
+
+EventEmitter.prototype.listenerCount = function (type) {
+  if (this._events) {
+    var evlistener = this._events[type];
+
+    if (isFunction(evlistener)) return 1;else if (evlistener) return evlistener.length;
+  }
+  return 0;
+};
+
+EventEmitter.listenerCount = function (emitter, type) {
+  return emitter.listenerCount(type);
+};
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+},{}],"../node_modules/recharts/es6/util/Events.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SYNC_EVENT = exports.eventCenter = undefined;
+
+var _events = require('events');
+
+var _events2 = _interopRequireDefault(_events);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var eventCenter = new _events2.default();
+
+if (eventCenter.setMaxListeners) {
+  eventCenter.setMaxListeners(10);
+}
+
+exports.eventCenter = eventCenter;
+var SYNC_EVENT = exports.SYNC_EVENT = 'recharts.syncMouseEvents';
+},{"events":"../node_modules/events/events.js"}],"../node_modules/recharts/es6/chart/generateCategoricalChart.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _sortBy2 = require('lodash-es/sortBy');
+
+var _sortBy3 = _interopRequireDefault(_sortBy2);
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _range2 = require('lodash-es/range');
+
+var _range3 = _interopRequireDefault(_range2);
+
+var _throttle2 = require('lodash-es/throttle');
+
+var _throttle3 = _interopRequireDefault(_throttle2);
+
+var _isNil2 = require('lodash-es/isNil');
+
+var _isNil3 = _interopRequireDefault(_isNil2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _Surface = require('../container/Surface');
+
+var _Surface2 = _interopRequireDefault(_Surface);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _Tooltip = require('../component/Tooltip');
+
+var _Tooltip2 = _interopRequireDefault(_Tooltip);
+
+var _Legend = require('../component/Legend');
+
+var _Legend2 = _interopRequireDefault(_Legend);
+
+var _Curve = require('../shape/Curve');
+
+var _Curve2 = _interopRequireDefault(_Curve);
+
+var _Cross = require('../shape/Cross');
+
+var _Cross2 = _interopRequireDefault(_Cross);
+
+var _Sector = require('../shape/Sector');
+
+var _Sector2 = _interopRequireDefault(_Sector);
+
+var _Dot = require('../shape/Dot');
+
+var _Dot2 = _interopRequireDefault(_Dot);
+
+var _Rectangle = require('../shape/Rectangle');
+
+var _Rectangle2 = _interopRequireDefault(_Rectangle);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _CartesianAxis = require('../cartesian/CartesianAxis');
+
+var _CartesianAxis2 = _interopRequireDefault(_CartesianAxis);
+
+var _Brush = require('../cartesian/Brush');
+
+var _Brush2 = _interopRequireDefault(_Brush);
+
+var _DOMUtils = require('../util/DOMUtils');
+
+var _DataUtils = require('../util/DataUtils');
+
+var _ChartUtils = require('../util/ChartUtils');
+
+var _PolarUtils = require('../util/PolarUtils');
+
+var _PureRender = require('../util/PureRender');
+
+var _Events = require('../util/Events');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+  } else {
+    obj[key] = value;
+  }return obj;
+}
+
+function _toConsumableArray(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }return arr2;
+  } else {
+    return Array.from(arr);
+  }
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var ORIENT_MAP = {
+  xAxis: ['bottom', 'top'],
+  yAxis: ['left', 'right']
+};
+
+var originCoordinate = { x: 0, y: 0 };
+
+var generateCategoricalChart = function generateCategoricalChart(_ref) {
+  var _class, _temp, _initialiseProps;
+
+  var chartName = _ref.chartName,
+      GraphicalChild = _ref.GraphicalChild,
+      _ref$eventType = _ref.eventType,
+      eventType = _ref$eventType === undefined ? 'axis' : _ref$eventType,
+      axisComponents = _ref.axisComponents,
+      legendContent = _ref.legendContent,
+      formatAxisMap = _ref.formatAxisMap,
+      defaultProps = _ref.defaultProps,
+      propTypes = _ref.propTypes;
+  var CategoricalChartWrapper = (_temp = _class = function (_Component) {
+    _inherits(CategoricalChartWrapper, _Component);
+
+    function CategoricalChartWrapper(props) {
+      _classCallCheck(this, CategoricalChartWrapper);
+
+      var _this = _possibleConstructorReturn(this, (CategoricalChartWrapper.__proto__ || Object.getPrototypeOf(CategoricalChartWrapper)).call(this, props));
+
+      _initialiseProps.call(_this);
+
+      var defaultState = _this.constructor.createDefaultState(props);
+      var updateId = 0;
+      _this.state = _extends({}, defaultState, { updateId: 0
+      }, _this.updateStateOfAxisMapsOffsetAndStackGroups(_extends({ props: props }, defaultState, { updateId: updateId })));
+
+      _this.uniqueChartId = (0, _isNil3.default)(props.id) ? (0, _DataUtils.uniqueId)('recharts') : props.id;
+      _this.clipPathId = _this.uniqueChartId + '-clip';
+
+      if (props.throttleDelay) {
+        _this.triggeredAfterMouseMove = (0, _throttle3.default)(_this.triggeredAfterMouseMove, props.throttleDelay);
+      }
+      return _this;
+    }
+
+    /* eslint-disable  react/no-did-mount-set-state */
+
+    /**
+     * Returns default, reset state for the categorical chart.
+     * @param {Object} props Props object to use when creating the default state
+     * @return {Object} Whole new state
+     */
+
+    _createClass(CategoricalChartWrapper, [{
+      key: 'componentDidMount',
+      value: function componentDidMount() {
+        if (!(0, _isNil3.default)(this.props.syncId)) {
+          this.addListener();
+        }
+      }
+    }, {
+      key: 'componentWillReceiveProps',
+      value: function componentWillReceiveProps(nextProps) {
+        var _this2 = this;
+
+        var _props = this.props,
+            data = _props.data,
+            children = _props.children,
+            width = _props.width,
+            height = _props.height,
+            layout = _props.layout,
+            stackOffset = _props.stackOffset,
+            margin = _props.margin;
+        var updateId = this.state.updateId;
+
+        if (nextProps.data !== data || nextProps.width !== width || nextProps.height !== height || nextProps.layout !== layout || nextProps.stackOffset !== stackOffset || !(0, _PureRender.shallowEqual)(nextProps.margin, margin)) {
+          var defaultState = this.constructor.createDefaultState(nextProps);
+          this.setState(_extends({}, defaultState, { updateId: updateId + 1
+          }, this.updateStateOfAxisMapsOffsetAndStackGroups(_extends({ props: nextProps }, defaultState, { updateId: updateId + 1 }))));
+        } else if (!(0, _ReactUtils.isChildrenEqual)(nextProps.children, children)) {
+          // update configuration in chilren
+          var hasGlobalData = !(0, _isNil3.default)(nextProps.data);
+          var newUpdateId = hasGlobalData ? updateId : updateId + 1;
+
+          this.setState(function (prevState) {
+            return _extends({
+              updateId: newUpdateId
+            }, _this2.updateStateOfAxisMapsOffsetAndStackGroups(_extends({
+              props: nextProps
+            }, prevState, {
+              updateId: newUpdateId
+            })));
+          });
+        }
+        // add syncId
+        if ((0, _isNil3.default)(this.props.syncId) && !(0, _isNil3.default)(nextProps.syncId)) {
+          this.addListener();
+        }
+        // remove syncId
+        if (!(0, _isNil3.default)(this.props.syncId) && (0, _isNil3.default)(nextProps.syncId)) {
+          this.removeListener();
+        }
+      }
+    }, {
+      key: 'componentWillUnmount',
+      value: function componentWillUnmount() {
+        if (!(0, _isNil3.default)(this.props.syncId)) {
+          this.removeListener();
+        }
+        if (typeof this.triggeredAfterMouseMove.cancel === 'function') {
+          this.triggeredAfterMouseMove.cancel();
+        }
+      }
+      /**
+      * Get the configuration of all x-axis or y-axis
+      * @param  {Object} props          Latest props
+      * @param  {String} axisType       The type of axis
+      * @param  {Array}  graphicalItems The instances of item
+      * @param  {Object} stackGroups    The items grouped by axisId and stackId
+      * @param {Number} dataStartIndex  The start index of the data series when a brush is applied
+      * @param {Number} dataEndIndex    The end index of the data series when a brush is applied
+      * @return {Object}          Configuration
+      */
+
+    }, {
+      key: 'getAxisMap',
+      value: function getAxisMap(props, _ref2) {
+        var _ref2$axisType = _ref2.axisType,
+            axisType = _ref2$axisType === undefined ? 'xAxis' : _ref2$axisType,
+            AxisComp = _ref2.AxisComp,
+            graphicalItems = _ref2.graphicalItems,
+            stackGroups = _ref2.stackGroups,
+            dataStartIndex = _ref2.dataStartIndex,
+            dataEndIndex = _ref2.dataEndIndex;
+        var children = props.children;
+
+        var axisIdKey = axisType + 'Id';
+        // Get all the instance of Axis
+        var axes = (0, _ReactUtils.findAllByType)(children, AxisComp);
+
+        var axisMap = {};
+
+        if (axes && axes.length) {
+          axisMap = this.getAxisMapByAxes(props, { axes: axes, graphicalItems: graphicalItems, axisType: axisType, axisIdKey: axisIdKey,
+            stackGroups: stackGroups, dataStartIndex: dataStartIndex, dataEndIndex: dataEndIndex });
+        } else if (graphicalItems && graphicalItems.length) {
+          axisMap = this.getAxisMapByItems(props, {
+            Axis: AxisComp,
+            graphicalItems: graphicalItems, axisType: axisType, axisIdKey: axisIdKey, stackGroups: stackGroups, dataStartIndex: dataStartIndex, dataEndIndex: dataEndIndex });
+        }
+
+        return axisMap;
+      }
+      /**
+       * Get the configuration of axis by the options of axis instance
+       * @param  {Object} props         Latest props
+       * @param {Array}  axes           The instance of axes
+       * @param  {Array} graphicalItems The instances of item
+       * @param  {String} axisType      The type of axis, xAxis - x-axis, yAxis - y-axis
+       * @param  {String} axisIdKey     The unique id of an axis
+       * @param  {Object} stackGroups   The items grouped by axisId and stackId
+       * @param {Number} dataStartIndex The start index of the data series when a brush is applied
+       * @param {Number} dataEndIndex   The end index of the data series when a brush is applied
+       * @return {Object}      Configuration
+       */
+
+    }, {
+      key: 'getAxisMapByAxes',
+      value: function getAxisMapByAxes(props, _ref3) {
+        var _this3 = this;
+
+        var axes = _ref3.axes,
+            graphicalItems = _ref3.graphicalItems,
+            axisType = _ref3.axisType,
+            axisIdKey = _ref3.axisIdKey,
+            stackGroups = _ref3.stackGroups,
+            dataStartIndex = _ref3.dataStartIndex,
+            dataEndIndex = _ref3.dataEndIndex;
+        var layout = props.layout,
+            children = props.children,
+            stackOffset = props.stackOffset;
+
+        var isCategorial = (0, _ChartUtils.isCategorialAxis)(layout, axisType);
+
+        // Eliminate duplicated axes
+        var axisMap = axes.reduce(function (result, child) {
+          var _child$props = child.props,
+              type = _child$props.type,
+              dataKey = _child$props.dataKey,
+              allowDataOverflow = _child$props.allowDataOverflow,
+              allowDuplicatedCategory = _child$props.allowDuplicatedCategory,
+              scale = _child$props.scale,
+              ticks = _child$props.ticks;
+
+          var axisId = child.props[axisIdKey];
+          var displayedData = _this3.constructor.getDisplayedData(props, {
+            graphicalItems: graphicalItems.filter(function (item) {
+              return item.props[axisIdKey] === axisId;
+            }),
+            dataStartIndex: dataStartIndex,
+            dataEndIndex: dataEndIndex
+          });
+          var len = displayedData.length;
+
+          if (!result[axisId]) {
+            var domain = void 0,
+                duplicateDomain = void 0,
+                categoricalDomain = void 0;
+
+            if (dataKey) {
+              domain = (0, _ChartUtils.getDomainOfDataByKey)(displayedData, dataKey, type);
+
+              if (type === 'category' && isCategorial) {
+                var duplicate = (0, _DataUtils.hasDuplicate)(domain);
+
+                if (allowDuplicatedCategory && duplicate) {
+                  duplicateDomain = domain;
+                  // When category axis has duplicated text, serial numbers are used to generate scale
+                  domain = (0, _range3.default)(0, len);
+                } else if (!allowDuplicatedCategory) {
+                  // remove duplicated category
+                  domain = (0, _ChartUtils.parseDomainOfCategoryAxis)(child.props.domain, domain, child).reduce(function (finalDomain, entry) {
+                    return finalDomain.indexOf(entry) >= 0 ? finalDomain : [].concat(_toConsumableArray(finalDomain), [entry]);
+                  }, []);
+                }
+              } else if (type === 'category') {
+                if (!allowDuplicatedCategory) {
+                  domain = (0, _ChartUtils.parseDomainOfCategoryAxis)(child.props.domain, domain, child).reduce(function (finalDomain, entry) {
+                    return finalDomain.indexOf(entry) >= 0 || entry === '' || (0, _isNil3.default)(entry) ? finalDomain : [].concat(_toConsumableArray(finalDomain), [entry]);
+                  }, []);
+                } else {
+                  // eliminate undefined or null or empty string
+                  domain = domain.filter(function (entry) {
+                    return entry !== '' && !(0, _isNil3.default)(entry);
+                  });
+                }
+              } else if (type === 'number') {
+                var errorBarsDomain = (0, _ChartUtils.parseErrorBarsOfAxis)(displayedData, graphicalItems.filter(function (item) {
+                  return item.props[axisIdKey] === axisId && !item.props.hide;
+                }), dataKey, axisType);
+
+                if (errorBarsDomain) {
+                  domain = errorBarsDomain;
+                }
+              }
+
+              if (isCategorial && (type === 'number' || scale !== 'auto')) {
+                categoricalDomain = (0, _ChartUtils.getDomainOfDataByKey)(displayedData, dataKey, 'category');
+              }
+            } else if (isCategorial) {
+              domain = (0, _range3.default)(0, len);
+            } else if (stackGroups && stackGroups[axisId] && stackGroups[axisId].hasStack && type === 'number') {
+              // when stackOffset is 'expand', the domain may be calculated as [0, 1.000000000002]
+              domain = stackOffset === 'expand' ? [0, 1] : (0, _ChartUtils.getDomainOfStackGroups)(stackGroups[axisId].stackGroups, dataStartIndex, dataEndIndex);
+            } else {
+              domain = (0, _ChartUtils.getDomainOfItemsWithSameAxis)(displayedData, graphicalItems.filter(function (item) {
+                return item.props[axisIdKey] === axisId && !item.props.hide;
+              }), type, true);
+            }
+            if (type === 'number') {
+              // To detect wether there is any reference lines whose props alwaysShow is true
+              domain = (0, _ChartUtils.detectReferenceElementsDomain)(children, domain, axisId, axisType, ticks);
+
+              if (child.props.domain) {
+                domain = (0, _ChartUtils.parseSpecifiedDomain)(child.props.domain, domain, allowDataOverflow);
+              }
+            }
+
+            return _extends({}, result, _defineProperty({}, axisId, _extends({}, child.props, {
+              axisType: axisType,
+              domain: domain,
+              categoricalDomain: categoricalDomain,
+              duplicateDomain: duplicateDomain,
+              originalDomain: child.props.domain,
+              isCategorial: isCategorial,
+              layout: layout
+            })));
+          }
+
+          return result;
+        }, {});
+        return axisMap;
+      }
+      /**
+       * Get the configuration of axis by the options of item,
+       * this kind of axis does not display in chart
+       * @param  {Object} props         Latest props
+       * @param  {Array} graphicalItems The instances of item
+       * @param  {ReactElement} Axis    Axis Component
+       * @param  {String} axisType      The type of axis, xAxis - x-axis, yAxis - y-axis
+       * @param  {String} axisIdKey     The unique id of an axis
+       * @param  {Object} stackGroups   The items grouped by axisId and stackId
+       * @param {Number} dataStartIndex The start index of the data series when a brush is applied
+       * @param {Number} dataEndIndex   The end index of the data series when a brush is applied
+       * @return {Object}               Configuration
+       */
+
+    }, {
+      key: 'getAxisMapByItems',
+      value: function getAxisMapByItems(props, _ref4) {
+        var graphicalItems = _ref4.graphicalItems,
+            Axis = _ref4.Axis,
+            axisType = _ref4.axisType,
+            axisIdKey = _ref4.axisIdKey,
+            stackGroups = _ref4.stackGroups,
+            dataStartIndex = _ref4.dataStartIndex,
+            dataEndIndex = _ref4.dataEndIndex;
+        var layout = props.layout,
+            children = props.children;
+
+        var displayedData = this.constructor.getDisplayedData(props, {
+          graphicalItems: graphicalItems, dataStartIndex: dataStartIndex, dataEndIndex: dataEndIndex
+        });
+        var len = displayedData.length;
+        var isCategorial = (0, _ChartUtils.isCategorialAxis)(layout, axisType);
+        var index = -1;
+
+        // The default type of x-axis is category axis,
+        // The default contents of x-axis is the serial numbers of data
+        // The default type of y-axis is number axis
+        // The default contents of y-axis is the domain of data
+        var axisMap = graphicalItems.reduce(function (result, child) {
+          var axisId = child.props[axisIdKey];
+
+          if (!result[axisId]) {
+            index++;
+            var domain = void 0;
+
+            if (isCategorial) {
+              domain = (0, _range3.default)(0, len);
+            } else if (stackGroups && stackGroups[axisId] && stackGroups[axisId].hasStack) {
+              domain = (0, _ChartUtils.getDomainOfStackGroups)(stackGroups[axisId].stackGroups, dataStartIndex, dataEndIndex);
+              domain = (0, _ChartUtils.detectReferenceElementsDomain)(children, domain, axisId, axisType);
+            } else {
+              domain = (0, _ChartUtils.parseSpecifiedDomain)(Axis.defaultProps.domain, (0, _ChartUtils.getDomainOfItemsWithSameAxis)(displayedData, graphicalItems.filter(function (item) {
+                return item.props[axisIdKey] === axisId && !item.props.hide;
+              }), 'number'), Axis.defaultProps.allowDataOverflow);
+              domain = (0, _ChartUtils.detectReferenceElementsDomain)(children, domain, axisId, axisType);
+            }
+
+            return _extends({}, result, _defineProperty({}, axisId, _extends({
+              axisType: axisType
+            }, Axis.defaultProps, {
+              hide: true,
+              orientation: ORIENT_MAP[axisType] && ORIENT_MAP[axisType][index % 2],
+              domain: domain,
+              originalDomain: Axis.defaultProps.domain,
+              isCategorial: isCategorial,
+              layout: layout
+              // specify scale when no Axis
+              // scale: isCategorial ? 'band' : 'linear',
+            })));
+          }
+
+          return result;
+        }, {});
+
+        return axisMap;
+      }
+    }, {
+      key: 'getActiveCoordinate',
+      value: function getActiveCoordinate(tooltipTicks, activeIndex, rangeObj) {
+        var layout = this.props.layout;
+
+        var entry = tooltipTicks.find(function (tick) {
+          return tick && tick.index === activeIndex;
+        });
+
+        if (entry) {
+          if (layout === 'horizontal') {
+            return { x: entry.coordinate, y: rangeObj.y };
+          } else if (layout === 'vertical') {
+            return { x: rangeObj.x, y: entry.coordinate };
+          } else if (layout === 'centric') {
+            var _angle = entry.coordinate;
+            var _radius = rangeObj.radius;
+
+            return _extends({}, rangeObj, (0, _PolarUtils.polarToCartesian)(rangeObj.cx, rangeObj.cy, _radius, _angle), {
+              angle: _angle, radius: _radius
+            });
+          }
+
+          var radius = entry.coordinate;
+          var angle = rangeObj.angle;
+
+          return _extends({}, rangeObj, (0, _PolarUtils.polarToCartesian)(rangeObj.cx, rangeObj.cy, radius, angle), {
+            angle: angle, radius: radius
+          });
+        }
+
+        return originCoordinate;
+      }
+      /**
+       * Get the information of mouse in chart, return null when the mouse is not in the chart
+       * @param  {Object} event    The event object
+       * @return {Object}          Mouse data
+       */
+
+    }, {
+      key: 'getMouseInfo',
+      value: function getMouseInfo(event) {
+        if (!this.container) {
+          return null;
+        }
+
+        var containerOffset = (0, _DOMUtils.getOffset)(this.container);
+        var e = (0, _DOMUtils.calculateChartCoordinate)(event, containerOffset);
+        var rangeObj = this.inRange(e.chartX, e.chartY);
+        if (!rangeObj) {
+          return null;
+        }
+
+        var _state = this.state,
+            xAxisMap = _state.xAxisMap,
+            yAxisMap = _state.yAxisMap;
+
+        if (eventType !== 'axis' && xAxisMap && yAxisMap) {
+          var xScale = (0, _DataUtils.getAnyElementOfObject)(xAxisMap).scale;
+          var yScale = (0, _DataUtils.getAnyElementOfObject)(yAxisMap).scale;
+          var xValue = xScale && xScale.invert ? xScale.invert(e.chartX) : null;
+          var yValue = yScale && yScale.invert ? yScale.invert(e.chartY) : null;
+
+          return _extends({}, e, { xValue: xValue, yValue: yValue });
+        }
+
+        var _state2 = this.state,
+            ticks = _state2.orderedTooltipTicks,
+            axis = _state2.tooltipAxis,
+            tooltipTicks = _state2.tooltipTicks;
+
+        var pos = this.calculateTooltipPos(rangeObj);
+        var activeIndex = (0, _ChartUtils.calculateActiveTickIndex)(pos, ticks, tooltipTicks, axis);
+
+        if (activeIndex >= 0 && tooltipTicks) {
+          var activeLabel = tooltipTicks[activeIndex] && tooltipTicks[activeIndex].value;
+          var activePayload = this.getTooltipContent(activeIndex, activeLabel);
+          var activeCoordinate = this.getActiveCoordinate(ticks, activeIndex, rangeObj);
+
+          return _extends({}, e, {
+            activeTooltipIndex: activeIndex,
+            activeLabel: activeLabel, activePayload: activePayload, activeCoordinate: activeCoordinate
+          });
+        }
+
+        return null;
+      }
+      /**
+       * Get the content to be displayed in the tooltip
+       * @param  {Number} activeIndex    Active index of data
+       * @param  {String} activeLabel    Active label of data
+       * @return {Array}                 The content of tooltip
+       */
+
+    }, {
+      key: 'getTooltipContent',
+      value: function getTooltipContent(activeIndex, activeLabel) {
+        var _state3 = this.state,
+            graphicalItems = _state3.graphicalItems,
+            tooltipAxis = _state3.tooltipAxis;
+
+        var displayedData = this.constructor.getDisplayedData(this.props, this.state);
+
+        if (activeIndex < 0 || !graphicalItems || !graphicalItems.length || activeIndex >= displayedData.length) {
+          return null;
+        }
+
+        // get data by activeIndex when the axis don't allow duplicated category
+        return graphicalItems.reduce(function (result, child) {
+          var hide = child.props.hide;
+
+          if (hide) {
+            return result;
+          }
+
+          var _child$props2 = child.props,
+              dataKey = _child$props2.dataKey,
+              name = _child$props2.name,
+              unit = _child$props2.unit,
+              formatter = _child$props2.formatter,
+              data = _child$props2.data;
+
+          var payload = void 0;
+
+          if (tooltipAxis.dataKey && !tooltipAxis.allowDuplicatedCategory) {
+            // graphic child has data props
+            payload = (0, _DataUtils.findEntryInArray)(data || displayedData, tooltipAxis.dataKey, activeLabel);
+          } else {
+            payload = displayedData[activeIndex];
+          }
+
+          if (!payload) {
+            return result;
+          }
+          return [].concat(_toConsumableArray(result), [_extends({}, (0, _ReactUtils.getPresentationAttributes)(child), {
+            dataKey: dataKey, unit: unit, formatter: formatter,
+            name: name || dataKey,
+            color: (0, _ChartUtils.getMainColorOfGraphicItem)(child),
+            value: (0, _ChartUtils.getValueByDataKey)(payload, dataKey),
+            payload: payload
+          })]);
+        }, []);
+      }
+    }, {
+      key: 'getFormatItems',
+      value: function getFormatItems(props, currentState) {
+        var _this4 = this;
+
+        var graphicalItems = currentState.graphicalItems,
+            stackGroups = currentState.stackGroups,
+            offset = currentState.offset,
+            updateId = currentState.updateId,
+            dataStartIndex = currentState.dataStartIndex,
+            dataEndIndex = currentState.dataEndIndex;
+        var barSize = props.barSize,
+            layout = props.layout,
+            barGap = props.barGap,
+            barCategoryGap = props.barCategoryGap,
+            globalMaxBarSize = props.maxBarSize;
+
+        var _constructor$getAxisN = this.constructor.getAxisNameByLayout(layout),
+            numericAxisName = _constructor$getAxisN.numericAxisName,
+            cateAxisName = _constructor$getAxisN.cateAxisName;
+
+        var hasBar = this.constructor.hasBar(graphicalItems);
+        var sizeList = hasBar && (0, _ChartUtils.getBarSizeList)({ barSize: barSize, stackGroups: stackGroups });
+        var formatedItems = [];
+
+        graphicalItems.forEach(function (item, index) {
+          var displayedData = _this4.constructor.getDisplayedData(props, { dataStartIndex: dataStartIndex, dataEndIndex: dataEndIndex }, item);
+          var _item$props = item.props,
+              dataKey = _item$props.dataKey,
+              childMaxBarSize = _item$props.maxBarSize;
+
+          var numericAxisId = item.props[numericAxisName + 'Id'];
+          var cateAxisId = item.props[cateAxisName + 'Id'];
+          var axisObj = axisComponents.reduce(function (result, entry) {
+            var _extends4;
+
+            var axisMap = currentState[entry.axisType + 'Map'];
+            var id = item.props[entry.axisType + 'Id'];
+            var axis = axisMap && axisMap[id];
+
+            return _extends({}, result, (_extends4 = {}, _defineProperty(_extends4, entry.axisType, axis), _defineProperty(_extends4, entry.axisType + 'Ticks', (0, _ChartUtils.getTicksOfAxis)(axis)), _extends4));
+          }, {});
+          var cateAxis = axisObj[cateAxisName];
+          var cateTicks = axisObj[cateAxisName + 'Ticks'];
+          var stackedData = stackGroups && stackGroups[numericAxisId] && stackGroups[numericAxisId].hasStack && (0, _ChartUtils.getStackedDataOfItem)(item, stackGroups[numericAxisId].stackGroups);
+          var bandSize = (0, _ChartUtils.getBandSizeOfAxis)(cateAxis, cateTicks);
+          var maxBarSize = (0, _isNil3.default)(childMaxBarSize) ? globalMaxBarSize : childMaxBarSize;
+          var barPosition = hasBar && (0, _ChartUtils.getBarPosition)({
+            barGap: barGap, barCategoryGap: barCategoryGap, bandSize: bandSize, sizeList: sizeList[cateAxisId], maxBarSize: maxBarSize
+          });
+          var componsedFn = item && item.type && item.type.getComposedData;
+
+          if (componsedFn) {
+            var _extends5;
+
+            formatedItems.push({
+              props: _extends({}, componsedFn(_extends({}, axisObj, { displayedData: displayedData, props: props, dataKey: dataKey, item: item, bandSize: bandSize,
+                barPosition: barPosition, offset: offset, stackedData: stackedData, layout: layout, dataStartIndex: dataStartIndex, dataEndIndex: dataEndIndex,
+                onItemMouseLeave: (0, _ChartUtils.combineEventHandlers)(_this4.handleItemMouseLeave, null, item.props.onMouseLeave),
+                onItemMouseEnter: (0, _ChartUtils.combineEventHandlers)(_this4.handleItemMouseEnter, null, item.props.onMouseEnter)
+              })), (_extends5 = {
+                key: item.key || 'item-' + index
+              }, _defineProperty(_extends5, numericAxisName, axisObj[numericAxisName]), _defineProperty(_extends5, cateAxisName, axisObj[cateAxisName]), _defineProperty(_extends5, 'animationId', updateId), _extends5)),
+              childIndex: (0, _ReactUtils.parseChildIndex)(item, props.children),
+              item: item
+            });
+          }
+        });
+
+        return formatedItems;
+      }
+    }, {
+      key: 'getCursorRectangle',
+      value: function getCursorRectangle() {
+        var layout = this.props.layout;
+        var _state4 = this.state,
+            activeCoordinate = _state4.activeCoordinate,
+            offset = _state4.offset,
+            tooltipAxisBandSize = _state4.tooltipAxisBandSize;
+
+        var halfSize = tooltipAxisBandSize / 2;
+
+        return {
+          stroke: 'none',
+          fill: '#ccc',
+          x: layout === 'horizontal' ? activeCoordinate.x - halfSize : offset.left + 0.5,
+          y: layout === 'horizontal' ? offset.top + 0.5 : activeCoordinate.y - halfSize,
+          width: layout === 'horizontal' ? tooltipAxisBandSize : offset.width - 1,
+          height: layout === 'horizontal' ? offset.height - 1 : tooltipAxisBandSize
+        };
+      }
+    }, {
+      key: 'getCursorPoints',
+      value: function getCursorPoints() {
+        var layout = this.props.layout;
+        var _state5 = this.state,
+            activeCoordinate = _state5.activeCoordinate,
+            offset = _state5.offset;
+
+        var x1 = void 0,
+            y1 = void 0,
+            x2 = void 0,
+            y2 = void 0;
+
+        if (layout === 'horizontal') {
+          x1 = activeCoordinate.x;
+          x2 = x1;
+          y1 = offset.top;
+          y2 = offset.top + offset.height;
+        } else if (layout === 'vertical') {
+          y1 = activeCoordinate.y;
+          y2 = y1;
+          x1 = offset.left;
+          x2 = offset.left + offset.width;
+        } else if (!(0, _isNil3.default)(activeCoordinate.cx) || !(0, _isNil3.default)(activeCoordinate.cy)) {
+          if (layout === 'centric') {
+            var cx = activeCoordinate.cx,
+                cy = activeCoordinate.cy,
+                innerRadius = activeCoordinate.innerRadius,
+                outerRadius = activeCoordinate.outerRadius,
+                angle = activeCoordinate.angle;
+
+            var innerPoint = (0, _PolarUtils.polarToCartesian)(cx, cy, innerRadius, angle);
+            var outerPoint = (0, _PolarUtils.polarToCartesian)(cx, cy, outerRadius, angle);
+            x1 = innerPoint.x;
+            y1 = innerPoint.y;
+            x2 = outerPoint.x;
+            y2 = outerPoint.y;
+          } else {
+            var _cx = activeCoordinate.cx,
+                _cy = activeCoordinate.cy,
+                radius = activeCoordinate.radius,
+                startAngle = activeCoordinate.startAngle,
+                endAngle = activeCoordinate.endAngle;
+
+            var startPoint = (0, _PolarUtils.polarToCartesian)(_cx, _cy, radius, startAngle);
+            var endPoint = (0, _PolarUtils.polarToCartesian)(_cx, _cy, radius, endAngle);
+
+            return {
+              points: [startPoint, endPoint],
+              cx: _cx, cy: _cy, radius: radius, startAngle: startAngle, endAngle: endAngle
+            };
+          }
+        }
+
+        return [{ x: x1, y: y1 }, { x: x2, y: y2 }];
+      }
+    }, {
+      key: 'calculateTooltipPos',
+      value: function calculateTooltipPos(rangeObj) {
+        var layout = this.props.layout;
+
+        if (layout === 'horizontal') {
+          return rangeObj.x;
+        }
+        if (layout === 'vertical') {
+          return rangeObj.y;
+        }
+        if (layout === 'centric') {
+          return rangeObj.angle;
+        }
+
+        return rangeObj.radius;
+      }
+    }, {
+      key: 'inRange',
+      value: function inRange(x, y) {
+        var layout = this.props.layout;
+
+        if (layout === 'horizontal' || layout === 'vertical') {
+          var offset = this.state.offset;
+
+          var isInRange = x >= offset.left && x <= offset.left + offset.width && y >= offset.top && y <= offset.top + offset.height;
+
+          return isInRange ? { x: x, y: y } : null;
+        }
+
+        var _state6 = this.state,
+            angleAxisMap = _state6.angleAxisMap,
+            radiusAxisMap = _state6.radiusAxisMap;
+
+        if (angleAxisMap && radiusAxisMap) {
+          var angleAxis = (0, _DataUtils.getAnyElementOfObject)(angleAxisMap);
+
+          return (0, _PolarUtils.inRangeOfSector)({ x: x, y: y }, angleAxis);
+        }
+
+        return null;
+      }
+    }, {
+      key: 'parseEventsOfWrapper',
+      value: function parseEventsOfWrapper() {
+        var children = this.props.children;
+
+        var tooltipItem = (0, _ReactUtils.findChildByType)(children, _Tooltip2.default);
+        var tooltipEvents = tooltipItem && eventType === 'axis' ? {
+          onMouseEnter: this.handleMouseEnter,
+          onMouseMove: this.handleMouseMove,
+          onMouseLeave: this.handleMouseLeave,
+          onTouchMove: this.handleTouchMove,
+          onTouchStart: this.handleTouchStart,
+          onTouchEnd: this.handleTouchEnd
+        } : {};
+        var outerEvents = (0, _ReactUtils.filterEventAttributes)(this.props, this.handleOuterEvent);
+
+        return _extends({}, outerEvents, tooltipEvents);
+      }
+      /**
+       * The AxisMaps are expensive to render on large data sets
+       * so provide the ability to store them in state and only update them when necessary
+       * they are dependent upon the start and end index of
+       * the brush so it's important that this method is called _after_
+       * the state is updated with any new start/end indices
+       *
+       * @param {Object} props          The props object to be used for updating the axismaps
+       * @param {Number} dataStartIndex The start index of the data series when a brush is applied
+       * @param {Number} dataEndIndex   The end index of the data series when a brush is applied
+       * @param {Number} updateId       The update id
+       * @return {Object} state New state to set
+       */
+
+    }, {
+      key: 'updateStateOfAxisMapsOffsetAndStackGroups',
+      value: function updateStateOfAxisMapsOffsetAndStackGroups(_ref5) {
+        var _this5 = this;
+
+        var props = _ref5.props,
+            dataStartIndex = _ref5.dataStartIndex,
+            dataEndIndex = _ref5.dataEndIndex,
+            updateId = _ref5.updateId;
+
+        if (!(0, _ReactUtils.validateWidthHeight)({ props: props })) {
+          return null;
+        }
+
+        var children = props.children,
+            layout = props.layout,
+            stackOffset = props.stackOffset,
+            data = props.data,
+            reverseStackOrder = props.reverseStackOrder;
+
+        var _constructor$getAxisN2 = this.constructor.getAxisNameByLayout(layout),
+            numericAxisName = _constructor$getAxisN2.numericAxisName,
+            cateAxisName = _constructor$getAxisN2.cateAxisName;
+
+        var graphicalItems = (0, _ReactUtils.findAllByType)(children, GraphicalChild);
+        var stackGroups = (0, _ChartUtils.getStackGroupsByAxisId)(data, graphicalItems, numericAxisName + 'Id', cateAxisName + 'Id', stackOffset, reverseStackOrder);
+        var axisObj = axisComponents.reduce(function (result, entry) {
+          var name = entry.axisType + 'Map';
+
+          return _extends({}, result, _defineProperty({}, name, _this5.getAxisMap(props, _extends({}, entry, {
+            graphicalItems: graphicalItems,
+            stackGroups: entry.axisType === numericAxisName && stackGroups,
+            dataStartIndex: dataStartIndex,
+            dataEndIndex: dataEndIndex
+          }))));
+        }, {});
+
+        var offset = this.calculateOffset(_extends({}, axisObj, { props: props, graphicalItems: graphicalItems }));
+
+        Object.keys(axisObj).forEach(function (key) {
+          axisObj[key] = formatAxisMap(props, axisObj[key], offset, key.replace('Map', ''), chartName);
+        });
+        var cateAxisMap = axisObj[cateAxisName + 'Map'];
+        var ticksObj = this.tooltipTicksGenerator(cateAxisMap);
+
+        var formatedGraphicalItems = this.getFormatItems(props, _extends({}, axisObj, { dataStartIndex: dataStartIndex, dataEndIndex: dataEndIndex, updateId: updateId,
+          graphicalItems: graphicalItems, stackGroups: stackGroups, offset: offset
+        }));
+
+        return _extends({
+          formatedGraphicalItems: formatedGraphicalItems, graphicalItems: graphicalItems, offset: offset, stackGroups: stackGroups
+        }, ticksObj, axisObj);
+      }
+
+      /* eslint-disable  no-underscore-dangle */
+
+    }, {
+      key: 'addListener',
+      value: function addListener() {
+        _Events.eventCenter.on(_Events.SYNC_EVENT, this.handleReceiveSyncEvent);
+
+        if (_Events.eventCenter.setMaxListeners && _Events.eventCenter._maxListeners) {
+          _Events.eventCenter.setMaxListeners(_Events.eventCenter._maxListeners + 1);
+        }
+      }
+    }, {
+      key: 'removeListener',
+      value: function removeListener() {
+        _Events.eventCenter.removeListener(_Events.SYNC_EVENT, this.handleReceiveSyncEvent);
+
+        if (_Events.eventCenter.setMaxListeners && _Events.eventCenter._maxListeners) {
+          _Events.eventCenter.setMaxListeners(_Events.eventCenter._maxListeners - 1);
+        }
+      }
+      /**
+       * Calculate the offset of main part in the svg element
+       * @param  {Object} props          Latest props
+       * @param  {Array}  graphicalItems The instances of item
+       * @param  {Object} xAxisMap       The configuration of x-axis
+       * @param  {Object} yAxisMap       The configuration of y-axis
+       * @return {Object} The offset of main part in the svg element
+       */
+
+    }, {
+      key: 'calculateOffset',
+      value: function calculateOffset(_ref6) {
+        var props = _ref6.props,
+            graphicalItems = _ref6.graphicalItems,
+            _ref6$xAxisMap = _ref6.xAxisMap,
+            xAxisMap = _ref6$xAxisMap === undefined ? {} : _ref6$xAxisMap,
+            _ref6$yAxisMap = _ref6.yAxisMap,
+            yAxisMap = _ref6$yAxisMap === undefined ? {} : _ref6$yAxisMap;
+        var width = props.width,
+            height = props.height,
+            children = props.children;
+
+        var margin = props.margin || {};
+        var brushItem = (0, _ReactUtils.findChildByType)(children, _Brush2.default);
+        var legendItem = (0, _ReactUtils.findChildByType)(children, _Legend2.default);
+
+        var offsetH = Object.keys(yAxisMap).reduce(function (result, id) {
+          var entry = yAxisMap[id];
+          var orientation = entry.orientation;
+
+          if (!entry.mirror && !entry.hide) {
+            return _extends({}, result, _defineProperty({}, orientation, result[orientation] + entry.width));
+          }
+
+          return result;
+        }, { left: margin.left || 0, right: margin.right || 0 });
+
+        var offsetV = Object.keys(xAxisMap).reduce(function (result, id) {
+          var entry = xAxisMap[id];
+          var orientation = entry.orientation;
+
+          if (!entry.mirror && !entry.hide) {
+            return _extends({}, result, _defineProperty({}, orientation, result[orientation] + entry.height));
+          }
+
+          return result;
+        }, { top: margin.top || 0, bottom: margin.bottom || 0 });
+
+        var offset = _extends({}, offsetV, offsetH);
+
+        var brushBottom = offset.bottom;
+
+        if (brushItem) {
+          offset.bottom += brushItem.props.height || _Brush2.default.defaultProps.height;
+        }
+
+        if (legendItem && this.legendInstance) {
+          var legendBox = this.legendInstance.getBBox();
+
+          offset = (0, _ChartUtils.appendOffsetOfLegend)(offset, graphicalItems, props, legendBox);
+        }
+
+        return _extends({
+          brushBottom: brushBottom
+        }, offset, {
+          width: width - offset.left - offset.right,
+          height: height - offset.top - offset.bottom
+        });
+      }
+      /**
+       * The handler of mouse entering chart
+       * @param  {Object} e              Event object
+       * @return {Null}                  null
+       */
+
+      /**
+       * The handler of mouse entering a scatter
+       * @param {Object} el     The active scatter
+       * @return {Object} no return
+       */
+
+      /**
+       * The handler of mouse leaving a scatter
+       * @return {Object} no return
+       */
+
+      /**
+       * The handler of mouse moving in chart
+       * @param  {Object} e        Event object
+       * @return {Null} no return
+       */
+
+      /**
+       * The handler if mouse leaving chart
+       * @param {Object} e Event object
+       * @return {Null} no return
+       */
+
+    }, {
+      key: 'triggerSyncEvent',
+      value: function triggerSyncEvent(data) {
+        var syncId = this.props.syncId;
+
+        if (!(0, _isNil3.default)(syncId)) {
+          _Events.eventCenter.emit(_Events.SYNC_EVENT, syncId, this.uniqueChartId, data);
+        }
+      }
+    }, {
+      key: 'filterFormatItem',
+      value: function filterFormatItem(item, displayName, childIndex) {
+        var formatedGraphicalItems = this.state.formatedGraphicalItems;
+
+        for (var i = 0, len = formatedGraphicalItems.length; i < len; i++) {
+          var entry = formatedGraphicalItems[i];
+
+          if (entry.item === item || entry.props.key === item.key || displayName === (0, _ReactUtils.getDisplayName)(entry.item.type) && childIndex === entry.childIndex) {
+            return entry;
+          }
+        }
+
+        return null;
+      }
+    }, {
+      key: 'renderAxis',
+
+      /**
+       * Draw axis
+       * @param {Object} axisOptions The options of axis
+       * @param {Object} element      The axis element
+       * @param {String} displayName  The display name of axis
+       * @param {Number} index        The index of element
+       * @return {ReactElement}       The instance of x-axes
+       */
+      value: function renderAxis(axisOptions, element, displayName, index) {
+        var _props2 = this.props,
+            width = _props2.width,
+            height = _props2.height;
+
+        return _react2.default.createElement(_CartesianAxis2.default, _extends({}, axisOptions, {
+          className: 'recharts-' + axisOptions.axisType + ' ' + axisOptions.axisType,
+          key: element.key || displayName + '-' + index,
+          viewBox: { x: 0, y: 0, width: width, height: height },
+          ticksGenerator: this.axesTicksGenerator
+        }));
+      }
+      /**
+       * Draw grid
+       * @param  {ReactElement} element the grid item
+       * @return {ReactElement} The instance of grid
+       */
+
+    }, {
+      key: 'renderLegend',
+
+      /**
+       * Draw legend
+       * @return {ReactElement}            The instance of Legend
+       */
+      value: function renderLegend() {
+        var _this6 = this;
+
+        var formatedGraphicalItems = this.state.formatedGraphicalItems;
+        var _props3 = this.props,
+            children = _props3.children,
+            width = _props3.width,
+            height = _props3.height;
+
+        var margin = this.props.margin || {};
+        var legendWidth = width - (margin.left || 0) - (margin.right || 0);
+        var legendHeight = height - (margin.top || 0) - (margin.bottom || 0);
+        var props = (0, _ChartUtils.getLegendProps)({
+          children: children, formatedGraphicalItems: formatedGraphicalItems, legendWidth: legendWidth, legendHeight: legendHeight, legendContent: legendContent
+        });
+
+        if (!props) {
+          return null;
+        }
+
+        var item = props.item,
+            otherProps = _objectWithoutProperties(props, ['item']);
+
+        return (0, _react.cloneElement)(item, _extends({}, otherProps, {
+          chartWidth: width,
+          chartHeight: height,
+          margin: margin,
+          ref: function ref(legend) {
+            _this6.legendInstance = legend;
+          },
+          onBBoxUpdate: this.handleLegendBBoxUpdate
+        }));
+      }
+      /**
+       * Draw Tooltip
+       * @return {ReactElement}  The instance of Tooltip
+       */
+
+    }, {
+      key: 'renderTooltip',
+      value: function renderTooltip() {
+        var children = this.props.children;
+
+        var tooltipItem = (0, _ReactUtils.findChildByType)(children, _Tooltip2.default);
+
+        if (!tooltipItem) {
+          return null;
+        }
+
+        var _state7 = this.state,
+            isTooltipActive = _state7.isTooltipActive,
+            activeCoordinate = _state7.activeCoordinate,
+            activePayload = _state7.activePayload,
+            activeLabel = _state7.activeLabel,
+            offset = _state7.offset;
+
+        return (0, _react.cloneElement)(tooltipItem, {
+          viewBox: _extends({}, offset, { x: offset.left, y: offset.top }),
+          active: isTooltipActive,
+          label: activeLabel,
+          payload: isTooltipActive ? activePayload : [],
+          coordinate: activeCoordinate
+        });
+      }
+    }, {
+      key: 'renderActivePoints',
+      value: function renderActivePoints(_ref7) {
+        var item = _ref7.item,
+            activePoint = _ref7.activePoint,
+            basePoint = _ref7.basePoint,
+            childIndex = _ref7.childIndex,
+            isRange = _ref7.isRange;
+
+        var result = [];
+        var key = item.props.key;
+        var _item$item$props = item.item.props,
+            activeDot = _item$item$props.activeDot,
+            dataKey = _item$item$props.dataKey;
+
+        var dotProps = _extends({
+          index: childIndex,
+          dataKey: dataKey,
+          cx: activePoint.x,
+          cy: activePoint.y,
+          r: 4,
+          fill: (0, _ChartUtils.getMainColorOfGraphicItem)(item.item),
+          strokeWidth: 2,
+          stroke: '#fff',
+          payload: activePoint.payload,
+          value: activePoint.value,
+          key: key + '-activePoint-' + childIndex
+        }, (0, _ReactUtils.getPresentationAttributes)(activeDot), (0, _ReactUtils.filterEventAttributes)(activeDot));
+
+        result.push(this.constructor.renderActiveDot(activeDot, dotProps, childIndex));
+
+        if (basePoint) {
+          result.push(this.constructor.renderActiveDot(activeDot, _extends({}, dotProps, {
+            cx: basePoint.x,
+            cy: basePoint.y,
+            key: key + '-basePoint-' + childIndex
+          }), childIndex));
+        } else if (isRange) {
+          result.push(null);
+        }
+
+        return result;
+      }
+    }, {
+      key: 'renderClipPath',
+      value: function renderClipPath() {
+        var clipPathId = this.clipPathId;
+        var _state$offset = this.state.offset,
+            left = _state$offset.left,
+            top = _state$offset.top,
+            height = _state$offset.height,
+            width = _state$offset.width;
+
+        return _react2.default.createElement('clipPath', { id: clipPathId }, _react2.default.createElement('rect', { x: left, y: top, height: height, width: width }));
+      }
+    }, {
+      key: 'render',
+      value: function render() {
+        var _this7 = this;
+
+        if (!(0, _ReactUtils.validateWidthHeight)(this)) {
+          return null;
+        }
+
+        var _props4 = this.props,
+            children = _props4.children,
+            className = _props4.className,
+            width = _props4.width,
+            height = _props4.height,
+            style = _props4.style,
+            compact = _props4.compact,
+            others = _objectWithoutProperties(_props4, ['children', 'className', 'width', 'height', 'style', 'compact']);
+
+        var attrs = (0, _ReactUtils.getPresentationAttributes)(others);
+        var map = {
+          CartesianGrid: { handler: this.renderGrid, once: true },
+          ReferenceArea: { handler: this.renderReferenceElement },
+          ReferenceLine: { handler: this.renderReferenceElement },
+          ReferenceDot: { handler: this.renderReferenceElement },
+          XAxis: { handler: this.renderXAxis },
+          YAxis: { handler: this.renderYAxis },
+          Brush: { handler: this.renderBrush, once: true },
+          Bar: { handler: this.renderGraphicChild },
+          Line: { handler: this.renderGraphicChild },
+          Area: { handler: this.renderGraphicChild },
+          Radar: { handler: this.renderGraphicChild },
+          RadialBar: { handler: this.renderGraphicChild },
+          Scatter: { handler: this.renderGraphicChild },
+          Pie: { handler: this.renderGraphicChild },
+          Tooltip: { handler: this.renderCursor, once: true },
+          PolarGrid: { handler: this.renderPolarGrid, once: true },
+          PolarAngleAxis: { handler: this.renderPolarAxis },
+          PolarRadiusAxis: { handler: this.renderPolarAxis }
+        };
+
+        // The "compact" mode is mainly used as the panorama within Brush
+        if (compact) {
+          return _react2.default.createElement(_Surface2.default, _extends({}, attrs, { width: width, height: height }), this.renderClipPath(), (0, _ReactUtils.renderByOrder)(children, map));
+        }
+
+        var events = this.parseEventsOfWrapper();
+        return _react2.default.createElement('div', _extends({
+          className: (0, _classnames2.default)('recharts-wrapper', className),
+          style: _extends({ position: 'relative', cursor: 'default', width: width, height: height }, style)
+        }, events, {
+          ref: function ref(node) {
+            _this7.container = node;
+          }
+        }), _react2.default.createElement(_Surface2.default, _extends({}, attrs, { width: width, height: height }), this.renderClipPath(), (0, _ReactUtils.renderByOrder)(children, map)), this.renderLegend(), this.renderTooltip());
+      }
+    }], [{
+      key: 'getAxisNameByLayout',
+      value: function getAxisNameByLayout(layout) {
+        if (layout === 'horizontal') {
+          return { numericAxisName: 'yAxis', cateAxisName: 'xAxis' };
+        } else if (layout === 'vertical') {
+          return { numericAxisName: 'xAxis', cateAxisName: 'yAxis' };
+        } else if (layout === 'centric') {
+          return { numericAxisName: 'radiusAxis', cateAxisName: 'angleAxis' };
+        }
+
+        return { numericAxisName: 'angleAxis', cateAxisName: 'radiusAxis' };
+      }
+    }, {
+      key: 'renderActiveDot',
+      value: function renderActiveDot(option, props) {
+        var dot = void 0;
+
+        if ((0, _react.isValidElement)(option)) {
+          dot = (0, _react.cloneElement)(option, props);
+        } else if ((0, _isFunction3.default)(option)) {
+          dot = option(props);
+        } else {
+          dot = _react2.default.createElement(_Dot2.default, props);
+        }
+
+        return _react2.default.createElement(_Layer2.default, { className: 'recharts-active-dot', key: props.key }, dot);
+      }
+    }]);
+
+    return CategoricalChartWrapper;
+  }(_react.Component), _class.displayName = chartName, _class.propTypes = _extends({
+    syncId: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+    compact: _propTypes2.default.bool,
+    width: _propTypes2.default.number,
+    height: _propTypes2.default.number,
+    data: _propTypes2.default.arrayOf(_propTypes2.default.object),
+    layout: _propTypes2.default.oneOf(['horizontal', 'vertical']),
+    stackOffset: _propTypes2.default.oneOf(['sign', 'expand', 'none', 'wiggle', 'silhouette']),
+    throttleDelay: _propTypes2.default.number,
+    margin: _propTypes2.default.shape({
+      top: _propTypes2.default.number,
+      right: _propTypes2.default.number,
+      bottom: _propTypes2.default.number,
+      left: _propTypes2.default.number
+    }),
+    barCategoryGap: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    barGap: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    barSize: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    maxBarSize: _propTypes2.default.number,
+    style: _propTypes2.default.object,
+    className: _propTypes2.default.string,
+    children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]),
+    defaultShowTooltip: _propTypes2.default.bool,
+    onClick: _propTypes2.default.func,
+    onMouseLeave: _propTypes2.default.func,
+    onMouseEnter: _propTypes2.default.func,
+    onMouseMove: _propTypes2.default.func,
+    onMouseDown: _propTypes2.default.func,
+    onMouseUp: _propTypes2.default.func,
+    reverseStackOrder: _propTypes2.default.bool,
+    id: _propTypes2.default.string
+  }, propTypes), _class.defaultProps = _extends({
+    layout: 'horizontal',
+    stackOffset: 'none',
+    barCategoryGap: '10%',
+    barGap: 4,
+    margin: { top: 5, right: 5, bottom: 5, left: 5 },
+    reverseStackOrder: false
+  }, defaultProps), _class.createDefaultState = function (props) {
+    var children = props.children,
+        defaultShowTooltip = props.defaultShowTooltip;
+
+    var brushItem = (0, _ReactUtils.findChildByType)(children, _Brush2.default);
+    var startIndex = brushItem && brushItem.props && brushItem.props.startIndex || 0;
+    var endIndex = brushItem && brushItem.props && brushItem.props.endIndex || props.data && props.data.length - 1 || 0;
+    return {
+      chartX: 0,
+      chartY: 0,
+      dataStartIndex: startIndex,
+      dataEndIndex: endIndex,
+      activeTooltipIndex: -1,
+      isTooltipActive: !(0, _isNil3.default)(defaultShowTooltip) ? defaultShowTooltip : false
+    };
+  }, _class.hasBar = function (graphicalItems) {
+    if (!graphicalItems || !graphicalItems.length) {
+      return false;
+    }
+
+    return graphicalItems.some(function (item) {
+      var name = (0, _ReactUtils.getDisplayName)(item && item.type);
+
+      return name && name.indexOf('Bar') >= 0;
+    });
+  }, _class.getDisplayedData = function (props, _ref8, item) {
+    var graphicalItems = _ref8.graphicalItems,
+        dataStartIndex = _ref8.dataStartIndex,
+        dataEndIndex = _ref8.dataEndIndex;
+
+    var itemsData = (graphicalItems || []).reduce(function (result, child) {
+      var itemData = child.props.data;
+
+      if (itemData && itemData.length) {
+        return [].concat(_toConsumableArray(result), _toConsumableArray(itemData));
+      }
+
+      return result;
+    }, []);
+    if (itemsData && itemsData.length > 0) {
+      return itemsData;
+    }
+
+    if (item && item.props && item.props.data && item.props.data.length > 0) {
+      return item.props.data;
+    }
+
+    var data = props.data;
+
+    if (data && data.length && (0, _DataUtils.isNumber)(dataStartIndex) && (0, _DataUtils.isNumber)(dataEndIndex)) {
+      return data.slice(dataStartIndex, dataEndIndex + 1);
+    }
+
+    return [];
+  }, _initialiseProps = function _initialiseProps() {
+    var _this8 = this;
+
+    this.handleLegendBBoxUpdate = function (box) {
+      if (box && _this8.legendInstance) {
+        var _state8 = _this8.state,
+            dataStartIndex = _state8.dataStartIndex,
+            dataEndIndex = _state8.dataEndIndex,
+            updateId = _state8.updateId;
+
+        _this8.setState(_this8.updateStateOfAxisMapsOffsetAndStackGroups({
+          props: _this8.props, dataStartIndex: dataStartIndex, dataEndIndex: dataEndIndex, updateId: updateId
+        }));
+      }
+    };
+
+    this.handleReceiveSyncEvent = function (cId, chartId, data) {
+      var _props5 = _this8.props,
+          syncId = _props5.syncId,
+          layout = _props5.layout;
+      var updateId = _this8.state.updateId;
+
+      if (syncId === cId && chartId !== _this8.uniqueChartId) {
+        var dataStartIndex = data.dataStartIndex,
+            dataEndIndex = data.dataEndIndex;
+
+        if (!(0, _isNil3.default)(data.dataStartIndex) || !(0, _isNil3.default)(data.dataEndIndex)) {
+          _this8.setState(_extends({
+            dataStartIndex: dataStartIndex,
+            dataEndIndex: dataEndIndex
+          }, _this8.updateStateOfAxisMapsOffsetAndStackGroups({ props: _this8.props, dataStartIndex: dataStartIndex, dataEndIndex: dataEndIndex, updateId: updateId })));
+        } else if (!(0, _isNil3.default)(data.activeTooltipIndex)) {
+          var chartX = data.chartX,
+              chartY = data.chartY,
+              activeTooltipIndex = data.activeTooltipIndex;
+          var _state9 = _this8.state,
+              offset = _state9.offset,
+              tooltipTicks = _state9.tooltipTicks;
+
+          if (!offset) {
+            return;
+          }
+          var viewBox = _extends({}, offset, { x: offset.left, y: offset.top });
+          // When a categotical chart is combined with another chart, the value of chartX
+          // and chartY may beyond the boundaries.
+          var validateChartX = Math.min(chartX, viewBox.x + viewBox.width);
+          var validateChartY = Math.min(chartY, viewBox.y + viewBox.height);
+          var activeLabel = tooltipTicks[activeTooltipIndex] && tooltipTicks[activeTooltipIndex].value;
+          var activePayload = _this8.getTooltipContent(activeTooltipIndex);
+          var activeCoordinate = tooltipTicks[activeTooltipIndex] ? {
+            x: layout === 'horizontal' ? tooltipTicks[activeTooltipIndex].coordinate : validateChartX,
+            y: layout === 'horizontal' ? validateChartY : tooltipTicks[activeTooltipIndex].coordinate
+          } : originCoordinate;
+
+          _this8.setState(_extends({}, data, { activeLabel: activeLabel, activeCoordinate: activeCoordinate, activePayload: activePayload }));
+        } else {
+          _this8.setState(data);
+        }
+      }
+    };
+
+    this.handleBrushChange = function (_ref9) {
+      var startIndex = _ref9.startIndex,
+          endIndex = _ref9.endIndex;
+
+      // Only trigger changes if the extents of the brush have actually changed
+      if (startIndex !== _this8.state.dataStartIndex || endIndex !== _this8.state.dataEndIndex) {
+        var updateId = _this8.state.updateId;
+
+        _this8.setState(function () {
+          return _extends({
+            dataStartIndex: startIndex,
+            dataEndIndex: endIndex
+          }, _this8.updateStateOfAxisMapsOffsetAndStackGroups({ props: _this8.props, dataStartIndex: startIndex, dataEndIndex: endIndex, updateId: updateId }));
+        });
+
+        _this8.triggerSyncEvent({
+          dataStartIndex: startIndex,
+          dataEndIndex: endIndex
+        });
+      }
+    };
+
+    this.handleMouseEnter = function (e) {
+      var onMouseEnter = _this8.props.onMouseEnter;
+
+      var mouse = _this8.getMouseInfo(e);
+
+      if (mouse) {
+        var nextState = _extends({}, mouse, { isTooltipActive: true });
+        _this8.setState(nextState);
+        _this8.triggerSyncEvent(nextState);
+
+        if ((0, _isFunction3.default)(onMouseEnter)) {
+          onMouseEnter(nextState, e);
+        }
+      }
+    };
+
+    this.triggeredAfterMouseMove = function (e) {
+      var onMouseMove = _this8.props.onMouseMove;
+
+      var mouse = _this8.getMouseInfo(e);
+      var nextState = mouse ? _extends({}, mouse, { isTooltipActive: true }) : { isTooltipActive: false };
+
+      _this8.setState(nextState);
+      _this8.triggerSyncEvent(nextState);
+
+      if ((0, _isFunction3.default)(onMouseMove)) {
+        onMouseMove(nextState, e);
+      }
+    };
+
+    this.handleItemMouseEnter = function (el) {
+      _this8.setState(function () {
+        return {
+          isTooltipActive: true,
+          activeItem: el,
+          activePayload: el.tooltipPayload,
+          activeCoordinate: el.tooltipPosition || { x: el.cx, y: el.cy }
+        };
+      });
+    };
+
+    this.handleItemMouseLeave = function () {
+      _this8.setState(function () {
+        return {
+          isTooltipActive: false
+        };
+      });
+    };
+
+    this.handleMouseMove = function (e) {
+      if (e && (0, _isFunction3.default)(e.persist)) {
+        e.persist();
+      }
+      _this8.triggeredAfterMouseMove(e);
+    };
+
+    this.handleMouseLeave = function (e) {
+      var onMouseLeave = _this8.props.onMouseLeave;
+
+      var nextState = { isTooltipActive: false };
+
+      _this8.setState(nextState);
+      _this8.triggerSyncEvent(nextState);
+
+      if ((0, _isFunction3.default)(onMouseLeave)) {
+        onMouseLeave(nextState, e);
+      }
+    };
+
+    this.handleOuterEvent = function (e) {
+      var eventName = (0, _ReactUtils.getReactEventByType)(e);
+
+      if (eventName && (0, _isFunction3.default)(_this8.props[eventName])) {
+        var mouse = _this8.getMouseInfo(e);
+        var handler = _this8.props[eventName];
+
+        handler(mouse, e);
+      }
+    };
+
+    this.handleClick = function (e) {
+      var onClick = _this8.props.onClick;
+
+      if ((0, _isFunction3.default)(onClick)) {
+        var mouse = _this8.getMouseInfo(e);
+
+        onClick(mouse, e);
+      }
+    };
+
+    this.handleMouseDown = function (e) {
+      var onMouseDown = _this8.props.onMouseDown;
+
+      if ((0, _isFunction3.default)(onMouseDown)) {
+        var mouse = _this8.getMouseInfo(e);
+
+        onMouseDown(mouse, e);
+      }
+    };
+
+    this.handleMouseUp = function (e) {
+      var onMouseUp = _this8.props.onMouseUp;
+
+      if ((0, _isFunction3.default)(onMouseUp)) {
+        var mouse = _this8.getMouseInfo(e);
+
+        onMouseUp(mouse, e);
+      }
+    };
+
+    this.handleTouchMove = function (e) {
+      if (e.changedTouches != null && e.changedTouches.length > 0) {
+        _this8.handleMouseMove(e.changedTouches[0]);
+      }
+    };
+
+    this.handleTouchStart = function (e) {
+      if (e.changedTouches != null && e.changedTouches.length > 0) {
+        _this8.handleMouseDown(e.changedTouches[0]);
+      }
+    };
+
+    this.handleTouchEnd = function (e) {
+      if (e.changedTouches != null && e.changedTouches.length > 0) {
+        _this8.handleMouseUp(e.changedTouches[0]);
+      }
+    };
+
+    this.verticalCoordinatesGenerator = function (_ref10) {
+      var xAxis = _ref10.xAxis,
+          width = _ref10.width,
+          height = _ref10.height,
+          offset = _ref10.offset;
+      return (0, _ChartUtils.getCoordinatesOfGrid)(_CartesianAxis2.default.getTicks(_extends({}, _CartesianAxis2.default.defaultProps, xAxis, {
+        ticks: (0, _ChartUtils.getTicksOfAxis)(xAxis, true),
+        viewBox: { x: 0, y: 0, width: width, height: height }
+      })), offset.left, offset.left + offset.width);
+    };
+
+    this.horizontalCoordinatesGenerator = function (_ref11) {
+      var yAxis = _ref11.yAxis,
+          width = _ref11.width,
+          height = _ref11.height,
+          offset = _ref11.offset;
+      return (0, _ChartUtils.getCoordinatesOfGrid)(_CartesianAxis2.default.getTicks(_extends({}, _CartesianAxis2.default.defaultProps, yAxis, {
+        ticks: (0, _ChartUtils.getTicksOfAxis)(yAxis, true),
+        viewBox: { x: 0, y: 0, width: width, height: height }
+      })), offset.top, offset.top + offset.height);
+    };
+
+    this.axesTicksGenerator = function (axis) {
+      return (0, _ChartUtils.getTicksOfAxis)(axis, true);
+    };
+
+    this.tooltipTicksGenerator = function (axisMap) {
+      var axis = (0, _DataUtils.getAnyElementOfObject)(axisMap);
+      var tooltipTicks = (0, _ChartUtils.getTicksOfAxis)(axis, false, true);
+
+      return {
+        tooltipTicks: tooltipTicks,
+        orderedTooltipTicks: (0, _sortBy3.default)(tooltipTicks, function (o) {
+          return o.coordinate;
+        }),
+        tooltipAxis: axis,
+        tooltipAxisBandSize: (0, _ChartUtils.getBandSizeOfAxis)(axis)
+      };
+    };
+
+    this.renderCursor = function (element) {
+      var _state10 = _this8.state,
+          isTooltipActive = _state10.isTooltipActive,
+          activeCoordinate = _state10.activeCoordinate,
+          activePayload = _state10.activePayload,
+          offset = _state10.offset;
+
+      if (!element || !element.props.cursor || !isTooltipActive || !activeCoordinate) {
+        return null;
+      }
+      var layout = _this8.props.layout;
+
+      var restProps = void 0;
+      var cursorComp = _Curve2.default;
+
+      if (chartName === 'ScatterChart') {
+        restProps = activeCoordinate;
+        cursorComp = _Cross2.default;
+      } else if (chartName === 'BarChart') {
+        restProps = _this8.getCursorRectangle();
+        cursorComp = _Rectangle2.default;
+      } else if (layout === 'radial') {
+        var _getCursorPoints = _this8.getCursorPoints(),
+            cx = _getCursorPoints.cx,
+            cy = _getCursorPoints.cy,
+            radius = _getCursorPoints.radius,
+            startAngle = _getCursorPoints.startAngle,
+            endAngle = _getCursorPoints.endAngle;
+
+        restProps = {
+          cx: cx, cy: cy, startAngle: startAngle, endAngle: endAngle, innerRadius: radius, outerRadius: radius
+        };
+        cursorComp = _Sector2.default;
+      } else {
+        restProps = { points: _this8.getCursorPoints() };
+        cursorComp = _Curve2.default;
+      }
+      var key = element.key || '_recharts-cursor';
+      var cursorProps = _extends({
+        stroke: '#ccc',
+        pointerEvents: 'none'
+      }, offset, restProps, (0, _ReactUtils.getPresentationAttributes)(element.props.cursor), {
+        payload: activePayload,
+        key: key,
+        className: 'recharts-tooltip-cursor'
+      });
+
+      return (0, _react.isValidElement)(element.props.cursor) ? (0, _react.cloneElement)(element.props.cursor, cursorProps) : (0, _react.createElement)(cursorComp, cursorProps);
+    };
+
+    this.renderPolarAxis = function (element, displayName, index) {
+      var axisType = element.type.axisType;
+
+      var axisMap = _this8.state[axisType + 'Map'];
+      var axisOption = axisMap[element.props[axisType + 'Id']];
+
+      return (0, _react.cloneElement)(element, _extends({}, axisOption, {
+        className: axisType,
+        key: element.key || displayName + '-' + index,
+        ticks: (0, _ChartUtils.getTicksOfAxis)(axisOption, true)
+      }));
+    };
+
+    this.renderXAxis = function (element, displayName, index) {
+      var xAxisMap = _this8.state.xAxisMap;
+
+      var axisObj = xAxisMap[element.props.xAxisId];
+
+      return _this8.renderAxis(axisObj, element, displayName, index);
+    };
+
+    this.renderYAxis = function (element, displayName, index) {
+      var yAxisMap = _this8.state.yAxisMap;
+
+      var axisObj = yAxisMap[element.props.yAxisId];
+
+      return _this8.renderAxis(axisObj, element, displayName, index);
+    };
+
+    this.renderGrid = function (element) {
+      var _state11 = _this8.state,
+          xAxisMap = _state11.xAxisMap,
+          yAxisMap = _state11.yAxisMap,
+          offset = _state11.offset;
+      var _props6 = _this8.props,
+          width = _props6.width,
+          height = _props6.height;
+
+      var xAxis = (0, _DataUtils.getAnyElementOfObject)(xAxisMap);
+      var yAxis = (0, _DataUtils.getAnyElementOfObject)(yAxisMap);
+      var props = element.props || {};
+
+      return (0, _react.cloneElement)(element, {
+        key: element.key || 'grid',
+        x: (0, _DataUtils.isNumber)(props.x) ? props.x : offset.left,
+        y: (0, _DataUtils.isNumber)(props.y) ? props.y : offset.top,
+        width: (0, _DataUtils.isNumber)(props.width) ? props.width : offset.width,
+        height: (0, _DataUtils.isNumber)(props.height) ? props.height : offset.height,
+        xAxis: xAxis,
+        yAxis: yAxis,
+        offset: offset,
+        chartWidth: width,
+        chartHeight: height,
+        verticalCoordinatesGenerator: props.verticalCoordinatesGenerator || _this8.verticalCoordinatesGenerator,
+        horizontalCoordinatesGenerator: props.horizontalCoordinatesGenerator || _this8.horizontalCoordinatesGenerator
+      });
+    };
+
+    this.renderPolarGrid = function (element) {
+      var _state12 = _this8.state,
+          radiusAxisMap = _state12.radiusAxisMap,
+          angleAxisMap = _state12.angleAxisMap;
+
+      var radiusAxis = (0, _DataUtils.getAnyElementOfObject)(radiusAxisMap);
+      var angleAxis = (0, _DataUtils.getAnyElementOfObject)(angleAxisMap);
+      var cx = angleAxis.cx,
+          cy = angleAxis.cy,
+          innerRadius = angleAxis.innerRadius,
+          outerRadius = angleAxis.outerRadius;
+
+      return (0, _react.cloneElement)(element, {
+        polarAngles: (0, _ChartUtils.getTicksOfAxis)(angleAxis, true).map(function (entry) {
+          return entry.coordinate;
+        }),
+        polarRadius: (0, _ChartUtils.getTicksOfAxis)(radiusAxis, true).map(function (entry) {
+          return entry.coordinate;
+        }),
+        cx: cx, cy: cy, innerRadius: innerRadius, outerRadius: outerRadius,
+        key: element.key || 'polar-grid'
+      });
+    };
+
+    this.renderBrush = function (element) {
+      var _props7 = _this8.props,
+          margin = _props7.margin,
+          data = _props7.data;
+      var _state13 = _this8.state,
+          offset = _state13.offset,
+          dataStartIndex = _state13.dataStartIndex,
+          dataEndIndex = _state13.dataEndIndex,
+          updateId = _state13.updateId;
+
+      // TODO: update brush when children update
+
+      return (0, _react.cloneElement)(element, {
+        key: element.key || '_recharts-brush',
+        onChange: (0, _ChartUtils.combineEventHandlers)(_this8.handleBrushChange, null, element.props.onChange),
+        data: data,
+        x: (0, _DataUtils.isNumber)(element.props.x) ? element.props.x : offset.left,
+        y: (0, _DataUtils.isNumber)(element.props.y) ? element.props.y : offset.top + offset.height + offset.brushBottom - (margin.bottom || 0),
+        width: (0, _DataUtils.isNumber)(element.props.width) ? element.props.width : offset.width,
+        startIndex: dataStartIndex,
+        endIndex: dataEndIndex,
+        updateId: 'brush-' + updateId
+      });
+    };
+
+    this.renderReferenceElement = function (element, displayName, index) {
+      if (!element) {
+        return null;
+      }
+      var clipPathId = _this8.clipPathId;
+      var _state14 = _this8.state,
+          xAxisMap = _state14.xAxisMap,
+          yAxisMap = _state14.yAxisMap,
+          offset = _state14.offset;
+      var _element$props = element.props,
+          xAxisId = _element$props.xAxisId,
+          yAxisId = _element$props.yAxisId;
+
+      return (0, _react.cloneElement)(element, {
+        key: element.key || displayName + '-' + index,
+        xAxis: xAxisMap[xAxisId],
+        yAxis: yAxisMap[yAxisId],
+        viewBox: {
+          x: offset.left,
+          y: offset.top,
+          width: offset.width,
+          height: offset.height
+        },
+        clipPathId: clipPathId
+      });
+    };
+
+    this.renderGraphicChild = function (element, displayName, index) {
+      var item = _this8.filterFormatItem(element, displayName, index);
+      if (!item) {
+        return null;
+      }
+
+      var graphicalItem = (0, _react.cloneElement)(element, item.props);
+      var _state15 = _this8.state,
+          isTooltipActive = _state15.isTooltipActive,
+          tooltipAxis = _state15.tooltipAxis,
+          activeTooltipIndex = _state15.activeTooltipIndex,
+          activeLabel = _state15.activeLabel;
+      var children = _this8.props.children;
+
+      var tooltipItem = (0, _ReactUtils.findChildByType)(children, _Tooltip2.default);
+      var _item$props2 = item.props,
+          points = _item$props2.points,
+          isRange = _item$props2.isRange,
+          baseLine = _item$props2.baseLine;
+      var _item$item$props2 = item.item.props,
+          activeDot = _item$item$props2.activeDot,
+          hide = _item$item$props2.hide;
+
+      var hasActive = !hide && isTooltipActive && tooltipItem && activeDot && activeTooltipIndex >= 0;
+
+      if (hasActive) {
+        var activePoint = void 0,
+            basePoint = void 0;
+
+        if (tooltipAxis.dataKey && !tooltipAxis.allowDuplicatedCategory) {
+          activePoint = (0, _DataUtils.findEntryInArray)(points, 'payload.' + tooltipAxis.dataKey, activeLabel);
+          basePoint = isRange && baseLine && (0, _DataUtils.findEntryInArray)(baseLine, 'payload.' + tooltipAxis.dataKey, activeLabel);
+        } else {
+          activePoint = points[activeTooltipIndex];
+          basePoint = isRange && baseLine && baseLine[activeTooltipIndex];
+        }
+
+        if (!(0, _isNil3.default)(activePoint)) {
+          return [graphicalItem].concat(_toConsumableArray(_this8.renderActivePoints({
+            item: item, activePoint: activePoint, basePoint: basePoint, childIndex: activeTooltipIndex,
+            isRange: isRange
+          })));
+        }
+      }
+
+      if (isRange) {
+        return [graphicalItem, null, null];
+      }
+
+      return [graphicalItem, null];
+    };
+  }, _temp);
+
+  return CategoricalChartWrapper;
+};
+
+exports.default = generateCategoricalChart;
+},{"lodash-es/sortBy":"../node_modules/lodash-es/sortBy.js","lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/range":"../node_modules/lodash-es/range.js","lodash-es/throttle":"../node_modules/lodash-es/throttle.js","lodash-es/isNil":"../node_modules/lodash-es/isNil.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","../container/Surface":"../node_modules/recharts/es6/container/Surface.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../component/Tooltip":"../node_modules/recharts/es6/component/Tooltip.js","../component/Legend":"../node_modules/recharts/es6/component/Legend.js","../shape/Curve":"../node_modules/recharts/es6/shape/Curve.js","../shape/Cross":"../node_modules/recharts/es6/shape/Cross.js","../shape/Sector":"../node_modules/recharts/es6/shape/Sector.js","../shape/Dot":"../node_modules/recharts/es6/shape/Dot.js","../shape/Rectangle":"../node_modules/recharts/es6/shape/Rectangle.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../cartesian/CartesianAxis":"../node_modules/recharts/es6/cartesian/CartesianAxis.js","../cartesian/Brush":"../node_modules/recharts/es6/cartesian/Brush.js","../util/DOMUtils":"../node_modules/recharts/es6/util/DOMUtils.js","../util/DataUtils":"../node_modules/recharts/es6/util/DataUtils.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js","../util/PolarUtils":"../node_modules/recharts/es6/util/PolarUtils.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/Events":"../node_modules/recharts/es6/util/Events.js"}],"../node_modules/recharts/es6/chart/LineChart.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _generateCategoricalChart = require('./generateCategoricalChart');
+
+var _generateCategoricalChart2 = _interopRequireDefault(_generateCategoricalChart);
+
+var _Line = require('../cartesian/Line');
+
+var _Line2 = _interopRequireDefault(_Line);
+
+var _XAxis = require('../cartesian/XAxis');
+
+var _XAxis2 = _interopRequireDefault(_XAxis);
+
+var _YAxis = require('../cartesian/YAxis');
+
+var _YAxis2 = _interopRequireDefault(_YAxis);
+
+var _CartesianUtils = require('../util/CartesianUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _generateCategoricalChart2.default)({
+  chartName: 'LineChart',
+  GraphicalChild: _Line2.default,
+  axisComponents: [{ axisType: 'xAxis', AxisComp: _XAxis2.default }, { axisType: 'yAxis', AxisComp: _YAxis2.default }],
+  formatAxisMap: _CartesianUtils.formatAxisMap
+}); /**
+     * @fileOverview Line Chart
+     */
+},{"./generateCategoricalChart":"../node_modules/recharts/es6/chart/generateCategoricalChart.js","../cartesian/Line":"../node_modules/recharts/es6/cartesian/Line.js","../cartesian/XAxis":"../node_modules/recharts/es6/cartesian/XAxis.js","../cartesian/YAxis":"../node_modules/recharts/es6/cartesian/YAxis.js","../util/CartesianUtils":"../node_modules/recharts/es6/util/CartesianUtils.js"}],"../node_modules/recharts/es6/chart/BarChart.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _generateCategoricalChart = require('./generateCategoricalChart');
+
+var _generateCategoricalChart2 = _interopRequireDefault(_generateCategoricalChart);
+
+var _Bar = require('../cartesian/Bar');
+
+var _Bar2 = _interopRequireDefault(_Bar);
+
+var _XAxis = require('../cartesian/XAxis');
+
+var _XAxis2 = _interopRequireDefault(_XAxis);
+
+var _YAxis = require('../cartesian/YAxis');
+
+var _YAxis2 = _interopRequireDefault(_YAxis);
+
+var _CartesianUtils = require('../util/CartesianUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _generateCategoricalChart2.default)({
+  chartName: 'BarChart',
+  GraphicalChild: _Bar2.default,
+  axisComponents: [{ axisType: 'xAxis', AxisComp: _XAxis2.default }, { axisType: 'yAxis', AxisComp: _YAxis2.default }],
+  formatAxisMap: _CartesianUtils.formatAxisMap
+}); /**
+     * @fileOverview Bar Chart
+     */
+},{"./generateCategoricalChart":"../node_modules/recharts/es6/chart/generateCategoricalChart.js","../cartesian/Bar":"../node_modules/recharts/es6/cartesian/Bar.js","../cartesian/XAxis":"../node_modules/recharts/es6/cartesian/XAxis.js","../cartesian/YAxis":"../node_modules/recharts/es6/cartesian/YAxis.js","../util/CartesianUtils":"../node_modules/recharts/es6/util/CartesianUtils.js"}],"../node_modules/recharts/es6/chart/PieChart.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _generateCategoricalChart = require('./generateCategoricalChart');
+
+var _generateCategoricalChart2 = _interopRequireDefault(_generateCategoricalChart);
+
+var _PolarAngleAxis = require('../polar/PolarAngleAxis');
+
+var _PolarAngleAxis2 = _interopRequireDefault(_PolarAngleAxis);
+
+var _PolarRadiusAxis = require('../polar/PolarRadiusAxis');
+
+var _PolarRadiusAxis2 = _interopRequireDefault(_PolarRadiusAxis);
+
+var _PolarUtils = require('../util/PolarUtils');
+
+var _Pie = require('../polar/Pie');
+
+var _Pie2 = _interopRequireDefault(_Pie);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @fileOverview Pie Chart
+ */
+exports.default = (0, _generateCategoricalChart2.default)({
+  chartName: 'PieChart',
+  GraphicalChild: _Pie2.default,
+  eventType: 'item',
+  legendContent: 'children',
+  axisComponents: [{ axisType: 'angleAxis', AxisComp: _PolarAngleAxis2.default }, { axisType: 'radiusAxis', AxisComp: _PolarRadiusAxis2.default }],
+  formatAxisMap: _PolarUtils.formatAxisMap,
+  defaultProps: {
+    layout: 'centric',
+    startAngle: 0,
+    endAngle: 360,
+    cx: '50%',
+    cy: '50%',
+    innerRadius: 0,
+    outerRadius: '80%'
+  },
+  propTypes: {
+    layout: _propTypes2.default.oneOf(['centric']),
+    startAngle: _propTypes2.default.number,
+    endAngle: _propTypes2.default.number,
+    cx: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    cy: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    innerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    outerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
+  }
+});
+},{"prop-types":"../node_modules/prop-types/index.js","./generateCategoricalChart":"../node_modules/recharts/es6/chart/generateCategoricalChart.js","../polar/PolarAngleAxis":"../node_modules/recharts/es6/polar/PolarAngleAxis.js","../polar/PolarRadiusAxis":"../node_modules/recharts/es6/polar/PolarRadiusAxis.js","../util/PolarUtils":"../node_modules/recharts/es6/util/PolarUtils.js","../polar/Pie":"../node_modules/recharts/es6/polar/Pie.js"}],"../node_modules/recharts/es6/chart/Treemap.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _isNaN2 = require('lodash-es/isNaN');
+
+var _isNaN3 = _interopRequireDefault(_isNaN2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactSmooth = require('react-smooth');
+
+var _reactSmooth2 = _interopRequireDefault(_reactSmooth);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _Surface = require('../container/Surface');
+
+var _Surface2 = _interopRequireDefault(_Surface);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _Rectangle = require('../shape/Rectangle');
+
+var _Rectangle2 = _interopRequireDefault(_Rectangle);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _Tooltip = require('../component/Tooltip');
+
+var _Tooltip2 = _interopRequireDefault(_Tooltip);
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _ChartUtils = require('../util/ChartUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp2;
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @fileOverview TreemapChart
+ */
+
+
+var computeNode = function computeNode(_ref) {
+  var depth = _ref.depth,
+      node = _ref.node,
+      index = _ref.index,
+      valueKey = _ref.valueKey;
+  var children = node.children;
+
+  var childDepth = depth + 1;
+  var computedChildren = children && children.length ? children.map(function (child, i) {
+    return computeNode({ depth: childDepth, node: child, index: i, valueKey: valueKey });
+  }) : null;
+  var value = void 0;
+
+  if (children && children.length) {
+    value = computedChildren.reduce(function (result, child) {
+      return result + child.value;
+    }, 0);
+  } else {
+    value = (0, _isNaN3.default)(node[valueKey]) || node[valueKey] <= 0 ? 0 : node[valueKey];
+  }
+
+  return _extends({}, node, {
+    children: computedChildren,
+    value: value, depth: depth, index: index
+  });
+};
+
+var filterRect = function filterRect(node) {
+  return { x: node.x, y: node.y, width: node.width, height: node.height };
+};
+
+// Compute the area for each child based on value & scale.
+var getAreaOfChildren = function getAreaOfChildren(children, areaValueRatio) {
+  var ratio = areaValueRatio < 0 ? 0 : areaValueRatio;
+
+  return children.map(function (child) {
+    var area = child.value * ratio;
+
+    return _extends({}, child, {
+      area: (0, _isNaN3.default)(area) || area <= 0 ? 0 : area
+    });
+  });
+};
+
+// Computes the score for the specified row, as the worst aspect ratio.
+var getWorstScore = function getWorstScore(row, parentSize, aspectRatio) {
+  var parentArea = parentSize * parentSize;
+  var rowArea = row.area * row.area;
+
+  var _row$reduce = row.reduce(function (result, child) {
+    return {
+      min: Math.min(result.min, child.area),
+      max: Math.max(result.max, child.area)
+    };
+  }, { min: Infinity, max: 0 }),
+      min = _row$reduce.min,
+      max = _row$reduce.max;
+
+  return rowArea ? Math.max(parentArea * max * aspectRatio / rowArea, rowArea / (parentArea * min * aspectRatio)) : Infinity;
+};
+
+var horizontalPosition = function horizontalPosition(row, parentSize, parentRect, isFlush) {
+  var rowHeight = parentSize ? Math.round(row.area / parentSize) : 0;
+
+  if (isFlush || rowHeight > parentRect.height) {
+    rowHeight = parentRect.height;
+  }
+
+  var curX = parentRect.x;
+  var child = void 0;
+  for (var i = 0, len = row.length; i < len; i++) {
+    child = row[i];
+    child.x = curX;
+    child.y = parentRect.y;
+    child.height = rowHeight;
+    child.width = Math.min(rowHeight ? Math.round(child.area / rowHeight) : 0, parentRect.x + parentRect.width - curX);
+    curX += child.width;
+  }
+  // what's z
+  child.z = true;
+  // add the remain x to the last one of row
+  child.width += parentRect.x + parentRect.width - curX;
+
+  return _extends({}, parentRect, {
+    y: parentRect.y + rowHeight,
+    height: parentRect.height - rowHeight
+  });
+};
+
+var verticalPosition = function verticalPosition(row, parentSize, parentRect, isFlush) {
+  var rowWidth = parentSize ? Math.round(row.area / parentSize) : 0;
+
+  if (isFlush || rowWidth > parentRect.width) {
+    rowWidth = parentRect.width;
+  }
+
+  var curY = parentRect.y;
+  var child = void 0;
+  for (var i = 0, len = row.length; i < len; i++) {
+    child = row[i];
+    child.x = parentRect.x;
+    child.y = curY;
+    child.width = rowWidth;
+    child.height = Math.min(rowWidth ? Math.round(child.area / rowWidth) : 0, parentRect.y + parentRect.height - curY);
+    curY += child.height;
+  }
+  child.z = false;
+  child.height += parentRect.y + parentRect.height - curY;
+
+  return _extends({}, parentRect, {
+    x: parentRect.x + rowWidth,
+    width: parentRect.width - rowWidth
+  });
+};
+
+var position = function position(row, parentSize, parentRect, isFlush) {
+  if (parentSize === parentRect.width) {
+    return horizontalPosition(row, parentSize, parentRect, isFlush);
+  }
+
+  return verticalPosition(row, parentSize, parentRect, isFlush);
+};
+
+// Recursively arranges the specified node's children into squarified rows.
+var squarify = function squarify(node, aspectRatio) {
+  var children = node.children;
+
+  if (children && children.length) {
+    var rect = filterRect(node);
+    var row = [];
+    var best = Infinity; // the best row score so far
+    var child = void 0,
+        score = void 0; // the current row score
+    var size = Math.min(rect.width, rect.height); // initial orientation
+    var scaleChildren = getAreaOfChildren(children, rect.width * rect.height / node.value);
+    var tempChildren = scaleChildren.slice();
+
+    row.area = 0;
+
+    while (tempChildren.length > 0) {
+      // row first
+      // eslint-disable-next-line prefer-destructuring
+      row.push(child = tempChildren[0]);
+      row.area += child.area;
+
+      score = getWorstScore(row, size, aspectRatio);
+      if (score <= best) {
+        // continue with this orientation
+        tempChildren.shift();
+        best = score;
+      } else {
+        // abort, and try a different orientation
+        row.area -= row.pop().area;
+        rect = position(row, size, rect, false);
+        size = Math.min(rect.width, rect.height);
+        row.length = row.area = 0;
+        best = Infinity;
+      }
+    }
+
+    if (row.length) {
+      rect = position(row, size, rect, true);
+      row.length = row.area = 0;
+    }
+
+    return _extends({}, node, { children: scaleChildren.map(function (c) {
+        return squarify(c, aspectRatio);
+      }) });
+  }
+
+  return node;
+};
+
+var Treemap = (0, _PureRender2.default)(_class = (_temp2 = _class2 = function (_Component) {
+  _inherits(Treemap, _Component);
+
+  function Treemap() {
+    var _ref2;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, Treemap);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = Treemap.__proto__ || Object.getPrototypeOf(Treemap)).call.apply(_ref2, [this].concat(args))), _this), _this.state = _this.constructor.createDefaultState(), _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Treemap, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.data !== this.props.data) {
+        this.setState(this.constructor.createDefaultState());
+      }
+    }
+    /**
+     * Returns default, reset state for the treemap chart.
+     * @return {Object} Whole new state
+     */
+
+  }, {
+    key: 'handleMouseEnter',
+    value: function handleMouseEnter(node, e) {
+      var _props = this.props,
+          onMouseEnter = _props.onMouseEnter,
+          children = _props.children;
+
+      var tooltipItem = (0, _ReactUtils.findChildByType)(children, _Tooltip2.default);
+
+      if (tooltipItem) {
+        this.setState({
+          isTooltipActive: true,
+          activeNode: node
+        }, function () {
+          if (onMouseEnter) {
+            onMouseEnter(node, e);
+          }
+        });
+      } else if (onMouseEnter) {
+        onMouseEnter(node, e);
+      }
+    }
+  }, {
+    key: 'handleMouseLeave',
+    value: function handleMouseLeave(node, e) {
+      var _props2 = this.props,
+          onMouseLeave = _props2.onMouseLeave,
+          children = _props2.children;
+
+      var tooltipItem = (0, _ReactUtils.findChildByType)(children, _Tooltip2.default);
+
+      if (tooltipItem) {
+        this.setState({
+          isTooltipActive: false,
+          activeNode: null
+        }, function () {
+          if (onMouseLeave) {
+            onMouseLeave(node, e);
+          }
+        });
+      } else if (onMouseLeave) {
+        onMouseLeave(node, e);
+      }
+    }
+  }, {
+    key: 'handleClick',
+    value: function handleClick(node) {
+      var onClick = this.props.onClick;
+
+      if (onClick) {
+        onClick(node);
+      }
+    }
+  }, {
+    key: 'renderAnimatedItem',
+    value: function renderAnimatedItem(content, nodeProps, isLeaf) {
+      var _this2 = this;
+
+      var _props3 = this.props,
+          isAnimationActive = _props3.isAnimationActive,
+          animationBegin = _props3.animationBegin,
+          animationDuration = _props3.animationDuration,
+          animationEasing = _props3.animationEasing,
+          isUpdateAnimationActive = _props3.isUpdateAnimationActive;
+      var width = nodeProps.width,
+          height = nodeProps.height,
+          x = nodeProps.x,
+          y = nodeProps.y;
+
+      var translateX = parseInt((Math.random() * 2 - 1) * width, 10);
+      var event = {};
+
+      if (isLeaf) {
+        event = {
+          onMouseEnter: this.handleMouseEnter.bind(this, nodeProps),
+          onMouseLeave: this.handleMouseLeave.bind(this, nodeProps),
+          onClick: this.handleClick.bind(this, nodeProps)
+        };
+      }
+
+      return _react2.default.createElement(_reactSmooth2.default, {
+        from: { x: x, y: y, width: width, height: height },
+        to: { x: x, y: y, width: width, height: height },
+        duration: animationDuration,
+        easing: animationEasing,
+        isActive: isUpdateAnimationActive
+      }, function (_ref3) {
+        var currX = _ref3.x,
+            currY = _ref3.y,
+            currWidth = _ref3.width,
+            currHeight = _ref3.height;
+        return _react2.default.createElement(_reactSmooth2.default, {
+          from: 'translate(' + translateX + 'px, ' + translateX + 'px)',
+          to: 'translate(0, 0)',
+          attributeName: 'transform',
+          begin: animationBegin,
+          easing: animationEasing,
+          isActive: isAnimationActive,
+          duration: animationDuration
+        }, _react2.default.createElement(_Layer2.default, event, _this2.constructor.renderContentItem(content, _extends({}, nodeProps, {
+          isAnimationActive: isAnimationActive,
+          isUpdateAnimationActive: !isUpdateAnimationActive,
+          width: currWidth,
+          height: currHeight,
+          x: currX,
+          y: currY
+        }))));
+      });
+    }
+  }, {
+    key: 'renderNode',
+    value: function renderNode(root, node, i) {
+      var _this3 = this;
+
+      var content = this.props.content;
+
+      var nodeProps = _extends({}, (0, _ReactUtils.getPresentationAttributes)(this.props), node, { root: root });
+      var isLeaf = !node.children || !node.children.length;
+
+      return _react2.default.createElement(_Layer2.default, { key: 'recharts-treemap-node-' + i, className: 'recharts-treemap-depth-' + node.depth }, this.renderAnimatedItem(content, nodeProps, isLeaf), node.children && node.children.length ? node.children.map(function (child, index) {
+        return _this3.renderNode(node, child, index);
+      }) : null);
+    }
+  }, {
+    key: 'renderAllNodes',
+    value: function renderAllNodes() {
+      var _props4 = this.props,
+          width = _props4.width,
+          height = _props4.height,
+          data = _props4.data,
+          dataKey = _props4.dataKey,
+          aspectRatio = _props4.aspectRatio;
+
+      var root = computeNode({
+        depth: 0,
+        node: { children: data, x: 0, y: 0, width: width, height: height },
+        index: 0,
+        valueKey: dataKey
+      });
+
+      var formatRoot = squarify(root, aspectRatio);
+
+      return this.renderNode(formatRoot, formatRoot, 0);
+    }
+  }, {
+    key: 'renderTooltip',
+    value: function renderTooltip() {
+      var _props5 = this.props,
+          children = _props5.children,
+          nameKey = _props5.nameKey;
+
+      var tooltipItem = (0, _ReactUtils.findChildByType)(children, _Tooltip2.default);
+
+      if (!tooltipItem) {
+        return null;
+      }
+
+      var _props6 = this.props,
+          width = _props6.width,
+          height = _props6.height,
+          dataKey = _props6.dataKey;
+      var _state = this.state,
+          isTooltipActive = _state.isTooltipActive,
+          activeNode = _state.activeNode;
+
+      var viewBox = { x: 0, y: 0, width: width, height: height };
+      var coordinate = activeNode ? {
+        x: activeNode.x + activeNode.width / 2,
+        y: activeNode.y + activeNode.height / 2
+      } : null;
+      var payload = isTooltipActive && activeNode ? [{
+        payload: activeNode,
+        name: (0, _ChartUtils.getValueByDataKey)(activeNode, nameKey, ''),
+        value: (0, _ChartUtils.getValueByDataKey)(activeNode, dataKey)
+      }] : [];
+
+      return _react2.default.cloneElement(tooltipItem, {
+        viewBox: viewBox,
+        active: isTooltipActive,
+        coordinate: coordinate,
+        label: '',
+        payload: payload
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      if (!(0, _ReactUtils.validateWidthHeight)(this)) {
+        return null;
+      }
+
+      var _props7 = this.props,
+          width = _props7.width,
+          height = _props7.height,
+          className = _props7.className,
+          style = _props7.style,
+          children = _props7.children,
+          others = _objectWithoutProperties(_props7, ['width', 'height', 'className', 'style', 'children']);
+
+      var attrs = (0, _ReactUtils.getPresentationAttributes)(others);
+
+      return _react2.default.createElement('div', {
+        className: (0, _classnames2.default)('recharts-wrapper', className),
+        style: _extends({}, style, { position: 'relative', cursor: 'default', width: width, height: height })
+      }, _react2.default.createElement(_Surface2.default, _extends({}, attrs, { width: width, height: height }), this.renderAllNodes(), (0, _ReactUtils.filterSvgElements)(children)), this.renderTooltip());
+    }
+  }], [{
+    key: 'createDefaultState',
+    value: function createDefaultState() {
+      return {
+        isTooltipActive: false,
+        activeNode: null
+      };
+    }
+  }, {
+    key: 'renderContentItem',
+    value: function renderContentItem(content, nodeProps) {
+      if (_react2.default.isValidElement(content)) {
+        return _react2.default.cloneElement(content, nodeProps);
+      } else if ((0, _isFunction3.default)(content)) {
+        return content(nodeProps);
+      }
+
+      return _react2.default.createElement(_Rectangle2.default, _extends({
+        fill: '#fff',
+        stroke: '#000'
+      }, nodeProps));
+    }
+  }]);
+
+  return Treemap;
+}(_react.Component), _class2.displayName = 'Treemap', _class2.propTypes = {
+  width: _propTypes2.default.number,
+  height: _propTypes2.default.number,
+  data: _propTypes2.default.array,
+  style: _propTypes2.default.object,
+  aspectRatio: _propTypes2.default.number,
+  content: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.func]),
+  fill: _propTypes2.default.string,
+  stroke: _propTypes2.default.string,
+  className: _propTypes2.default.string,
+  nameKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]),
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]),
+  children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]),
+
+  onMouseEnter: _propTypes2.default.func,
+  onMouseLeave: _propTypes2.default.func,
+  onClick: _propTypes2.default.func,
+
+  isAnimationActive: _propTypes2.default.bool,
+  isUpdateAnimationActive: _propTypes2.default.bool,
+  animationBegin: _propTypes2.default.number,
+  animationDuration: _propTypes2.default.number,
+  animationEasing: _propTypes2.default.oneOf(['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear'])
+}, _class2.defaultProps = {
+  dataKey: 'value',
+  aspectRatio: 0.5 * (1 + Math.sqrt(5)),
+  isAnimationActive: !(0, _ReactUtils.isSsr)(),
+  isUpdateAnimationActive: !(0, _ReactUtils.isSsr)(),
+  animationBegin: 0,
+  animationDuration: 1500,
+  animationEasing: 'linear'
+}, _temp2)) || _class;
+
+exports.default = Treemap;
+},{"lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/isNaN":"../node_modules/lodash-es/isNaN.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-smooth":"../node_modules/react-smooth/lib/index.js","classnames":"../node_modules/classnames/index.js","../container/Surface":"../node_modules/recharts/es6/container/Surface.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../shape/Rectangle":"../node_modules/recharts/es6/shape/Rectangle.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../component/Tooltip":"../node_modules/recharts/es6/component/Tooltip.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js"}],"../node_modules/lodash-es/_baseSum.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * The base implementation of `_.sum` and `_.sumBy` without support for
+ * iteratee shorthands.
+ *
+ * @private
+ * @param {Array} array The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {number} Returns the sum.
+ */
+function baseSum(array, iteratee) {
+  var result,
+      index = -1,
+      length = array.length;
+
+  while (++index < length) {
+    var current = iteratee(array[index]);
+    if (current !== undefined) {
+      result = result === undefined ? current : result + current;
+    }
+  }
+  return result;
+}
+
+exports.default = baseSum;
+},{}],"../node_modules/lodash-es/sumBy.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _baseIteratee = require('./_baseIteratee.js');
+
+var _baseIteratee2 = _interopRequireDefault(_baseIteratee);
+
+var _baseSum = require('./_baseSum.js');
+
+var _baseSum2 = _interopRequireDefault(_baseSum);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * This method is like `_.sum` except that it accepts `iteratee` which is
+ * invoked for each element in `array` to generate the value to be summed.
+ * The iteratee is invoked with one argument: (value).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Math
+ * @param {Array} array The array to iterate over.
+ * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
+ * @returns {number} Returns the sum.
+ * @example
+ *
+ * var objects = [{ 'n': 4 }, { 'n': 2 }, { 'n': 8 }, { 'n': 6 }];
+ *
+ * _.sumBy(objects, function(o) { return o.n; });
+ * // => 20
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.sumBy(objects, 'n');
+ * // => 20
+ */
+function sumBy(array, iteratee) {
+  return array && array.length ? (0, _baseSum2.default)(array, (0, _baseIteratee2.default)(iteratee, 2)) : 0;
+}
+
+exports.default = sumBy;
+},{"./_baseIteratee.js":"../node_modules/lodash-es/_baseIteratee.js","./_baseSum.js":"../node_modules/lodash-es/_baseSum.js"}],"../node_modules/recharts/es6/chart/Sankey.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _isFunction2 = require('lodash-es/isFunction');
+
+var _isFunction3 = _interopRequireDefault(_isFunction2);
+
+var _sumBy2 = require('lodash-es/sumBy');
+
+var _sumBy3 = _interopRequireDefault(_sumBy2);
+
+var _min2 = require('lodash-es/min');
+
+var _min3 = _interopRequireDefault(_min2);
+
+var _maxBy2 = require('lodash-es/maxBy');
+
+var _maxBy3 = _interopRequireDefault(_maxBy2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _Surface = require('../container/Surface');
+
+var _Surface2 = _interopRequireDefault(_Surface);
+
+var _Layer = require('../container/Layer');
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _Tooltip = require('../component/Tooltip');
+
+var _Tooltip2 = _interopRequireDefault(_Tooltip);
+
+var _Rectangle = require('../shape/Rectangle');
+
+var _Rectangle2 = _interopRequireDefault(_Rectangle);
+
+var _PureRender = require('../util/PureRender');
+
+var _PureRender2 = _interopRequireDefault(_PureRender);
+
+var _ReactUtils = require('../util/ReactUtils');
+
+var _ChartUtils = require('../util/ChartUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+var _class, _class2, _temp;
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * @file TreemapChart
+ */
+
+
+var defaultCoordinateOfTooltip = { x: 0, y: 0 };
+
+var interpolationGenerator = function interpolationGenerator(a, b) {
+  var ka = +a;
+  var kb = b - ka;
+  return function (t) {
+    return ka + kb * t;
+  };
+};
+var centerY = function centerY(node) {
+  return node.y + node.dy / 2;
+};
+var getValue = function getValue(entry) {
+  return entry && entry.value || 0;
+};
+var getSumOfIds = function getSumOfIds(links, ids) {
+  return ids.reduce(function (result, id) {
+    return result + getValue(links[id]);
+  }, 0);
+};
+var getSumWithWeightedSource = function getSumWithWeightedSource(tree, links, ids) {
+  return ids.reduce(function (result, id) {
+    var link = links[id];
+    var sourceNode = tree[link.source];
+
+    return result + centerY(sourceNode) * getValue(links[id]);
+  }, 0);
+};
+var getSumWithWeightedTarget = function getSumWithWeightedTarget(tree, links, ids) {
+  return ids.reduce(function (result, id) {
+    var link = links[id];
+    var targetNode = tree[link.target];
+
+    return result + centerY(targetNode) * getValue(links[id]);
+  }, 0);
+};
+var ascendingY = function ascendingY(a, b) {
+  return a.y - b.y;
+};
+
+var searchTargetsAndSources = function searchTargetsAndSources(links, id) {
+  var sourceNodes = [];
+  var sourceLinks = [];
+  var targetNodes = [];
+  var targetLinks = [];
+
+  for (var i = 0, len = links.length; i < len; i++) {
+    var link = links[i];
+
+    if (link.source === id) {
+      targetNodes.push(link.target);
+      targetLinks.push(i);
+    }
+
+    if (link.target === id) {
+      sourceNodes.push(link.source);
+      sourceLinks.push(i);
+    }
+  }
+
+  return { sourceNodes: sourceNodes, sourceLinks: sourceLinks, targetLinks: targetLinks, targetNodes: targetNodes };
+};
+
+var updateDepthOfTargets = function updateDepthOfTargets(tree, curNode) {
+  var targetNodes = curNode.targetNodes;
+
+  for (var i = 0, len = targetNodes.length; i < len; i++) {
+    var target = tree[targetNodes[i]];
+
+    if (target) {
+      target.depth = Math.max(curNode.depth + 1, target.depth);
+
+      updateDepthOfTargets(tree, target);
+    }
+  }
+};
+
+var getNodesTree = function getNodesTree(_ref, width, nodeWidth) {
+  var nodes = _ref.nodes,
+      links = _ref.links;
+
+  var tree = nodes.map(function (entry, index) {
+    var result = searchTargetsAndSources(links, index);
+
+    return _extends({}, entry, result, {
+      value: Math.max(getSumOfIds(links, result.sourceLinks), getSumOfIds(links, result.targetLinks)),
+      depth: 0
+    });
+  });
+
+  for (var i = 0, len = tree.length; i < len; i++) {
+    var node = tree[i];
+
+    if (!node.sourceNodes.length) {
+      updateDepthOfTargets(tree, node);
+    }
+  }
+  var maxDepth = (0, _maxBy3.default)(tree, function (entry) {
+    return entry.depth;
+  }).depth;
+
+  if (maxDepth >= 1) {
+    var childWidth = (width - nodeWidth) / maxDepth;
+    for (var _i = 0, _len = tree.length; _i < _len; _i++) {
+      var _node = tree[_i];
+
+      if (!_node.targetNodes.length) {
+        _node.depth = maxDepth;
+      }
+      _node.x = _node.depth * childWidth;
+      _node.dx = nodeWidth;
+    }
+  }
+
+  return { tree: tree, maxDepth: maxDepth };
+};
+
+var getDepthTree = function getDepthTree(tree) {
+  var result = [];
+
+  for (var i = 0, len = tree.length; i < len; i++) {
+    var node = tree[i];
+
+    if (!result[node.depth]) {
+      result[node.depth] = [];
+    }
+
+    result[node.depth].push(node);
+  }
+
+  return result;
+};
+
+var updateYOfTree = function updateYOfTree(depthTree, height, nodePadding, links) {
+  var yRatio = (0, _min3.default)(depthTree.map(function (nodes) {
+    return (height - (nodes.length - 1) * nodePadding) / (0, _sumBy3.default)(nodes, getValue);
+  }));
+
+  for (var d = 0, maxDepth = depthTree.length; d < maxDepth; d++) {
+    for (var i = 0, len = depthTree[d].length; i < len; i++) {
+      var node = depthTree[d][i];
+
+      node.y = i;
+      node.dy = node.value * yRatio;
+    }
+  }
+
+  return links.map(function (link) {
+    return _extends({}, link, { dy: getValue(link) * yRatio });
+  });
+};
+
+var resolveCollisions = function resolveCollisions(depthTree, height, nodePadding) {
+  for (var i = 0, len = depthTree.length; i < len; i++) {
+    var nodes = depthTree[i];
+    var n = nodes.length;
+
+    // Sort by the value of y
+    nodes.sort(ascendingY);
+
+    var y0 = 0;
+    for (var j = 0; j < n; j++) {
+      var node = nodes[j];
+      var dy = y0 - node.y;
+
+      if (dy > 0) {
+        node.y += dy;
+      }
+
+      y0 = node.y + node.dy + nodePadding;
+    }
+
+    y0 = height + nodePadding;
+    for (var _j = n - 1; _j >= 0; _j--) {
+      var _node2 = nodes[_j];
+      var _dy = _node2.y + _node2.dy + nodePadding - y0;
+
+      if (_dy > 0) {
+        _node2.y -= _dy;
+        y0 = _node2.y;
+      } else {
+        break;
+      }
+    }
+  }
+};
+
+var relaxLeftToRight = function relaxLeftToRight(tree, depthTree, links, alpha) {
+  for (var i = 0, maxDepth = depthTree.length; i < maxDepth; i++) {
+    var nodes = depthTree[i];
+
+    for (var j = 0, len = nodes.length; j < len; j++) {
+      var node = nodes[j];
+
+      if (node.sourceLinks.length) {
+        var sourceSum = getSumOfIds(links, node.sourceLinks);
+        var weightedSum = getSumWithWeightedSource(tree, links, node.sourceLinks);
+        var y = weightedSum / sourceSum;
+
+        node.y += (y - centerY(node)) * alpha;
+      }
+    }
+  }
+};
+var relaxRightToLeft = function relaxRightToLeft(tree, depthTree, links, alpha) {
+  for (var i = depthTree.length - 1; i >= 0; i--) {
+    var nodes = depthTree[i];
+
+    for (var j = 0, len = nodes.length; j < len; j++) {
+      var node = nodes[j];
+
+      if (node.targetLinks.length) {
+        var targetSum = getSumOfIds(links, node.targetLinks);
+        var weightedSum = getSumWithWeightedTarget(tree, links, node.targetLinks);
+        var y = weightedSum / targetSum;
+
+        node.y += (y - centerY(node)) * alpha;
+      }
+    }
+  }
+};
+var updateYOfLinks = function updateYOfLinks(tree, links) {
+  for (var i = 0, len = tree.length; i < len; i++) {
+    var node = tree[i];
+    var sy = 0;
+    var ty = 0;
+
+    node.targetLinks.sort(function (a, b) {
+      return tree[links[a].target].y - tree[links[b].target].y;
+    });
+    node.sourceLinks.sort(function (a, b) {
+      return tree[links[a].source].y - tree[links[b].source].y;
+    });
+
+    for (var j = 0, tLen = node.targetLinks.length; j < tLen; j++) {
+      var link = links[node.targetLinks[j]];
+
+      if (link) {
+        link.sy = sy;
+        sy += link.dy;
+      }
+    }
+
+    for (var _j2 = 0, sLen = node.sourceLinks.length; _j2 < sLen; _j2++) {
+      var _link = links[node.sourceLinks[_j2]];
+
+      if (_link) {
+        _link.ty = ty;
+        ty += _link.dy;
+      }
+    }
+  }
+};
+
+var computeData = function computeData(_ref2) {
+  var data = _ref2.data,
+      width = _ref2.width,
+      height = _ref2.height,
+      iterations = _ref2.iterations,
+      nodeWidth = _ref2.nodeWidth,
+      nodePadding = _ref2.nodePadding;
+  var links = data.links;
+
+  var _getNodesTree = getNodesTree(data, width, nodeWidth),
+      tree = _getNodesTree.tree;
+
+  var depthTree = getDepthTree(tree);
+  var newLinks = updateYOfTree(depthTree, height, nodePadding, links);
+
+  resolveCollisions(depthTree, height, nodePadding);
+
+  var alpha = 1;
+  for (var i = 1; i <= iterations; i++) {
+    relaxRightToLeft(tree, depthTree, newLinks, alpha *= 0.99);
+
+    resolveCollisions(depthTree, height, nodePadding);
+
+    relaxLeftToRight(tree, depthTree, newLinks, alpha);
+
+    resolveCollisions(depthTree, height, nodePadding);
+  }
+
+  updateYOfLinks(tree, newLinks);
+
+  return { nodes: tree, links: newLinks };
+};
+
+var getCoordinateOfTooltip = function getCoordinateOfTooltip(el, type) {
+  if (type === 'node') {
+    return { x: el.x + el.width / 2, y: el.y + el.height / 2 };
+  }
+
+  return {
+    x: (el.sourceX + el.targetX) / 2,
+    y: (el.sourceY + el.targetY) / 2
+  };
+};
+
+var getPayloadOfTooltip = function getPayloadOfTooltip(el, type, nameKey) {
+  var payload = el.payload;
+
+  if (type === 'node') {
+    return [{
+      payload: el,
+      name: (0, _ChartUtils.getValueByDataKey)(payload, nameKey, ''),
+      value: (0, _ChartUtils.getValueByDataKey)(payload, 'value')
+    }];
+  }
+  if (payload.source && payload.target) {
+    var sourceName = (0, _ChartUtils.getValueByDataKey)(payload.source, nameKey, '');
+    var targetName = (0, _ChartUtils.getValueByDataKey)(payload.target, nameKey, '');
+
+    return [{
+      payload: el,
+      name: sourceName + ' - ' + targetName,
+      value: (0, _ChartUtils.getValueByDataKey)(payload, 'value')
+    }];
+  }
+
+  return [];
+};
+
+var Sankey = (0, _PureRender2.default)(_class = (_temp = _class2 = function (_Component) {
+  _inherits(Sankey, _Component);
+
+  function Sankey(props) {
+    _classCallCheck(this, Sankey);
+
+    var _this = _possibleConstructorReturn(this, (Sankey.__proto__ || Object.getPrototypeOf(Sankey)).call(this, props));
+
+    _this.state = _this.constructor.createDefaultState(props);
+    return _this;
+  }
+
+  _createClass(Sankey, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _props = this.props,
+          data = _props.data,
+          width = _props.width,
+          height = _props.height,
+          margin = _props.margin,
+          iterations = _props.iterations,
+          nodeWidth = _props.nodeWidth,
+          nodePadding = _props.nodePadding,
+          nameKey = _props.nameKey;
+
+      if (nextProps.data !== data || nextProps.width !== width || nextProps.height !== height || !(0, _PureRender.shallowEqual)(nextProps.margin, margin) || nextProps.iterations !== iterations || nextProps.nodeWidth !== nodeWidth || nextProps.nodePadding !== nodePadding || nextProps.nameKey !== nameKey) {
+        this.setState(this.constructor.createDefaultState(nextProps));
+      }
+    }
+    /**
+     * Returns default, reset state for the sankey chart.
+     * @param  {Object} props The latest props
+     * @return {Object} Whole new state
+     */
+
+  }, {
+    key: 'handleMouseEnter',
+    value: function handleMouseEnter(el, type, e) {
+      var _props2 = this.props,
+          onMouseEnter = _props2.onMouseEnter,
+          children = _props2.children;
+
+      var tooltipItem = (0, _ReactUtils.findChildByType)(children, _Tooltip2.default);
+
+      if (tooltipItem) {
+        this.setState({
+          activeElement: el,
+          activeElementType: type,
+          isTooltipActive: true
+        }, function () {
+          if (onMouseEnter) {
+            onMouseEnter(el, type, e);
+          }
+        });
+      } else if (onMouseEnter) {
+        onMouseEnter(el, type, e);
+      }
+    }
+  }, {
+    key: 'handleMouseLeave',
+    value: function handleMouseLeave(el, type, e) {
+      var _props3 = this.props,
+          onMouseLeave = _props3.onMouseLeave,
+          children = _props3.children;
+
+      var tooltipItem = (0, _ReactUtils.findChildByType)(children, _Tooltip2.default);
+
+      if (tooltipItem) {
+        this.setState({
+          isTooltipActive: false
+        }, function () {
+          if (onMouseLeave) {
+            onMouseLeave(el, type, e);
+          }
+        });
+      } else if (onMouseLeave) {
+        onMouseLeave(el, type, e);
+      }
+    }
+  }, {
+    key: 'renderLinks',
+    value: function renderLinks(links, nodes) {
+      var _this2 = this;
+
+      var _props4 = this.props,
+          linkCurvature = _props4.linkCurvature,
+          linkContent = _props4.link,
+          margin = _props4.margin;
+
+      var top = margin.top || 0;
+      var left = margin.left || 0;
+
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-sankey-links', key: 'recharts-sankey-links' }, links.map(function (link, i) {
+        var sourceRelativeY = link.sy,
+            targetRelativeY = link.ty,
+            linkWidth = link.dy;
+
+        var source = nodes[link.source];
+        var target = nodes[link.target];
+        var sourceX = source.x + source.dx + left;
+        var targetX = target.x + left;
+        var interpolationFunc = interpolationGenerator(sourceX, targetX);
+        var sourceControlX = interpolationFunc(linkCurvature);
+        var targetControlX = interpolationFunc(1 - linkCurvature);
+        var sourceY = source.y + sourceRelativeY + linkWidth / 2 + top;
+        var targetY = target.y + targetRelativeY + linkWidth / 2 + top;
+
+        var linkProps = _extends({
+          sourceX: sourceX, targetX: targetX,
+          sourceY: sourceY, targetY: targetY,
+          sourceControlX: sourceControlX, targetControlX: targetControlX,
+          sourceRelativeY: sourceRelativeY, targetRelativeY: targetRelativeY,
+          linkWidth: linkWidth,
+          index: i,
+          payload: _extends({}, link, { source: source, target: target })
+        }, (0, _ReactUtils.getPresentationAttributes)(linkContent));
+        var events = {
+          onMouseEnter: _this2.handleMouseEnter.bind(_this2, linkProps, 'link'),
+          onMouseLeave: _this2.handleMouseLeave.bind(_this2, linkProps, 'link')
+        };
+
+        return _react2.default.createElement(_Layer2.default, _extends({ key: 'link' + i }, events), _this2.constructor.renderLinkItem(linkContent, linkProps));
+      }));
+    }
+  }, {
+    key: 'renderNodes',
+    value: function renderNodes(nodes) {
+      var _this3 = this;
+
+      var _props5 = this.props,
+          nodeContent = _props5.node,
+          margin = _props5.margin;
+
+      var top = margin.top || 0;
+      var left = margin.left || 0;
+
+      return _react2.default.createElement(_Layer2.default, { className: 'recharts-sankey-nodes', key: 'recharts-sankey-nodes' }, nodes.map(function (node, i) {
+        var x = node.x,
+            y = node.y,
+            dx = node.dx,
+            dy = node.dy;
+
+        var nodeProps = _extends({}, (0, _ReactUtils.getPresentationAttributes)(nodeContent), {
+          x: x + left,
+          y: y + top,
+          width: dx,
+          height: dy,
+          index: i,
+          payload: node
+        });
+        var events = {
+          onMouseEnter: _this3.handleMouseEnter.bind(_this3, nodeProps, 'node'),
+          onMouseLeave: _this3.handleMouseLeave.bind(_this3, nodeProps, 'node')
+        };
+
+        return _react2.default.createElement(_Layer2.default, _extends({ key: 'node' + i }, events), _this3.constructor.renderNodeItem(nodeContent, nodeProps));
+      }));
+    }
+  }, {
+    key: 'renderTooltip',
+    value: function renderTooltip() {
+      var _props6 = this.props,
+          children = _props6.children,
+          width = _props6.width,
+          height = _props6.height,
+          nameKey = _props6.nameKey;
+
+      var tooltipItem = (0, _ReactUtils.findChildByType)(children, _Tooltip2.default);
+
+      if (!tooltipItem) {
+        return null;
+      }
+
+      var _state = this.state,
+          isTooltipActive = _state.isTooltipActive,
+          activeElement = _state.activeElement,
+          activeElementType = _state.activeElementType;
+
+      var viewBox = { x: 0, y: 0, width: width, height: height };
+      var coordinate = activeElement ? getCoordinateOfTooltip(activeElement, activeElementType) : defaultCoordinateOfTooltip;
+      var payload = activeElement ? getPayloadOfTooltip(activeElement, activeElementType, nameKey) : [];
+
+      return _react2.default.cloneElement(tooltipItem, {
+        viewBox: viewBox,
+        active: isTooltipActive,
+        coordinate: coordinate,
+        label: '',
+        payload: payload
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      if (!(0, _ReactUtils.validateWidthHeight)(this)) {
+        return null;
+      }
+
+      var _props7 = this.props,
+          width = _props7.width,
+          height = _props7.height,
+          className = _props7.className,
+          style = _props7.style,
+          children = _props7.children,
+          others = _objectWithoutProperties(_props7, ['width', 'height', 'className', 'style', 'children']);
+
+      var _state2 = this.state,
+          links = _state2.links,
+          nodes = _state2.nodes;
+
+      var attrs = (0, _ReactUtils.getPresentationAttributes)(others);
+
+      return _react2.default.createElement('div', {
+        className: (0, _classnames2.default)('recharts-wrapper', className),
+        style: _extends({}, style, { position: 'relative', cursor: 'default', width: width, height: height })
+      }, _react2.default.createElement(_Surface2.default, _extends({}, attrs, { width: width, height: height }), (0, _ReactUtils.filterSvgElements)(children), this.renderLinks(links, nodes), this.renderNodes(nodes)), this.renderTooltip());
+    }
+  }], [{
+    key: 'createDefaultState',
+    value: function createDefaultState(props) {
+      var data = props.data,
+          width = props.width,
+          height = props.height,
+          margin = props.margin,
+          iterations = props.iterations,
+          nodeWidth = props.nodeWidth,
+          nodePadding = props.nodePadding;
+
+      var contentWidth = width - (margin && margin.left || 0) - (margin && margin.right || 0);
+      var contentHeight = height - (margin && margin.top || 0) - (margin && margin.bottom || 0);
+
+      var _computeData = computeData({
+        data: data,
+        width: contentWidth,
+        height: contentHeight,
+        iterations: iterations, nodeWidth: nodeWidth, nodePadding: nodePadding
+      }),
+          links = _computeData.links,
+          nodes = _computeData.nodes;
+
+      return {
+        activeElement: null,
+        activeElementType: null,
+        isTooltipActive: false,
+        nodes: nodes, links: links
+      };
+    }
+  }, {
+    key: 'renderLinkItem',
+    value: function renderLinkItem(option, props) {
+      if (_react2.default.isValidElement(option)) {
+        return _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        return option(props);
+      }
+
+      var sourceX = props.sourceX,
+          sourceY = props.sourceY,
+          sourceControlX = props.sourceControlX,
+          targetX = props.targetX,
+          targetY = props.targetY,
+          targetControlX = props.targetControlX,
+          linkWidth = props.linkWidth,
+          others = _objectWithoutProperties(props, ['sourceX', 'sourceY', 'sourceControlX', 'targetX', 'targetY', 'targetControlX', 'linkWidth']);
+
+      return _react2.default.createElement('path', _extends({
+        className: 'recharts-sankey-link',
+        d: '\n          M' + sourceX + ',' + sourceY + '\n          C' + sourceControlX + ',' + sourceY + ' ' + targetControlX + ',' + targetY + ' ' + targetX + ',' + targetY + '\n        ',
+        fill: 'none',
+        stroke: '#333',
+        strokeWidth: linkWidth,
+        strokeOpacity: '0.2'
+      }, (0, _ReactUtils.getPresentationAttributes)(others)));
+    }
+  }, {
+    key: 'renderNodeItem',
+    value: function renderNodeItem(option, props) {
+      if (_react2.default.isValidElement(option)) {
+        return _react2.default.cloneElement(option, props);
+      } else if ((0, _isFunction3.default)(option)) {
+        return option(props);
+      }
+
+      return _react2.default.createElement(_Rectangle2.default, _extends({
+        className: 'recharts-sankey-node',
+        fill: '#0088fe',
+        fillOpacity: '0.8'
+      }, props));
+    }
+  }]);
+
+  return Sankey;
+}(_react.Component), _class2.displayName = 'Sankey', _class2.propTypes = _extends({}, _ReactUtils.PRESENTATION_ATTRIBUTES, _ReactUtils.EVENT_ATTRIBUTES, {
+
+  nameKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]),
+  dataKey: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.func]),
+  width: _propTypes2.default.number,
+  height: _propTypes2.default.number,
+  data: _propTypes2.default.shape({
+    nodes: _propTypes2.default.array,
+    links: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+      target: _propTypes2.default.number,
+      source: _propTypes2.default.number,
+      value: _propTypes2.default.number
+    }))
+  }),
+
+  nodePadding: _propTypes2.default.number,
+  nodeWidth: _propTypes2.default.number,
+  linkCurvature: _propTypes2.default.number,
+  iterations: _propTypes2.default.number,
+
+  node: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.element, _propTypes2.default.func]),
+  link: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.element, _propTypes2.default.func]),
+
+  style: _propTypes2.default.object,
+  className: _propTypes2.default.string,
+  children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]),
+  margin: _propTypes2.default.shape({
+    top: _propTypes2.default.number,
+    right: _propTypes2.default.number,
+    bottom: _propTypes2.default.number,
+    left: _propTypes2.default.number
+  })
+}), _class2.defaultProps = {
+  nodePadding: 10,
+  nodeWidth: 10,
+  nameKey: 'name',
+  dataKey: 'value',
+  linkCurvature: 0.5,
+  iterations: 32,
+  margin: { top: 5, right: 5, bottom: 5, left: 5 }
+}, _temp)) || _class;
+
+exports.default = Sankey;
+},{"lodash-es/isFunction":"../node_modules/lodash-es/isFunction.js","lodash-es/sumBy":"../node_modules/lodash-es/sumBy.js","lodash-es/min":"../node_modules/lodash-es/min.js","lodash-es/maxBy":"../node_modules/lodash-es/maxBy.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","classnames":"../node_modules/classnames/index.js","../container/Surface":"../node_modules/recharts/es6/container/Surface.js","../container/Layer":"../node_modules/recharts/es6/container/Layer.js","../component/Tooltip":"../node_modules/recharts/es6/component/Tooltip.js","../shape/Rectangle":"../node_modules/recharts/es6/shape/Rectangle.js","../util/PureRender":"../node_modules/recharts/es6/util/PureRender.js","../util/ReactUtils":"../node_modules/recharts/es6/util/ReactUtils.js","../util/ChartUtils":"../node_modules/recharts/es6/util/ChartUtils.js"}],"../node_modules/recharts/es6/chart/RadarChart.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _generateCategoricalChart = require('./generateCategoricalChart');
+
+var _generateCategoricalChart2 = _interopRequireDefault(_generateCategoricalChart);
+
+var _Radar = require('../polar/Radar');
+
+var _Radar2 = _interopRequireDefault(_Radar);
+
+var _PolarAngleAxis = require('../polar/PolarAngleAxis');
+
+var _PolarAngleAxis2 = _interopRequireDefault(_PolarAngleAxis);
+
+var _PolarRadiusAxis = require('../polar/PolarRadiusAxis');
+
+var _PolarRadiusAxis2 = _interopRequireDefault(_PolarRadiusAxis);
+
+var _PolarUtils = require('../util/PolarUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @fileOverview Radar Chart
+ */
+exports.default = (0, _generateCategoricalChart2.default)({
+  chartName: 'RadarChart',
+  GraphicalChild: _Radar2.default,
+  axisComponents: [{ axisType: 'angleAxis', AxisComp: _PolarAngleAxis2.default }, { axisType: 'radiusAxis', AxisComp: _PolarRadiusAxis2.default }],
+  formatAxisMap: _PolarUtils.formatAxisMap,
+  defaultProps: {
+    layout: 'centric',
+    startAngle: 90,
+    endAngle: -270,
+    cx: '50%',
+    cy: '50%',
+    innerRadius: 0,
+    outerRadius: '80%'
+  },
+  propTypes: {
+    layout: _propTypes2.default.oneOf(['centric']),
+    startAngle: _propTypes2.default.number,
+    endAngle: _propTypes2.default.number,
+    cx: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    cy: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    innerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    outerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
+  }
+});
+},{"prop-types":"../node_modules/prop-types/index.js","./generateCategoricalChart":"../node_modules/recharts/es6/chart/generateCategoricalChart.js","../polar/Radar":"../node_modules/recharts/es6/polar/Radar.js","../polar/PolarAngleAxis":"../node_modules/recharts/es6/polar/PolarAngleAxis.js","../polar/PolarRadiusAxis":"../node_modules/recharts/es6/polar/PolarRadiusAxis.js","../util/PolarUtils":"../node_modules/recharts/es6/util/PolarUtils.js"}],"../node_modules/recharts/es6/chart/ScatterChart.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _generateCategoricalChart = require('./generateCategoricalChart');
+
+var _generateCategoricalChart2 = _interopRequireDefault(_generateCategoricalChart);
+
+var _Scatter = require('../cartesian/Scatter');
+
+var _Scatter2 = _interopRequireDefault(_Scatter);
+
+var _XAxis = require('../cartesian/XAxis');
+
+var _XAxis2 = _interopRequireDefault(_XAxis);
+
+var _YAxis = require('../cartesian/YAxis');
+
+var _YAxis2 = _interopRequireDefault(_YAxis);
+
+var _ZAxis = require('../cartesian/ZAxis');
+
+var _ZAxis2 = _interopRequireDefault(_ZAxis);
+
+var _CartesianUtils = require('../util/CartesianUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @fileOverview Scatter Chart
+ */
+exports.default = (0, _generateCategoricalChart2.default)({
+  chartName: 'ScatterChart',
+  GraphicalChild: _Scatter2.default,
+  eventType: 'single',
+  axisComponents: [{ axisType: 'xAxis', AxisComp: _XAxis2.default }, { axisType: 'yAxis', AxisComp: _YAxis2.default }, { axisType: 'zAxis', AxisComp: _ZAxis2.default }],
+  formatAxisMap: _CartesianUtils.formatAxisMap
+});
+},{"./generateCategoricalChart":"../node_modules/recharts/es6/chart/generateCategoricalChart.js","../cartesian/Scatter":"../node_modules/recharts/es6/cartesian/Scatter.js","../cartesian/XAxis":"../node_modules/recharts/es6/cartesian/XAxis.js","../cartesian/YAxis":"../node_modules/recharts/es6/cartesian/YAxis.js","../cartesian/ZAxis":"../node_modules/recharts/es6/cartesian/ZAxis.js","../util/CartesianUtils":"../node_modules/recharts/es6/util/CartesianUtils.js"}],"../node_modules/recharts/es6/chart/AreaChart.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _generateCategoricalChart = require('./generateCategoricalChart');
+
+var _generateCategoricalChart2 = _interopRequireDefault(_generateCategoricalChart);
+
+var _Area = require('../cartesian/Area');
+
+var _Area2 = _interopRequireDefault(_Area);
+
+var _XAxis = require('../cartesian/XAxis');
+
+var _XAxis2 = _interopRequireDefault(_XAxis);
+
+var _YAxis = require('../cartesian/YAxis');
+
+var _YAxis2 = _interopRequireDefault(_YAxis);
+
+var _CartesianUtils = require('../util/CartesianUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _generateCategoricalChart2.default)({
+  chartName: 'AreaChart',
+  GraphicalChild: _Area2.default,
+  axisComponents: [{ axisType: 'xAxis', AxisComp: _XAxis2.default }, { axisType: 'yAxis', AxisComp: _YAxis2.default }],
+  formatAxisMap: _CartesianUtils.formatAxisMap
+}); /**
+     * @fileOverview Area Chart
+     */
+},{"./generateCategoricalChart":"../node_modules/recharts/es6/chart/generateCategoricalChart.js","../cartesian/Area":"../node_modules/recharts/es6/cartesian/Area.js","../cartesian/XAxis":"../node_modules/recharts/es6/cartesian/XAxis.js","../cartesian/YAxis":"../node_modules/recharts/es6/cartesian/YAxis.js","../util/CartesianUtils":"../node_modules/recharts/es6/util/CartesianUtils.js"}],"../node_modules/recharts/es6/chart/RadialBarChart.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _generateCategoricalChart = require('./generateCategoricalChart');
+
+var _generateCategoricalChart2 = _interopRequireDefault(_generateCategoricalChart);
+
+var _PolarAngleAxis = require('../polar/PolarAngleAxis');
+
+var _PolarAngleAxis2 = _interopRequireDefault(_PolarAngleAxis);
+
+var _PolarRadiusAxis = require('../polar/PolarRadiusAxis');
+
+var _PolarRadiusAxis2 = _interopRequireDefault(_PolarRadiusAxis);
+
+var _PolarUtils = require('../util/PolarUtils');
+
+var _RadialBar = require('../polar/RadialBar');
+
+var _RadialBar2 = _interopRequireDefault(_RadialBar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @fileOverview Radar Bar Chart
+ */
+exports.default = (0, _generateCategoricalChart2.default)({
+  chartName: 'RadialBarChart',
+  GraphicalChild: _RadialBar2.default,
+  legendContent: 'children',
+  axisComponents: [{ axisType: 'angleAxis', AxisComp: _PolarAngleAxis2.default }, { axisType: 'radiusAxis', AxisComp: _PolarRadiusAxis2.default }],
+  formatAxisMap: _PolarUtils.formatAxisMap,
+  defaultProps: {
+    layout: 'radial',
+    startAngle: 0,
+    endAngle: 360,
+    cx: '50%',
+    cy: '50%',
+    innerRadius: 0,
+    outerRadius: '80%'
+  },
+  propTypes: {
+    layout: _propTypes2.default.oneOf(['radial']),
+    startAngle: _propTypes2.default.number,
+    endAngle: _propTypes2.default.number,
+    cx: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    cy: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    innerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    outerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
+  }
+});
+},{"prop-types":"../node_modules/prop-types/index.js","./generateCategoricalChart":"../node_modules/recharts/es6/chart/generateCategoricalChart.js","../polar/PolarAngleAxis":"../node_modules/recharts/es6/polar/PolarAngleAxis.js","../polar/PolarRadiusAxis":"../node_modules/recharts/es6/polar/PolarRadiusAxis.js","../util/PolarUtils":"../node_modules/recharts/es6/util/PolarUtils.js","../polar/RadialBar":"../node_modules/recharts/es6/polar/RadialBar.js"}],"../node_modules/recharts/es6/chart/ComposedChart.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _generateCategoricalChart = require('./generateCategoricalChart');
+
+var _generateCategoricalChart2 = _interopRequireDefault(_generateCategoricalChart);
+
+var _Area = require('../cartesian/Area');
+
+var _Area2 = _interopRequireDefault(_Area);
+
+var _Bar = require('../cartesian/Bar');
+
+var _Bar2 = _interopRequireDefault(_Bar);
+
+var _Line = require('../cartesian/Line');
+
+var _Line2 = _interopRequireDefault(_Line);
+
+var _Scatter = require('../cartesian/Scatter');
+
+var _Scatter2 = _interopRequireDefault(_Scatter);
+
+var _XAxis = require('../cartesian/XAxis');
+
+var _XAxis2 = _interopRequireDefault(_XAxis);
+
+var _YAxis = require('../cartesian/YAxis');
+
+var _YAxis2 = _interopRequireDefault(_YAxis);
+
+var _ZAxis = require('../cartesian/ZAxis');
+
+var _ZAxis2 = _interopRequireDefault(_ZAxis);
+
+var _CartesianUtils = require('../util/CartesianUtils');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _generateCategoricalChart2.default)({
+  chartName: 'ComposedChart',
+  GraphicalChild: [_Line2.default, _Area2.default, _Bar2.default, _Scatter2.default],
+  axisComponents: [{ axisType: 'xAxis', AxisComp: _XAxis2.default }, { axisType: 'yAxis', AxisComp: _YAxis2.default }, { axisType: 'zAxis', AxisComp: _ZAxis2.default }],
+  formatAxisMap: _CartesianUtils.formatAxisMap
+}); /**
+     * @fileOverview Composed Chart
+     */
+},{"./generateCategoricalChart":"../node_modules/recharts/es6/chart/generateCategoricalChart.js","../cartesian/Area":"../node_modules/recharts/es6/cartesian/Area.js","../cartesian/Bar":"../node_modules/recharts/es6/cartesian/Bar.js","../cartesian/Line":"../node_modules/recharts/es6/cartesian/Line.js","../cartesian/Scatter":"../node_modules/recharts/es6/cartesian/Scatter.js","../cartesian/XAxis":"../node_modules/recharts/es6/cartesian/XAxis.js","../cartesian/YAxis":"../node_modules/recharts/es6/cartesian/YAxis.js","../cartesian/ZAxis":"../node_modules/recharts/es6/cartesian/ZAxis.js","../util/CartesianUtils":"../node_modules/recharts/es6/util/CartesianUtils.js"}],"../node_modules/recharts/es6/index.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ComposedChart = exports.RadialBarChart = exports.AreaChart = exports.ScatterChart = exports.RadarChart = exports.Sankey = exports.Treemap = exports.PieChart = exports.BarChart = exports.LineChart = exports.ErrorBar = exports.ZAxis = exports.YAxis = exports.XAxis = exports.Scatter = exports.Bar = exports.Area = exports.Line = exports.CartesianGrid = exports.CartesianAxis = exports.ReferenceArea = exports.ReferenceDot = exports.ReferenceLine = exports.Brush = exports.RadialBar = exports.Radar = exports.Pie = exports.PolarAngleAxis = exports.PolarRadiusAxis = exports.PolarGrid = exports.Symbols = exports.Cross = exports.Dot = exports.Polygon = exports.Rectangle = exports.Curve = exports.Sector = exports.LabelList = exports.Label = exports.Text = exports.Cell = exports.ResponsiveContainer = exports.Tooltip = exports.Legend = exports.Layer = exports.Surface = undefined;
+
+require('./polyfill');
+
+var _Surface2 = require('./container/Surface');
+
+var _Surface3 = _interopRequireDefault(_Surface2);
+
+var _Layer2 = require('./container/Layer');
+
+var _Layer3 = _interopRequireDefault(_Layer2);
+
+var _Legend2 = require('./component/Legend');
+
+var _Legend3 = _interopRequireDefault(_Legend2);
+
+var _Tooltip2 = require('./component/Tooltip');
+
+var _Tooltip3 = _interopRequireDefault(_Tooltip2);
+
+var _ResponsiveContainer2 = require('./component/ResponsiveContainer');
+
+var _ResponsiveContainer3 = _interopRequireDefault(_ResponsiveContainer2);
+
+var _Cell2 = require('./component/Cell');
+
+var _Cell3 = _interopRequireDefault(_Cell2);
+
+var _Text2 = require('./component/Text');
+
+var _Text3 = _interopRequireDefault(_Text2);
+
+var _Label2 = require('./component/Label');
+
+var _Label3 = _interopRequireDefault(_Label2);
+
+var _LabelList2 = require('./component/LabelList');
+
+var _LabelList3 = _interopRequireDefault(_LabelList2);
+
+var _Sector2 = require('./shape/Sector');
+
+var _Sector3 = _interopRequireDefault(_Sector2);
+
+var _Curve2 = require('./shape/Curve');
+
+var _Curve3 = _interopRequireDefault(_Curve2);
+
+var _Rectangle2 = require('./shape/Rectangle');
+
+var _Rectangle3 = _interopRequireDefault(_Rectangle2);
+
+var _Polygon2 = require('./shape/Polygon');
+
+var _Polygon3 = _interopRequireDefault(_Polygon2);
+
+var _Dot2 = require('./shape/Dot');
+
+var _Dot3 = _interopRequireDefault(_Dot2);
+
+var _Cross2 = require('./shape/Cross');
+
+var _Cross3 = _interopRequireDefault(_Cross2);
+
+var _Symbols2 = require('./shape/Symbols');
+
+var _Symbols3 = _interopRequireDefault(_Symbols2);
+
+var _PolarGrid2 = require('./polar/PolarGrid');
+
+var _PolarGrid3 = _interopRequireDefault(_PolarGrid2);
+
+var _PolarRadiusAxis2 = require('./polar/PolarRadiusAxis');
+
+var _PolarRadiusAxis3 = _interopRequireDefault(_PolarRadiusAxis2);
+
+var _PolarAngleAxis2 = require('./polar/PolarAngleAxis');
+
+var _PolarAngleAxis3 = _interopRequireDefault(_PolarAngleAxis2);
+
+var _Pie2 = require('./polar/Pie');
+
+var _Pie3 = _interopRequireDefault(_Pie2);
+
+var _Radar2 = require('./polar/Radar');
+
+var _Radar3 = _interopRequireDefault(_Radar2);
+
+var _RadialBar2 = require('./polar/RadialBar');
+
+var _RadialBar3 = _interopRequireDefault(_RadialBar2);
+
+var _Brush2 = require('./cartesian/Brush');
+
+var _Brush3 = _interopRequireDefault(_Brush2);
+
+var _ReferenceLine2 = require('./cartesian/ReferenceLine');
+
+var _ReferenceLine3 = _interopRequireDefault(_ReferenceLine2);
+
+var _ReferenceDot2 = require('./cartesian/ReferenceDot');
+
+var _ReferenceDot3 = _interopRequireDefault(_ReferenceDot2);
+
+var _ReferenceArea2 = require('./cartesian/ReferenceArea');
+
+var _ReferenceArea3 = _interopRequireDefault(_ReferenceArea2);
+
+var _CartesianAxis2 = require('./cartesian/CartesianAxis');
+
+var _CartesianAxis3 = _interopRequireDefault(_CartesianAxis2);
+
+var _CartesianGrid2 = require('./cartesian/CartesianGrid');
+
+var _CartesianGrid3 = _interopRequireDefault(_CartesianGrid2);
+
+var _Line2 = require('./cartesian/Line');
+
+var _Line3 = _interopRequireDefault(_Line2);
+
+var _Area2 = require('./cartesian/Area');
+
+var _Area3 = _interopRequireDefault(_Area2);
+
+var _Bar2 = require('./cartesian/Bar');
+
+var _Bar3 = _interopRequireDefault(_Bar2);
+
+var _Scatter2 = require('./cartesian/Scatter');
+
+var _Scatter3 = _interopRequireDefault(_Scatter2);
+
+var _XAxis2 = require('./cartesian/XAxis');
+
+var _XAxis3 = _interopRequireDefault(_XAxis2);
+
+var _YAxis2 = require('./cartesian/YAxis');
+
+var _YAxis3 = _interopRequireDefault(_YAxis2);
+
+var _ZAxis2 = require('./cartesian/ZAxis');
+
+var _ZAxis3 = _interopRequireDefault(_ZAxis2);
+
+var _ErrorBar2 = require('./cartesian/ErrorBar');
+
+var _ErrorBar3 = _interopRequireDefault(_ErrorBar2);
+
+var _LineChart2 = require('./chart/LineChart');
+
+var _LineChart3 = _interopRequireDefault(_LineChart2);
+
+var _BarChart2 = require('./chart/BarChart');
+
+var _BarChart3 = _interopRequireDefault(_BarChart2);
+
+var _PieChart2 = require('./chart/PieChart');
+
+var _PieChart3 = _interopRequireDefault(_PieChart2);
+
+var _Treemap2 = require('./chart/Treemap');
+
+var _Treemap3 = _interopRequireDefault(_Treemap2);
+
+var _Sankey2 = require('./chart/Sankey');
+
+var _Sankey3 = _interopRequireDefault(_Sankey2);
+
+var _RadarChart2 = require('./chart/RadarChart');
+
+var _RadarChart3 = _interopRequireDefault(_RadarChart2);
+
+var _ScatterChart2 = require('./chart/ScatterChart');
+
+var _ScatterChart3 = _interopRequireDefault(_ScatterChart2);
+
+var _AreaChart2 = require('./chart/AreaChart');
+
+var _AreaChart3 = _interopRequireDefault(_AreaChart2);
+
+var _RadialBarChart2 = require('./chart/RadialBarChart');
+
+var _RadialBarChart3 = _interopRequireDefault(_RadialBarChart2);
+
+var _ComposedChart2 = require('./chart/ComposedChart');
+
+var _ComposedChart3 = _interopRequireDefault(_ComposedChart2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Surface = _Surface3.default;
+exports.Layer = _Layer3.default;
+exports.Legend = _Legend3.default;
+exports.Tooltip = _Tooltip3.default;
+exports.ResponsiveContainer = _ResponsiveContainer3.default;
+exports.Cell = _Cell3.default;
+exports.Text = _Text3.default;
+exports.Label = _Label3.default;
+exports.LabelList = _LabelList3.default;
+exports.Sector = _Sector3.default;
+exports.Curve = _Curve3.default;
+exports.Rectangle = _Rectangle3.default;
+exports.Polygon = _Polygon3.default;
+exports.Dot = _Dot3.default;
+exports.Cross = _Cross3.default;
+exports.Symbols = _Symbols3.default;
+exports.PolarGrid = _PolarGrid3.default;
+exports.PolarRadiusAxis = _PolarRadiusAxis3.default;
+exports.PolarAngleAxis = _PolarAngleAxis3.default;
+exports.Pie = _Pie3.default;
+exports.Radar = _Radar3.default;
+exports.RadialBar = _RadialBar3.default;
+exports.Brush = _Brush3.default;
+exports.ReferenceLine = _ReferenceLine3.default;
+exports.ReferenceDot = _ReferenceDot3.default;
+exports.ReferenceArea = _ReferenceArea3.default;
+exports.CartesianAxis = _CartesianAxis3.default;
+exports.CartesianGrid = _CartesianGrid3.default;
+exports.Line = _Line3.default;
+exports.Area = _Area3.default;
+exports.Bar = _Bar3.default;
+exports.Scatter = _Scatter3.default;
+exports.XAxis = _XAxis3.default;
+exports.YAxis = _YAxis3.default;
+exports.ZAxis = _ZAxis3.default;
+exports.ErrorBar = _ErrorBar3.default;
+exports.LineChart = _LineChart3.default;
+exports.BarChart = _BarChart3.default;
+exports.PieChart = _PieChart3.default;
+exports.Treemap = _Treemap3.default;
+exports.Sankey = _Sankey3.default;
+exports.RadarChart = _RadarChart3.default;
+exports.ScatterChart = _ScatterChart3.default;
+exports.AreaChart = _AreaChart3.default;
+exports.RadialBarChart = _RadialBarChart3.default;
+exports.ComposedChart = _ComposedChart3.default;
+},{"./polyfill":"../node_modules/recharts/es6/polyfill.js","./container/Surface":"../node_modules/recharts/es6/container/Surface.js","./container/Layer":"../node_modules/recharts/es6/container/Layer.js","./component/Legend":"../node_modules/recharts/es6/component/Legend.js","./component/Tooltip":"../node_modules/recharts/es6/component/Tooltip.js","./component/ResponsiveContainer":"../node_modules/recharts/es6/component/ResponsiveContainer.js","./component/Cell":"../node_modules/recharts/es6/component/Cell.js","./component/Text":"../node_modules/recharts/es6/component/Text.js","./component/Label":"../node_modules/recharts/es6/component/Label.js","./component/LabelList":"../node_modules/recharts/es6/component/LabelList.js","./shape/Sector":"../node_modules/recharts/es6/shape/Sector.js","./shape/Curve":"../node_modules/recharts/es6/shape/Curve.js","./shape/Rectangle":"../node_modules/recharts/es6/shape/Rectangle.js","./shape/Polygon":"../node_modules/recharts/es6/shape/Polygon.js","./shape/Dot":"../node_modules/recharts/es6/shape/Dot.js","./shape/Cross":"../node_modules/recharts/es6/shape/Cross.js","./shape/Symbols":"../node_modules/recharts/es6/shape/Symbols.js","./polar/PolarGrid":"../node_modules/recharts/es6/polar/PolarGrid.js","./polar/PolarRadiusAxis":"../node_modules/recharts/es6/polar/PolarRadiusAxis.js","./polar/PolarAngleAxis":"../node_modules/recharts/es6/polar/PolarAngleAxis.js","./polar/Pie":"../node_modules/recharts/es6/polar/Pie.js","./polar/Radar":"../node_modules/recharts/es6/polar/Radar.js","./polar/RadialBar":"../node_modules/recharts/es6/polar/RadialBar.js","./cartesian/Brush":"../node_modules/recharts/es6/cartesian/Brush.js","./cartesian/ReferenceLine":"../node_modules/recharts/es6/cartesian/ReferenceLine.js","./cartesian/ReferenceDot":"../node_modules/recharts/es6/cartesian/ReferenceDot.js","./cartesian/ReferenceArea":"../node_modules/recharts/es6/cartesian/ReferenceArea.js","./cartesian/CartesianAxis":"../node_modules/recharts/es6/cartesian/CartesianAxis.js","./cartesian/CartesianGrid":"../node_modules/recharts/es6/cartesian/CartesianGrid.js","./cartesian/Line":"../node_modules/recharts/es6/cartesian/Line.js","./cartesian/Area":"../node_modules/recharts/es6/cartesian/Area.js","./cartesian/Bar":"../node_modules/recharts/es6/cartesian/Bar.js","./cartesian/Scatter":"../node_modules/recharts/es6/cartesian/Scatter.js","./cartesian/XAxis":"../node_modules/recharts/es6/cartesian/XAxis.js","./cartesian/YAxis":"../node_modules/recharts/es6/cartesian/YAxis.js","./cartesian/ZAxis":"../node_modules/recharts/es6/cartesian/ZAxis.js","./cartesian/ErrorBar":"../node_modules/recharts/es6/cartesian/ErrorBar.js","./chart/LineChart":"../node_modules/recharts/es6/chart/LineChart.js","./chart/BarChart":"../node_modules/recharts/es6/chart/BarChart.js","./chart/PieChart":"../node_modules/recharts/es6/chart/PieChart.js","./chart/Treemap":"../node_modules/recharts/es6/chart/Treemap.js","./chart/Sankey":"../node_modules/recharts/es6/chart/Sankey.js","./chart/RadarChart":"../node_modules/recharts/es6/chart/RadarChart.js","./chart/ScatterChart":"../node_modules/recharts/es6/chart/ScatterChart.js","./chart/AreaChart":"../node_modules/recharts/es6/chart/AreaChart.js","./chart/RadialBarChart":"../node_modules/recharts/es6/chart/RadialBarChart.js","./chart/ComposedChart":"../node_modules/recharts/es6/chart/ComposedChart.js"}],"components/bar/QuantityGraph.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _recharts = require("recharts");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var data = [{ name: "drink2", price: 5, Quantity: 20, totalSales: 100, AverageRating: 2 }, { name: "drink1", price: 13, Quantity: 2, totalSales: 26, AverageRating: 4 }, { name: "drink3", price: 200, Quantity: 2, totalSales: 400, AverageRating: 5 }];
+// import styled from "styled-components";
+
+
+var QuantityGraph = function QuantityGraph() {
+  return _react2.default.createElement(
+    _recharts.ResponsiveContainer,
+    { width: 600, height: 300 },
+    _react2.default.createElement(
+      _recharts.BarChart,
+      { data: data,
+        margin: { top: 20, bottom: 5 },
+        barCategoryGap: 50,
+        barGap: 1
+      },
+      _react2.default.createElement(_recharts.XAxis, { dataKey: "name" }),
+      _react2.default.createElement(_recharts.YAxis, { type: "number" }),
+      _react2.default.createElement(_recharts.Tooltip, null),
+      _react2.default.createElement(_recharts.Legend, null),
+      _react2.default.createElement(_recharts.Bar, { dataKey: "Quantity", fill: "#8884d8" }),
+      _react2.default.createElement(_recharts.Bar, { dataKey: "AverageRating", fill: "#82ca9d" })
+    )
+  );
+};
+
+exports.default = QuantityGraph;
+},{"react":"../node_modules/react/index.js","recharts":"../node_modules/recharts/es6/index.js"}],"components/bar/BarStats.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require("styled-components");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _QuantityGraph = require("./QuantityGraph.jsx");
+
+var _QuantityGraph2 = _interopRequireDefault(_QuantityGraph);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SelectWrapper = _styledComponents2.default.div.withConfig({
+  displayName: "BarStats__SelectWrapper",
+  componentId: "b31d1w-0"
+})(["display:inline-block;position:relative;font-size:20px;font-family:sans-serif;font-weight:600;"]);
+
+var GraphWrapper = _styledComponents2.default.div.withConfig({
+  displayName: "BarStats__GraphWrapper",
+  componentId: "b31d1w-1"
+})(["display:block;margin:20px auto;background-color:azure;"]);
+
+var GraphHeader = _styledComponents2.default.h3.withConfig({
+  displayName: "BarStats__GraphHeader",
+  componentId: "b31d1w-2"
+})(["text-align:center;font-size:25px;font-family:sans-serif;"]);
+
+var BarStats = function (_React$Component) {
+  _inherits(BarStats, _React$Component);
+
+  function BarStats(props) {
+    _classCallCheck(this, BarStats);
+
+    var _this = _possibleConstructorReturn(this, (BarStats.__proto__ || Object.getPrototypeOf(BarStats)).call(this, props));
+
+    _this.state = {
+      view: "quantity"
+    };
+    _this.handleChange = _this.handleChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(BarStats, [{
+    key: "renderView",
+    value: function renderView() {
+      var view = this.state.view;
+
+      if (view === "quantity") {
+        return _react2.default.createElement(
+          GraphWrapper,
+          null,
+          _react2.default.createElement(_QuantityGraph2.default, null)
+        );
+      } else {
+        return _react2.default.createElement(
+          "div",
+          null,
+          "View 2"
+        );
+      }
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState({
+        view: e.target.value
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          GraphHeader,
+          null,
+          "Top 10 Menu Items"
+        ),
+        _react2.default.createElement(
+          SelectWrapper,
+          null,
+          _react2.default.createElement(
+            "label",
+            { htmlFor: "sortBy" },
+            _react2.default.createElement(
+              "span",
+              null,
+              "Sorted By:"
+            ),
+            "\t",
+            _react2.default.createElement(
+              "select",
+              { value: this.state.view,
+                onBlur: this.handleChange,
+                onChange: this.handleChange },
+              _react2.default.createElement(
+                "option",
+                { value: "quantity" },
+                "Quantity"
+              ),
+              _react2.default.createElement(
+                "option",
+                { value: "rating" },
+                "Customer Rating"
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          this.renderView()
+        )
+      );
+    }
+  }]);
+
+  return BarStats;
+}(_react2.default.Component);
+
+exports.default = BarStats;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./QuantityGraph.jsx":"components/bar/QuantityGraph.jsx"}],"components/bar/Bar.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _router = require("@reach/router");
+
+var _BarStats = require("./BarStats.jsx");
+
+var _BarStats2 = _interopRequireDefault(_BarStats);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Bar = function (_React$Component) {
+  _inherits(Bar, _React$Component);
+
+  function Bar(props) {
+    _classCallCheck(this, Bar);
+
+    return _possibleConstructorReturn(this, (Bar.__proto__ || Object.getPrototypeOf(Bar)).call(this, props));
+  }
+
+  _createClass(Bar, [{
+    key: "render",
+    value: function render() {
+      var barInfo = this.props.barInfo;
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "h1",
+          null,
+          barInfo.barName
+        ),
+        _react2.default.createElement(
+          _router.Link,
+          { to: "/bar/staff" },
+          "View Bar Staff"
+        ),
+        _react2.default.createElement(
+          _router.Link,
+          { to: "/bar/menu" },
+          "Edit Menu"
+        ),
+        _react2.default.createElement(_BarStats2.default, null)
+      );
+    }
+  }]);
+
+  return Bar;
+}(_react2.default.Component);
+
+;
+
+exports.default = Bar;
+},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","./BarStats.jsx":"components/bar/BarStats.jsx"}],"components/bar/BarStaff.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require("styled-components");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import axios from "axios"
+
+var Wrapper = _styledComponents2.default.main.withConfig({
+  displayName: "BarStaff__Wrapper",
+  componentId: "sc-1lnbpor-0"
+})(["display:grid;grid-gap:10px;justify-items:center;bottom-margin:10px;"]);
+
+var Staff = _styledComponents2.default.ul.withConfig({
+  displayName: "BarStaff__Staff",
+  componentId: "sc-1lnbpor-1"
+})(["font-size:22px;line-height:30px;"]);
+
+var BarStaff = function (_React$Component) {
+  _inherits(BarStaff, _React$Component);
+
+  function BarStaff(props) {
+    _classCallCheck(this, BarStaff);
+
+    var _this = _possibleConstructorReturn(this, (BarStaff.__proto__ || Object.getPrototypeOf(BarStaff)).call(this, props));
+
+    _this.state = {
+      showInput: false,
+      bartenders: [{ id: '1', name: 'Dwight Schrute' }, { id: '2', name: 'Jim Halpert' }, { id: '3', name: 'Pam Beesly' }, { id: '4', name: 'Michael Scott' }]
+    };
+    return _this;
+  }
+
+  _createClass(BarStaff, [{
+    key: "onComponentDidMount",
+    value: function onComponentDidMount() {
+      //axios request to get bartender names
+
+      //TODO: UNCOMMENT ONCE BARTENDER TABLE IN DB IS IN PLACE
+      // axios.get('/bar/staff')
+      //   .then((data) => {
+      //     const staff = {
+      //       id: data.id,
+      //       name: data.username,
+      //     };
+      //     this.setState({bartenders: staff});
+      //   });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var bar = this.props.barInfo;
+      return _react2.default.createElement(
+        Wrapper,
+        null,
+        _react2.default.createElement(
+          "h1",
+          null,
+          "Bartenders at ",
+          bar.barName
+        ),
+        _react2.default.createElement(
+          Staff,
+          null,
+          this.state.bartenders.map(function (bartender) {
+            return _react2.default.createElement(
+              "li",
+              { key: bartender.id },
+              bartender.name
+            );
+          })
+        )
+      );
+    }
+  }]);
+
+  return BarStaff;
+}(_react2.default.Component);
+
+;
+
+exports.default = BarStaff;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/bar/modal.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require("react-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var modalRoot = document.getElementById("modal");
+
+var Modal = function (_React$Component) {
+  _inherits(Modal, _React$Component);
+
+  function Modal(props) {
+    _classCallCheck(this, Modal);
+
+    var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, props));
+
+    _this.el = document.createElement("div");
+    return _this;
+  }
+
+  _createClass(Modal, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      modalRoot.appendChild(this.el);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      modalRoot.removeChild(this.el);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return (0, _reactDom.createPortal)(this.props.children, this.el);
+    }
+  }]);
+
+  return Modal;
+}(_react2.default.Component);
+
+exports.default = Modal;
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js"}],"components/bar/AddMenuItem.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require("styled-components");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ModalContainer = _styledComponents2.default.div.withConfig({
+  displayName: "AddMenuItem__ModalContainer",
+  componentId: "sc-1xy0fp7-0"
+})(["background-color:white;width:350px;padding:15px;border-radius:5px;text-align:center;line-height:8px;"]);
+var ClickableWrapper = _styledComponents2.default.button.withConfig({
+  displayName: "AddMenuItem__ClickableWrapper",
+  componentId: "sc-1xy0fp7-1"
+})(["margin:3px;width:30%;font-size:0.8em;"]);
+
+var AddMenuItem = function (_React$Component) {
+  _inherits(AddMenuItem, _React$Component);
+
+  function AddMenuItem(props) {
+    _classCallCheck(this, AddMenuItem);
+
+    var _this = _possibleConstructorReturn(this, (AddMenuItem.__proto__ || Object.getPrototypeOf(AddMenuItem)).call(this, props));
+
+    _this.state = {
+      name: '',
+      category: '',
+      price: '',
+      description: '',
+      imageUrl: './default-drink-image.jpg'
+    };
+    _this.handleInput = _this.handleInput.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(AddMenuItem, [{
+    key: "handleInput",
+    value: function handleInput(event) {
+      var value = event.target.value;
+      var field = event.target.name;
+      this.setState(_defineProperty({}, field, value));
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      var item = this.state;
+      // axios post request to save new item to database
+      _axios2.default.post('/api/bar/menu/add', { item: item }).then(function (res) {
+        //need to refresh the editmenu page with new item
+        console.log('res in handleSubmit', res);
+      }).catch(function (err) {
+        return console.error(err);
+      });
+
+      this.props.toggleModal();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        ModalContainer,
+        null,
+        _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            "form",
+            null,
+            _react2.default.createElement(
+              "h2",
+              null,
+              "Add a New Menu Item"
+            ),
+            "Item Name",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("input", {
+              type: "text",
+              name: "name",
+              onChange: this.handleInput }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            "Category",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("input", {
+              type: "text",
+              name: "category",
+              onChange: this.handleInput }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            "Price",
+            _react2.default.createElement("br", null),
+            "$ ",
+            _react2.default.createElement("input", {
+              type: "text",
+              name: "price",
+              onChange: this.handleInput }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            "Description",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("textarea", {
+              rows: "4",
+              cols: "100%",
+              name: "description",
+              onChange: this.handleInput }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            "Image URL",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("input", {
+              type: "text",
+              name: "imageUrl",
+              onChange: this.handleInput }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              ClickableWrapper,
+              { type: "submit", onClick: this.handleSubmit },
+              "Save Item"
+            )
+          ),
+          _react2.default.createElement(
+            ClickableWrapper,
+            { onClick: function onClick() {
+                return _this2.props.toggleModal();
+              } },
+            "Exit"
+          )
+        )
+      );
+    }
+  }]);
+
+  return AddMenuItem;
+}(_react2.default.Component);
+
+exports.default = AddMenuItem;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js"}],"components/bar/EditMenuItem.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require("styled-components");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ModalContainer = _styledComponents2.default.div.withConfig({
+  displayName: "EditMenuItem__ModalContainer",
+  componentId: "sc-19huqlf-0"
+})(["background-color:white;width:350px;padding:15px;border-radius:5px;text-align:center;line-height:8px;"]);
+
+var ClickableWrapper = _styledComponents2.default.button.withConfig({
+  displayName: "EditMenuItem__ClickableWrapper",
+  componentId: "sc-19huqlf-1"
+})(["margin:3px;width:30%;font-size:0.8em;"]);
+
+var EditMenuItem = function (_React$Component) {
+  _inherits(EditMenuItem, _React$Component);
+
+  function EditMenuItem(props) {
+    _classCallCheck(this, EditMenuItem);
+
+    var _this = _possibleConstructorReturn(this, (EditMenuItem.__proto__ || Object.getPrototypeOf(EditMenuItem)).call(this, props));
+
+    _this.state = {
+      updatedName: '',
+      updatedCategory: '',
+      updatedPrice: '',
+      updatedDescription: '',
+      updatedImageUrl: '',
+      updated: {}
+    };
+    _this.handleInput = _this.handleInput.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(EditMenuItem, [{
+    key: "handleInput",
+    value: function handleInput(event) {
+      var value = event.target.value;
+      var field = event.target.name;
+      this.setState(_defineProperty({}, field, value));
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      var original = this.props.menuItem;
+      var update = this.state;
+
+      //item to be updated
+      var item = {};
+      item.id = original.id;
+      item.name = update.updatedName === '' ? original.name : update.updatedName;
+      item.category = update.updatedCategory === '' ? original.category : update.updatedCategory;
+      item.price = update.updatedPrice === '' ? original.price : update.updatedPrice;
+      item.description = update.updatedDescription === '' ? original.description : update.updatedDescription;
+      item.imageUrl = update.updatedImageUrl === '' ? original.imageUrl : update.updatedImageUrl;
+
+      //request to update item
+      _axios2.default.put('/api/bar/menu/edit', { item: item }).then(function () {
+        //need to refresh the editmenu page with updated item
+        console.log('saved changes');
+      }).catch(function (err) {
+        return console.log(err);
+      });
+
+      this.props.toggleModal();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var item = this.props.menuItem;
+      return _react2.default.createElement(
+        ModalContainer,
+        null,
+        _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            "form",
+            null,
+            _react2.default.createElement(
+              "h2",
+              null,
+              "Edit Menu Item"
+            ),
+            "Item Name",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("input", {
+              type: "text",
+              name: "updatedName",
+              defaultValue: item.name,
+              onChange: this.handleInput }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            "Category",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("input", {
+              type: "text",
+              name: "updatedCategory",
+              defaultValue: item.category,
+              onChange: this.handleInput }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            "Price",
+            _react2.default.createElement("br", null),
+            "$ ",
+            _react2.default.createElement("input", {
+              type: "text",
+              name: "updatedPrice",
+              defaultValue: item.price,
+              onChange: this.handleInput }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            "Description",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("textarea", {
+              rows: "4",
+              cols: "100%",
+              name: "updatedDescription",
+              defaultValue: item.description,
+              onChange: this.handleInput }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            "Image URL",
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("input", {
+              type: "text",
+              name: "updatedImageUrl",
+              defaultValue: item.imageUrl,
+              onChange: this.handleInput }),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement("br", null),
+            _react2.default.createElement(
+              ClickableWrapper,
+              { type: "submit", onClick: this.handleSubmit },
+              "Save Item"
+            )
+          ),
+          _react2.default.createElement(
+            ClickableWrapper,
+            { onClick: function onClick() {
+                return _this2.props.toggleModal();
+              } },
+            "Exit"
+          )
+        )
+      );
+    }
+  }]);
+
+  return EditMenuItem;
+}(_react2.default.Component);
+
+exports.default = EditMenuItem;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js"}],"components/bar/EditMenu.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require("styled-components");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _modal = require("./modal.jsx");
+
+var _modal2 = _interopRequireDefault(_modal);
+
+var _AddMenuItem = require("./AddMenuItem.jsx");
+
+var _AddMenuItem2 = _interopRequireDefault(_AddMenuItem);
+
+var _EditMenuItem = require("./EditMenuItem.jsx");
+
+var _EditMenuItem2 = _interopRequireDefault(_EditMenuItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Wrapper = _styledComponents2.default.main.withConfig({
+  displayName: "EditMenu__Wrapper",
+  componentId: "lfep0z-0"
+})(["display:grid;grid-gap:10px;justify-items:center;"]);
+
+var ItemWrapper = _styledComponents2.default.main.withConfig({
+  displayName: "EditMenu__ItemWrapper",
+  componentId: "lfep0z-1"
+})(["width:50%;margin-bottom:10px;"]);
+
+var Image = _styledComponents2.default.img.withConfig({
+  displayName: "EditMenu__Image",
+  componentId: "lfep0z-2"
+})(["height:200px;"]);
+
+var EditMenu = function (_React$Component) {
+  _inherits(EditMenu, _React$Component);
+
+  function EditMenu(props) {
+    _classCallCheck(this, EditMenu);
+
+    var _this = _possibleConstructorReturn(this, (EditMenu.__proto__ || Object.getPrototypeOf(EditMenu)).call(this, props));
+
+    _this.handleSearchOnKeyUp = function (e) {
+      if (e.key !== "Enter") {
+        _this.setState({
+          search: e.target.value.toLowerCase()
+        },
+        //then update displayItems to match search
+        function () {
+          var searchResults = _this.state.menuItems.filter(function (item) {
+            return item.name.toLowerCase().includes(_this.state.search) || item.category.toLowerCase().includes(_this.state.search) || item.description.toLowerCase().includes(_this.state.search);
+          });
+          _this.setState({ displayItems: searchResults });
+        });
+      }
+    };
+
+    _this.state = {
+      showModal: false,
+      modalType: '',
+      search: '',
+      totalItems: 0,
+      menuItems: [],
+      displayItems: [],
+      clickedItem: ''
+    };
+    return _this;
+  }
+
+  _createClass(EditMenu, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      // axios call for menu items in database
+      _axios2.default.get('/api/bar/menu').then(function (res) {
+        var items = res.data;
+        _this2.setState({
+          menuItems: items,
+          totalItems: items.length,
+          displayItems: items
+        });
+      }).catch(function (err) {
+        return console.error(err);
+      });
+    }
+  }, {
+    key: "toggleModal",
+    value: function toggleModal() {
+      this.setState({
+        showModal: !this.state.showModal
+      });
+    }
+  }, {
+    key: "handleAdd",
+    value: function handleAdd(event) {
+      var _this3 = this;
+
+      this.setState({
+        modalType: event.target.name
+      }, function () {
+        return _this3.toggleModal();
+      });
+    }
+  }, {
+    key: "handleEdit",
+    value: function handleEdit(item, event) {
+      var _this4 = this;
+
+      this.setState({
+        clickedItem: item,
+        modalType: event.target.name
+      }, function () {
+        return _this4.toggleModal();
+      });
+    }
+  }, {
+    key: "handleDelete",
+    value: function handleDelete(item) {
+      var _this5 = this;
+
+      //axios request send id and delete
+      _axios2.default.delete('/api/bar/menu/delete', { params: { id: item.id } }).then(function () {
+        console.log('deleted');
+        _this5.componentDidMount();
+      }).catch(function (err) {
+        return console.log(err.response);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this6 = this;
+
+      var modalDisplay = void 0;
+      if (this.state.showModal && this.state.modalType === 'add') {
+        modalDisplay = _react2.default.createElement(_AddMenuItem2.default, { toggleModal: this.toggleModal.bind(this) });
+      } else {
+        modalDisplay = _react2.default.createElement(_EditMenuItem2.default, { menuItem: this.state.clickedItem, toggleModal: this.toggleModal.bind(this) });
+      }
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          Wrapper,
+          null,
+          _react2.default.createElement(
+            "h1",
+            null,
+            "Edit Menu"
+          ),
+          _react2.default.createElement(
+            "button",
+            { name: "add", onClick: this.handleAdd.bind(this) },
+            "Add New Menu Item"
+          ),
+          _react2.default.createElement(
+            "button",
+            { name: "add", onClick: this.componentDidMount.bind(this) },
+            "Refresh"
+          ),
+          _react2.default.createElement("input", { placeholder: "search for menu item...", onKeyUp: this.handleSearchOnKeyUp }),
+          _react2.default.createElement(
+            "h3",
+            null,
+            "Total Menu Items: ",
+            this.state.totalItems
+          ),
+          this.state.displayItems.map(function (item) {
+            return _react2.default.createElement(
+              ItemWrapper,
+              { key: item.id },
+              _react2.default.createElement(Image, { src: item.imageUrl, alt: item.name }),
+              _react2.default.createElement(
+                "h4",
+                null,
+                item.name
+              ),
+              _react2.default.createElement(
+                "p",
+                null,
+                item.category,
+                " - ",
+                '$' + item.price,
+                _react2.default.createElement("br", null),
+                item.description
+              ),
+              _react2.default.createElement(
+                "button",
+                { type: "button", name: "edit", onClick: _this6.handleEdit.bind(_this6, item) },
+                "Edit ",
+                item.name
+              ),
+              _react2.default.createElement(
+                "button",
+                { type: "button", name: "delete", onClick: _this6.handleDelete.bind(_this6, item) },
+                "Delete"
+              )
+            );
+          })
+        ),
+        this.state.showModal ? _react2.default.createElement(
+          _modal2.default,
+          null,
+          modalDisplay
+        ) : null
+      );
+    }
+  }]);
+
+  return EditMenu;
+}(_react2.default.Component);
+
+;
+
+exports.default = EditMenu;
+},{"react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","axios":"../node_modules/axios/index.js","./modal.jsx":"components/bar/modal.jsx","./AddMenuItem.jsx":"components/bar/AddMenuItem.jsx","./EditMenuItem.jsx":"components/bar/EditMenuItem.jsx"}],"components/register/RegisterContainer.jsx":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _router = require('@reach/router');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var RegisterContainer = function (_React$Component) {
+  _inherits(RegisterContainer, _React$Component);
+
+  function RegisterContainer(props) {
+    _classCallCheck(this, RegisterContainer);
+
+    var _this = _possibleConstructorReturn(this, (RegisterContainer.__proto__ || Object.getPrototypeOf(RegisterContainer)).call(this, props));
+
+    _this.state = {
+      registered: true,
+      role: 'Customer',
+      loggedIn: false,
+      password: '',
+      username: ''
+    };
+
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(RegisterContainer, [{
+    key: 'handleChange',
+    value: function handleChange(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      var _state = this.state,
+          username = _state.username,
+          password = _state.password,
+          role = _state.role,
+          registered = _state.registered;
+
+      var loginInfo = { username: username, password: password, role: role };
+      var userInfo = { username: username, password: password };
+      if (registered) {
+        console.log('sending login to server');
+        _axios2.default.get('/api/users/login', {
+          params: loginInfo
+        }).then(function (response) {
+          console.log('incoming response is', response);
+          if (!response.error) {
+            console.log(_this2.props);
+            _this2.props.changeRole(role);
+            _this2.setState({
+              loggedIn: true,
+              role: role
+            });
+          }
+        }).catch(function () {
+          alert('invalid login attempt, please try again');
+        });
+      } else {
+        console.log('sending signup to server');
+        _axios2.default.post('/api/users/create', userInfo).then(function (response) {
+          console.log('incoming response is', response);
+          if (!response.error) {
+            _this2.setState({ loggedIn: true });
+          }
+        }).catch(function () {
+          alert('invalid login attempt, that username may be taken');
+        });
+      }
+    }
+  }, {
+    key: 'renderView',
+    value: function renderView() {
+      var _state2 = this.state,
+          registered = _state2.registered,
+          role = _state2.role,
+          loggedIn = _state2.loggedIn;
+
+      if (loggedIn && role === 'Admin') {
+        return _react2.default.createElement(_router.Redirect, { noThrow: true, to: '/' });
+      } else if (loggedIn && role === 'Customer') {
+        return _react2.default.createElement(_router.Redirect, { noThrow: true, to: '/customer' });
+      } else if (loggedIn && role === 'Bartender') {
+        return _react2.default.createElement(_router.Redirect, { noThrow: true, to: '/business' });
+      }
+      if (registered) {
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'span',
+            null,
+            'Role: '
+          ),
+          _react2.default.createElement(
+            'select',
+            { name: 'role', value: role, onBlur: this.handleChange, onChange: this.handleChange },
+            _react2.default.createElement(
+              'option',
+              { value: 'Customer' },
+              'Customer'
+            ),
+            _react2.default.createElement(
+              'option',
+              { value: 'Bartender' },
+              'Bartender'
+            ),
+            _react2.default.createElement(
+              'option',
+              { value: 'Admin' },
+              'Admin'
+            )
+          )
+        );
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      var registered = this.state.registered;
+
+      var submitButton = registered ? "Login" : "Signup";
+      return _react2.default.createElement(
+        'div',
+        { className: 'login' },
+        _react2.default.createElement(
+          'button',
+          { onClick: function onClick() {
+              return _this3.setState({ registered: true });
+            } },
+          'Login'
+        ),
+        _react2.default.createElement(
+          'button',
+          { onClick: function onClick() {
+              return _this3.setState({ registered: false });
+            } },
+          'Create Account'
+        ),
+        _react2.default.createElement(
+          'form',
+          null,
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'username' },
+            'Username:',
+            _react2.default.createElement('input', { type: 'text', name: 'username', onChange: this.handleChange })
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'password' },
+            'Password:',
+            _react2.default.createElement('input', { type: 'password', name: 'password', onChange: this.handleChange })
+          ),
+          this.renderView(),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('input', { className: 'signup', type: 'button', value: submitButton, onClick: this.handleSubmit })
+        )
+      );
+    }
+  }]);
+
+  return RegisterContainer;
+}(_react2.default.Component);
+
+;
+
+exports.default = RegisterContainer;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","@reach/router":"../node_modules/@reach/router/es/index.js"}],"barback-logo.png":[function(require,module,exports) {
+module.exports = "/barback-logo.556d037f.png";
+},{}],"index.jsx":[function(require,module,exports) {
+"use strict";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _router = require("@reach/router");
+
+var _reactDom = require("react-dom");
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _styledComponents = require("styled-components");
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _App = require("./components/App.jsx");
+
+var _App2 = _interopRequireDefault(_App);
+
+var _business = require("./components/business/business.jsx");
+
+var _business2 = _interopRequireDefault(_business);
+
+var _Bar = require("./components/bar/Bar.jsx");
+
+var _Bar2 = _interopRequireDefault(_Bar);
+
+var _BarStaff = require("./components/bar/BarStaff.jsx");
+
+var _BarStaff2 = _interopRequireDefault(_BarStaff);
+
+var _EditMenu = require("./components/bar/EditMenu.jsx");
+
+var _EditMenu2 = _interopRequireDefault(_EditMenu);
+
+var _RegisterContainer = require("./components/register/RegisterContainer.jsx");
+
+var _RegisterContainer2 = _interopRequireDefault(_RegisterContainer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+//Styled Components
+var Wrapper = _styledComponents2.default.main.withConfig({
+  displayName: "src__Wrapper",
+  componentId: "sc-1looarw-0"
+})(["display:grid;grid-gap:10px;justify-items:center;"]);
+
+var Login = function (_React$Component) {
+  _inherits(Login, _React$Component);
+
+  function Login() {
+    _classCallCheck(this, Login);
+
+    var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this));
+
+    _this.state = {
+      barInfo: {
+        id: '1',
+        barName: 'The Best Bar',
+        password: 'password'
+      },
+      showLogo: true,
+      role: '',
+      loggedIn: false
+    };
+    _this.hideLogo = _this.hideLogo.bind(_this);
+    _this.changeRole = _this.changeRole.bind(_this);
+    _this.logout = _this.logout.bind(_this);
+    return _this;
+  }
+
+  _createClass(Login, [{
+    key: "hideLogo",
+    value: function hideLogo() {
+      this.setState({ showLogo: false });
+    }
+  }, {
+    key: "changeRole",
+    value: function changeRole(role) {
+      this.setState({
+        role: role,
+        loggedIn: true
+      });
+    }
+  }, {
+    key: "logout",
+    value: function logout() {
+      this.setState({
+        role: '',
+        loggedIn: false
+      });
+      location.reload();
+    }
+  }, {
+    key: "renderView",
+    value: function renderView() {
+      var _state = this.state,
+          role = _state.role,
+          loggedIn = _state.loggedIn;
+
+      if (!loggedIn) {
+        return _react2.default.createElement(
+          _router.Link,
+          { to: "/register", onClick: this.hideLogo },
+          "Sign Up/Login"
+        );
+      } else {
+        if (role === 'Admin') {
+          return _react2.default.createElement(
+            "nav",
+            null,
+            _react2.default.createElement(
+              _router.Link,
+              { to: "/customer", onClick: this.hideLogo },
+              "View like a Customer"
+            ),
+            ' | ',
+            _react2.default.createElement(
+              _router.Link,
+              { to: "/business" },
+              "View like a Bartender"
+            ),
+            ' | ',
+            _react2.default.createElement(
+              _router.Link,
+              { to: "/bar" },
+              "Bar Analytics"
+            )
+          );
+        }
+        if (role === 'Bartender') {
+          // just need to be navigated to bartender section
+        }
+        if (role === 'Customer') {
+          // just need to be navigated to customer section
+        }
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var bar = this.state.barInfo;
+      return _react2.default.createElement(
+        Wrapper,
+        null,
+        _react2.default.createElement(
+          "nav",
+          null,
+          this.renderView(),
+          _react2.default.createElement(
+            "button",
+            { onBlur: this.logout, onClick: this.logout },
+            "Log Out"
+          )
+        ),
+        this.state.showLogo ? _react2.default.createElement("img", { alt: "barback logo", src: require("/barback-logo.png") }) : null,
+        _react2.default.createElement(
+          _router.Router,
+          null,
+          _react2.default.createElement(_App2.default, { path: "/customer" }),
+          _react2.default.createElement(_business2.default, { path: "/business" }),
+          _react2.default.createElement(_Bar2.default, { path: "/bar", barInfo: bar }),
+          _react2.default.createElement(_BarStaff2.default, { path: "/bar/staff", barInfo: bar }),
+          _react2.default.createElement(_EditMenu2.default, { path: "/bar/menu", barInfo: bar }),
+          _react2.default.createElement(_RegisterContainer2.default, { path: "/register", changeRole: this.changeRole })
+        )
+      );
+    }
+  }]);
+
+  return Login;
+}(_react2.default.Component);
+
+;
+
+_reactDom2.default.render(_react2.default.createElement(Login, null), document.getElementById("root"));
+},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","react-dom":"../node_modules/react-dom/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","./components/App.jsx":"components/App.jsx","./components/business/business.jsx":"components/business/business.jsx","./components/bar/Bar.jsx":"components/bar/Bar.jsx","./components/bar/BarStaff.jsx":"components/bar/BarStaff.jsx","./components/bar/EditMenu.jsx":"components/bar/EditMenu.jsx","./components/register/RegisterContainer.jsx":"components/register/RegisterContainer.jsx","/barback-logo.png":"barback-logo.png"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var global = arguments[3];
+var OVERLAY_ID = '__parcel__error__overlay__';
+
+var OldModule = module.bundle.Module;
+
+function Module(moduleName) {
+  OldModule.call(this, moduleName);
+  this.hot = {
+    data: module.bundle.hotData,
+    _acceptCallbacks: [],
+    _disposeCallbacks: [],
+    accept: function (fn) {
+      this._acceptCallbacks.push(fn || function () {});
+    },
+    dispose: function (fn) {
+      this._disposeCallbacks.push(fn);
+    }
+  };
+
+  module.bundle.hotData = null;
+}
+
+module.bundle.Module = Module;
+
+var parent = module.bundle.parent;
+if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
+  var hostname = '' || location.hostname;
+  var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49844' + '/');
+  ws.onmessage = function (event) {
+    var data = JSON.parse(event.data);
+
+    if (data.type === 'update') {
+      console.clear();
+
+      data.assets.forEach(function (asset) {
+        hmrApply(global.parcelRequire, asset);
+      });
+
+      data.assets.forEach(function (asset) {
+        if (!asset.isNew) {
+          hmrAccept(global.parcelRequire, asset.id);
+        }
+      });
+    }
+
+    if (data.type === 'reload') {
+      ws.close();
+      ws.onclose = function () {
+        location.reload();
+      };
+    }
+
+    if (data.type === 'error-resolved') {
+      console.log('[parcel] ✨ Error resolved');
+
+      removeErrorOverlay();
+    }
+
+    if (data.type === 'error') {
+      console.error('[parcel] 🚨  ' + data.error.message + '\n' + data.error.stack);
+
+      removeErrorOverlay();
+
+      var overlay = createErrorOverlay(data);
+      document.body.appendChild(overlay);
+    }
+  };
+}
+
+function removeErrorOverlay() {
+  var overlay = document.getElementById(OVERLAY_ID);
+  if (overlay) {
+    overlay.remove();
+  }
+}
+
+function createErrorOverlay(data) {
+  var overlay = document.createElement('div');
+  overlay.id = OVERLAY_ID;
+
+  // html encode message and stack trace
+  var message = document.createElement('div');
+  var stackTrace = document.createElement('pre');
+  message.innerText = data.error.message;
+  stackTrace.innerText = data.error.stack;
+
+  overlay.innerHTML = '<div style="background: black; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; opacity: 0.85; font-family: Menlo, Consolas, monospace; z-index: 9999;">' + '<span style="background: red; padding: 2px 4px; border-radius: 2px;">ERROR</span>' + '<span style="top: 2px; margin-left: 5px; position: relative;">🚨</span>' + '<div style="font-size: 18px; font-weight: bold; margin-top: 20px;">' + message.innerHTML + '</div>' + '<pre>' + stackTrace.innerHTML + '</pre>' + '</div>';
+
+  return overlay;
+}
+
+function getParents(bundle, id) {
+  var modules = bundle.modules;
+  if (!modules) {
+    return [];
+  }
+
+  var parents = [];
+  var k, d, dep;
+
+  for (k in modules) {
+    for (d in modules[k][1]) {
+      dep = modules[k][1][d];
+      if (dep === id || Array.isArray(dep) && dep[dep.length - 1] === id) {
+        parents.push(k);
+      }
+    }
+  }
+
+  if (bundle.parent) {
+    parents = parents.concat(getParents(bundle.parent, id));
+  }
+
+  return parents;
+}
+
+function hmrApply(bundle, asset) {
+  var modules = bundle.modules;
+  if (!modules) {
+    return;
+  }
+
+  if (modules[asset.id] || !bundle.parent) {
+    var fn = new Function('require', 'module', 'exports', asset.generated.js);
+    asset.isNew = !modules[asset.id];
+    modules[asset.id] = [fn, asset.deps];
+  } else if (bundle.parent) {
+    hmrApply(bundle.parent, asset);
+  }
+}
+
+function hmrAccept(bundle, id) {
+  var modules = bundle.modules;
+  if (!modules) {
+    return;
+  }
+
+  if (!modules[id] && bundle.parent) {
+    return hmrAccept(bundle.parent, id);
+  }
+
+  var cached = bundle.cache[id];
+  bundle.hotData = {};
+  if (cached) {
+    cached.hot.data = bundle.hotData;
+  }
+
+  if (cached && cached.hot && cached.hot._disposeCallbacks.length) {
+    cached.hot._disposeCallbacks.forEach(function (cb) {
+      cb(bundle.hotData);
+    });
+  }
+
+  delete bundle.cache[id];
+  bundle(id);
+
+  cached = bundle.cache[id];
+  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+    cached.hot._acceptCallbacks.forEach(function (cb) {
+      cb();
+    });
+    return true;
+  }
+
+  return getParents(global.parcelRequire, id).some(function (id) {
+    return hmrAccept(global.parcelRequire, id);
+  });
+}
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
+//# sourceMappingURL=/src.b4e1ba39.map
