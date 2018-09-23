@@ -363,7 +363,7 @@ app.put('/api/bar/menu/edit', (req, res) => {
 //Bar Stats
 app.get("/api/stats", (req, res) => {
   db.Surveys.findAll({
-    attributes: ['drinkQuality', 'customerService'],
+    attributes: ['drinkQuality', 'customerServices'],
     include: [{
       model: db.Orders,
       attributes: ['id', 'status'],
