@@ -113,19 +113,19 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
     CustomerId: req.params.customer_id
   };
 
-  var orderId;
   db.Orders.create(ordersBody)
     .then(function (response) {
       let drinkOrders = req.body.drinkOrder;
       let id = response.dataValues.id;
-      orderId = id;
+      let totalWTip = req.body.total;
 
       drinkOrders.forEach(function (order) {
         let orderDetailsBody = {
           quantity: order.quantity,
           subtotal: order.subtotal,
           OrderId: id,
-          MenuItemId: order.menuItemId
+          MenuItemId: order.menuItemId,
+          total: totalWTip,
         };
         //console.log(orderDetailsBody);
         db.OrderDetails.create(orderDetailsBody);
@@ -133,7 +133,7 @@ app.post("/api/customers/:customer_id/orders", (req, res) => {
       // return id;
     })
     .then(function () {
-      res.sendStatus(201).end(orderId);
+      res.sendStatus(201);
       // res.status(201).send(orderId);
     });
 });
