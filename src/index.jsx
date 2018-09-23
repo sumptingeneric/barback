@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import App from "./components/App.jsx";
 import Business from "./components/business/business.jsx";
 import Bar from "./components/bar/Bar.jsx";
-import BarProfile from "./components/bar/BarProfile.jsx";
+import BarStaff from "./components/bar/BarStaff.jsx";
 import EditMenu from "./components/bar/EditMenu.jsx";
 import Register from "./components/register/RegisterContainer.jsx";
 
@@ -25,28 +25,37 @@ class Login extends React.Component {
         id: '1',
         barName: 'The Best Bar',
         password: 'password',
-      }
+      },
+      showLogo: true,
     }
+    this.hideLogo = this.hideLogo.bind(this);
+  }
+
+  hideLogo() {
+    this.setState({showLogo: false});
   }
   render() {
     const bar = this.state.barInfo;
     return (
       <Wrapper>
         <nav>
-          <Link to="/customer">Customer</Link>
+          <Link to="/customer" onClick={this.hideLogo}>Customer</Link>
           {' | '}
-          <Link to="/business">Bartender</Link>
+          <Link to="/business" onClick={this.hideLogo}>Bartender</Link>
           {' | '}
-          <Link to="/bar">Bar</Link>
+          <Link to="/bar" onClick={this.hideLogo}>Bar</Link>
           {' | '}
-          <Link to="/register">Sign Up/Login</Link>
+          <Link to="/register" onClick={this.hideLogo}>Sign Up/Login</Link>
         </nav>
+        {this.state.showLogo ? (
+          <img alt="barback logo" src={require("/barback-logo.png")} />
+        ) : null}
 
         <Router>
           <App path="/customer" />
           <Business path="/business" />
           <Bar path="/bar" barInfo={bar}/>
-          <BarProfile path="/bar/profile" barInfo={bar}/>
+          <BarStaff path="/bar/staff" barInfo={bar}/>
           <EditMenu path="/bar/menu" barInfo={bar}/>
           <Register path="/register" />
         </Router>

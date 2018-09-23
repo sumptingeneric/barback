@@ -343,7 +343,17 @@ app.get("/api/stats", (req, res) => {
     .then((data) => {
       res.send(data);
     })
-})
+});
+
+// //// BARTENDERS //// //
+//TODO: UNCOMMENT ONCE BARTENDER DB IS IN PLACE
+// app.get('/bar/staff', (req, res) => {
+//   db.Bartenders.findAll()
+//     .then((data) => {
+//       res.send(data);
+//     })
+//     .catch((err) => console.log(err));
+// });
 
 //Port Listening
 

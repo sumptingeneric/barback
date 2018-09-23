@@ -4,7 +4,6 @@ import axios from "axios";
 import Modal from "./modal.jsx";
 import AddMenuItem from "./AddMenuItem.jsx";
 import EditMenuItem from "./EditMenuItem.jsx";
-// import Search from "../customer/search.jsx";
 
 const Wrapper = styled.main`
   display: grid;
@@ -43,7 +42,7 @@ class EditMenu extends React.Component {
         this.setState({
           menuItems: items,
           totalItems: items.length,
-          displayItems: this.state.menuItems,
+          displayItems: items,
         });
       })
       .catch( err => console.error(err));
@@ -78,21 +77,23 @@ class EditMenu extends React.Component {
       .catch((err) => console.log(err.response));
   }
 
-  // handleSearchOnKeyUp = e => {
-  //   if (e.key !== "Enter") {
-  //     this.setState({
-  //       search: (e.target.value).toLowerCase()
-  //     },
-  //       //then update displayItems to match search
-  //       () => {
-  //         let searchResults = this.state.menuItems.filter(item => {
-  //           return item.name.toLowerCase().includes(this.state.search);
-  //         });
-  //         this.setState({displayItems: searchResults});
-  //       }
-  //     );
-  //   }
-  // };
+  handleSearchOnKeyUp = (e) => {
+    if (e.key !== "Enter") {
+      this.setState({
+        search: (e.target.value).toLowerCase()
+      },
+        //then update displayItems to match search
+        () => {
+          let searchResults = this.state.menuItems.filter(item => {
+            return item.name.toLowerCase().includes(this.state.search) 
+              || item.category.toLowerCase().includes(this.state.search)
+              || item.description.toLowerCase().includes(this.state.search);
+          });
+          this.setState({displayItems: searchResults});
+        }
+      );
+    }
+  };
 
   render() {
     let modalDisplay;
@@ -108,9 +109,10 @@ class EditMenu extends React.Component {
         <Wrapper>
           <h1>Edit Menu</h1>
           <button name="add" onClick={this.handleAdd.bind(this)}>Add New Menu Item</button>
-          {/* <Search handleSearch={this.handleSearchOnKeyUp}/> */}
+          <button name="add" onClick={this.componentDidMount.bind(this)}>Refresh</button>
+          <input placeholder="search for menu item..." onKeyUp={this.handleSearchOnKeyUp} />
           <h3>Total Menu Items: {this.state.totalItems}</h3>
-          {this.state.menuItems.map(item => {
+          {this.state.displayItems.map(item => {
             return (
               <ItemWrapper key={item.id}>
                 <Image src={item.imageUrl} alt={item.name} />
