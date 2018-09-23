@@ -47,9 +47,9 @@ class UserSurvey extends React.Component {
     // }
 
     handleSubmit = () => {
-        const orderID = this.props.id;
+        const OrderId = this.props.id;
         const {name, drinkQuality, customerServices} = this.state;
-        const userSurvey = {orderID, name, drinkQuality, customerServices};
+        const userSurvey = {OrderId, name, drinkQuality, customerServices};
         console.log('userSurvey sent', userSurvey);
         axios.post(`/api/stats/survey`, userSurvey)
         .then(res => {
