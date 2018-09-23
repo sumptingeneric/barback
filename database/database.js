@@ -6,7 +6,8 @@ require('dotenv').config();
 // });
 
 // const orm = new Sequelize(`${process.env.DATABASE_URL}`);
-const orm = new Sequelize(`${process.env.DATABASE_URL2}`);
+// const orm = new Sequelize(`${process.env.DATABASE_URL2}`);
+const orm = new Sequelize(`${process.env.DB_MOCK}`);
 
 orm
   .authenticate()
@@ -68,15 +69,15 @@ MenuItems.belongsToMany(Orders, { through: "OrderDetails" });
 OrderDetails.belongsTo(Orders);
 OrderDetails.belongsTo(MenuItems);
 Surveys.belongsTo(Orders);
-orm.sync();
-// OrderDetails.sync();
-// MenuItems.sync();
-// Customers.sync();
-// Orders.sync();
-// OrderDetails.sync();
-// Surveys.sync();
-// Bartenders.sync();
-// Admins.sync();
+// orm.sync();
+OrderDetails.sync();
+MenuItems.sync();
+Customers.sync();
+Orders.sync();
+OrderDetails.sync();
+Surveys.sync();
+Bartenders.sync();
+Admins.sync();
 
 /****************DB HELPER FUNCTIONS *************/
 const doesUsernameExist = (username, role) => {
