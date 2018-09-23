@@ -52178,8 +52178,12 @@ var App = function (_React$Component) {
         _this5.setState({
           orders: response.data
         });
+<<<<<<< HEAD
         // timeout below will spam the server, use with caution!
         // setTimeout(this.getCustomerOrders(), 2000); 
+=======
+        // setTimeout(this.getCustomerOrders(), 2000);
+>>>>>>> Minor modifications after rebase
       });
     }
 
@@ -98172,7 +98176,7 @@ var Login = function (_React$Component) {
       if (!loggedIn) {
         return _react2.default.createElement(
           _router.Link,
-          { to: "/register" },
+          { to: "/register", onClick: this.hideLogo },
           "Sign Up/Login"
         );
       } else {
@@ -98274,7 +98278,11 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+<<<<<<< HEAD
   var ws = new WebSocket(protocol + '://' + hostname + ':' + '55711' + '/');
+=======
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53633' + '/');
+>>>>>>> Minor modifications after rebase
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

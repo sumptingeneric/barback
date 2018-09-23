@@ -57,7 +57,7 @@ class Login extends React.Component {
   renderView() {
     const { role, loggedIn } = this.state;
     if (!loggedIn) {
-      return <Link to="/register">Sign Up/Login</Link>
+      return <Link to="/register" onClick={this.hideLogo}>Sign Up/Login</Link>
     } else {
       if (role === 'Admin') {
         return (
