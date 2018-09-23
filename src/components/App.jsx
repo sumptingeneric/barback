@@ -55,10 +55,11 @@ class App extends React.Component {
         drinks[i].subtotal += order.subtotal;
       }
     }
+    let orderTotal = this.state.checkout.total + order.subtotal;
     if (!drinksExistsinCheckOut) {
       drinks.push(order);
       this.setState({
-        checkout: Object.assign({}, this.state.checkout, { drinkOrder: drinks, total: order.subtotal })
+        checkout: Object.assign({}, this.state.checkout, { drinkOrder: drinks, total: orderTotal })
       });
     }
   };
