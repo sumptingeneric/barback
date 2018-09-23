@@ -5,9 +5,9 @@ require('dotenv').config();
 //   dialect: "mysql"
 // });
 
-// const orm = new Sequelize(`${process.env.DATABASE_URL}`);
+const orm = new Sequelize(`${process.env.DATABASE_URL}`);
 // const orm = new Sequelize(`${process.env.DATABASE_URL2}`);
-const orm = new Sequelize(`${process.env.DB_MOCK}`);
+// const orm = new Sequelize(`${process.env.DB_MOCK}`);
 
 orm
   .authenticate()
