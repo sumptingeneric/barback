@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { Redirect } from "@reach/router";
 
 const ModalContainer = styled.div`
   background-color: white;
@@ -29,6 +28,8 @@ class EditMenuItem extends React.Component {
       updatedImageUrl: '',
       updated: {},
     };
+    this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInput(event) {
@@ -55,15 +56,10 @@ class EditMenuItem extends React.Component {
       .then(() => {
         //need to refresh the editmenu page with updated item
         console.log('saved changes');
-        this.redirectRender();
       })
       .catch(err => console.log(err));
 
     this.props.toggleModal();
-  }
-
-  redirectRender() {
-    return <Redirect nothrow to="/bar" />;
   }
 
   render() {
@@ -78,21 +74,21 @@ class EditMenuItem extends React.Component {
               type="text"
               name="updatedName"
               defaultValue={item.name}
-              onChange={this.handleInput.bind(this)} />
+              onChange={this.handleInput} />
             <br /><br />
             Category<br />
             <input 
               type="text"
               name="updatedCategory"
               defaultValue={item.category}
-              onChange={this.handleInput.bind(this)} />
+              onChange={this.handleInput} />
             <br /><br />
             Price<br />
-            <input 
+            $ <input 
               type="text"
               name="updatedPrice"
               defaultValue={item.price}
-              onChange={this.handleInput.bind(this)} />
+              onChange={this.handleInput} />
             <br /><br />
             Description<br />
             <textarea 
@@ -100,16 +96,16 @@ class EditMenuItem extends React.Component {
               cols="100%"
               name="updatedDescription"
               defaultValue={item.description}
-              onChange={this.handleInput.bind(this)} />
+              onChange={this.handleInput} />
             <br /><br />
             Image URL<br />
             <input 
               type="text"
               name="updatedImageUrl"
               defaultValue={item.imageUrl}
-              onChange={this.handleInput.bind(this)} />
+              onChange={this.handleInput} />
             <br /><br />
-            <ClickableWrapper type="submit" onClick={this.handleSubmit.bind(this)}>
+            <ClickableWrapper type="submit" onClick={this.handleSubmit}>
               Save Item
             </ClickableWrapper>
           </form>

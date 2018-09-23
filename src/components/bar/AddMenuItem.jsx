@@ -26,12 +26,13 @@ class AddMenuItem extends React.Component {
       description: '',
       imageUrl: './default-drink-image.jpg',
     };
+    this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInput(event) {
     const value = event.target.value;
     const field = event.target.name;
-    console.log(field);
     this.setState({[field]: value});
   }
 
@@ -58,34 +59,34 @@ class AddMenuItem extends React.Component {
             <input 
               type="text" 
               name="name" 
-              onChange={this.handleInput.bind(this)}/>
+              onChange={this.handleInput}/>
             <br /><br />
             Category<br />
             <input 
               type="text" 
               name="category" 
-              onChange={this.handleInput.bind(this)}/>
+              onChange={this.handleInput}/>
             <br /><br />
             Price<br />
-            <input 
+            $ <input 
               type="text" 
               name="price" 
-              onChange={this.handleInput.bind(this)}/>
+              onChange={this.handleInput}/>
             <br /><br />
             Description<br />
             <textarea 
               rows="4" 
               cols="100%" 
               name="description" 
-              onChange={this.handleInput.bind(this)}/>
+              onChange={this.handleInput}/>
             <br /><br />
             Image URL<br />
             <input 
               type="text" 
               name="imageUrl" 
-              onChange={this.handleInput.bind(this)}/>
+              onChange={this.handleInput}/>
             <br /><br />
-            <ClickableWrapper type="submit" onClick={this.handleSubmit.bind(this)}>
+            <ClickableWrapper type="submit" onClick={this.handleSubmit}>
               Save Item
             </ClickableWrapper>
           </form>

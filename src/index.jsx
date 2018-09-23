@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import App from "./components/App.jsx";
 import Business from "./components/business/business.jsx";
 import Bar from "./components/bar/Bar.jsx";
-import BarStaff from "./components/bar/BarStaff";
+import BarStaff from "./components/bar/BarStaff.jsx";
 import EditMenu from "./components/bar/EditMenu.jsx";
 import Register from "./components/register/RegisterContainer.jsx";
 
