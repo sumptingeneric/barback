@@ -210,12 +210,117 @@ const mockCustomers = [
   },
 ] */
 
-const insertionFunctions = [
-  db.Customers.bulkCreate(mockCustomers),
-  db.MenuItems.bulkCreate(mockMenuItems),
-];
+// const insertionFunctions = [
+//   db.Customers.bulkCreate(mockCustomers),
+//   db.MenuItems.bulkCreate(mockMenuItems),
+// ];
 // db.Orders.bulkCreate(mockOrders),
 // db.Surveys.bulkCreate(mockSurveys),
 // db.OrderDetails.bulkCreate(mockOrderDetails),
+  const mockOrderDetails = [
+//   {
+//     quantity: 2,
+//     subtotal: 50,
+//     OrderId: 1,
+//     MenuItemId: 1
+//   },
+//   {
+//     quantity: 1,
+//     subtotal: 22.5,
+//     OrderId: 1,
+//     MenuItemId: 2
+//   },
+//   {
+//     quantity: 1,
+//     subtotal: 12,
+//     OrderId: 11,
+//     MenuItemId: 3
+//   },
+//   {
+//     quantity: 1,
+//     subtotal: 14,
+//     OrderId: 21,
+//     MenuItemId: 4
+//   },
+//   {
+//     quantity: 2,
+//     subtotal: 25,
+//     OrderId: 41,
+//     MenuItemId: 5
+//   },
+//   {
+//     quantity: 1,
+//     subtotal: 12,
+//     OrderId: 41,
+//     MenuItemId: 11
+//   },
+//   {
+//     quantity: 1,
+//     subtotal: 11,
+//     OrderId: 31,
+//     MenuItemId: 6
+//   },
+//   {
+//     quantity: 1,
+//     subtotal: 9,
+//     OrderId: 31,
+//     MenuItemId: 7
+//   },
+//   {
+//     quantity: 1,
+//     subtotal: 8.5,
+//     OrderId: 51,
+//     MenuItemId: 8
+//   },
+//   {
+//     quantity: 1,
+//     subtotal: 21,
+//     OrderId: 61,
+//     MenuItemId: 9
+//   }
+ ];
 
-Promise.all(insertionFunctions).then(() => db.connection.close());
+ const mockSurveys = [
+//   {
+//     drinkQuality: 2,
+//     customerService: 5,
+//     OrderId: 1
+//   },
+]
+
+const mockBartenders = [
+  {
+    name: "Ryan",
+    password: "password",
+  }
+]
+
+// const insertionFunctions = [
+//   db.Customers.bulkCreate(mockCustomers),
+//   db.Orders.bulkCreate(mockOrders),
+//   db.MenuItems.bulkCreate(mockMenuItems),
+//   db.Surveys.bulkCreate(mockSurveys),
+//   db.OrderDetails.bulkCreate(mockOrderDetails),
+// ];
+// db.OrderDetails.bulkCreate(mockOrderDetails)
+db.Customers.bulkCreate(mockCustomers)
+  .then(() => {
+    return db.MenuItems.bulkCreate(mockMenuItems)
+  })
+  .then(() => {
+    return db.Surveys.bulkCreate(mockSurveys)
+  })
+  .then(() => {
+    return db.Bartenders.bulkCreate(mockBartenders)
+  })
+  .then(() => {
+  return db.OrderDetails.bulkCreate(mockOrderDetails)
+  })
+  .then(() => {
+    return db.connection.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+// Promise.all(insertionFunctions).then(() => db.connection.close());
