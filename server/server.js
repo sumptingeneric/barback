@@ -415,14 +415,13 @@ app.get("/api/stats", (req, res) => {
 });
 
 // //// BARTENDERS //// //
-//TODO: UNCOMMENT ONCE BARTENDER DB IS IN PLACE
-// app.get('/bar/staff', (req, res) => {
-//   db.Bartenders.findAll()
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     .catch((err) => console.log(err));
-// });
+app.get('/bar/staff', (req, res) => {
+  db.Bartenders.findAll()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => console.log(err));
+});
 
 // atchall
 app.get('*', (req, res) => {
