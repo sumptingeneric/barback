@@ -2,7 +2,7 @@ import React from "react";
 import {BarChart, Bar, XAxis, YAxis, Tooltip, Legend} from "recharts";
 
 const QuantityGraph = (props) => {
-  console.log(props.data);
+  // console.log('quantityGraph', props.data);
   return (
       <BarChart data={props.data} 
         margin={{top: 20, bottom: 5}}

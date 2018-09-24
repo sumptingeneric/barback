@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import QuantityGraph from "./QuantityGraph.jsx";
+import RatingGraph from "./RatingGraph.jsx";
 import axios from "axios";
 
 const SelectWrapper = styled.div`
@@ -57,22 +58,28 @@ class BarStats extends React.Component {
     return arr.sort((a, b) => {
       var x = a[key];
       var y = b[key];
-      return ((x < y) ? 1 : (x > y) ? -1: 0);
+      return ((x < y) ? 1 : (x > y) ? -1 : 0);
     })
   }
 
   renderView() {
     const {view, data} = this.state;
-    const quantityData = this.sortByKey(data, 'quantity');
-    // const ratingData = this.sortByKey(data, '')
-    if(view === "quantity") {
+    const quantityData = this.sortByKey(data.slice(0), 'quantity');
+    const ratingData = this.sortByKey(data.slice(0), 'averageDrinkRating');
+    // console.log('quantity', quantityData.slice(0, 10));
+    // console.log('ratingData', quantityData.slice(0, 10);
+    if (view === "quantity") {
       return (
         <GraphWrapper>
           <QuantityGraph data={quantityData.slice(0, 10)}/>
         </GraphWrapper>
       )
     } else {
-      return <div>View 2</div>
+      return (
+        <GraphWrapper>
+          <RatingGraph data={ratingData.slice(0, 10)} />
+        </GraphWrapper>
+      )
     }
   }
 
