@@ -39,6 +39,7 @@ class BarStats extends React.Component {
       .then((res) => {
         const data = res.data;
         for (const key in data) {
+          data[key].averageDrinkRating = data[key].drinkQuality / data[key].quantity;
           unsorted.push(data[key]);
         }
       })
