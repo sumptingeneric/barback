@@ -294,16 +294,17 @@ app.post("/api/stats/survey", (req, res) => {
 });
 
 app.get("/api/bar/survey", (req, res) => {
-  let orderCounter = 1;
-  const getRandomOrder = maxNum => {
-    return Math.floor(Math.random() * Math.floor(maxNum));
-  }
-  orderCounter = getRandomOrder(4);
-    // Customers random chance for survey
-    if (orderCounter === 1 || orderCounter === 3) {
-      res.send(true);
-    }
-    console.log('RANDOM', orderCounter);
+  // let orderCounter = 1;
+  // const getRandomOrder = maxNum => {
+  //   return Math.floor(Math.random() * Math.floor(maxNum));
+  // }
+  // orderCounter = getRandomOrder(4);
+  //   // Customers random chance for survey
+  //   if (orderCounter === 1 || orderCounter === 3) {
+  //     res.send(true);
+  //   }
+  //   console.log('RANDOM', orderCounter);
+  res.send(true)
 
 });
 
@@ -385,7 +386,8 @@ app.get("/api/stats", (req, res) => {
                 menuDetails['name'] = item['name'];
                 menuDetails['category'] = item['category'];
                 menuDetails['quantity'] = item['OrderDetails']['quantity'];
-                menuDetails['drinkQuality'] = order['drinkQuality'];
+                var combinedQuality = order['drinkQuality'] * item['OrderDetails']['quantity'];
+                menuDetails['drinkQuality'] = combinedQuality;
                 menuDetails['customerServices'] = order['customerServices'];
                 results.push(menuDetails);
               }
@@ -423,7 +425,7 @@ app.get('/bar/staff', (req, res) => {
     .catch((err) => console.log(err));
 });
 
-// atchall
+// Catchall
 app.get('*', (req, res) => {
   res.redirect('/');
 });

@@ -40,7 +40,7 @@ class BarStats extends React.Component {
       .then((res) => {
         const data = res.data;
         for (const key in data) {
-          data[key].averageDrinkRating = data[key].drinkQuality / data[key].quantity;
+          data[key].averageDrinkRating = Math.round( ( (data[key].drinkQuality / data[key].quantity) * 100) / 100);
           unsorted.push(data[key]);
         }
       })
@@ -66,8 +66,6 @@ class BarStats extends React.Component {
     const {view, data} = this.state;
     const quantityData = this.sortByKey(data.slice(0), 'quantity');
     const ratingData = this.sortByKey(data.slice(0), 'averageDrinkRating');
-    // console.log('quantity', quantityData.slice(0, 10));
-    // console.log('ratingData', quantityData.slice(0, 10);
     if (view === "quantity") {
       return (
         <GraphWrapper>

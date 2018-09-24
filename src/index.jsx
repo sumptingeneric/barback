@@ -62,11 +62,11 @@ class Login extends React.Component {
       if (role === 'Admin') {
         return (
           <nav>
-            <Link to="/customer" onClick={this.hideLogo}>View like a Customer</Link>
+            <Link to="/customer" onClick={this.hideLogo}>Customer View</Link>
                 { ' | ' }
-            <Link to="/business">View like a Bartender</Link>
+            <Link to="/business">Bartender View</Link>
             { ' | ' }
-            <Link to="/bar">Bar Analytics</Link>
+            <Link to="/bar">Bar Management</Link>
           </nav>
         )
       }
