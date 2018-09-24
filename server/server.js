@@ -361,9 +361,12 @@ app.put('/api/bar/menu/edit', (req, res) => {
 });
 
 //Bar Stats
+
 app.get("/api/stats", (req, res) => {
+  const results = [];
+  const uniqueItems = {};
   db.Surveys.findAll({
-    attributes: ['drinkQuality', 'customerService'],
+    attributes: ['drinkQuality', 'customerServices'],
     include: [{
       model: db.Orders,
       attributes: ['id', 'status'],
@@ -374,7 +377,44 @@ app.get("/api/stats", (req, res) => {
     }]
   })
     .then((data) => {
-      res.send(data);
+      for (var i = 0; i < data.length; i++) {
+        var order = data[i]['dataValues'];
+        if (order['Order'] && order['Order']['dataValues']['status'] === 'complete') {
+          var menuItems = order['Order']['dataValues']['MenuItems'];
+          if (menuItems) {
+            for (var j = 0; j < menuItems.length; j++) {
+              var item = menuItems[j]['dataValues'];
+              if (item['OrderDetails']) {
+                var menuDetails = {};
+                menuDetails['name'] = item['name'];
+                menuDetails['category'] = item['category'];
+                menuDetails['quantity'] = item['OrderDetails']['quantity'];
+                menuDetails['drinkQuality'] = order['drinkQuality'];
+                menuDetails['customerServices'] = order['customerServices'];
+                results.push(menuDetails);
+              }
+            }
+          }
+        }
+      }
+    })
+    .then(() => {
+      results.map((item) => {
+        var menuName = item.name;
+        if (uniqueItems[menuName]) {
+          uniqueItems[menuName].quantity += uniqueItems[menuName].quantity;
+          uniqueItems[menuName].drinkQuality += uniqueItems[menuName].drinkQuality;
+          uniqueItems[menuName].customerServices += uniqueItems[menuName].customerServices;
+        } else {
+          uniqueItems[menuName] = item;
+        }
+      })
+    })
+    .then(() => {
+      res.send(uniqueItems);
+    })
+    .catch((err) => {
+      res.send(err);
     })
 });
 

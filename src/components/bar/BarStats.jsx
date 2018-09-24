@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import QuantityGraph from "./QuantityGraph.jsx";
+import RatingGraph from "./RatingGraph.jsx";
+import axios from "axios";
 
 const SelectWrapper = styled.div`
   display: inline-block;
@@ -26,21 +28,58 @@ class BarStats extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      view: "quantity"
+      view: "quantity",
+      data: [],
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    const unsorted = [];
+    axios.get("/api/stats")
+      .then((res) => {
+        const data = res.data;
+        for (const key in data) {
+          data[key].averageDrinkRating = data[key].drinkQuality / data[key].quantity;
+          unsorted.push(data[key]);
+        }
+      })
+      .then(() => {
+        this.setState({
+          data: unsorted,
+        })
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }
+
+  sortByKey(arr, key) {
+    return arr.sort((a, b) => {
+      var x = a[key];
+      var y = b[key];
+      return ((x < y) ? 1 : (x > y) ? -1 : 0);
+    })
+  }
+
   renderView() {
-    const {view} = this.state;
-    if(view === "quantity") {
+    const {view, data} = this.state;
+    const quantityData = this.sortByKey(data.slice(0), 'quantity');
+    const ratingData = this.sortByKey(data.slice(0), 'averageDrinkRating');
+    // console.log('quantity', quantityData.slice(0, 10));
+    // console.log('ratingData', quantityData.slice(0, 10);
+    if (view === "quantity") {
       return (
         <GraphWrapper>
-          <QuantityGraph />
+          <QuantityGraph data={quantityData.slice(0, 10)}/>
         </GraphWrapper>
       )
     } else {
-      return <div>View 2</div>
+      return (
+        <GraphWrapper>
+          <RatingGraph data={ratingData.slice(0, 10)} />
+        </GraphWrapper>
+      )
     }
   }
 
