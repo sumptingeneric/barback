@@ -57,6 +57,7 @@ class Tipping extends React.Component {
     let total = this.props.checkout.total;
     this.setState({
       withTipTotal: total,
+      tipAmount: 0,
     })
   }
 

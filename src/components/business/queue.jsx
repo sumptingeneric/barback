@@ -45,7 +45,6 @@ class Queue extends React.Component {
       this.setState({
         pendingOrders: response.data
       });
-      // console.log("These are the pending orders: ", this.state.pendingOrders);
     });
   }
 
@@ -81,8 +80,6 @@ class Queue extends React.Component {
   render() {
     return (
       <div>
-        {/* <h2>Queue</h2>
-        <button onClick={() => this.getPendingOrders()}>Refresh</button> */}
         <div className="current-order">
           {/* <h3>This is the Current Order</h3> */}
           {this.renderCurrentOrder()}

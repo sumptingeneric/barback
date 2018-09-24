@@ -1,13 +1,20 @@
 let Sequelize = require("sequelize");
 require('dotenv').config();
 
+// LOCAL HOST DATABASE
 // const orm = new Sequelize("barback", "root", `${process.env.sqlPassword}`, {
 //   dialect: "mysql"
 // });
 
+// REMOTE CLOUD DATABASE 
 const orm = new Sequelize(`${process.env.DATABASE_URL}`);
 // const orm = new Sequelize(`${process.env.DATABASE_URL2}`);
 // const orm = new Sequelize(`${process.env.DB_MOCK}`);
+
+// REMOTE CLOUD TEST DATABASE
+// const orm = new Sequelize(`${process.env.DB_MOCK}`);
+
+
 
 orm
   .authenticate()
@@ -69,7 +76,6 @@ MenuItems.belongsToMany(Orders, { through: "OrderDetails" });
 OrderDetails.belongsTo(Orders);
 OrderDetails.belongsTo(MenuItems);
 Surveys.belongsTo(Orders);
-// orm.sync();
 OrderDetails.sync();
 MenuItems.sync();
 Customers.sync();
