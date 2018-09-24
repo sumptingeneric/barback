@@ -2,7 +2,7 @@ import React from "react";
 import {BarChart, Bar, XAxis, YAxis, Tooltip, Legend} from "recharts";
 
 const RatingGraph = (props) => {
-  console.log('rating graph', props.data);
+  // console.log('rating graph', props.data);
   return (
       <BarChart data={props.data} 
         margin={{top: 20, bottom: 5}}

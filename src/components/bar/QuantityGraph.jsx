@@ -12,7 +12,7 @@ const QuantityGraph = (props) => {
         height={300}  
       >
         <XAxis dataKey="name" />
-        <YAxis type="number" />
+        <YAxis />
         <Tooltip />
         <Legend />
         <Bar dataKey="quantity" fill="#8884d8" />
