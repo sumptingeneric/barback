@@ -73,7 +73,7 @@ app.post("/api/users/create", (req, res) => {
     return bcrypt.hash(password, saltRounds)
   })
   .then((hash) => {
-    return db.Customers.create({
+    return db.Admins.create({
       username,
       password: hash,
     })
