@@ -54,7 +54,6 @@ class EditMenuItem extends React.Component {
     //request to update item
     axios.put('/api/bar/menu/edit', {item: item})
       .then(() => {
-        //need to refresh the editmenu page with updated item
         console.log('saved changes');
       })
       .catch(err => console.log(err));

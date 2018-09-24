@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Link, Redirect } from "@reach/router";
+import { Router, Link } from "@reach/router";
 import ReactDOM from "react-dom";
 import styled from 'styled-components';
 import App from "./components/App.jsx";

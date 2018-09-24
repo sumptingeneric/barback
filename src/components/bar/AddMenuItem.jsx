@@ -41,7 +41,6 @@ class AddMenuItem extends React.Component {
     // axios post request to save new item to database
     axios.post('/api/bar/menu/add', {item: item})
       .then(res => {
-        //need to refresh the editmenu page with new item
         console.log('res in handleSubmit', res);
       })
       .catch(err => console.error(err));
