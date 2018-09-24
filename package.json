@@ -15,18 +15,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sumptingeneric/barback.git"
+    "url": "git+https://github.com/The-Goonies/barback.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sumptingeneric/barback/issues"
+    "url": "https://github.com/The-Goonies/barback/issues"
   },
   "engines": {
     "node": "8.11.3"
   },
-  "homepage": "https://github.com/sumptingeneric/barback#readme",
+  "homepage": "https://goonies-barback.herokuapp.com",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^9.0.0",
