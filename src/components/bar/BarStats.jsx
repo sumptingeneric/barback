@@ -43,7 +43,6 @@ class BarStats extends React.Component {
         }
       })
       .then(() => {
-        console.log(unsorted)
         this.setState({
           data: unsorted,
         })
@@ -57,16 +56,18 @@ class BarStats extends React.Component {
     return arr.sort((a, b) => {
       var x = a[key];
       var y = b[key];
-      return ((x < y) ? -1 : (x > y) ? 1: 0);
+      return ((x < y) ? 1 : (x > y) ? -1: 0);
     })
   }
 
   renderView() {
     const {view, data} = this.state;
+    const quantityData = this.sortByKey(data, 'quantity');
+    // const ratingData = this.sortByKey(data, '')
     if(view === "quantity") {
       return (
         <GraphWrapper>
-          <QuantityGraph data={data}/>
+          <QuantityGraph data={quantityData.slice(0, 10)}/>
         </GraphWrapper>
       )
     } else {
