@@ -385,7 +385,6 @@ app.get("/api/stats", (req, res) => {
             for (var j = 0; j < menuItems.length; j++) {
               var item = menuItems[j]['dataValues'];
               if (item['OrderDetails']) {
-                console.log('hi')
                 var menuDetails = {};
                 menuDetails['name'] = item['name'];
                 menuDetails['category'] = item['category'];
