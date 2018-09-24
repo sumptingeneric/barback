@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import QuantityGraph from "./QuantityGraph.jsx";
+import axios from "axios";
 
 const SelectWrapper = styled.div`
   display: inline-block;
@@ -26,17 +27,46 @@ class BarStats extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      view: "quantity"
+      view: "quantity",
+      data: [],
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    const unsorted = [];
+    axios.get("/api/stats")
+      .then((res) => {
+        const data = res.data;
+        for (const key in data) {
+          unsorted.push(data[key]);
+        }
+      })
+      .then(() => {
+        console.log(unsorted)
+        this.setState({
+          data: unsorted,
+        })
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }
+
+  sortByKey(arr, key) {
+    return arr.sort((a, b) => {
+      var x = a[key];
+      var y = b[key];
+      return ((x < y) ? -1 : (x > y) ? 1: 0);
+    })
+  }
+
   renderView() {
-    const {view} = this.state;
+    const {view, data} = this.state;
     if(view === "quantity") {
       return (
         <GraphWrapper>
-          <QuantityGraph />
+          <QuantityGraph data={data}/>
         </GraphWrapper>
       )
     } else {

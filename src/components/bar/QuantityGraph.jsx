@@ -1,5 +1,4 @@
 import React from "react";
-// import styled from "styled-components";
 import {ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend} from "recharts";
 
 const data = [
@@ -8,7 +7,12 @@ const data = [
   {name: "drink3", price: 200, Quantity: 2, totalSales: 400, AverageRating: 5},
 ];
 
-const QuantityGraph = () => {
+const QuantityGraph = (props) => {
+  // parseData () {
+  //   const {example} = this.props.data;
+  //   console.log(example)
+  // }
+
   return (
     <ResponsiveContainer width={600} height={300}>
       <BarChart data={data} 
