@@ -7,8 +7,8 @@ const QuantityGraph = (props) => {
     <ResponsiveContainer width="100%" aspect={4.0/3.0}>
       <BarChart data={props.data} 
         margin={{top: 20, bottom: 5}}
-        barCategoryGap={50}
-        barGap={1}  
+        barCategoryGap={10}
+        barGap={10}  
       >
         <XAxis dataKey="name" />
         <YAxis />
