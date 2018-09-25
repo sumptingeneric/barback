@@ -8,7 +8,7 @@ const RatingGraph = (props) => {
       <BarChart data={props.data} 
         margin={{top: 20, bottom: 5}}
         barCategoryGap={10}
-        barGap={10}  
+        barGap={1}  
       >
         <XAxis dataKey="name" />
         <YAxis type="number" />
