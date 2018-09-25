@@ -41,7 +41,6 @@ class Item extends React.Component {
       quantity: curQuantity + 1,
       subtotal: Number((Number(curSubTot) + Number(price)).toFixed(2))
     });
-    //console.log(this.state);
   }
 
   minusOne(e) {
@@ -56,7 +55,6 @@ class Item extends React.Component {
         subtotal: Number(Number(curSubTot) - Number(price))
       });
     }
-    //console.log(this.state);
   }
 
   handleSubmit(e) {

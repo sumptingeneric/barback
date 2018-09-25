@@ -1,18 +1,19 @@
 import React from "react";
 import axios from "axios";
+import styled from 'styled-components';
 import Search from "./customer/search.jsx";
 import Orders from "./customer/orders.jsx";
 import Menu from "./customer/menu.jsx";
 import Checkout from "./customer/checkout.jsx";
 import Modal from "./customer/modal.jsx";
-import styled from 'styled-components';
+import Tipping from "./customer/Tipping.jsx"
+import UserSurvey from "./bar/UserSurvey.jsx";
 
 
 //Styled Components
 const Wrapper = styled.div`
   max-width: 480px;
 `;
-
 class App extends React.Component {
   state = {
     menu: {},
@@ -20,11 +21,14 @@ class App extends React.Component {
     checkout: {
       CustomerId: "",
       status: "pending",
-      drinkOrder: []
+      drinkOrder: [],
+      total: 0,
     },
+    survey: false,
     search: "",
     modal: "",
-    showOrders: false
+    showOrders: false,
+    orderID: ""
   };
 
   componentDidMount() {
@@ -32,7 +36,7 @@ class App extends React.Component {
     this.getCustomerOrders();
     this.interval = setInterval(() => {
       this.getCustomerOrders();
-    }, 5000);
+    }, 100000);
   }
 
   componentWillUnmount() {
@@ -41,8 +45,6 @@ class App extends React.Component {
   // called when adding drink(s) to your order for checkout
   checkOutUpdate = order => {
     let drinks = this.state.checkout.drinkOrder;
-    // console.log(drinks);
-    // console.log(order);
     let drinksExistsinCheckOut = false;
     for (var i = 0; i < drinks.length; i++) {
       if (drinks[i].menuItemId === order.menuItemId) {
@@ -51,10 +53,11 @@ class App extends React.Component {
         drinks[i].subtotal += order.subtotal;
       }
     }
+    let orderTotal = this.state.checkout.total + order.subtotal;
     if (!drinksExistsinCheckOut) {
       drinks.push(order);
       this.setState({
-        checkout: Object.assign({}, this.state.checkout, { drinkOrder: drinks })
+        checkout: Object.assign({}, this.state.checkout, { drinkOrder: drinks, total: orderTotal })
       });
     }
   };
@@ -70,10 +73,21 @@ class App extends React.Component {
 
   // retreive business menu from db
   getMenu() {
-    axios.get(`http://${process.env.HOST}:${process.env.PORT}/api/menu/categories`).then(response => {
+    axios.get(`/api/menu/categories`).then(response => {
       this.setState({
         menu: response.data
       });
+    });
+  }
+
+  getSurvey() {
+    axios.get(`/api/bar/survey`).then(response => {
+      console.log('Survey', response);
+      if (response.data === true) {
+        this.setState({
+          survey: true,
+        }, () => this.changeModal("survey"))
+      }
     });
   }
 
@@ -81,23 +95,31 @@ class App extends React.Component {
   getCustomerOrders() {
     let customerID = 1;
     axios
-      .get(`http://${process.env.HOST}:${process.env.PORT}/api/customers/${customerID}/orders`)
+      .get(`/api/customers/${customerID}/orders`)
       .then(response => {
-        //console.log(response.data);
         this.setState({
           orders: response.data
         });
-        //setTimeout(this.getCustomerOrders(), 2000);
+        // timeout below will spam the server, use with caution!
+        // setTimeout(this.getCustomerOrders(), 2000); 
       });
   }
 
   // change modal status to show or not (for checkout)
   changeModal(view) {
     this.setState({
-      modal: view
+      modal: view,
     });
   }
 
+  changeModalUpdateTotal(view, wTipTotal) {
+    this.setState({
+      checkout: Object.assign({}, this.state.checkout, { total: wTipTotal }),
+      modal: view,
+    });
+  }
+
+  
   // show the status of the customer orders
   toggleOrderView() {
     this.setState(prevState => ({
@@ -110,9 +132,15 @@ class App extends React.Component {
       checkout: {
         CustomerId: "",
         status: "pending",
-        drinkOrder: []
+        drinkOrder: [],
+        total: 0,
       }
     });
+  }
+
+  getData = (id) => {
+    // console.log('THE ID', id);
+    this.setState({orderID: id})
   }
 
   renderModal() {
@@ -124,6 +152,30 @@ class App extends React.Component {
             checkout={this.state.checkout}
             changeModal={this.changeModal.bind(this)}
             getOrders={this.getCustomerOrders.bind(this)}
+            getSurvey={this.getSurvey.bind(this)}
+            getData={this.getData.bind(this)}
+
+          />
+        </Modal>
+      );
+    }
+    if (this.state.modal === "tipping") {
+      return (
+        <Modal>
+          <Tipping 
+            checkout={this.state.checkout} 
+            updateTotal={this.changeModalUpdateTotal.bind(this)}
+            changeModal={this.changeModal.bind(this)}
+            />
+        </Modal> 
+      )
+    }
+    if (this.state.modal === "survey") {
+      return (
+        <Modal>
+          <UserSurvey
+            id = {this.state.orderID}
+            changeModal={this.changeModal.bind(this)}
           />
         </Modal>
       );
