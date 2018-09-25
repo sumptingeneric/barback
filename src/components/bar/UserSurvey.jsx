@@ -40,12 +40,6 @@ class UserSurvey extends React.Component {
         this.setState({customerServices: rate});
     }
 
-    // GrabOrderID = (id) => {
-    //     let {orderID} = this.state;
-    //     this.setState({orderID: id})
-    //     console.log('inside the grab',orderID);
-    // }
-
     handleSubmit = () => {
         const OrderId = this.props.id;
         const {name, drinkQuality, customerServices} = this.state;
@@ -81,7 +75,6 @@ class UserSurvey extends React.Component {
                 <div>
                 <Rating
                 name='drinkQuality'
-
                 initialRating={this.state.drinkQuality}
                 onChange={(rate) => this.handleDrinkChange(rate)}
                 />

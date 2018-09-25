@@ -139,7 +139,7 @@ class App extends React.Component {
   }
 
   getData = (id) => {
-    console.log('THE ID', id);
+    // console.log('THE ID', id);
     this.setState({orderID: id})
   }
 

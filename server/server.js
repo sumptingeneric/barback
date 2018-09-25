@@ -294,18 +294,15 @@ app.post("/api/stats/survey", (req, res) => {
 });
 
 app.get("/api/bar/survey", (req, res) => {
-  // let orderCounter = 1;
-  // const getRandomOrder = maxNum => {
-  //   return Math.floor(Math.random() * Math.floor(maxNum));
-  // }
-  // orderCounter = getRandomOrder(4);
-  //   // Customers random chance for survey
-  //   if (orderCounter === 1 || orderCounter === 3) {
-  //     res.send(true);
-  //   }
-  //   console.log('RANDOM', orderCounter);
-  res.send(true)
-
+  let orderCounter = 1;
+  const getRandomOrder = maxNum => {
+    return Math.floor(Math.random() * Math.floor(maxNum));
+  }
+  orderCounter = getRandomOrder(4);
+    // Customers random chance for survey
+    if (orderCounter === 1 || orderCounter === 3) {
+      res.send(true);
+    }
 });
 
 // ///// BAR MENU ///// //
