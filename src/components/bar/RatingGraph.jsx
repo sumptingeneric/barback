@@ -1,15 +1,14 @@
 import React from "react";
-import {BarChart, Bar, XAxis, YAxis, Tooltip, Legend} from "recharts";
+import {ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend} from "recharts";
 
 const RatingGraph = (props) => {
   // console.log('rating graph', props.data);
   return (
+    <ResponsiveContainer width="100%" aspect={4.0/3.0}>
       <BarChart data={props.data} 
         margin={{top: 20, bottom: 5}}
-        barCategoryGap={50}
-        barGap={1}
-        width={600}
-        height={300}  
+        barCategoryGap={10}
+        barGap={1}  
       >
         <XAxis dataKey="name" />
         <YAxis type="number" />
@@ -18,6 +17,7 @@ const RatingGraph = (props) => {
         <Bar dataKey="averageDrinkRating" fill="#82ca9d" />
         <Bar dataKey="quantity" fill="#8884d8" />
       </BarChart>
+    </ResponsiveContainer>
   );
 };
 

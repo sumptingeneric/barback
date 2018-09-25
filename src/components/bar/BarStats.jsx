@@ -16,6 +16,7 @@ const GraphWrapper = styled.div`
   display: block;
   margin: 20px auto;
   background-color: azure;
+  width: 80vw;
 `;
 
 const GraphHeader = styled.h3`
@@ -104,7 +105,9 @@ class BarStats extends React.Component {
             </select>
           </label>
         </SelectWrapper>
-        <div>{this.renderView()}</div>
+        <div>
+          {this.renderView()}
+        </div>
       </div>
     )
   }
