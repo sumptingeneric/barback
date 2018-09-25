@@ -20,6 +20,8 @@ body {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  width: 100vw;
+  height: 100vh;
 }
 
 button {
