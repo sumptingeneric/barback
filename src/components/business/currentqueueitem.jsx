@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import styled from "styled-components";
 
+
 const OrdersContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,8 +16,8 @@ const OrdersContainer = styled.div`
 const Clickable = styled.button`
   margin-top: 20px;
   width: 80%;
-  padding: 1rem; 
-  border-radius: 10px; 
+  padding: 1rem;
+  border-radius: 10px;
 `;
 
 const Image = styled.img`
@@ -35,10 +36,9 @@ class CurrentQueueItem extends React.Component {
     let orderId = this.props.order[0].OrderId;
     axios
       .put(
-        `http://${process.env.HOST}:${process.env.PORT}/api/customers/${custId}/orders/${orderId}/complete`
+        `/api/customers/${custId}/orders/${orderId}/complete`
       )
       .then(() => {
-        //TODO Reload not working
         this.props.reload();
       });
 
@@ -50,7 +50,9 @@ class CurrentQueueItem extends React.Component {
   }
 
   render() {
+    
     return (
+      <div>
       <OrdersContainer>
         <h4>Current Order</h4>
         <div className="order-item">
@@ -76,6 +78,8 @@ class CurrentQueueItem extends React.Component {
           Mark as Complete
         </Clickable>
       </OrdersContainer>
+      
+      </div>
     );
   }
 }

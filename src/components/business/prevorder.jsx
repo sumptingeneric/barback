@@ -10,10 +10,10 @@ const Container = styled.div`
 `;
 
 const Div = styled.div`
-  margin: 20px 0; 
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Image = styled.img`
@@ -30,12 +30,11 @@ class PreviousOrders extends React.Component {
   }
 
   getPreviousOrders() {
-    axios.get(`http://${process.env.HOST}:${process.env.PORT}/api/orders/complete`).then(response => {
+    axios.get(`/api/orders/complete`).then(response => {
       var currentOrders = Object.values(response.data);
       this.setState({
         previousOrders: currentOrders
       });
-      console.log("These are the previous orders: ", this.state.previousOrders);
     });
   }
 

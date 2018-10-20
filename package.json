@@ -2,16 +2,16 @@
   "name": "barback",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "clear:media": "rm -rf dist/images",
     "copy:media": "cp -R src/images dist/images",
-    "dev": "npm run clear:media && npm run copy:media && parcel src/index.html & npm run server-dev",
-    "postinstall": "parcel build src/index.html && npm run copy:media && npm run db:setup",
+    "dev": "parcel src/index.html & npm run server-dev",
+    "lint": "eslint './src/components/**/*.jsx' database server",
+    "postinstall": "parcel build src/index.html",
     "start": "node server/server.js",
-    "server-dev": "nodemon server/server.js",
+    "server-dev": "nodemon --inspect --ignore node_modules server/server.js",
     "db:setup": "node database/seed.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
@@ -21,14 +21,19 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sumptingeneric/barback/issues"
+    "url": "https://github.com/The-Goonies/barback/issues"
   },
-  "homepage": "https://github.com/sumptingeneric/barback#readme",
+  "engines": {
+    "node": "8.11.3"
+  },
+  "homepage": "https://goonies-barback.herokuapp.com",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^9.0.0",
     "babel-plugin-styled-components": "^1.7.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "eslint": "^5.5.0",
     "eslint-config-prettier": "^3.0.1",
@@ -40,15 +45,20 @@
   },
   "dependencies": {
     "@reach/router": "^1.1.1",
+    "api-ai-javascript": "^2.0.0-beta.21",
     "axios": "^0.18.0",
+    "bcrypt": "^3.0.1",
     "body-parser": "^1.18.3",
     "dot-env": "0.0.1",
     "express": "^4.16.3",
     "lodash": "^4.17.11",
     "mysql2": "^1.6.1",
-    "react": "^16.5.1",
-    "react-dom": "^16.4.2",
+    "pg": "^7.4.3",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-rating": "^1.4.0",
     "react-swipeable": "^4.3.0",
+    "recharts": "^1.2.0",
     "sequelize": "^4.38.0",
     "styled-components": "^3.4.6"
   }
