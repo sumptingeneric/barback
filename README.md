@@ -1,6 +1,4 @@
-# Project Name #
-Goonies BarBack
-## Project description ##
+# Goonies BarBack #
 BarBack is a drink ordering and bar management tool focused on delivering a unique experience for bar owners, staff, and customers.
 ## Deployed URL link ##
 https://goonies-barback.herokuapp.com/
